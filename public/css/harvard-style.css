@@ -1,0 +1,1495 @@
+/* ==================== ESTILO HARVARD ISTS ==================== */
+/* Diseño inspirado en Harvard University con colores ISTS */
+
+/* Importar fuente Inter de Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+/* Reset básico para header */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Variables específicas para el estilo Harvard */
+:root {
+    /* Colores ISTS Impactantes */
+    --harvard-primary: #00a86b; /* Verde vibrante ISTS */
+    --harvard-secondary: #1e3a8a; /* Azul profundo ISTS */
+    --harvard-accent: #f59e0b; /* Dorado para destacar */
+    --harvard-dark: #0f172a; /* Azul muy oscuro */
+    --harvard-light: #f8fafc; /* Blanco roto */
+
+    /* Gradientes impactantes */
+    --harvard-gradient: linear-gradient(
+        135deg,
+        #00a86b 0%,
+        #1e3a8a 50%,
+        #f59e0b 100%
+    );
+    --harvard-gradient-reverse: linear-gradient(
+        135deg,
+        #1e3a8a 0%,
+        #00a86b 100%
+    );
+    --harvard-gradient-accent: linear-gradient(
+        135deg,
+        #f59e0b 0%,
+        #ef4444 100%
+    );
+
+    /* Efectos especiales */
+    --harvard-glow: 0 0 20px rgba(0, 168, 107, 0.3);
+    --harvard-glow-blue: 0 0 20px rgba(30, 58, 138, 0.3);
+    --harvard-glow-gold: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+/* ==================== HEADER HARVARD STYLE ==================== */
+.header-top {
+    background: transparent;
+    color: var(--harvard-light);
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-bottom: none;
+}
+
+.header-notifications {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.notification {
+    background: var(--harvard-gradient-accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+.notification-link {
+    color: var(--harvard-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.notification-link:hover {
+    color: white;
+    text-shadow: var(--harvard-glow-gold);
+}
+
+.header-main {
+    background: transparent;
+    padding: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+    transition: var(--transition);
+    background: transparent;
+    padding: 0.5rem;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--harvard-glow-gold);
+}
+
+.institution-name {
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.search-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-xl);
+    padding: 1rem;
+    min-width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.search-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-dropdown input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--harvard-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.search-dropdown input:focus {
+    outline: none;
+    border-color: var(--harvard-primary);
+    box-shadow: 0 0 0 3px rgba(0, 168, 107, 0.1);
+}
+
+.menu-toggle {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    display: none;
+}
+
+.menu-toggle:hover {
+    background: var(--harvard-secondary);
+    transform: scale(1.05);
+}
+
+/* ==================== NAVEGACIÓN PRINCIPAL ==================== */
+.main-navigation {
+    background: var(--harvard-dark);
+    padding: 0.2rem 0;
+    position: relative;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-link:hover {
+    color: var(--harvard-primary);
+    background: transparent;
+}
+
+.nav-link:hover::before {
+    width: 80%;
+}
+
+/* ==================== DROPDOWN MENUS ==================== */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 600px;
+    box-shadow: var(--shadow-xl);
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.nav-item:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-section {
+    padding: 2rem;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 168, 107, 0.7) 0%,
+        rgba(30, 58, 138, 0.7) 100%
+    );
+    color: #ffffff;
+    border-radius: 0 0 10px 10px;
+    position: relative;
+}
+
+.dropdown-section h3 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-section p {
+    opacity: 1;
+    line-height: 1.7;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.3px;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.dropdown-column h4 {
+    color: var(--harvard-secondary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid var(--harvard-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.dropdown-column h4 a {
+    color: var(--harvard-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.dropdown-column h4 a:hover {
+    color: var(--harvard-primary);
+}
+
+.dropdown-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-column li {
+    margin-bottom: 0.5rem;
+}
+
+.dropdown-column a {
+    color: #1f2937;
+    text-decoration: none;
+    padding: 0.5rem 0;
+    display: block;
+    transition: var(--transition);
+    border-radius: 4px;
+    padding-left: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.dropdown-column a:hover {
+    color: #fff;
+    background: var(--harvard-primary);
+    padding-left: 1rem;
+    transform: translateX(5px);
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    min-height: 100vh; /* Cambiado para asegurar la altura completa de la ventana */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 4rem;
+    margin-top: 0;
+    padding-top: 0; /* Eliminado el padding de 120px */
+}
+
+.hero-background {
+    position: absolute; /* REVERTIDO para el efecto de capa */
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: var(--harvard-dark);
+
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute; /* REVERTIDO para el efecto de capa */
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: none; /* Eliminado el gradiente de color */
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+
+    z-index: 3;
+
+    position: absolute; /* Cambiado para centrado robusto */
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    max-width: 800px;
+
+    padding: 2rem;
+
+    width: 90%; /* Asegurar que no se desborde en pantallas pequeñas */
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    line-height: 1.4;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.hero-actions .btn-primary {
+    background: var(--harvard-accent);
+    color: white;
+    border: 2px solid var(--harvard-accent);
+}
+
+.hero-actions .btn-primary:hover {
+    background: transparent;
+    color: var(--harvard-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.hero-actions .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-actions .btn-secondary:hover {
+    background: white;
+    color: var(--harvard-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 70vh;
+        min-height: 500px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-content {
+        padding: 1rem;
+    }
+}
+
+/* ==================== BOTONES ==================== */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: var(--transition);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--harvard-gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--harvard-secondary);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+    background: var(--harvard-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--harvard-primary);
+    border: 2px solid var(--harvard-primary);
+}
+
+.btn-outline:hover {
+    background: var(--harvard-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .institution-name {
+        font-size: 1.2rem;
+    }
+
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .dropdown-content {
+        min-width: 300px;
+    }
+
+    .dropdown-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .institution-name {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .header-actions {
+        justify-content: center;
+    }
+}
+
+/* ==================== HEADER MEJORADO ==================== */
+
+/* Header Top Bar with Logo and Brand */
+.header-top-bar {
+    background: transparent;
+    padding: 0.2rem 0;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.brand-link:hover {
+    transform: translateY(-2px);
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 10;
+    margin: 0;
+    transform: scale(2) translateY(15px);
+}
+
+.brand-link:hover .header-logo {
+    transform: scale(1.05);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.institution-name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--harvard-dark);
+    margin: 0;
+    line-height: 1.3;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    letter-spacing: -0.5px;
+}
+
+.institution-tagline {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+/* Main Navigation */
+.main-navigation {
+    background: transparent;
+    position: relative;
+    z-index: 99;
+    padding: 0;
+    width: 100%;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.65rem 1.25rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: 0.2px;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    background: transparent;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link:hover,
+.nav-item:hover .nav-link {
+    color: var(--harvard-primary);
+    background: transparent;
+}
+
+.nav-link:hover::after,
+.nav-item:hover .nav-link::after {
+    width: 80%;
+}
+
+/* Dropdown Styles */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(
+        -50%,
+        -80px
+    ); /* Centra horizontalmente y sube 80px para alinearse con el logo */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    min-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2.5rem;
+    margin-top: 1rem;
+    z-index: 1000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-item.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0.5rem;
+    transform: translate(
+        -50%,
+        -85px
+    ); /* Sube para alinearse con el logo al hacer hover */
+}
+
+.dropdown-section h3 {
+    color: #000000 !important;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.dropdown-section p {
+    color: #000000 !important;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.dropdown-column h4 {
+    color: #000000 !important;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    font-weight: 600;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    letter-spacing: -0.3px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-column p {
+    font-size: 0.9rem;
+    color: #000000 !important;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.dropdown-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-column li {
+    margin-bottom: 0.3rem;
+}
+
+.dropdown-column a {
+    color: #000000 !important;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+    position: relative;
+}
+
+.dropdown-column a::before {
+    content: "→";
+    position: absolute;
+    left: 0.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: var(--harvard-primary);
+}
+
+.dropdown-column a:hover {
+    background: rgba(0, 168, 107, 0.08);
+    color: var(--harvard-primary);
+    padding-left: 2rem;
+    transform: translateX(4px);
+}
+
+.dropdown-column a:hover::before {
+    opacity: 1;
+    left: 1rem;
+}
+
+/* Header Sticky and Hidden States */
+.header {
+    transition:
+        transform 0.3s ease,
+        background-color 0.3s ease,
+        box-shadow 0.3s ease; /* Transiciones mejoradas */
+    background: transparent; /* Transparente por defecto */
+    position: absolute; /* Flotante por defecto */
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1000; /* z-index necesario para encabezados flotantes */
+}
+
+.header-sticky {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: rgba(
+        255,
+        255,
+        255,
+        0.85
+    ); /* Fondo sólido ligeramente transparente */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+/* Mobile Menu Toggle Button */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+}
+
+.mobile-menu-toggle span {
+    width: 28px;
+    height: 3px;
+    background: var(--harvard-dark);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover span {
+    background: var(--harvard-primary);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 85%;
+    max-width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+}
+
+.mobile-menu-overlay.active .mobile-menu-content {
+    transform: translateX(0);
+}
+
+.mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+}
+
+.mobile-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--harvard-dark);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+    background: var(--harvard-primary);
+    color: white;
+    transform: rotate(90deg);
+}
+
+.mobile-nav {
+    padding: 1rem 0;
+}
+
+.mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-item > a,
+.mobile-nav-item > .mobile-nav-label {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-bottom: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.mobile-nav-item > a::before,
+.mobile-nav-item > .mobile-nav-label::before {
+    content: "›";
+    position: absolute;
+    left: 0.5rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-item > a:hover,
+.mobile-nav-item > .mobile-nav-label:hover {
+    background: var(--harvard-light);
+    color: var(--harvard-primary);
+    padding-left: 2rem;
+}
+
+.mobile-nav-item > a:hover::before,
+.mobile-nav-item > .mobile-nav-label:hover::before {
+    opacity: 1;
+    left: 1rem;
+}
+
+.mobile-submenu {
+    background: #f9fafb;
+    padding: 0.5rem 0;
+}
+
+.mobile-submenu li a {
+    display: block;
+    padding: 0.75rem 2rem 0.75rem 3rem;
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-submenu li a:hover {
+    background: white;
+    color: var(--harvard-primary);
+    padding-left: 3.5rem;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dropdown-content {
+        min-width: 500px;
+    }
+
+    .nav-link {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .main-navigation {
+        display: none;
+    }
+
+    .institution-name {
+        font-size: 1.2rem;
+    }
+
+    .header-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .institution-tagline {
+        font-size: 0.8rem;
+    }
+
+    .header-top-bar {
+        padding: 0.75rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .institution-name {
+        font-size: 1rem;
+    }
+
+    .institution-tagline {
+        display: none;
+    }
+
+    .header-logo {
+        width: 35px;
+        height: 35px;
+    }
+
+    .mobile-menu-content {
+        width: 90%;
+    }
+}
+
+/* ==================== HERO CAROUSEL ==================== */
+.hero-carousel-section {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 0;
+    margin-top: 0;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 100vh;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 1s ease-in-out,
+        visibility 1s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+.hero-slide .hero-background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-slide .hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+}
+
+.hero-slide .hero-overlay .container {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    position: absolute;
+    top: 65%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+}
+
+.hero-slide .hero-content {
+    text-align: center;
+    color: white;
+    max-width: 900px;
+    padding: 2rem;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hero-slide .hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-slide .hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    line-height: 1.5;
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.hero-slide .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+}
+
+/* Controles del Carrusel */
+.hero-carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 3rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-carousel-control:hover {
+    background: rgba(0, 168, 107, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.hero-carousel-control.prev {
+    left: 2rem;
+}
+
+.hero-carousel-control.next {
+    right: 2rem;
+}
+
+/* Indicadores */
+.hero-carousel-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.75rem;
+    z-index: 10;
+}
+
+.hero-carousel-indicators .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.hero-carousel-indicators .indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.hero-carousel-indicators .indicator.active {
+    background: var(--harvard-primary);
+    border-color: var(--harvard-primary);
+    width: 40px;
+    border-radius: 6px;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-carousel-section {
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .hero-carousel {
+        height: 100vh;
+        min-height: 100vh;
+    }
+
+    .hero-slide .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-slide .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .hero-carousel-control {
+        width: 45px;
+        height: 45px;
+        font-size: 2rem;
+    }
+
+    .hero-carousel-control.prev {
+        left: 1rem;
+    }
+
+    .hero-carousel-control.next {
+        right: 1rem;
+    }
+
+    .hero-slide .hero-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .hero-carousel-indicators {
+        bottom: 1rem;
+    }
+
+    .hero-slide .hero-content {
+        padding: 1rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero-slide .hero-overlay .container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+}

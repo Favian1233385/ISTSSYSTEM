@@ -1,0 +1,636 @@
+/* ==================== ESTILO HARVARD ISTS ==================== */
+/* Diseño inspirado en Harvard University con colores ISTS */
+
+/* Importar fuente Inter de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Variables específicas para el estilo Harvard */
+:root {
+    /* Colores ISTS Impactantes */
+    --harvard-primary: #00A86B;      /* Verde vibrante ISTS */
+    --harvard-secondary: #1E3A8A;    /* Azul profundo ISTS */
+    --harvard-accent: #F59E0B;       /* Dorado para destacar */
+    --harvard-dark: #0F172A;         /* Azul muy oscuro */
+    --harvard-light: #F8FAFC;        /* Blanco roto */
+    
+    /* Gradientes impactantes */
+    --harvard-gradient: linear-gradient(135deg, #00A86B 0%, #1E3A8A 50%, #F59E0B 100%);
+    --harvard-gradient-reverse: linear-gradient(135deg, #1E3A8A 0%, #00A86B 100%);
+    --harvard-gradient-accent: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%);
+    
+    /* Efectos especiales */
+    --harvard-glow: 0 0 20px rgba(0, 168, 107, 0.3);
+    --harvard-glow-blue: 0 0 20px rgba(30, 58, 138, 0.3);
+    --harvard-glow-gold: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+/* ==================== HEADER HARVARD STYLE ==================== */
+.header-top {
+    background: var(--harvard-dark);
+    color: var(--harvard-light);
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    border-bottom: 2px solid var(--harvard-accent);
+}
+
+.header-notifications {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.notification {
+    background: var(--harvard-gradient-accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+.notification-link {
+    color: var(--harvard-accent);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.notification-link:hover {
+    color: white;
+    text-shadow: var(--harvard-glow-gold);
+}
+
+.header-main {
+    background: var(--harvard-gradient);
+    padding: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid var(--harvard-accent);
+    box-shadow: var(--harvard-glow);
+    transition: var(--transition);
+    background: white;
+    padding: 0.5rem;
+}
+
+.logo:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--harvard-glow-gold);
+}
+
+.institution-name {
+    color: white;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-toggle {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid var(--harvard-accent);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.search-toggle:hover {
+    background: var(--harvard-accent);
+    transform: scale(1.1);
+    box-shadow: var(--harvard-glow-gold);
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow-xl);
+    padding: 1rem;
+    min-width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    z-index: 1000;
+}
+
+.search-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-dropdown input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--harvard-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.search-dropdown input:focus {
+    outline: none;
+    border-color: var(--harvard-primary);
+    box-shadow: 0 0 0 3px rgba(0, 168, 107, 0.1);
+}
+
+.menu-toggle {
+    background: var(--harvard-accent);
+    border: none;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    display: none;
+}
+
+.menu-toggle:hover {
+    background: var(--harvard-secondary);
+    transform: scale(1.05);
+}
+
+/* ==================== NAVEGACIÓN PRINCIPAL ==================== */
+.main-navigation {
+    background: var(--harvard-dark);
+    padding: 0;
+    position: relative;
+}
+
+.main-navigation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--harvard-gradient-accent);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    display: block;
+    padding: 1rem 1.5rem;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--harvard-accent);
+    transition: var(--transition);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover {
+    color: var(--harvard-accent);
+    background: rgba(245, 158, 11, 0.1);
+    text-shadow: var(--harvard-glow-gold);
+}
+
+.nav-link:hover::before {
+    width: 80%;
+}
+
+/* ==================== DROPDOWN MENUS ==================== */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 600px;
+    box-shadow: var(--shadow-xl);
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    z-index: 1000;
+    border-top: 3px solid var(--harvard-primary);
+}
+
+.nav-item:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-section {
+    padding: 2rem;
+    background: var(--harvard-gradient-reverse);
+    color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.dropdown-section h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--harvard-accent);
+}
+
+.dropdown-section p {
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.dropdown-column h4 {
+    color: var(--harvard-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--harvard-accent);
+    padding-bottom: 0.5rem;
+}
+
+.dropdown-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dropdown-column li {
+    margin-bottom: 0.5rem;
+}
+
+.dropdown-column a {
+    color: var(--harvard-dark);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    display: block;
+    transition: var(--transition);
+    border-radius: 4px;
+    padding-left: 0.5rem;
+}
+
+.dropdown-column a:hover {
+    color: var(--harvard-primary);
+    background: rgba(0, 168, 107, 0.1);
+    padding-left: 1rem;
+    transform: translateX(5px);
+}
+
+/* ==================== HERO SECTION ==================== */
+.hero-section {
+    height: 80vh;
+    min-height: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 4rem;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--harvard-dark);
+    z-index: 1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 168, 107, 0.8) 0%, rgba(30, 58, 138, 0.8) 100%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 3;
+    position: relative;
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    line-height: 1.4;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero-actions .btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-actions .btn-primary {
+    background: var(--harvard-accent);
+    color: white;
+    border: 2px solid var(--harvard-accent);
+}
+
+.hero-actions .btn-primary:hover {
+    background: transparent;
+    color: var(--harvard-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.hero-actions .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.hero-actions .btn-secondary:hover {
+    background: white;
+    color: var(--harvard-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 70vh;
+        min-height: 500px;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-content {
+        padding: 1rem;
+    }
+}
+
+/* ==================== BOTONES ==================== */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: var(--transition);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-primary {
+    background: var(--harvard-gradient);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--harvard-secondary);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+    background: var(--harvard-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--harvard-primary);
+    border: 2px solid var(--harvard-primary);
+}
+
+.btn-outline:hover {
+    background: var(--harvard-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ==================== ANIMACIONES ==================== */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .institution-name {
+        font-size: 1.2rem;
+    }
+    
+    .logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .dropdown-content {
+        min-width: 300px;
+    }
+    
+    .dropdown-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .institution-name {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    .header-actions {
+        justify-content: center;
+    }
+}

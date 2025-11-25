@@ -38,6 +38,7 @@ Route::get("/transparency/{slug}", [
 ])->name("transparency.show");
 Route::get("/carrera/{slug}", [PublicController::class, "showCareer"])->name("career.show");
 Route::get("/educacion-continua/{slug}", [PublicController::class, "showAcademicSection"])->name("academic-section.show");
+Route::get("/academicos", [PublicController::class, "academicos"])->name("academicos");
 Route::get("/about", function () {
     return view("public.about");
 })->name("about");

@@ -186,6 +186,7 @@
                 <div class="action-icon">🎓</div>
                 <h3>Programas de Grado</h3>
                 <p><?php echo e($careers->count()); ?> carreras tecnológicas</p>
+                <a href="<?php echo e(route('admin.careers.create')); ?>" class="btn btn-sm btn-outline-primary mt-2">Crear Nueva Carrera</a>
             </a>
 
             <a href="<?php echo e(route('admin.academic-sections.index')); ?>" class="action-card">

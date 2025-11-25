@@ -37,7 +37,10 @@ class AcademicSectionController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            $validated['image_path'] = $request->file('image')->store('academic-sections', 'public');
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/academic-sections'), $filename);
+            $validated['image_path'] = '/uploads/academic-sections/' . $filename;
         }
 
         $validated['is_active'] = $request->has('is_active') ? true : false;
@@ -69,10 +72,14 @@ class AcademicSectionController extends Controller
         }
 
         if ($request->hasFile('image')) {
-            if ($academicSection->image_path) {
-                Storage::disk('public')->delete($academicSection->image_path);
+            // Eliminar imagen anterior si existe
+            if ($academicSection->image_path && file_exists(public_path($academicSection->image_path))) {
+                unlink(public_path($academicSection->image_path));
             }
-            $validated['image_path'] = $request->file('image')->store('academic-sections', 'public');
+            $file = $request->file('image');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/academic-sections'), $filename);
+            $validated['image_path'] = '/uploads/academic-sections/' . $filename;
         }
 
         $validated['is_active'] = $request->has('is_active') ? true : false;
@@ -84,8 +91,8 @@ class AcademicSectionController extends Controller
 
     public function destroy(AcademicSection $academicSection)
     {
-        if ($academicSection->image_path) {
-            Storage::disk('public')->delete($academicSection->image_path);
+        if ($academicSection->image_path && file_exists(public_path($academicSection->image_path))) {
+            unlink(public_path($academicSection->image_path));
         }
 
         $academicSection->delete();

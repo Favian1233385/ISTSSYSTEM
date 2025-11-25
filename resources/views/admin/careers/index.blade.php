@@ -29,7 +29,7 @@
                             <th>Coordinador</th>
                             <th style="width: 100px;">Orden</th>
                             <th style="width: 100px;">Estado</th>
-                            <th style="width: 150px;">Acciones</th>
+                            <th style="width: 200px;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,21 +73,27 @@
                                         <span class="badge bg-secondary">Inactiva</span>
                                     @endif
                                 </td>
-                                <td>
-                                    <a href="{{ route('admin.careers.edit', $career) }}" 
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <form action="{{ route('admin.careers.destroy', $career) }}" 
-                                          method="POST" 
-                                          class="d-inline"
-                                          onsubmit="return confirm('¿Estás seguro de eliminar esta carrera?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-1">
+                                        <a href="{{ route('career.show', $career->slug) }}" 
+                                           class="btn btn-sm btn-info" target="_blank">
+                                            <i class="bi bi-eye"></i> Ver
+                                        </a>
+                                        <form action="{{ route('admin.careers.destroy', $career) }}" 
+                                              method="POST" 
+                                              class="d-inline"
+                                              onsubmit="return confirm('¿Estás seguro de eliminar esta carrera?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger">
+                                                <i class="bi bi-trash"></i> Eliminar
+                                            </button>
+                                        </form>
+                                        <a href="{{ route('admin.careers.edit', $career) }}" 
+                                           class="btn btn-sm btn-primary">
+                                            <i class="bi bi-pencil"></i> Editar
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         @empty

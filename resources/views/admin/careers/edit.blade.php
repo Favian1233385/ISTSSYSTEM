@@ -170,13 +170,18 @@
                             <label for="curriculum_pdf" class="form-label">Malla Curricular (PDF)</label>
 
                             @if($career->curriculum_pdf)
-                                <div class="mb-2">
-                                    <a href="{{ asset('storage/' . $career->curriculum_pdf) }}"
-                                       target="_blank"
-                                       class="btn btn-sm btn-outline-primary">
-                                        <i class="bi bi-file-earmark-pdf"></i> Ver PDF Actual
-                                    </a>
-                                </div>
+                                    <div class="mb-2 d-flex gap-2">
+                                        <a href="{{ asset('storage/' . $career->curriculum_pdf) }}"
+                                           target="_blank"
+                                           class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-file-earmark-pdf"></i> Ver PDF Actual
+                                        </a>
+                                        <a href="{{ asset('storage/' . $career->curriculum_pdf) }}"
+                                           download
+                                           class="btn btn-sm btn-outline-success">
+                                            <i class="bi bi-download"></i> Descargar PDF
+                                        </a>
+                                    </div>
                             @endif
 
                             <input type="file"
@@ -295,3 +300,34 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        tinymce.init({
+            selector: '#description, #full_description, #professional_profile',
+            plugins: 'lists link image table code fullscreen advlist',
+            toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code fullscreen',
+            menubar: false,
+            branding: false,
+            height: 250,
+            language: 'es',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            setup: function (editor) {
+                editor.on('init', function () {
+                    editor.formatter.register('alignjustify', {
+                        inline: 'span',
+                        styles: { 'text-align': 'justify' },
+                        selector: 'p,h1,h2,h3,h4,h5,h6,div',
+                        classes: 'justificado'
+                    });
+                });
+            },
+            toolbar_mode: 'sliding',
+            advlist_bullet_styles: 'default',
+            advlist_number_styles: 'default',
+        });
+    });
+</script>
+@endpush

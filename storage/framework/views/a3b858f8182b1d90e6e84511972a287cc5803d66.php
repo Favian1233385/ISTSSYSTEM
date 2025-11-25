@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,50 +8,52 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/harvard-exact.css')); ?>">
+    <style>
+        .nav-menu .nav-item .nav-link {
+            font-size: 1.2rem; /* Increased font size for menu items */
+        }
+        .nav-menu .logo-item img {
+            height: 100px; /* Further increased logo size */
+        }
+    </style>
 </head>
 <body>
 
     <header class="header">
         <!-- Navigation -->
         <nav class="main-navigation">
-            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="logo-container">
-                    <a href="<?php echo e(url('/')); ?>">
-                        <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 70px;">
-                    </a>
-                </div>
+            <div class="container">
                 <ul class="nav-menu">
+                    <li class="nav-item logo-item">
+                        <a href="<?php echo e(url('/')); ?>">
+                            <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 50px;">
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">Académicos</a>
+                        <a href="<?php echo e(url('/academicos')); ?>" class="nav-link">Académicos</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>Académicos</h3>
                                 <p>El aprendizaje en ISTS puede suceder para todo tipo de estudiantes, en cualquier fase de la vida.</p>
                             </div>
                             <div class="dropdown-grid">
-                                <?php if(isset($academicSections) && $academicSections->isNotEmpty()): ?>
-                                    <?php $__currentLoopData = $academicSections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <div class="dropdown-column">
-                                            <h4><?php echo e($section->title); ?></h4>
-                                            <?php if($section->description): ?>
-                                                <p><?php echo e($section->description); ?></p>
-                                            <?php endif; ?>
-                                            <?php if($section->careers->isNotEmpty()): ?>
-                                                <ul>
-                                                    <?php $__currentLoopData = $section->careers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $career): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                        <li><a href="<?php echo e(url('/carreras/' . $career->slug)); ?>"><?php echo e($career->name); ?></a></li>
-                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                </ul>
-                                            <?php else: ?>
-                                                <p>No hay programas disponibles en esta sección.</p>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php else: ?>
-                                    <div class="dropdown-column">
-                                        <p>No hay oferta académica disponible en este momento.</p>
-                                    </div>
-                                <?php endif; ?>
+                                <div class="dropdown-column">
+                                    <h4>Programas de Grado</h4>
+                                    <p>Explora todas nuestras carreras tecnológicas y programas de grado.</p>
+                                    <ul>
+                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'desarrollo-software'])); ?>">Desarrollo de Software</a></li>
+                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'contabilidad'])); ?>">Contabilidad y Asesoría Tributaria</a></li>
+                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'agroecologia'])); ?>">Agroecología</a></li>
+                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'educacion-inicial'])); ?>">Educación Inicial</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown-column">
+                                    <h4>Educación Continua</h4>
+                                    <ul>
+                                        <li><a href="<?php echo e(url('/academicos/presencial')); ?>">Modalidad Presencial</a></li>
+                                        <li><a href="<?php echo e(url('/academicos/dual')); ?>">Modalidad Dual</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -86,23 +87,19 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link">Transparencia</a>
+                        <a href="<?php echo e(url('/enfoque')); ?>" class="nav-link">Transparencia</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>Transparencia</h3>
-                                <p>Accede a la información pública y datos abiertos de la institución.</p>
+                                <p>Explora un análisis de la investigación, trabajo académico y comunidad del ISTS.</p>
                             </div>
                             <div class="dropdown-grid">
                                 <div class="dropdown-column">
-                                    <h4>Documentos</h4>
+                                    <h4>Documentos y Reglamentos</h4>
                                     <ul>
-                                        <?php if(isset($transparencyContents) && !empty($transparencyContents)): ?>
-                                            <?php $__currentLoopData = $transparencyContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                <li><a href="<?php echo e(route('transparency.show', ['slug' => $item['slug']])); ?>"><?php echo e($item['title']); ?></a></li>
-                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        <?php else: ?>
-                                            <li><a href="#">No hay documentos</a></li>
-                                        <?php endif; ?>
+                                        <li><a href="<?php echo e(url('/transparencia/reglamentos-internos')); ?>">Reglamentos Internos</a></li>
+                                        <li><a href="<?php echo e(url('/transparencia/lotaip')); ?>">LOTAIP</a></li>
+                                        <li><a href="<?php echo e(url('/transparencia/otros-documentos')); ?>">Otros Documentos</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -144,8 +141,27 @@
                     <li class="nav-item">
                         <a href="<?php echo e(url('/noticias')); ?>" class="nav-link">Noticias</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item dropdown">
                         <a href="<?php echo e(url('/tramites')); ?>" class="nav-link">Trámites</a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-section">
+                                <h3>Trámites Disponibles</h3>
+                                <p>Encuentra información y guías sobre los trámites institucionales.</p>
+                            </div>
+                            <div class="dropdown-grid">
+                                <?php if(isset($tramites) && !empty($tramites)): ?>
+                                    <?php $__currentLoopData = $tramites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tramite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <div class="dropdown-column">
+                                            <h4><?php echo e(htmlspecialchars($tramite['title'])); ?></h4>
+                                            <p><?php echo e(htmlspecialchars($tramite['description'])); ?></p>
+                                            <a href="<?php echo e(url('/contents/' . htmlspecialchars($tramite['slug']))); ?>" class="btn btn-outline">Leer más</a>
+                                        </div>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                    <p>No hay trámites disponibles en este momento.</p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -194,176 +210,177 @@
                         </div>
                     </div>
 
-                <div class="focus-card">
-                    <div class="focus-image">
-                        <img src="<?php echo e(asset('assets/images/tecnologia.jpg')); ?>" alt="Vanguardia en Desarrollo de Software">
-                    </div>
-                    <div class="focus-content">
-                        <h3>El ISTS y la Vanguardia en Desarrollo de Software</h3>
-                        <p>El ISTS forma tecnólogos de tercer nivel en Desarrollo de Software. Preparamos profesionales altamente competentes, enfocados en diseñar e implementar soluciones digitales innovadoras, desde aplicaciones web hasta sistemas empresariales. Nuestros graduados están listos para liderar la vanguardia tecnológica y cubrir las demandas prácticas de la industria.</p>
-                        <div class="focus-actions">
-                            <a href="<?php echo e(url('/enfoque/salud-digital')); ?>" class="btn btn-outline">Explora el Desarrollo de Software en el ISTS</a>
+                    <div class="focus-card">
+                        <div class="focus-image">
+                            <img src="<?php echo e(asset('assets/images/tecnologia.jpg')); ?>" alt="Vanguardia en Desarrollo de Software">
                         </div>
-                    </div>
-                </div>
-
-                <div class="focus-card">
-                    <div class="focus-image">
-                        <img src="<?php echo e(asset('assets/images/bienvenida.jpg')); ?>" alt="Bienvenida">
-                    </div>
-                    <div class="focus-content">
-                        <h3>Bienvenido al ISTS</h3>
-                        <p>En nuestro campus, profesores de clase mundial y estudiantes talentosos se unen para crear un mundo mejor a través de investigación innovadora, innovaciones de vanguardia y trabajo académico transformador.</p>
-                        <div class="focus-actions">
-                            <a href="<?php echo e(url('/acerca')); ?>" class="btn btn-outline">Únete a nosotros</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Recent Content Section -->
-    <section class="focus-section">
-        <div class="container">
-            <div class="focus-header">
-                <h2>Contenido Reciente</h2>
-                <p>Explora nuestros artículos y publicaciones más recientes.</p>
-            </div>
-
-            <div class="focus-grid">
-                <?php if(isset($contents) && !empty($contents)): ?>
-                    <?php $__currentLoopData = $contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="focus-card">
-                            <?php if(!empty($content["image_url"])): ?>
-                                <div class="focus-image">
-                                    <img src="<?php echo e(asset(htmlspecialchars($content["image_url"]))); ?>" alt="<?php echo e(htmlspecialchars($content["title"])); ?>">
-                                </div>
-                            <?php endif; ?>
-                            <div class="focus-content">
-                                <h3><?php echo e(htmlspecialchars($content["title"])); ?></h3>
-                                <p><?php echo e(htmlspecialchars($content["description"])); ?></p>
-                                <div class="focus-actions">
-                                    <a href="<?php echo e(url('/contenido/' . htmlspecialchars($content["slug"]))); ?>" class="btn btn-outline">Leer más</a>
-                                </div>
+                        <div class="focus-content">
+                            <h3>El ISTS y la Vanguardia en Desarrollo de Software</h3>
+                            <p>El ISTS forma tecnólogos de tercer nivel en Desarrollo de Software. Preparamos profesionales altamente competentes, enfocados en diseñar e implementar soluciones digitales innovadoras, desde aplicaciones web hasta sistemas empresariales. Nuestros graduados están listos para liderar la vanguardia tecnológica y cubrir las demandas prácticas de la industria.</p>
+                            <div class="focus-actions">
+                                <a href="<?php echo e(url('/enfoque/salud-digital')); ?>" class="btn btn-outline">Explora el Desarrollo de Software en el ISTS</a>
                             </div>
                         </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php else: ?>
-                    <p>No hay contenido reciente disponible.</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
-
-    <!-- Academic Programs Section -->
-    <section class="programs-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>¡Tenemos una carrera para ti!</h2>
-                <p>Descubre nuestras ofertas académicas diseñadas para el futuro</p>
-            </div>
-
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-icon">💻</div>
-                    <h3>Desarrollo de Software</h3>
-                    <p>Formación en programación y desarrollo de aplicaciones modernas</p>
-                    <a href="<?php echo e(url('/academicos/desarrollo-software')); ?>" class="btn btn-primary">Más información</a>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-icon">📊</div>
-                    <h3>Contabilidad y Asesoría Tributaria</h3>
-                    <p>Especialización en contabilidad y asesoría fiscal</p>
-                    <a href="<?php echo e(url('/academicos/contabilidad')); ?>" class="btn btn-primary">Más información</a>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-icon">🌱</div>
-                    <h3>Agroecología</h3>
-                    <p>Desarrollo sostenible y agricultura ecológica</p>
-                    <a href="<?php echo e(url('/academicos/agroecologia')); ?>" class="btn btn-primary">Más información</a>
-                </div>
-
-                <div class="program-card">
-                    <div class="program-icon">👶</div>
-                    <h3>Educación Inicial</h3>
-                    <p>Formación docente para educación inicial</p>
-                    <a href="<?php echo e(url('/academicos/educacion-inicial')); ?>" class="btn btn-primary">Más información</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- News Section - Harvard Style -->
-    <section class="news-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>La Gaceta del ISTS</h2>
-                <p>Noticias oficiales del Instituto Superior Tecnológico Sucúa sobre ciencia, tecnología, vida del campus, temas universitarios y preocupaciones nacionales y globales más amplias.</p>
-            </div>
-
-            <div class="news-grid">
-                <div class="news-card featured">
-                    <div class="news-image">
-                        <img src="<?php echo e(asset('assets/images/noticia-principal.jpg')); ?>" alt="Noticia Principal">
                     </div>
-                    <div class="news-content">
-                        <span class="news-category">Tecnología</span>
-                        <h3>Nuevas Tecnologías en el ISTS</h3>
-                        <p>El Instituto Superior Tecnológico Sucúa implementa nuevas tecnologías para mejorar la experiencia educativa de nuestros estudiantes.</p>
-                        <a href="<?php echo e(url('/noticias/tecnologia-ists')); ?>" class="read-more">Leer más →</a>
-                    </div>
-                </div>
 
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="<?php echo e(asset('assets/images/noticia-2.jpg')); ?>" alt="Noticia 2">
-                    </div>
-                    <div class="news-content">
-                        <span class="news-category">Académico</span>
-                        <h3>Nuevas Carreras Disponibles</h3>
-                        <p>Conoce las nuevas carreras que el ISTS ofrece para el próximo semestre.</p>
-                        <a href="<?php echo e(url('/noticias/nuevas-carreras')); ?>" class="read-more">Leer más →</a>
-                    </div>
-                </div>
-
-                <div class="news-card">
-                    <div class="news-image">
-                        <img src="<?php echo e(asset('assets/images/noticia-3.jpg')); ?>" alt="Noticia 3">
-                    </div>
-                    <div class="news-content">
-                        <span class="news-category">Campus</span>
-                        <h3>Mejoras en el Campus</h3>
-                        <p>El ISTS continúa mejorando sus instalaciones para brindar una mejor experiencia educativa.</p>
-                        <a href="<?php echo e(url('/noticias/mejoras-campus')); ?>" class="read-more">Leer más →</a>
+                    <div class="focus-card">
+                        <div class="focus-image">
+                            <img src="<?php echo e(asset('assets/images/bienvenida.jpg')); ?>" alt="Bienvenida">
+                        </div>
+                        <div class="focus-content">
+                            <h3>Bienvenido al ISTS</h3>
+                            <p>En nuestro campus, profesores de clase mundial y estudiantes talentosos se unen para crear un mundo mejor a través de investigación innovadora, innovaciones de vanguardia y trabajo académico transformador.</p>
+                            <div class="focus-actions">
+                                <a href="<?php echo e(url('/acerca')); ?>" class="btn btn-outline">Únete a nosotros</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="news-actions">
-                <a href="<?php echo e(url('/noticias')); ?>" class="btn btn-primary">Ver todas las noticias</a>
-                <a href="<?php echo e(url('/noticias/suscribirse')); ?>" class="btn btn-outline">Suscribirse a la Gaceta Diaria</a>
-            </div>
-        </div>
-    </section>
+        <!-- Recent Content Section -->
+        <section class="focus-section">
+            <div class="container">
+                <div class="focus-header">
+                    <h2>Contenido Reciente</h2>
+                    <p>Explora nuestros artículos y publicaciones más recientes.</p>
+                </div>
 
-    <!-- Quick Links Section -->
-    <section class="quick-links">
-        <div class="container">
-            <h2>Enlaces Rápidos de Navegación</h2>
-            <div class="links-grid">
-                <a href="<?php echo e(url('/indice')); ?>" class="quick-link">Índice A-Z</a>
-                <a href="<?php echo e(url('/buscar-persona')); ?>" class="quick-link">Buscar una persona</a>
-                <a href="<?php echo e(url('/eventos')); ?>" class="quick-link">Eventos</a>
-                <a href="<?php echo e(url('/relaciones-publicas')); ?>" class="quick-link">Relaciones Públicas</a>
-                <a href="<?php echo e(url('/egresados')); ?>" class="quick-link">Egresados</a>
-                <a href="<?php echo e(url('/donar')); ?>" class="quick-link">Donar Ahora</a>
-                <a href="<?php echo e(url('/emergencia')); ?>" class="quick-link">Emergencia</a>
+                <div class="focus-grid">
+                    <?php if(isset($contents) && !empty($contents)): ?>
+                        <?php $__currentLoopData = $contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="focus-card">
+                                <?php if(!empty($content["image_url"])): ?>
+                                    <div class="focus-image">
+                                        <img src="<?php echo e(asset(htmlspecialchars($content["image_url"]))); ?>" alt="<?php echo e(htmlspecialchars($content["title"])); ?>">
+                                    </div>
+                                <?php endif; ?>
+                                <div class="focus-content">
+                                    <h3><?php echo e(htmlspecialchars($content["title"])); ?></h3>
+                                    <p><?php echo e(htmlspecialchars($content["description"])); ?></p>
+                                    <div class="focus-actions">
+                                        <a href="<?php echo e(url('/contenido/' . htmlspecialchars($content["slug"]))); ?>" class="btn btn-outline">Leer más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php else: ?>
+                        <p>No hay contenido reciente disponible.</p>
+                    <?php endif; ?>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Academic Programs Section -->
+        <section class="programs-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>¡Tenemos una carrera para ti!</h2>
+                    <p>Descubre nuestras ofertas académicas diseñadas para el futuro</p>
+                </div>
+
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-icon">💻</div>
+                        <h3>Desarrollo de Software</h3>
+                        <p>Formación en programación y desarrollo de aplicaciones modernas</p>
+                        <a href="<?php echo e(url('/academicos/desarrollo-software')); ?>" class="btn btn-primary">Más información</a>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-icon">📊</div>
+                        <h3>Contabilidad y Asesoría Tributaria</h3>
+                        <p>Especialización en contabilidad y asesoría fiscal</p>
+                        <a href="<?php echo e(url('/academicos/contabilidad')); ?>" class="btn btn-primary">Más información</a>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-icon">🌱</div>
+                        <h3>Agroecología</h3>
+                        <p>Desarrollo sostenible y agricultura ecológica</p>
+                        <a href="<?php echo e(url('/academicos/agroecologia')); ?>" class="btn btn-primary">Más información</a>
+                    </div>
+
+                    <div class="program-card">
+                        <div class="program-icon">👶</div>
+                        <h3>Educación Inicial</h3>
+                        <p>Formación docente para educación inicial</p>
+                        <a href="<?php echo e(url('/academicos/educacion-inicial')); ?>" class="btn btn-primary">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section - Harvard Style -->
+        <section class="news-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>La Gaceta del ISTS</h2>
+                    <p>Noticias oficiales del Instituto Superior Tecnológico Sucúa sobre ciencia, tecnología, vida del campus, temas universitarios y preocupaciones nacionales y globales más amplias.</p>
+                </div>
+
+                <div class="news-grid">
+                    <div class="news-card featured">
+                        <div class="news-image">
+                            <img src="<?php echo e(asset('assets/images/noticia-principal.jpg')); ?>" alt="Noticia Principal">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Tecnología</span>
+                            <h3>Nuevas Tecnologías en el ISTS</h3>
+                            <p>El Instituto Superior Tecnológico Sucúa implementa nuevas tecnologías para mejorar la experiencia educativa de nuestros estudiantes.</p>
+                            <a href="<?php echo e(url('/noticias/tecnologia-ists')); ?>" class="read-more">Leer más →</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="<?php echo e(asset('assets/images/noticia-2.jpg')); ?>" alt="Noticia 2">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Académico</span>
+                            <h3>Nuevas Carreras Disponibles</h3>
+                            <p>Conoce las nuevas carreras que el ISTS ofrece para el próximo semestre.</p>
+                            <a href="<?php echo e(url('/noticias/nuevas-carreras')); ?>" class="read-more">Leer más →</a>
+                        </div>
+                    </div>
+
+                    <div class="news-card">
+                        <div class="news-image">
+                            <img src="<?php echo e(asset('assets/images/noticia-3.jpg')); ?>" alt="Noticia 3">
+                        </div>
+                        <div class="news-content">
+                            <span class="news-category">Campus</span>
+                            <h3>Mejoras en el Campus</h3>
+                            <p>El ISTS continúa mejorando sus instalaciones para brindar una mejor experiencia educativa.</p>
+                            <a href="<?php echo e(url('/noticias/mejoras-campus')); ?>" class="read-more">Leer más →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news-actions">
+                    <a href="<?php echo e(url('/noticias')); ?>" class="btn btn-primary">Ver todas las noticias</a>
+                    <a href="<?php echo e(url('/noticias/suscribirse')); ?>" class="btn btn-outline">Suscribirse a la Gaceta Diaria</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links Section -->
+        <section class="quick-links">
+            <div class="container">
+                <h2>Enlaces Rápidos de Navegación</h2>
+                <div class="links-grid">
+                    <a href="<?php echo e(url('/indice')); ?>" class="quick-link">Índice A-Z</a>
+                    <a href="<?php echo e(url('/buscar-persona')); ?>" class="quick-link">Buscar una persona</a>
+                    <a href="<?php echo e(url('/eventos')); ?>" class="quick-link">Eventos</a>
+                    <a href="<?php echo e(url('/relaciones-publicas')); ?>" class="quick-link">Relaciones Públicas</a>
+                    <a href="<?php echo e(url('/egresados')); ?>" class="quick-link">Egresados</a>
+                    <a href="<?php echo e(url('/donar')); ?>" class="quick-link">Donar Ahora</a>
+                    <a href="<?php echo e(url('/emergencia')); ?>" class="quick-link">Emergencia</a>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Chatbot Widget -->
     <div id="chatbot-widget" class="chatbot-widget">
@@ -397,11 +414,55 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Seguridad y Marca</h4>
+                    <ul>
+                        <li><a href="<?php echo e(url('/reportar-copyright')); ?>">Reportar Infracción de Derechos de Autor</a></li>
+                        <li><a href="<?php echo e(url('/reportar-seguridad')); ?>">Reportar Problema de Seguridad</a></li>
+                        <li><a href="<?php echo e(url('/aviso-marca')); ?>">Aviso de Marca</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Sitio Web</h4>
+                    <ul>
+                        <li><a href="<?php echo e(url('/accesibilidad')); ?>">Accesibilidad</a></li>
+                        <li><a href="<?php echo e(url('/accesibilidad-digital')); ?>">Accesibilidad Digital</a></li>
+                        <li><a href="<?php echo e(url('/declaracion-privacidad')); ?>">Declaración de Privacidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Ponte en Contacto</h4>
+                    <ul>
+                        <li><a href="<?php echo e(url('/contacto')); ?>">Contactar ISTS</a></li>
+                        <li><a href="<?php echo e(url('/mapas-direcciones')); ?>">Mapas y Direcciones</a></li>
+                        <li><a href="<?php echo e(url('/trabajos')); ?>">Trabajos</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <?php echo e(date("Y")); ?> Todos Los derechos Reservados. Autor: Cumbanama</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="#" aria-label="TikTok">🎵</a>
+                    <a href="#" aria-label="LinkedIn">💼</a>
+                    <a href="#" aria-label="Facebook">📘</a>
+                    <a href="#" aria-label="YouTube">📺</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/main.js')); ?>"></script>
     <script src="<?php echo e(asset('js/chatbot.js')); ?>"></script>
     <script src="<?php echo e(asset('js/harvard-interactions.js')); ?>"></script>
-
 </body>
 </html>
 <?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/public/home.blade.php ENDPATH**/ ?>

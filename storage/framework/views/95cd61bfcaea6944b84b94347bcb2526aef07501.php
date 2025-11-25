@@ -51,6 +51,8 @@
             });
         }, 5000);
     </script>
+
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
 <?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/layouts/admin.blade.php ENDPATH**/ ?>

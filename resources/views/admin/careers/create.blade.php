@@ -134,6 +134,9 @@
                                    name="curriculum_pdf"
                                    accept="application/pdf">
                             <small class="text-muted">PDF. Máximo 5MB</small>
+                            <div class="mt-2">
+                                <span class="text-info small">La opción para ver o descargar el PDF estará disponible después de crear la carrera.</span>
+                            </div>
                             @error('curriculum_pdf')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -205,3 +208,34 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        tinymce.init({
+            selector: '#description, #full_description, #professional_profile',
+            plugins: 'lists link image table code fullscreen advlist',
+            toolbar: 'undo redo | blocks | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image table | code fullscreen',
+            menubar: false,
+            branding: false,
+            height: 250,
+            language: 'es',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+            setup: function (editor) {
+                editor.on('init', function () {
+                    editor.formatter.register('alignjustify', {
+                        inline: 'span',
+                        styles: { 'text-align': 'justify' },
+                        selector: 'p,h1,h2,h3,h4,h5,h6,div',
+                        classes: 'justificado'
+                    });
+                });
+            },
+            toolbar_mode: 'sliding',
+            advlist_bullet_styles: 'default',
+            advlist_number_styles: 'default',
+        });
+    });
+</script>
+@endpush

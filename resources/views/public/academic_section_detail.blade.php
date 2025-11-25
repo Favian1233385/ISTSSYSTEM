@@ -13,12 +13,13 @@
         <div class="content-body">
             @if($section->image_path)
                 <div class="section-image">
-                    <img src="{{ asset('storage/' . $section->image_path) }}" alt="{{ $section->title }}" class="img-fluid">
+                    <img src="{{ str_starts_with($section->image_path, '/') ? asset(ltrim($section->image_path, '/')) : asset('storage/' . $section->image_path) }}" alt="{{ $section->title }}" class="img-fluid">
                 </div>
             @endif
 
             @if($section->content)
-                <div class="section-content">
+                <div class="section-section">
+                    <h2>Contenido</h2>
                     {!! $section->content !!}
                 </div>
             @endif

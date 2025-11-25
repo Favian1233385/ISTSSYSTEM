@@ -8,22 +8,20 @@
                         <a href="{{ url(ltrim(($base ?? '') . '/academicos','/')) }}">ACADÉMICOS</a>
                         <div class="dropdown-menu">
                             <div class="dropdown-section">
-                                <h4>🎓 Programas de Grado</h4>
-                                <p>Explora todas nuestras carreras tecnológicas y programas de grado.</p>
+                                <h4>🎓 Carreras</h4>
                                 @php
                                     $careers = \App\Models\Career::active()->ordered()->get();
                                 @endphp
                                 @foreach($careers as $career)
                                     <a href="{{ url(ltrim(($base ?? '') . '/carrera/' . $career->slug,'/')) }}">{{ $career->name }}</a>
                                 @endforeach
+                            </div>
+                            <div class="dropdown-section">
+                                <h4>📚 Modalidades y Cursos</h4>
                                 <div class="dropdown-modes">
                                     <span>Modalidad Presencial</span>
                                     <span>Modalidad Dual</span>
                                 </div>
-                            </div>
-                            <div class="dropdown-section">
-                                <h4>📚 Educación Continua</h4>
-                                <p>Cursos y programas de formación continua.</p>
                                 @php
                                     $sections = \App\Models\AcademicSection::active()->ordered()->get();
                                 @endphp
@@ -50,6 +48,20 @@
                         <a href="{{ url(ltrim(($base ?? '') . '/acerca','/')) }}">ACERCA</a>
                     </li>
 
+                    <li>
+                        <a href="#">TRANSPARENCIA</a>
+                        <div class="dropdown-menu">
+                            @php
+                                $transparencyContents = DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->get()->map(function($item) {
+                                    return (array) $item;
+                                });
+                            @endphp
+                            @foreach($transparencyContents as $content)
+                                <a href="{{ route('transparency.show', $content['slug']) }}">{{ $content['title'] }}</a>
+                            @endforeach
+                        </div>
+                    </li>
+
                     <li {{ request()->is('noticias*') ? 'class="active"' : '' }}>
                         <a href="{{ url(ltrim(($base ?? '') . '/noticias','/')) }}">NOTICIAS</a>
                     </li>
@@ -64,6 +76,7 @@
         <div class="container">
             <div class="logo-section">
                 <h1 class="institution-name">Instituto Superior de Tecnología y Servicios</h1>
+                <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 70px;">
             </div>
 
             <nav class="main-nav">

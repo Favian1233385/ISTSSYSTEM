@@ -16,7 +16,7 @@
     <!-- Header Administrativo -->
     <header class="admin-header">
         <div class="admin-header-content">
-                <div class="admin-logo">
+            <div class="admin-logo">
                 <img src="{{ asset('assets/images/logoists.png') }}" alt="ISTS Logo" class="admin-logo-img">
                 <h1>ISTS Admin</h1>
             </div>
@@ -113,5 +113,21 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#description, #content',
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            toolbar: 'undo redo | blocks | bold italic underline forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | code',
+            menubar: false,
+            language: 'es',
+            branding: false,
+            height: 300,
+            content_style: 'body { font-family:Inter,sans-serif; font-size:16px; text-align:justify; }',
+            forced_root_block: 'p',
+            toolbar_mode: 'sliding',
+            entity_encoding: 'raw',
+        });
+    </script>
 </body>
 </html>

@@ -205,4 +205,12 @@ class PublicController extends Controller
 
         return view('public.academic_section_detail', compact('section'));
     }
+
+    public function academicos()
+    {
+        $careers = \App\Models\Career::active()->ordered()->get();
+        $sections = \App\Models\AcademicSection::active()->ordered()->get();
+
+        return view('public.academicos', compact('careers', 'sections'));
+    }
 }

@@ -47,23 +47,26 @@ class CareerController extends Controller
 
         // Manejar la carga de imagen principal
         if ($request->hasFile("image")) {
-            $validated["image_path"] = $request
-                ->file("image")
-                ->store("careers", "public");
+            $file = $request->file("image");
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/careers'), $filename);
+            $validated["image_path"] = '/uploads/careers/' . $filename;
         }
 
         // Manejar la carga de imagen secundaria
         if ($request->hasFile("image_2")) {
-            $validated["image_path_2"] = $request
-                ->file("image_2")
-                ->store("careers", "public");
+            $file = $request->file("image_2");
+            $filename = time() . '_2_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/careers'), $filename);
+            $validated["image_path_2"] = '/uploads/careers/' . $filename;
         }
 
         // Manejar la carga de PDF de malla curricular
         if ($request->hasFile("curriculum_pdf")) {
-            $validated["curriculum_pdf"] = $request
-                ->file("curriculum_pdf")
-                ->store("careers/curriculum", "public");
+            $file = $request->file("curriculum_pdf");
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/careers/curriculum'), $filename);
+            $validated["curriculum_pdf"] = '/uploads/careers/curriculum/' . $filename;
         }
 
         // Asegurar valores por defecto
@@ -118,15 +121,16 @@ class CareerController extends Controller
                 );
 
                 if ($request->file("image")->isValid()) {
-                    if ($career->image_path) {
-                        Storage::disk("public")->delete($career->image_path);
+                    // Eliminar imagen anterior si existe
+                    if ($career->image_path && file_exists(public_path($career->image_path))) {
+                        unlink(public_path($career->image_path));
                     }
 
-                    $imagePath = $request
-                        ->file("image")
-                        ->store("careers", "public");
-                    $validated["image_path"] = $imagePath;
-                    \Log::info("Imagen principal guardada en: " . $imagePath);
+                    $file = $request->file("image");
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads/careers'), $filename);
+                    $validated["image_path"] = '/uploads/careers/' . $filename;
+                    \Log::info("Imagen principal guardada en: " . $validated["image_path"]);
                 } else {
                     \Log::error("Imagen principal no válida");
                     return redirect()
@@ -146,15 +150,16 @@ class CareerController extends Controller
                 );
 
                 if ($request->file("image_2")->isValid()) {
-                    if ($career->image_path_2) {
-                        Storage::disk("public")->delete($career->image_path_2);
+                    // Eliminar imagen anterior si existe
+                    if ($career->image_path_2 && file_exists(public_path($career->image_path_2))) {
+                        unlink(public_path($career->image_path_2));
                     }
 
-                    $imagePath2 = $request
-                        ->file("image_2")
-                        ->store("careers", "public");
-                    $validated["image_path_2"] = $imagePath2;
-                    \Log::info("Imagen secundaria guardada en: " . $imagePath2);
+                    $file = $request->file("image_2");
+                    $filename = time() . '_2_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads/careers'), $filename);
+                    $validated["image_path_2"] = '/uploads/careers/' . $filename;
+                    \Log::info("Imagen secundaria guardada en: " . $validated["image_path_2"]);
                 } else {
                     \Log::error("Imagen secundaria no válida");
                     return redirect()
@@ -175,18 +180,17 @@ class CareerController extends Controller
                 );
 
                 if ($request->file("curriculum_pdf")->isValid()) {
-                    if ($career->curriculum_pdf) {
-                        Storage::disk("public")->delete(
-                            $career->curriculum_pdf,
-                        );
+                    // Eliminar PDF anterior si existe
+                    if ($career->curriculum_pdf && file_exists(public_path($career->curriculum_pdf))) {
+                        unlink(public_path($career->curriculum_pdf));
                     }
 
-                    $pdfPath = $request
-                        ->file("curriculum_pdf")
-                        ->store("careers/curriculum", "public");
-                    $validated["curriculum_pdf"] = $pdfPath;
+                    $file = $request->file("curriculum_pdf");
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads/careers/curriculum'), $filename);
+                    $validated["curriculum_pdf"] = '/uploads/careers/curriculum/' . $filename;
                     \Log::info(
-                        "PDF de malla curricular guardado en: " . $pdfPath,
+                        "PDF de malla curricular guardado en: " . $validated["curriculum_pdf"],
                     );
                 } else {
                     \Log::error("PDF de malla curricular no válido");

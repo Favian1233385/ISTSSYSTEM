@@ -79,6 +79,7 @@
                                 <select id="category" name="category" class="form-control" required>
                                     <option value="">Selecciona una categoría</option>
                                     <option value="carreras">Carreras</option>
+                                    <option value="course">Cursos</option>
                                     <option value="noticias">Noticias</option>
                                     <option value="sobre-nosotros">Sobre Nosotros</option>
                                     <option value="investigacion">Investigación</option>

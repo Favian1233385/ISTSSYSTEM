@@ -8,14 +8,18 @@
             <p class="lead">Descubre nuestras carreras y programas de educación continua</p>
         </div>
 
-        <div class="academicos-content">
+        <div class="academicos-content two-column-layout">
             <section class="careers-section">
                 <h2>🎓 Carreras</h2>
                 <div class="careers-grid">
                     <?php $__currentLoopData = $careers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $career): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div class="career-card has-image">
                             <div class="career-image">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='blue'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white'%3EImage%3C/text%3E%3C/svg%3E" alt="<?php echo e($career->name); ?>" class="img-fluid">
+                                <?php if($career->image_path): ?>
+                                    <img src="<?php echo e(asset('storage/' . $career->image_path)); ?>" alt="<?php echo e($career->name); ?>" class="img-fluid">
+                                <?php else: ?>
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='blue'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white'%3EImage%3C/text%3E%3C/svg%3E" alt="<?php echo e($career->name); ?>" class="img-fluid">
+                                <?php endif; ?>
                             </div>
                             <div class="career-info">
                                 <h3><a href="<?php echo e(route('career.show', $career->slug)); ?>"><?php echo e($career->name); ?></a></h3>
@@ -29,20 +33,24 @@
                 </div>
             </section>
 
-            <section class="sections-section">
-                <h2>📚 Educación Continua</h2>
-                <div class="sections-grid">
-                    <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="section-card has-image">
-                            <div class="section-image">
-                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='green'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white'%3EImage%3C/text%3E%3C/svg%3E" alt="<?php echo e($section->title); ?>" class="img-fluid">
-                            </div>
-                            <div class="section-info">
-                                <h3><a href="<?php echo e(route('academic-section.show', $section->slug)); ?>"><?php echo e($section->title); ?></a></h3>
-                                <?php if($section->description): ?>
-                                    <p><?php echo e(Str::limit($section->description, 100)); ?></p>
+            <section class="courses-section">
+                <h2>📚 Cursos</h2>
+                <div class="courses-grid">
+                    <?php $__currentLoopData = $courses; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="course-card has-image">
+                            <div class="course-image">
+                                <?php if($course->image_url): ?>
+                                    <img src="<?php echo e(asset($course->image_url)); ?>" alt="<?php echo e($course->title); ?>" class="img-fluid">
+                                <?php else: ?>
+                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='orange'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white'%3ECourse%3C/text%3E%3C/svg%3E" alt="<?php echo e($course->title); ?>" class="img-fluid">
                                 <?php endif; ?>
-                                <a href="<?php echo e(route('academic-section.show', $section->slug)); ?>" class="btn btn-primary">Ver más</a>
+                            </div>
+                            <div class="course-info">
+                                <h3><a href="<?php echo e(route('content.show', $course->slug)); ?>"><?php echo e($course->title); ?></a></h3>
+                                <?php if($course->description): ?>
+                                    <p><?php echo e(Str::limit($course->description, 100)); ?></p>
+                                <?php endif; ?>
+                                <a href="<?php echo e(route('content.show', $course->slug)); ?>" class="btn btn-primary">Ver más</a>
                             </div>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -51,6 +59,23 @@
         </div>
     </div>
 </div>
+
+<style>
+.two-column-layout {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.two-column-layout section {
+    flex: 1;
+    min-width: 300px;
+}
+@media (max-width: 768px) {
+    .two-column-layout {
+        flex-direction: column;
+    }
+}
+</style>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.site', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/public/academicos.blade.php ENDPATH**/ ?>

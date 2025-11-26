@@ -73,22 +73,55 @@ function initSearchDropdown() {
  * Initialize navigation dropdowns
  */
 function initNavigationDropdowns() {
-    const navItems = document.querySelectorAll(".nav-item.dropdown");
+    const navItems = document.querySelectorAll(".header-menu .dropdown");
 
     navItems.forEach((item) => {
-        const link = item.querySelector(".nav-link");
+        const link = item.querySelector(".header-link");
         const dropdown = item.querySelector(".dropdown-content");
 
         if (!link || !dropdown) return;
 
         // Show dropdown on hover
         item.addEventListener("mouseenter", function () {
-            dropdown.style.display = "block";
+            if (window.innerWidth > 992) {
+                // Only on desktop
+                dropdown.style.display = "block";
+            }
         });
 
         // Hide dropdown when mouse leaves
         item.addEventListener("mouseleave", function () {
-            dropdown.style.display = "none";
+            if (window.innerWidth > 992) {
+                // Only on desktop
+                dropdown.style.display = "none";
+            }
+        });
+
+        // Prevent click navigation on desktop
+        link.addEventListener("click", function (e) {
+            if (window.innerWidth > 992) {
+                // Only on desktop
+                e.preventDefault();
+            }
+
+            // Handle mobile click
+            if (window.innerWidth <= 992) {
+                // Check if the dropdown is already open
+                const isOpen = dropdown.style.display === "block";
+
+                // Close all other open dropdowns
+                document
+                    .querySelectorAll(".header-menu .dropdown-content")
+                    .forEach((d) => {
+                        d.style.display = "none";
+                    });
+
+                // Toggle the current dropdown
+                if (!isOpen) {
+                    dropdown.style.display = "block";
+                }
+                e.preventDefault();
+            }
         });
 
         // Handle keyboard navigation
@@ -99,6 +132,26 @@ function initNavigationDropdowns() {
                     dropdown.style.display === "block" ? "none" : "block";
             }
         });
+    });
+
+    // Close dropdowns when clicking outside on mobile
+    document.addEventListener("click", function (e) {
+        if (window.innerWidth <= 992) {
+            let isDropdownClick = false;
+            document.querySelectorAll(".header-menu .dropdown").forEach((d) => {
+                if (d.contains(e.target)) {
+                    isDropdownClick = true;
+                }
+            });
+
+            if (!isDropdownClick) {
+                document
+                    .querySelectorAll(".header-menu .dropdown-content")
+                    .forEach((d) => {
+                        d.style.display = "none";
+                    });
+            }
+        }
     });
 }
 

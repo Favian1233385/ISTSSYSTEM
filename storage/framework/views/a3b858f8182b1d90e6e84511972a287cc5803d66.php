@@ -5,15 +5,512 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Instituto Superior Tecnológico Sucúa - Fortaleciendo la Educación Superior de Tercer Nivel en Morona Santiago">
     <title>ISTS Sucúa - Instituto Superior Tecnológico Sucúa</title>
-    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-exact.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/css/harvard-style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('public/css/harvard-exact.css')); ?>">
     <style>
         .nav-menu .nav-item .nav-link {
             font-size: 1.2rem; /* Increased font size for menu items */
         }
         .nav-menu .logo-item img {
             height: 100px; /* Further increased logo size */
+        }
+
+        /* General Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #007bff;
+            color: white;
+            border: 2px solid #007bff;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #007bff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+        }
+
+        .btn-outline:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Focus Section */
+        .focus-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .focus-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .focus-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .focus-header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .focus-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .focus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+
+        .focus-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .focus-content {
+            padding: 1.5rem;
+        }
+
+        .focus-content h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .focus-content p {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        .focus-actions {
+            text-align: center;
+        }
+
+        /* Programs Section */
+        .programs-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .program-card p {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+
+        /* News Section */
+        .news-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .news-card.featured {
+            grid-row: span 2;
+        }
+
+        .news-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .news-content h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .news-content p {
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        .news-actions {
+            text-align: center;
+        }
+
+        /* Quick Links */
+        .quick-links {
+            padding: 60px 0;
+            background: #2c3e50;
+            color: white;
+        }
+
+        .quick-links h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .quick-link {
+            display: block;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a252f;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: #ccc;
+            font-size: 1.5rem;
+        }
+
+        .footer-social a:hover {
+            color: white;
+        }
+
+        /* Chatbot */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-header {
+            background: #007bff;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .chatbot-form {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+        }
+
+        .chatbot-form input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .chatbot-form button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
         }
     </style>
 </head>
@@ -30,7 +527,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="<?php echo e(url('/academicos')); ?>" class="nav-link">Académicos</a>
+                        <a href="/academicos" class="nav-link">Académicos</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>Académicos</h3>
@@ -41,17 +538,17 @@
                                     <h4>Programas de Grado</h4>
                                     <p>Explora todas nuestras carreras tecnológicas y programas de grado.</p>
                                     <ul>
-                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'desarrollo-software'])); ?>">Desarrollo de Software</a></li>
-                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'contabilidad'])); ?>">Contabilidad y Asesoría Tributaria</a></li>
-                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'agroecologia'])); ?>">Agroecología</a></li>
-                                        <li><a href="<?php echo e(route('career.show', ['slug' => 'educacion-inicial'])); ?>">Educación Inicial</a></li>
+                                        <li><a href="/academicos/desarrollo-software">Desarrollo de Software</a></li>
+                                        <li><a href="/academicos/contabilidad">Contabilidad y Asesoría Tributaria</a></li>
+                                        <li><a href="/academicos/agroecologia">Agroecología</a></li>
+                                        <li><a href="/academicos/educacion-inicial">Educación Inicial</a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-column">
                                     <h4>Educación Continua</h4>
                                     <ul>
-                                        <li><a href="<?php echo e(url('/academicos/presencial')); ?>">Modalidad Presencial</a></li>
-                                        <li><a href="<?php echo e(url('/academicos/dual')); ?>">Modalidad Dual</a></li>
+                                        <li><a href="/academicos/presencial">Modalidad Presencial</a></li>
+                                        <li><a href="/academicos/dual">Modalidad Dual</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -59,7 +556,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a href="<?php echo e(url('/campus')); ?>" class="nav-link">Campus</a>
+                        <a href="/campus" class="nav-link">Campus</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>El Campus del ISTS</h3>
@@ -70,16 +567,16 @@
                                     <h4>Biblioteca</h4>
                                     <p>Explora nuestra biblioteca</p>
                                     <ul>
-                                        <li><a href="<?php echo e(url('/campus/biblioteca')); ?>">Biblioteca Central</a></li>
-                                        <li><a href="<?php echo e(url('/campus/recursos')); ?>">Recursos Digitales</a></li>
+                                        <li><a href="/campus/biblioteca">Biblioteca Central</a></li>
+                                        <li><a href="/campus/recursos">Recursos Digitales</a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-column">
                                     <h4>Instalaciones</h4>
                                     <ul>
-                                        <li><a href="<?php echo e(url('/campus/laboratorios')); ?>">Laboratorios</a></li>
-                                        <li><a href="<?php echo e(url('/campus/aulas')); ?>">Aulas Tecnológicas</a></li>
-                                        <li><a href="<?php echo e(url('/campus/eventos')); ?>">Eventos</a></li>
+                                        <li><a href="/campus/laboratorios">Laboratorios</a></li>
+                                        <li><a href="/campus/aulas">Aulas Tecnológicas</a></li>
+                                        <li><a href="/campus/eventos">Eventos</a></li>
                                     </ul>
                                 </div>
                             </div>

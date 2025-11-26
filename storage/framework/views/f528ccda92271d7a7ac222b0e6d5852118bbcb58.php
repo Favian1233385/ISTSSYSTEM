@@ -397,5 +397,7 @@
             });
         }, 5000);
     </script>
+</body>
+</html>
 
 <?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

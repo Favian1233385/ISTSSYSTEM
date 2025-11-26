@@ -1,47 +1,119 @@
-<header class="header">
-    <div class="section-page-header">
-        <div class="container text-center">
-            <h1 class="section-page-title">Instituto Superior de Tecnología y Servicios</h1>
-            <p class="section-page-subtitle">Educación de calidad para un futuro mejor</p>
+
+<header class="header-public">
+    <div class="header-logo-bar">
+        <img src="{{ asset('assets/images/logoists.png') }}" alt="Instituto Superior Tecnológico Sucúa" class="header-logo">
+        <div class="header-logo-text">
+            <span class="header-logo-title">Instituto Superior Tecnológico</span><br>
+            <span class="header-logo-subtitle">Sucúa</span>
         </div>
     </div>
-
-    {{-- Main navigation bar --}}
-    <div class="header-main">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <nav class="main-nav">
-                <ul style="list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0;">
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/','/')) }}" {{ request()->is('/') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Inicio</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/academicos','/')) }}" {{ request()->is('academicos*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Académicos</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/campus','/')) }}" {{ request()->is('campus*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Campus</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/noticias','/')) }}" {{ request()->is('noticias*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Noticias</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/contacto','/')) }}" {{ request()->is('contacto*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Contacto</a></li>
-                </ul>
-            </nav>
-
-            <div class="search-box" style="display: flex; align-items: center; gap: 0.5rem;">
-                <input type="text" placeholder="Buscar..." style="padding: 0.5rem; border: 1px solid #e5e7eb; border-radius: 4px;">
-                <button type="submit" style="padding: 0.5rem 1rem; background-color: #198754; color: #fff; border: none; border-radius: 4px;">Buscar</button>
-            </div>
-        </div>
-    </div>
+    <nav class="header-navbar">
+        <ul class="header-menu">
+            <li><a href="{{ url('/academicos') }}" class="header-link{{ request()->is('academicos*') ? ' active' : '' }}">ACADÉMICOS</a></li>
+            <li><a href="{{ url('/campus') }}" class="header-link{{ request()->is('campus*') ? ' active' : '' }}">CAMPUS</a></li>
+            <li><a href="{{ url('/transparencia') }}" class="header-link{{ request()->is('transparencia*') ? ' active' : '' }}">TRANSPARENCIA</a></li>
+            <li><a href="{{ url('/visitar') }}" class="header-link{{ request()->is('visitar*') ? ' active' : '' }}">VISITAR</a></li>
+            <li><a href="{{ url('/acerca') }}" class="header-link{{ request()->is('acerca*') ? ' active' : '' }}">ACERCA</a></li>
+            <li><a href="{{ url('/noticias') }}" class="header-link{{ request()->is('noticias*') ? ' active' : '' }}">NOTICIAS</a></li>
+            <li><a href="{{ url('/tramites') }}" class="header-link{{ request()->is('tramites*') ? ' active' : '' }}">TRÁMITES</a></li>
+        </ul>
+    </nav>
 </header>
 
 <style>
-    .section-page-header {
-        background-color: #f8f9fa;
-        padding: 2rem 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.header-public {
+    width: 100%;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    position: relative;
+    z-index: 100;
+}
+.header-logo-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 0.5rem;
+}
+.header-logo {
+    width: 70px;
+    height: auto;
+    margin-bottom: 0.2rem;
+}
+.header-logo-text {
+    text-align: center;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 1rem;
+    color: #1a3c2b;
+    font-weight: 500;
+    line-height: 1.1;
+}
+.header-logo-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.header-logo-subtitle {
+    color: #2eaf3b;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.header-navbar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    margin-bottom: 0.5rem;
+}
+.header-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.7rem 0;
+}
+.header-link {
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+    transition: color 0.2s;
+    padding: 0.2rem 0.7rem;
+    border-radius: 3px;
+    position: relative;
+}
+.header-link.active,
+.header-link:hover {
+    color: #2eaf3b;
+    background: rgba(255,255,255,0.15);
+}
+@media (max-width: 900px) {
+    .header-menu {
+        gap: 1.2rem;
     }
-    .section-page-title {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #343a40;
-        margin: 0;
+    .header-link {
+        font-size: 1rem;
     }
-    .section-page-subtitle {
-        font-size: 1.25rem;
-        color: #6c757d;
-        margin-top: 0.5rem;
+    .header-logo {
+        width: 50px;
     }
+}
+@media (max-width: 600px) {
+    .header-menu {
+        flex-wrap: wrap;
+        gap: 0.7rem;
+    }
+    .header-logo-bar {
+        padding-bottom: 0.2rem;
+    }
+}
 </style>

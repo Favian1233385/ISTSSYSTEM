@@ -6,7 +6,6 @@
     <title>Login Admin - ISTS System</title>
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <style>
-        /* ... keep inline styles as in original for now ... */
         * {
             margin: 0;
             padding: 0;
@@ -159,7 +158,7 @@
                 <div class="alert alert-success">✓ {{ session('success') }}</div>
             @endif
 
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 <div class="form-group">
                     <label for="email">📧 Correo Electrónico</label>

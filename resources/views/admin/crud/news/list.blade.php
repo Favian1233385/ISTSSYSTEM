@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Gestión de Noticias - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/harvard-style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @if(app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
@@ -16,28 +16,28 @@
     <!-- Header Administrativo -->
     <header class="admin-header">
         <div class="admin-header-content">
-                <div class="admin-logo">
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="ISTS Logo" class="admin-logo-img">
+            <div class="admin-logo">
+                <img src="{{ asset('public/assets/images/logo-ists.png') }}" alt="ISTS Logo" class="admin-logo-img">
                 <h1>ISTS Admin</h1>
             </div>
 
             <nav class="admin-nav">
                 <ul class="admin-nav-menu">
-                    <li><a href="{{ url('/admin/dashboard') }}">📊 Dashboard</a></li>
-                    <li><a href="{{ url('/admin/contents') }}">📝 Contenidos</a></li>
-                    <li><a href="{{ url('/admin/news') }}" class="active">📰 Noticias</a></li>
-                    <li><a href="{{ url('/admin/users') }}">👥 Usuarios</a></li>
-                    <li><a href="{{ url('/admin/settings') }}">⚙️ Configuración</a></li>
+                    <li><a href="{{ url('admin/dashboard') }}">📊 Dashboard</a></li>
+                    <li><a href="{{ url('contents/create') }}">📝 Contenidos</a></li>
+                    <li><a href="{{ url('news/create') }}" class="active">📰 Noticias</a></li>
+                    <li><a href="{{ url('users') }}">👥 Usuarios</a></li>
+                    <li><a href="{{ url('settings') }}">⚙️ Configuración</a></li>
                 </ul>
             </nav>
 
             <div class="admin-user-menu">
                 <div class="user-info">
-                    <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
+                    <span class="user-name">{{ session('user_email', 'Usuario') }}</span>
                     <div class="user-dropdown">
-                        <a href="{{ url('/admin/profile') }}">👤 Perfil</a>
-                        <a href="{{ url('/auth/change-password') }}">🔒 Cambiar Contraseña</a>
-                        <a href="{{ url('/auth/logout') }}">🚪 Cerrar Sesión</a>
+                        <a href="{{ url('admin/profile') }}">👤 Perfil</a>
+                        <a href="{{ url('auth/change-password') }}">🔒 Cambiar Contraseña</a>
+                        <a href="{{ url('auth/logout') }}">🚪 Cerrar Sesión</a>
                     </div>
                 </div>
             </div>

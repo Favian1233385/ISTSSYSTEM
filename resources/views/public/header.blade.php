@@ -1,0 +1,1 @@
+Migración del archivo `header.php` a Blade view en `resources/views/public/header.blade.php`.

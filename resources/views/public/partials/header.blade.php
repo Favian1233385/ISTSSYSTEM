@@ -1,99 +1,47 @@
 <header class="header">
-    {{-- Top black bar with main site sections, matches legacy look --}}
-    <div class="topbar">
-        <div class="topbar-inner container">
-            <nav class="topbar-nav">
-                <ul>
-                    <li {{ request()->is('academicos') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/academicos','/')) }}">ACADÉMICOS</a>
-                        <div class="dropdown-menu">
-                            <div class="dropdown-section">
-                                <h4>🎓 Carreras</h4>
-                                @php
-                                    $careers = \App\Models\Career::active()->ordered()->get();
-                                @endphp
-                                @foreach($careers as $career)
-                                    <a href="{{ url(ltrim(($base ?? '') . '/carrera/' . $career->slug,'/')) }}">{{ $career->name }}</a>
-                                @endforeach
-                            </div>
-                            <div class="dropdown-section">
-                                <h4>📚 Modalidades y Cursos</h4>
-                                <div class="dropdown-modes">
-                                    <span>Modalidad Presencial</span>
-                                    <span>Modalidad Dual</span>
-                                </div>
-                                @php
-                                    $sections = \App\Models\AcademicSection::active()->ordered()->get();
-                                @endphp
-                                @foreach($sections as $section)
-                                    <a href="{{ url(ltrim(($base ?? '') . '/educacion-continua/' . $section->slug,'/')) }}">{{ $section->title }}</a>
-                                @endforeach
-                            </div>
-                        </div>
-                    </li>
-
-                    <li {{ request()->is('campus') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/campus','/')) }}">CAMPUS</a>
-                    </li>
-
-                    <li {{ request()->is('enfoque') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/enfoque','/')) }}">ENFOQUE</a>
-                    </li>
-
-                    <li {{ request()->is('visitar') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/visitar','/')) }}">VISITAR</a>
-                    </li>
-
-                    <li {{ request()->is('acerca') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/acerca','/')) }}">ACERCA</a>
-                    </li>
-
-                    <li>
-                        <a href="#">TRANSPARENCIA</a>
-                        <div class="dropdown-menu">
-                            @php
-                                $transparencyContents = DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->get()->map(function($item) {
-                                    return (array) $item;
-                                });
-                            @endphp
-                            @foreach($transparencyContents as $content)
-                                <a href="{{ route('transparency.show', $content['slug']) }}">{{ $content['title'] }}</a>
-                            @endforeach
-                        </div>
-                    </li>
-
-                    <li {{ request()->is('noticias*') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/noticias','/')) }}">NOTICIAS</a>
-                    </li>
-
-                    <li {{ request()->is('egresados') ? 'class="active"' : '' }}>
-                        <a href="{{ url(ltrim(($base ?? '') . '/egresados','/')) }}">EGRESADOS</a>
-                    </li>
-    </div>
-
-    {{-- Main header with logo, navigation, and search --}}
-    <div class="header-main">
-        <div class="container">
-            <div class="logo-section">
-                <h1 class="institution-name">Instituto Superior de Tecnología y Servicios</h1>
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 70px;">
-            </div>
-
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/','/')) }}" {{ request()->is('/') ? 'class="active"' : '' }}>Inicio</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/academicos','/')) }}" {{ request()->is('academicos*') ? 'class="active"' : '' }}>Académicos</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/campus','/')) }}" {{ request()->is('campus*') ? 'class="active"' : '' }}>Campus</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/noticias','/')) }}" {{ request()->is('noticias*') ? 'class="active"' : '' }}>Noticias</a></li>
-                    <li><a href="{{ url(ltrim(($base ?? '') . '/contacto','/')) }}" {{ request()->is('contacto*') ? 'class="active"' : '' }}>Contacto</a></li>
-                </ul>
-            </nav>
-
-            <div class="search-box">
-                <input type="text" placeholder="Buscar...">
-                <button type="submit">Buscar</button>
-            </div>
+    <div class="section-page-header">
+        <div class="container text-center">
+            <h1 class="section-page-title">Instituto Superior de Tecnología y Servicios</h1>
+            <p class="section-page-subtitle">Educación de calidad para un futuro mejor</p>
         </div>
     </div>
 
+    {{-- Main navigation bar --}}
+    <div class="header-main">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <nav class="main-nav">
+                <ul style="list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0;">
+                    <li><a href="{{ url(ltrim(($base ?? '') . '/','/')) }}" {{ request()->is('/') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Inicio</a></li>
+                    <li><a href="{{ url(ltrim(($base ?? '') . '/academicos','/')) }}" {{ request()->is('academicos*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Académicos</a></li>
+                    <li><a href="{{ url(ltrim(($base ?? '') . '/campus','/')) }}" {{ request()->is('campus*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Campus</a></li>
+                    <li><a href="{{ url(ltrim(($base ?? '') . '/noticias','/')) }}" {{ request()->is('noticias*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Noticias</a></li>
+                    <li><a href="{{ url(ltrim(($base ?? '') . '/contacto','/')) }}" {{ request()->is('contacto*') ? 'class="active"' : '' }} style="color: #343a40; text-decoration: none;">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="search-box" style="display: flex; align-items: center; gap: 0.5rem;">
+                <input type="text" placeholder="Buscar..." style="padding: 0.5rem; border: 1px solid #e5e7eb; border-radius: 4px;">
+                <button type="submit" style="padding: 0.5rem 1rem; background-color: #198754; color: #fff; border: none; border-radius: 4px;">Buscar</button>
+            </div>
+        </div>
+    </div>
 </header>
+
+<style>
+    .section-page-header {
+        background-color: #f8f9fa;
+        padding: 2rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .section-page-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #343a40;
+        margin: 0;
+    }
+    .section-page-subtitle {
+        font-size: 1.25rem;
+        color: #6c757d;
+        margin-top: 0.5rem;
+    }
+</style>

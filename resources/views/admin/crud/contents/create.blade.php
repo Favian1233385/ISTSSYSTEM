@@ -50,47 +50,80 @@
         <div class="admin-container">
             <div class="admin-content">
                 <div class="dashboard-header">
-                    <h1>📝 Crear Contenido</h1>
-                    <p>Rellena el formulario para crear un nuevo contenido.</p>
+                    <h1>📝 Crear Nuevo Contenido</h1>
+                    <p>Completa el formulario para agregar nuevo contenido al sitio.</p>
                 </div>
 
-                @if($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                <div class="form-container">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                <form action="{{ route('admin.contents.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="title">Título</label>
-                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" required>{{ old('description') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="content">Contenido</label>
-                        <textarea name="content" id="content" class="form-control" rows="10" required>{{ old('content') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image_file">Imagen</label>
-                        <input type="file" name="image_file" id="image_file" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="status">Estado</label>
-                        <select name="status" id="status" class="form-control">
-                            <option value="draft" @if(old('status') == 'draft') selected @endif>Borrador</option>
-                            <option value="published" @if(old('status') == 'published') selected @endif>Publicado</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Crear Contenido</button>
-                </form>
+                    <form method="POST" action="{{ route('contents.create') }}" enctype="multipart/form-data" id="content-form" class="styled-form">
+                        @csrf
+
+                        <div class="form-card">
+                            <div class="form-group">
+                                <label for="title">Título</label>
+                                <input type="text" id="title" name="title" class="form-control" required value="{{ old('title') }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Categoría</label>
+                                <select id="category" name="category" class="form-control" required>
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="carreras">Carreras</option>
+                                    <option value="noticias">Noticias</option>
+                                    <option value="sobre-nosotros">Sobre Nosotros</option>
+                                    <option value="investigacion">Investigación</option>
+                                    <option value="eventos">Eventos</option>
+                                    <option value="servicios">Servicios</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="description">Descripción</label>
+                                <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="content">Contenido</label>
+                                <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content') }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image_file">Imagen</label>
+                                <input type="file" id="image_file" name="image_file" class="form-control">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="status">Estado</label>
+                                    <select id="status" name="status" class="form-control" required>
+                                        <option value="draft">Borrador</option>
+                                        <option value="published">Publicado</option>
+                                        <option value="archived">Archivado</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="featured">Destacado</label>
+                                    <input type="checkbox" id="featured" name="featured" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Crear Contenido</button>
+                            <a href="{{ route('contents.index') }}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </main>

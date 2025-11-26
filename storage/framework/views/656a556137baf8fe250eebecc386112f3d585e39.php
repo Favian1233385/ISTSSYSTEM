@@ -5,15 +5,17 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-<div class="content-detail" style="background: linear-gradient(135deg, #f9fafb 0%, #e6ecf3 100%); min-height: 100vh; padding: 3rem 0;">
-    <div class="container">
-        <div class="page-header" style="text-align:center; margin-bottom:2.5rem;">
-            <h1 style="color: var(--color-primary); font-size:2.5rem; font-weight:700;"><?php echo e($career->name); ?></h1>
+<div class="content-detail">
+    <div class="section-page-header">
+        <div class="container">
+            <h1 class="section-page-title"><?php echo e($career->name); ?></h1>
             <?php if($career->description): ?>
-                <p class="lead" style="color: var(--color-gray); font-size:1.25rem;"><?php echo e($career->description); ?></p>
+                <p class="section-page-subtitle"><?php echo e($career->description); ?></p>
             <?php endif; ?>
         </div>
+    </div>
 
+    <div class="container">
         <div class="content-body">
             
             <div class="career-row" style="display: flex; flex-wrap: wrap; align-items: stretch; background: var(--color-white); border-radius: 18px; margin-bottom: 2.5rem; box-shadow: 0 6px 32px rgba(30,58,138,0.08); border: 1.5px solid #e5e7eb;">

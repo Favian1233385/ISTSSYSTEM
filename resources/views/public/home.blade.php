@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Instituto Superior Tecnológico Sucúa - Fortaleciendo la Educación Superior de Tercer Nivel en Morona Santiago">
     <title>ISTS Sucúa - Instituto Superior Tecnológico Sucúa</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-exact.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/harvard-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/css/harvard-exact.css') }}">
     <style>
         .nav-menu .nav-item .nav-link {
             font-size: 1.2rem; /* Increased font size for menu items */
@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="{{ url('/academicos') }}" class="nav-link">Académicos</a>
+                        <a href="/academicos" class="nav-link">Académicos</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>Académicos</h3>
@@ -41,17 +41,17 @@
                                     <h4>Programas de Grado</h4>
                                     <p>Explora todas nuestras carreras tecnológicas y programas de grado.</p>
                                     <ul>
-                                        <li><a href="{{ route('career.show', ['slug' => 'desarrollo-software']) }}">Desarrollo de Software</a></li>
-                                        <li><a href="{{ route('career.show', ['slug' => 'contabilidad']) }}">Contabilidad y Asesoría Tributaria</a></li>
-                                        <li><a href="{{ route('career.show', ['slug' => 'agroecologia']) }}">Agroecología</a></li>
-                                        <li><a href="{{ route('career.show', ['slug' => 'educacion-inicial']) }}">Educación Inicial</a></li>
+                                        <li><a href="/academicos/desarrollo-software">Desarrollo de Software</a></li>
+                                        <li><a href="/academicos/contabilidad">Contabilidad y Asesoría Tributaria</a></li>
+                                        <li><a href="/academicos/agroecologia">Agroecología</a></li>
+                                        <li><a href="/academicos/educacion-inicial">Educación Inicial</a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-column">
                                     <h4>Educación Continua</h4>
                                     <ul>
-                                        <li><a href="{{ url('/academicos/presencial') }}">Modalidad Presencial</a></li>
-                                        <li><a href="{{ url('/academicos/dual') }}">Modalidad Dual</a></li>
+                                        <li><a href="/academicos/presencial">Modalidad Presencial</a></li>
+                                        <li><a href="/academicos/dual">Modalidad Dual</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a href="{{ url('/campus') }}" class="nav-link">Campus</a>
+                        <a href="/campus" class="nav-link">Campus</a>
                         <div class="dropdown-content">
                             <div class="dropdown-section">
                                 <h3>El Campus del ISTS</h3>
@@ -70,16 +70,16 @@
                                     <h4>Biblioteca</h4>
                                     <p>Explora nuestra biblioteca</p>
                                     <ul>
-                                        <li><a href="{{ url('/campus/biblioteca') }}">Biblioteca Central</a></li>
-                                        <li><a href="{{ url('/campus/recursos') }}">Recursos Digitales</a></li>
+                                        <li><a href="/campus/biblioteca">Biblioteca Central</a></li>
+                                        <li><a href="/campus/recursos">Recursos Digitales</a></li>
                                     </ul>
                                 </div>
                                 <div class="dropdown-column">
                                     <h4>Instalaciones</h4>
                                     <ul>
-                                        <li><a href="{{ url('/campus/laboratorios') }}">Laboratorios</a></li>
-                                        <li><a href="{{ url('/campus/aulas') }}">Aulas Tecnológicas</a></li>
-                                        <li><a href="{{ url('/campus/eventos') }}">Eventos</a></li>
+                                        <li><a href="/campus/laboratorios">Laboratorios</a></li>
+                                        <li><a href="/campus/aulas">Aulas Tecnológicas</a></li>
+                                        <li><a href="/campus/eventos">Eventos</a></li>
                                     </ul>
                                 </div>
                             </div>

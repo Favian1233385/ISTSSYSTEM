@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CampusItemController;
 use App\Http\Controllers\AcademicSectionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\Admin\CareerController;
 
 /*
@@ -50,6 +51,27 @@ Route::get("/contact", function () {
 Route::get("/tramites", [PublicController::class, "tramites"])->name(
     "tramites",
 );
+
+// Nuevas rutas para el menú dinámico
+Route::get("/campus", function () {
+    return view("public.campus");
+})->name("campus");
+Route::get("/campus/instalaciones", function () {
+    return view("public.campus-item", ['item' => 'instalaciones']);
+})->name("campus.instalaciones");
+Route::get("/campus/servicios", function () {
+    return view("public.campus-item", ['item' => 'servicios']);
+})->name("campus.servicios");
+Route::get("/visitar", function () {
+    return view("public.visitar");
+})->name("visitar");
+Route::get("/acerca", function () {
+    return view("public.acerca");
+})->name("acerca");
+Route::get("/noticias", function () {
+    $news = \App\Models\News::where('status', 'published')->orderBy('created_at', 'desc')->paginate(10);
+    return view("public.news.index", compact('news'));
+})->name("noticias");
 
 // Admin routes
 Route::prefix("admin")
@@ -150,6 +172,11 @@ Route::prefix("admin")
 
         // Careers
         Route::resource("careers", CareerController::class, [
+            "as" => "admin",
+        ]);
+
+        // Menu items management
+        Route::resource("menu-items", MenuItemController::class, [
             "as" => "admin",
         ]);
 

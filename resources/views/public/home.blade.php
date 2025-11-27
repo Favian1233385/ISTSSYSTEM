@@ -23,53 +23,66 @@
             </div>
         </section>
 
-        <!-- In Focus Section -->
-        <section class="focus-section">
+
+
+
+        <!-- Misión y Visión Section (reemplaza Enfoque) -->
+        @include('public.partials.home_mision_vision', ['content' => $misionVision ?? null])
+
+        <!-- Últimas actualizaciones multimedia -->
+        @include('public.partials.updates', ['updates' => $updates ?? []])
+
+        <!-- Academic Programs Section - Profesional e Institucional -->
+        <section class="careers-section" style="padding: 3.5rem 0; background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);">
             <div class="container">
-                <div class="focus-header">
-                    <h2> Enfoque</h2>
-                    <p>Explora la investigación, trabajo académico y comunidad del ISTS. Temas recientes incluyen:</p>
+                <div class="programs-header">
+                    <h2>¡Tenemos una carrera para ti!</h2>
+                    <p>Descubre nuestras ofertas académicas diseñadas para el futuro, con carreras tecnológicas de alto impacto y formación docente de excelencia.</p>
                 </div>
-
-                <div class="focus-grid">
-                    <div class="focus-card">
-                        <div class="focus-image">
-                            <img src="{{ asset('assets/images/tecnologia.png') }}" alt="Tecnología">
+                <div class="careers-grid">
+                    <div class="career-card">
+                        <div class="career-images">
+                            <img class="career-image active" src="{{ asset('assets/images/carreras/software.jpg') }}" alt="Desarrollo de Software">
                         </div>
-                        <div class="focus-content">
-                            <h3>Tecnología</h3>
-                            <p>Dentro de cada línea de código, esperando ser decodificada, están las tecnologías que nos hacen quienes somos. Los investigadores del ISTS están trabajando para entender cómo estas pequeñas instrucciones ejercen una influencia tan grande en nuestras vidas.</p>
-                            <div class="focus-actions">
-                                <a href="{{ url('/enfoque/tecnologia') }}" class="btn btn-outline">Descifrar los misterios</a>
-                            </div>
+                        <div class="career-content">
+                            <h3>Desarrollo de Software</h3>
+                            <p>Formación en programación, ingeniería de software y desarrollo de aplicaciones modernas para la industria 4.0.</p>
+                            <a href="{{ url('/academicos/desarrollo-software') }}" class="btn-career">Más información <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-
-                    <div class="focus-card">
-                        <div class="focus-image">
-                            <img src="{{ asset('assets/images/tecnologia.jpg') }}" alt="Vanguardia en Desarrollo de Software">
+                    <div class="career-card">
+                        <div class="career-images">
+                            <img class="career-image active" src="{{ asset('assets/images/carreras/contabilidad.jpg') }}" alt="Contabilidad y Asesoría Tributaria">
                         </div>
-                        <div class="focus-content">
-                            <h3>El ISTS y la Vanguardia en Desarrollo de Software</h3>
-                            <p>El ISTS forma tecnólogos de tercer nivel en Desarrollo de Software. Preparamos profesionales altamente competentes, enfocados en diseñar e implementar soluciones digitales innovadoras, desde aplicaciones web hasta sistemas empresariales. Nuestros graduados están listos para liderar la vanguardia tecnológica y cubrir las demandas prácticas de la industria.</p>
-                            <div class="focus-actions">
-                                <a href="{{ url('/enfoque/salud-digital') }}" class="btn btn-outline">Explora el Desarrollo de Software en el ISTS</a>
-                            </div>
+                        <div class="career-content">
+                            <h3>Contabilidad y Asesoría Tributaria</h3>
+                            <p>Especialización en contabilidad, asesoría fiscal y gestión financiera para empresas y emprendimientos.</p>
+                            <a href="{{ url('/academicos/contabilidad') }}" class="btn-career">Más información <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
-
-                    <div class="focus-card">
-                        <div class="focus-image">
-                            <img src="{{ asset('assets/images/bienvenida.jpg') }}" alt="Bienvenida">
+                    <div class="career-card">
+                        <div class="career-images">
+                            <img class="career-image active" src="{{ asset('assets/images/carreras/agroecologia.jpg') }}" alt="Agroecología">
                         </div>
-                        <div class="focus-content">
-                            <h3>Bienvenido al ISTS</h3>
-                            <p>En nuestro campus, profesores de clase mundial y estudiantes talentosos se unen para crear un mundo mejor a través de investigación innovadora, innovaciones de vanguardia y trabajo académico transformador.</p>
-                            <div class="focus-actions">
-                                <a href="{{ url('/acerca') }}" class="btn btn-outline">Únete a nosotros</a>
-                            </div>
+                        <div class="career-content">
+                            <h3>Agroecología</h3>
+                            <p>Desarrollo sostenible, agricultura ecológica y gestión ambiental para el futuro del planeta.</p>
+                            <a href="{{ url('/academicos/agroecologia') }}" class="btn-career">Más información <i class="bi bi-arrow-right"></i></a>
                         </div>
                     </div>
+                    <div class="career-card">
+                        <div class="career-images">
+                            <img class="career-image active" src="{{ asset('assets/images/carreras/educacion-inicial.jpg') }}" alt="Educación Inicial">
+                        </div>
+                        <div class="career-content">
+                            <h3>Educación Inicial</h3>
+                            <p>Formación docente de excelencia para la educación inicial y el desarrollo integral de la niñez.</p>
+                            <a href="{{ url('/academicos/educacion-inicial') }}" class="btn-career">Más información <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="programs-cta">
+                    <a href="{{ url('/academicos') }}" class="btn-primary-large">Ver todas las carreras</a>
                 </div>
             </div>
         </section>
@@ -107,45 +120,10 @@
             </div>
         </section>
 
-        <!-- Academic Programs Section -->
-        <section class="programs-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>¡Tenemos una carrera para ti!</h2>
-                    <p>Descubre nuestras ofertas académicas diseñadas para el futuro</p>
-                </div>
+        <!-- Mensaje del Rector -->
+        @include('public.partials.rector', ['rector' => $rector ?? null])
 
-                <div class="programs-grid">
-                    <div class="program-card">
-                        <div class="program-icon">💻</div>
-                        <h3>Desarrollo de Software</h3>
-                        <p>Formación en programación y desarrollo de aplicaciones modernas</p>
-                        <a href="{{ url('/academicos/desarrollo-software') }}" class="btn btn-primary">Más información</a>
-                    </div>
-
-                    <div class="program-card">
-                        <div class="program-icon">📊</div>
-                        <h3>Contabilidad y Asesoría Tributaria</h3>
-                        <p>Especialización en contabilidad y asesoría fiscal</p>
-                        <a href="{{ url('/academicos/contabilidad') }}" class="btn btn-primary">Más información</a>
-                    </div>
-
-                    <div class="program-card">
-                        <div class="program-icon">🌱</div>
-                        <h3>Agroecología</h3>
-                        <p>Desarrollo sostenible y agricultura ecológica</p>
-                        <a href="{{ url('/academicos/agroecologia') }}" class="btn btn-primary">Más información</a>
-                    </div>
-
-                    <div class="program-card">
-                        <div class="program-icon">👶</div>
-                        <h3>Educación Inicial</h3>
-                        <p>Formación docente para educación inicial</p>
-                        <a href="{{ url('/academicos/educacion-inicial') }}" class="btn btn-primary">Más información</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- Sección duplicada de carreras eliminada: ya existe una versión profesional más arriba -->
 
         <!-- News Section - Harvard Style -->
         <section class="news-section">

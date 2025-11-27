@@ -21,6 +21,7 @@
 
     <script src="<?php echo e(asset('js/main.js')); ?>"></script>
     <script src="<?php echo e(asset('js/chatbot.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/dropdowns.js')); ?>"></script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

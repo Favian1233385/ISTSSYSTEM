@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             UserSeeder::class,
             SettingSeeder::class,
+            MenuItemsSeeder::class,
         ]);
     }
 }

@@ -52,6 +52,9 @@
                 <div class="dashboard-header">
                     <h1>📝 Editar Contenido</h1>
                     <p>Modifica el formulario para editar el contenido.</p>
+                    @if($item['category'] == 'transparency' && !$item['parent_id'])
+                        <a href="{{ route('admin.contents.create') }}?parent_id={{ $item['id'] }}" class="btn btn-secondary">Agregar Sub-Reglamento</a>
+                    @endif
                 </div>
 
                 @if($errors->any())

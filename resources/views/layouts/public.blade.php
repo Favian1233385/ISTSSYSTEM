@@ -21,6 +21,7 @@
 
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/chatbot.js') }}"></script>
+    <script src="{{ asset('js/dropdowns.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

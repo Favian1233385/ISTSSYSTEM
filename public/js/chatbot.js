@@ -1,472 +1,332 @@
 /**
- * Chatbot JavaScript - Sistema ISTS
- * Funcionalidad del asistente virtual
+ * JavaScript Principal - Sistema ISTS
+ * Funcionalidades básicas del sitio web
  */
 
-class ISTSChatbot {
-    constructor() {
-        this.isOpen = false;
-        this.sessionId = this.generateSessionId();
-        this.messageHistory = [];
-        
-        // Guardar instancia global
-        window.istsChatbot = this;
+document.addEventListener("DOMContentLoaded", function () {
+    // Inicializar funcionalidades
+    initSearch();
+    initMobileMenu();
+    initBackToTop();
+    initSmoothScroll();
+});
 
-        this.init();
-    }
+/**
+ * Funcionalidad de búsqueda
+ */
+function initSearch() {
+    const searchInput = document.getElementById("main-search");
+    const searchToggle = document.querySelector(".search-toggle");
+    const searchDropdown = document.querySelector(".search-dropdown");
 
-    init() {
-        this.bindEvents();
-        this.loadChatHistory();
-        
-        // Agregar mensaje de bienvenida si no hay historial
-        if (this.messageHistory.length === 0) {
-            this.addWelcomeMessage();
-        }
-    }
-    
-    addWelcomeMessage() {
-        const messagesContainer = document.getElementById('chatbot-messages');
-        if (!messagesContainer) return;
-        
-        // Solo agregar si no existe ya un mensaje de bienvenida
-        const existingWelcome = messagesContainer.querySelector('.welcome-message');
-        if (!existingWelcome) {
-            const welcomeDiv = document.createElement('div');
-            welcomeDiv.className = 'bot-message welcome-message';
-            welcomeDiv.innerHTML = '<p>¡Hola! 👋 Soy el asistente virtual del ISTS. ¿En qué puedo ayudarte?</p>';
-            messagesContainer.appendChild(welcomeDiv);
-        }
-    }
-
-    bindEvents() {
-        const toggleBtn = document.getElementById('chatbot-toggle');
-        const closeBtn = document.getElementById('chatbot-close');
-        const clearBtn = document.getElementById('chatbot-clear');
-        const form = document.getElementById('chatbot-form');
-        const input = document.getElementById('chatbot-input');
-
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', () => this.toggleChat());
-        }
-
-        if (closeBtn) {
-            closeBtn.addEventListener('click', () => this.closeChat());
-        }
-        
-        if (clearBtn) {
-            clearBtn.addEventListener('click', () => {
-                if (confirm('¿Estás seguro de que quieres limpiar toda la conversación?')) {
-                    this.clearHistory();
-                    this.addWelcomeMessage();
-                }
-            });
-        }
-
-        if (form) {
-            form.addEventListener('submit', (e) => this.handleSubmit(e));
-        }
-
-        if (input) {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    this.handleSubmit(e);
-                }
-            });
-        }
-    }
-
-    toggleChat() {
-        const window = document.getElementById('chatbot-window');
-        if (!window) return;
-
-        this.isOpen = !this.isOpen;
-
-        if (this.isOpen) {
-            window.style.display = 'flex';
-            setTimeout(() => {
-                window.classList.add('active');
-            }, 10);
-            this.focusInput();
-            
-            // Scroll al final si hay mensajes
-            setTimeout(() => {
-                const messagesContainer = document.getElementById('chatbot-messages');
-                if (messagesContainer) {
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }
-            }, 100);
-        } else {
-            window.classList.remove('active');
-            setTimeout(() => {
-                window.style.display = 'none';
-            }, 300);
-        }
-    }
-
-    closeChat() {
-        this.isOpen = false;
-        const window = document.getElementById('chatbot-window');
-        if (window) {
-            window.classList.remove('active');
-            setTimeout(() => {
-                window.style.display = 'none';
-            }, 300);
-        }
-    }
-
-    focusInput() {
-        const input = document.getElementById('chatbot-input');
-        if (input) {
-            setTimeout(() => input.focus(), 100);
-        }
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        const input = document.getElementById('chatbot-input');
-        const message = input.value.trim();
-
-        if (!message) return;
-
-        // Agregar mensaje del usuario
-        this.addMessage(message, 'user');
-
-        // Limpiar input
-        input.value = '';
-
-        // Mostrar indicador de escritura
-        this.showTypingIndicator();
-
-        // Enviar mensaje al servidor
-        this.sendMessage(message);
-    }
-
-    addMessage(content, sender) {
-        const messagesContainer = document.getElementById('chatbot-messages');
-        if (!messagesContainer) return;
-
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `${sender}-message`;
-
-        const messageContent = document.createElement('p');
-        messageContent.textContent = content;
-        messageDiv.appendChild(messageContent);
-
-        messagesContainer.appendChild(messageDiv);
-
-        // Scroll al final con animación suave
-        setTimeout(() => {
-            messagesContainer.scrollTo({
-                top: messagesContainer.scrollHeight,
-                behavior: 'smooth'
-            });
-        }, 50);
-
-        // Guardar en historial
-        this.messageHistory.push({
-            content,
-            sender,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Guardar en localStorage inmediatamente
-        this.saveChatHistory();
-    }
-
-    showTypingIndicator() {
-        const messagesContainer = document.getElementById('chatbot-messages');
-        if (!messagesContainer) return;
-
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'bot-message typing-indicator';
-        typingDiv.innerHTML = '<p>El asistente está escribiendo...</p>';
-
-        messagesContainer.appendChild(typingDiv);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-
-        this.typingIndicator = typingDiv;
-    }
-
-    hideTypingIndicator() {
-        if (this.typingIndicator) {
-            this.typingIndicator.remove();
-            this.typingIndicator = null;
-        }
-    }
-
-    sendMessage(message) {
-        fetch('/api/chatbot', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({ mensaje: message })
-        })
-            .then(response => response.json())
-            .then(data => {
-                this.hideTypingIndicator();
-
-                if (data.success) {
-                    this.addMessage(data.respuesta, 'bot');
-                } else {
-                    this.addMessage(data.respuesta || 'Lo siento, no entendí tu pregunta.', 'bot');
-                }
-            })
-            .catch(error => {
-                this.hideTypingIndicator();
-                this.addMessage('Error de conexión. Verifica tu internet.', 'bot');
-                console.error('Error:', error);
-            });
-    }
-
-    generateSessionId() {
-        return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-
-    loadChatHistory() {
-        const messagesContainer = document.getElementById('chatbot-messages');
-        if (!messagesContainer) return;
-        
-        // Cargar historial desde localStorage
-        const savedHistory = localStorage.getItem('ists_chat_history');
-        if (savedHistory) {
-            try {
-                this.messageHistory = JSON.parse(savedHistory);
-                
-                // Renderizar historial después de la bienvenida
-                this.messageHistory.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = `${msg.sender}-message`;
-                    
-                    const messageContent = document.createElement('p');
-                    messageContent.textContent = msg.content;
-                    messageDiv.appendChild(messageContent);
-                    
-                    messagesContainer.appendChild(messageDiv);
-                });
-                
-                // Hacer scroll al final
-                setTimeout(() => {
-                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }, 100);
-            } catch (e) {
-                console.error('Error al cargar historial:', e);
-                this.messageHistory = [];
+    if (searchInput && searchToggle && searchDropdown) {
+        // Toggle del dropdown de búsqueda
+        searchToggle.addEventListener("click", function () {
+            searchDropdown.classList.toggle("active");
+            if (searchDropdown.classList.contains("active")) {
+                searchInput.focus();
             }
-        }
-    }
-
-    renderHistory() {
-        const messagesContainer = document.getElementById('chatbot-messages');
-        if (!messagesContainer) return;
-
-        // Limpiar solo los mensajes dinámicos, mantener bienvenida
-        const dynamicMessages = messagesContainer.querySelectorAll('.user-message, .bot-message:not(.welcome-message)');
-        dynamicMessages.forEach(msg => msg.remove());
-
-        // Renderizar historial
-        this.messageHistory.forEach(msg => {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `${msg.sender}-message`;
-            
-            const messageContent = document.createElement('p');
-            messageContent.textContent = msg.content;
-            messageDiv.appendChild(messageContent);
-            
-            messagesContainer.appendChild(messageDiv);
         });
-        
-        // Scroll al final
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
 
-    saveChatHistory() {
-        try {
-            localStorage.setItem('ists_chat_history', JSON.stringify(this.messageHistory));
-        } catch (e) {
-            console.error('Error al guardar historial:', e);
+        // Búsqueda en tiempo real
+        let searchTimeout;
+        searchInput.addEventListener("input", function () {
+            clearTimeout(searchTimeout);
+            const query = this.value.trim();
+
+            if (query.length >= 3) {
+                searchTimeout = setTimeout(() => {
+                    performSearch(query);
+                }, 300);
+            }
+        });
+
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener("click", function (e) {
+            if (
+                !searchDropdown.contains(e.target) &&
+                !searchToggle.contains(e.target)
+            ) {
+                searchDropdown.classList.remove("active");
+            }
+        });
+    }
+}
+
+/**
+ * Realizar búsqueda AJAX
+ */
+function performSearch(query) {
+    fetch(`/search?q=${encodeURIComponent(query)}`)
+        .then((response) => response.json())
+        .then((data) => {
+            displaySearchResults(data);
+        })
+        .catch((error) => {
+            console.error("Error en búsqueda:", error);
+        });
+}
+
+/**
+ * Mostrar resultados de búsqueda
+ */
+function displaySearchResults(data) {
+    const suggestions = document.querySelector(".search-suggestions");
+    if (!suggestions) return;
+
+    suggestions.innerHTML = "";
+
+    if (data.results && data.results.length > 0) {
+        data.results.forEach((result) => {
+            const link = document.createElement("a");
+            link.href = result.url;
+            link.textContent = result.title;
+            link.className = "suggestion";
+            suggestions.appendChild(link);
+        });
+    } else {
+        suggestions.innerHTML =
+            '<span class=\"no-results\">No se encontraron resultados</span>';
+    }
+}
+
+/**
+ * Menú móvil
+ */
+function initMobileMenu() {
+    const mobileToggle = document.getElementById("mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobileClose = document.getElementById("mobile-menu-close");
+
+    if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener("click", function () {
+            mobileMenu.classList.add("active");
+            document.body.style.overflow = "hidden";
+        });
+
+        if (mobileClose) {
+            mobileClose.addEventListener("click", function () {
+                mobileMenu.classList.remove("active");
+                document.body.style.overflow = "";
+            });
         }
-    }
-    
-    clearHistory() {
-        this.messageHistory = [];
-        localStorage.removeItem('ists_chat_history');
-        this.renderHistory();
-    }
-}
 
-// Inicializar chatbot cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', function () {
-    if (!window.istsChatbot) {
-        window.istsChatbot = new ISTSChatbot();
-    }
-});
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener("click", function (e) {
+            if (
+                !mobileMenu.contains(e.target) &&
+                !mobileToggle.contains(e.target)
+            ) {
+                mobileMenu.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
 
-// Guardar historial antes de cerrar la página
-window.addEventListener('beforeunload', function () {
-    if (window.istsChatbot) {
-        window.istsChatbot.saveChatHistory();
-    }
-});
-
-// Guardar historial periódicamente cada 30 segundos
-setInterval(() => {
-    if (window.istsChatbot) {
-        window.istsChatbot.saveChatHistory();
-    }
-}, 30000);
-
-// CSS para el chatbot
-const chatbotStyles = `
-<style>
-.chatbot-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.chatbot-toggle {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00A86B 0%, #1E3A8A 100%);
-    color: white;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 168, 107, 0.4);
-    transition: all 0.3s ease;
-}
-
-.chatbot-toggle:hover {
-    background: linear-gradient(135deg, #008C5A 0%, #162d6b 100%);
-    transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 168, 107, 0.5);
-}
-
-.chatbot-window {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
-    width: 350px;
-    height: 500px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
-
-.chatbot-window.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.chatbot-header {
-    background: linear-gradient(135deg, #00A86B 0%, #1E3A8A 100%);
-    color: white;
-    padding: 15px;
-    border-radius: 10px 10px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.chatbot-header h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.chatbot-header button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-.chatbot-messages {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.user-message, .bot-message {
-    max-width: 80%;
-    padding: 10px 15px;
-    border-radius: 15px;
-    word-wrap: break-word;
-}
-
-.user-message {
-    background: linear-gradient(135deg, #00A86B 0%, #008C5A 100%);
-    color: white;
-    align-self: flex-end;
-    border-bottom-right-radius: 5px;
-}
-
-.bot-message {
-    background: #f1f1f1;
-    color: #333;
-    align-self: flex-start;
-    border-bottom-left-radius: 5px;
-}
-
-.typing-indicator {
-    opacity: 0.7;
-    font-style: italic;
-}
-
-.chatbot-form {
-    padding: 15px;
-    border-top: 1px solid #eee;
-    display: flex;
-    gap: 10px;
-}
-
-.chatbot-form input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    outline: none;
-}
-
-.chatbot-form button {
-    padding: 10px 15px;
-    background: linear-gradient(135deg, #00A86B 0%, #1E3A8A 100%);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.chatbot-form button:hover {
-    background: linear-gradient(135deg, #008C5A 0%, #162d6b 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 168, 107, 0.4);
-}
-
-@media (max-width: 480px) {
-    .chatbot-window {
-        width: calc(100vw - 40px);
-        right: -10px;
+        // Cerrar menú al hacer clic en enlaces
+        const mobileLinks = mobileMenu.querySelectorAll("a");
+        mobileLinks.forEach((link) => {
+            link.addEventListener("click", function () {
+                mobileMenu.classList.remove("active");
+                document.body.style.overflow = "";
+            });
+        });
     }
 }
-</style>
-`;
 
-// Insertar estilos
-document.head.insertAdjacentHTML('beforeend', chatbotStyles);
+/**
+ * Botón de volver arriba
+ */
+function initBackToTop() {
+    const backToTopBtn = document.getElementById("back-to-top");
+
+    if (backToTopBtn) {
+        // Mostrar/ocultar botón según scroll
+        window.addEventListener("scroll", function () {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add("visible");
+            } else {
+                backToTopBtn.classList.remove("visible");
+            }
+        });
+
+        // Scroll suave al hacer clic
+        backToTopBtn.addEventListener("click", function () {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        });
+    }
+}
+
+/**
+ * Scroll suave para enlaces internos
+ */
+function initSmoothScroll() {
+    const internalLinks = document.querySelectorAll('a[href^=\"#\"]');
+
+    internalLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                e.preventDefault();
+                targetElement.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                });
+            }
+        });
+    });
+}
+
+/**
+ * Validación de formularios
+ */
+function validateForm(form) {
+    const requiredFields = form.querySelectorAll("[required]");
+    let isValid = true;
+
+    requiredFields.forEach((field) => {
+        if (!field.value.trim()) {
+            field.classList.add("error");
+            isValid = false;
+        } else {
+            field.classList.remove("error");
+        }
+    });
+
+    return isValid;
+}
+
+/**
+ * Mostrar notificaciones
+ */
+function showNotification(message, type = "info") {
+    const notification = document.createElement("div");
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+
+    // Estilos
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        background: ${type === "error" ? "#dc3545" : type === "success" ? "#28a745" : "#007bff"};
+        color: white;
+        border-radius: 5px;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Remover después de 5 segundos
+    setTimeout(() => {
+        notification.style.animation = "slideOut 0.3s ease";
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 5000);
+}
+
+/**
+ * Cargar contenido dinámicamente
+ */
+function loadContent(url, container) {
+    const targetContainer =
+        typeof container === "string"
+            ? document.querySelector(container)
+            : container;
+
+    if (!targetContainer) return;
+
+    targetContainer.innerHTML = '<div class=\"loading\">Cargando...</div>';
+
+    fetch(url)
+        .then((response) => response.text())
+        .then((html) => {
+            targetContainer.innerHTML = html;
+        })
+        .catch((error) => {
+            targetContainer.innerHTML =
+                '<div class=\"error\">Error al cargar el contenido</div>';
+            console.error("Error:", error);
+        });
+}
+
+// CSS para animaciones
+if (!document.getElementById("main-js-styles")) {
+    const style = document.createElement("style");
+    style.id = "main-js-styles"; // Asignar un ID único
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            text-align: center;
+            padding: 20px;
+            color: #dc3545;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+        }
+
+        .field.error {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+/**
+ * Animación Scroll Reveal para Contenido Reciente
+ */
+function initScrollReveal() {
+    const scrollElements = document.querySelectorAll(".scroll-reveal");
+
+    if (scrollElements.length === 0) {
+        return;
+    }
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    scrollElements.forEach((element) => {
+        observer.observe(element);
+    });
+}
+
+// Inicializar scroll reveal cuando el DOM esté listo
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initScrollReveal);
+} else {
+    initScrollReveal();
+}

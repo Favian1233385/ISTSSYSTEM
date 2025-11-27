@@ -67,6 +67,10 @@
 
                     <form method="POST" action="{{ route('contents.create') }}" enctype="multipart/form-data" id="content-form" class="styled-form">
                         @csrf
+                        @if(request('parent_id'))
+                            <input type="hidden" name="category" value="transparency">
+                            <input type="hidden" name="parent_id" value="{{ request('parent_id') }}">
+                        @endif
 
                         <div class="form-card">
                             <div class="form-group">
@@ -76,16 +80,20 @@
 
                             <div class="form-group">
                                 <label for="category">Categoría</label>
-                                <select id="category" name="category" class="form-control" required>
-                                    <option value="">Selecciona una categoría</option>
-                                    <option value="carreras">Carreras</option>
-                                    <option value="course">Cursos</option>
-                                    <option value="noticias">Noticias</option>
-                                    <option value="sobre-nosotros">Sobre Nosotros</option>
-                                    <option value="investigacion">Investigación</option>
-                                    <option value="eventos">Eventos</option>
-                                    <option value="servicios">Servicios</option>
-                                </select>
+                                @if(request('parent_id'))
+                                    <input type="text" class="form-control" value="Transparencia" disabled readonly>
+                                @else
+                                    <select id="category" name="category" class="form-control" required>
+                                        <option value="">Selecciona una categoría</option>
+                                        <option value="carreras">Carreras</option>
+                                        <option value="course">Cursos</option>
+                                        <option value="noticias">Noticias</option>
+                                        <option value="sobre-nosotros">Sobre Nosotros</option>
+                                        <option value="investigacion">Investigación</option>
+                                        <option value="eventos">Eventos</option>
+                                        <option value="servicios">Servicios</option>
+                                    </select>
+                                @endif
                             </div>
 
                             <div class="form-group">

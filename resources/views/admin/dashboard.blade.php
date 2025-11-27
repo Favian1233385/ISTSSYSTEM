@@ -168,6 +168,12 @@
                     <p>{{ $tramitesCount ?? 0 }} documentos de trámites</p>
                 </a>
 
+                <a href="{{ route('admin.menu-items.index') }}" class="action-card">
+                    <div class="action-icon">🧭</div>
+                    <h3>Menú de Navegación</h3>
+                    <p>Gestionar elementos del menú público</p>
+                </a>
+
                 <a href="{{ route('admin.settings.index') }}" class="action-card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border: 2px solid #ff9800;">
                     <div class="action-icon">⚙️</div>
                     <h3>Configuración General</h3>

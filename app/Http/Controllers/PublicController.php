@@ -16,7 +16,13 @@ class PublicController extends Controller
             ->where("status", "published")
             ->first();
 
-        return view("public.home", compact("misionVision"));
+        // Get active rector
+        $rector = \App\Models\Rector::where('is_active', true)->orderByDesc('id')->first();
+
+        // Get latest updates (máximo 3)
+        $updates = \App\Models\Update::recent(3)->get();
+
+        return view("public.home", compact("misionVision", "rector", "updates"));
     }
 
     public function transparencyShow($slug)

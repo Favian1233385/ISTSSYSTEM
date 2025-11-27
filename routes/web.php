@@ -1,14 +1,8 @@
-// Ruta pública para secciones de Acerca dinámicas
-Route::get('/acerca/{id}', function($id) {
-    $section = \App\Models\About::findOrFail($id);
-    return view('public.about_section', compact('section'));
-})->name('about.section');
 
 <?php
-
 // Redirección para login admin
-Route::get('/admin/login', function() {
-    return redirect('/login');
+Route::get("/admin/login", function () {
+    return redirect("/login");
 });
 
 use Illuminate\Support\Facades\Route;
@@ -48,10 +42,19 @@ Route::get("/transparency/{slug}", [
     PublicController::class,
     "transparencyShow",
 ])->name("transparency.show");
-Route::get("/carrera/{slug}", [PublicController::class, "showCareer"])->name("career.show");
-Route::get("/contenido/{slug}", [PublicController::class, "showContent"])->name("content.show");
-Route::get("/educacion-continua/{slug}", [PublicController::class, "showAcademicSection"])->name("academic-section.show");
-Route::get("/academicos", [PublicController::class, "academicos"])->name("academicos");
+Route::get("/carrera/{slug}", [PublicController::class, "showCareer"])->name(
+    "career.show",
+);
+Route::get("/contenido/{slug}", [PublicController::class, "showContent"])->name(
+    "content.show",
+);
+Route::get("/educacion-continua/{slug}", [
+    PublicController::class,
+    "showAcademicSection",
+])->name("academic-section.show");
+Route::get("/academicos", [PublicController::class, "academicos"])->name(
+    "academicos",
+);
 Route::get("/about", function () {
     return view("public.about");
 })->name("about");
@@ -68,10 +71,10 @@ Route::get("/campus", function () {
     return view("public.campus");
 })->name("campus");
 Route::get("/campus/instalaciones", function () {
-    return view("public.campus-item", ['item' => 'instalaciones']);
+    return view("public.campus-item", ["item" => "instalaciones"]);
 })->name("campus.instalaciones");
 Route::get("/campus/servicios", function () {
-    return view("public.campus-item", ['item' => 'servicios']);
+    return view("public.campus-item", ["item" => "servicios"]);
 })->name("campus.servicios");
 Route::get("/visitar", function () {
     return view("public.visitar");
@@ -80,8 +83,10 @@ Route::get("/acerca", function () {
     return view("public.acerca");
 })->name("acerca");
 Route::get("/noticias", function () {
-    $news = \App\Models\News::where('status', 'published')->orderBy('created_at', 'desc')->paginate(10);
-    return view("public.news.index", compact('news'));
+    $news = \App\Models\News::where("status", "published")
+        ->orderBy("created_at", "desc")
+        ->paginate(10);
+    return view("public.news.index", compact("news"));
 })->name("noticias");
 
 // Admin routes
@@ -256,3 +261,4 @@ Route::prefix("admin")
 
 require __DIR__ . "/auth.php";
 require __DIR__ . "/admin_about.php";
+

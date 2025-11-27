@@ -6,6 +6,10 @@
         $transparencyContents = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->where('status', 'published')->orderBy('title')->get();
         $tramites = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'tramites')->where('status', 'published')->orderBy('title')->get();
         $menuItems = \App\Models\MenuItem::whereNull('parent_id')->where('is_active', true)->with('children')->orderBy('order')->get();
+
+        // Cargar los contenidos de la categoría 'about' (Historia, Misión, etc.) para el menú dinámico
+        $contentModel = new \App\Models\Content();
+        $aboutContents = $contentModel->getByCategory('about');
     ?>
     
     <nav class="header-navbar">
@@ -25,21 +29,16 @@
                     </div>
                     <div class="academic-dropdown-columns">
                         <div class="academic-column">
-                            <div class="academic-title">Historia del ISTS</div>
+                            <div class="academic-title">Secciones</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                <li><a href="/acerca/historia">Línea de tiempo</a></li>
-                                <li><a href="/acerca/mision-vision">Misión y Visión</a></li>
-                                <li><a href="/acerca/autoridades">Autoridades</a></li>
-                            </ul>
-                        </div>
-                        <div class="academic-column">
-                            <div class="academic-title">Liderazgo y Gobierno</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                <li><a href="/acerca/rector">Rector</a></li>
-                                <li><a href="/acerca/vicerrector">Vicerrector</a></li>
-                                <li><a href="/acerca/organigrama">Organigrama</a></li>
+                                
+                                <?php $__currentLoopData = $aboutContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li>
+                                        
+                                        <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
+                                    </li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
                     </div>
@@ -120,7 +119,8 @@
                             </div>
                         </div>
                     </li>
-                <?php elseif($item->children->count() > 0 && !in_array($title, ['ACERCA', 'CAMPUS'])): ?>
+                
+                <?php elseif(count($item->children) > 0 && !in_array($title, ['ACERCA', 'CAMPUS'])): ?>
                     <li class="dropdown">
                         <a href="<?php echo e($item->url ?? '#'); ?>" class="header-link<?php echo e(request()->is(str_replace('/', '', $item->url).'/*') ? ' active' : ''); ?>"><?php echo e($item->title); ?></a>
                         <div class="dropdown-content academic-dropdown">
@@ -250,7 +250,7 @@
     z-index: 9999; /* Asegura que esté por encima de todo */
     margin-top: 0.5rem;
     /* Añadido para prevenir que el texto fuerce anchos excesivos */
-    white-space: normal; 
+    white-space: normal;
 }
         /* Estilos específicos para el menú académico */
         .academic-dropdown {
@@ -369,7 +369,7 @@
     .two-column .column li {
         margin-bottom: 0.4rem;
     }
-    
+
     /* Reglas para mostrar el dropdown al pasar el mouse (escritorio) */
     .dropdown:hover > .dropdown-content,
     .dropdown:focus-within > .dropdown-content {

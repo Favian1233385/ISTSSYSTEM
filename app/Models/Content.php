@@ -104,6 +104,16 @@ class Content extends \Model
     }
 
     /**
+     * Buscar contenido por slug, excluyendo un ID específico
+     */
+    public function findBySlugExceptId($slug, $idToExclude)
+    {
+        $sql =
+            "SELECT * FROM contents WHERE slug = ? AND id != ? AND (status = 'published' OR status IS NULL)";
+        return $this->fetchOne($sql, [$slug, $idToExclude]);
+    }
+
+    /**
      * Buscar contenidos por texto
      */
     public function search($query, $limit = 10)

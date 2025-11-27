@@ -1,11 +1,15 @@
 <header class="header-public">
-    {{-- Menu dinamico implementado - {{ $menuItems->count() }} items --}}
+    {{-- Menu dinamico implementado --}}
     @php
         $allCareers = \App\Models\Career::where('is_active', true)->orderBy('name')->get();
         $courses = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'course')->where('status', 'published')->orderBy('title')->get();
         $transparencyContents = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->where('status', 'published')->orderBy('title')->get();
         $tramites = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'tramites')->where('status', 'published')->orderBy('title')->get();
         $menuItems = \App\Models\MenuItem::whereNull('parent_id')->where('is_active', true)->with('children')->orderBy('order')->get();
+
+        // Cargar los contenidos de la categoría 'about' (Historia, Misión, etc.) para el menú dinámico
+        $contentModel = new \App\Models\Content();
+        $aboutContents = $contentModel->getByCategory('about');
     @endphp
     {{-- Header limpio y profesional --}}
     <nav class="header-navbar">
@@ -16,9 +20,6 @@
                 </a>
             </li>
             {{-- Dropdown de Acerca dinámico --}}
-            @php
-                $aboutSections = \App\Models\About::all();
-            @endphp
             <li class="dropdown">
                 <a href="#" class="header-link">ACERCA</a>
                 <div class="dropdown-content academic-dropdown">
@@ -31,9 +32,11 @@
                             <div class="academic-title">Secciones</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                @foreach($aboutSections as $section)
+                                {{-- MODIFICACIÓN: Iterar sobre $aboutContents y usar slug para la URL --}}
+                                @foreach($aboutContents as $section)
                                     <li>
-                                        <a href="{{ url('/acerca/'.$section->id) }}">{{ $section->title }}</a>
+                                        {{-- Asumiendo que la ruta pública es /contenido/{slug} --}}
+                                        <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -116,7 +119,8 @@
                             </div>
                         </div>
                     </li>
-                @elseif($item->children->count() > 0 && !in_array($title, ['ACERCA', 'CAMPUS']))
+                {{-- CORRECCIÓN: Usar count() en lugar de ->count() --}}
+                @elseif(count($item->children) > 0 && !in_array($title, ['ACERCA', 'CAMPUS']))
                     <li class="dropdown">
                         <a href="{{ $item->url ?? '#' }}" class="header-link{{ request()->is(str_replace('/', '', $item->url).'/*') ? ' active' : '' }}">{{ $item->title }}</a>
                         <div class="dropdown-content academic-dropdown">
@@ -246,7 +250,7 @@
     z-index: 9999; /* Asegura que esté por encima de todo */
     margin-top: 0.5rem;
     /* Añadido para prevenir que el texto fuerce anchos excesivos */
-    white-space: normal; 
+    white-space: normal;
 }
         /* Estilos específicos para el menú académico */
         .academic-dropdown {
@@ -365,7 +369,7 @@
     .two-column .column li {
         margin-bottom: 0.4rem;
     }
-    
+
     /* Reglas para mostrar el dropdown al pasar el mouse (escritorio) */
     .dropdown:hover > .dropdown-content,
     .dropdown:focus-within > .dropdown-content {

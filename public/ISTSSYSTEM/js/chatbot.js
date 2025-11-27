@@ -115,17 +115,23 @@ class ISTSChatbot {
         messageContent.textContent = content;
         messageDiv.appendChild(messageContent);
         
-        messagesContainer.appendChild(messageDiv);
-        
-        // Scroll al final
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        
+            messagesContainer.appendChild(messageDiv);
+            // Scroll automático al final (siempre baja hasta el último mensaje)
+            setTimeout(() => {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 100);
         // Guardar en historial
         this.messageHistory.push({
             content,
             sender,
             timestamp: new Date().toISOString()
         });
+    }
+
+    clearHistory() {
+        this.messageHistory = [];
+        this.saveChatHistory();
+        this.renderHistory();
     }
     
     showTypingIndicator() {
@@ -218,7 +224,27 @@ class ISTSChatbot {
 
 // Inicializar chatbot cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-    new ISTSChatbot();
+    window.istsChatbot = new ISTSChatbot();
+    // Agregar botón de limpiar historial
+    const header = document.querySelector('.chatbot-header');
+    if (header) {
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = '🗑️';
+        clearBtn.title = 'Eliminar historial';
+        clearBtn.style.marginLeft = '8px';
+        clearBtn.style.background = 'none';
+        clearBtn.style.border = 'none';
+        clearBtn.style.color = '#fff';
+        clearBtn.style.fontSize = '18px';
+        clearBtn.style.cursor = 'pointer';
+        clearBtn.onclick = function(e) {
+            e.stopPropagation();
+            if (confirm('¿Seguro que deseas eliminar el historial de conversaciones?')) {
+                window.istsChatbot.clearHistory();
+            }
+        };
+        header.appendChild(clearBtn);
+    }
 });
 
 // Guardar historial antes de cerrar la página
@@ -238,12 +264,13 @@ const chatbotStyles = `
     z-index: 1000;
 }
 
+
 .chatbot-toggle {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: #a51c30;
-    color: white;
+    background: #009e60;
+    color: #fff;
     border: none;
     font-size: 24px;
     cursor: pointer;
@@ -252,7 +279,7 @@ const chatbotStyles = `
 }
 
 .chatbot-toggle:hover {
-    background: #8c1515;
+    background: #0e3e49;
     transform: scale(1.1);
 }
 
@@ -277,9 +304,10 @@ const chatbotStyles = `
     transform: translateY(0);
 }
 
+
 .chatbot-header {
-    background: #a51c30;
-    color: white;
+    background: #009e60;
+    color: #fff;
     padding: 15px;
     border-radius: 10px 10px 0 0;
     display: flex;
@@ -304,9 +332,12 @@ const chatbotStyles = `
     flex: 1;
     padding: 15px;
     overflow-y: auto;
+    max-height: 350px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    scroll-behavior: smooth;
 }
 
 .user-message, .bot-message {
@@ -316,16 +347,18 @@ const chatbotStyles = `
     word-wrap: break-word;
 }
 
+
 .user-message {
-    background: #a51c30;
-    color: white;
+    background: #009e60;
+    color: #fff;
     align-self: flex-end;
     border-bottom-right-radius: 5px;
 }
 
+
 .bot-message {
-    background: #f1f1f1;
-    color: #333;
+    background: #e8f5f1;
+    color: #0e3e49;
     align-self: flex-start;
     border-bottom-left-radius: 5px;
 }
@@ -350,17 +383,18 @@ const chatbotStyles = `
     outline: none;
 }
 
+
 .chatbot-form button {
     padding: 10px 15px;
-    background: #a51c30;
-    color: white;
+    background: #009e60;
+    color: #fff;
     border: none;
     border-radius: 20px;
     cursor: pointer;
 }
 
 .chatbot-form button:hover {
-    background: #8c1515;
+    background: #0e3e49;
 }
 
 @media (max-width: 480px) {

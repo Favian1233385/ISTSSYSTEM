@@ -111,15 +111,11 @@ class ChatbotController extends Controller
     private function generateResponse($message)
     {
         $message = strtolower(trim($message));
-
         $qas = QA::all();
 
         // 1. Check for exact match
         foreach ($qas as $qa) {
-            $questions = array_map(
-                "trim",
-                explode(",", strtolower($qa->question)),
-            );
+            $questions = array_map("trim", explode(",", strtolower($qa->question)));
             if (in_array($message, $questions)) {
                 return $qa->answer;
             }
@@ -127,10 +123,7 @@ class ChatbotController extends Controller
 
         // 2. Check for keyword match
         foreach ($qas as $qa) {
-            $keywords = array_map(
-                "trim",
-                explode(",", strtolower($qa->question)),
-            );
+            $keywords = array_map("trim", explode(",", strtolower($qa->question)));
             foreach ($keywords as $keyword) {
                 if (!empty($keyword) && strpos($message, $keyword) !== false) {
                     return $qa->answer;
@@ -138,8 +131,48 @@ class ChatbotController extends Controller
             }
         }
 
+        // 3. Buscar en carreras
+        $careers = \App\Models\Career::active()->get();
+        foreach ($careers as $career) {
+            if (stripos($message, strtolower($career->name)) !== false) {
+                return "Carrera: " . $career->name . "\n" . ($career->description ?: $career->full_description ?: "Para más información visita la sección de carreras.");
+            }
+        }
+
+        // 4. Buscar en noticias
+        $news = \App\Models\News::published()->recent(5)->get();
+        foreach ($news as $item) {
+            if (stripos($message, strtolower($item->title)) !== false) {
+                return "Noticia: " . $item->title . "\n" . ($item->summary ?: $item->content);
+            }
+        }
+
+        // 5. Buscar en contenidos
+        $contentModel = new \App\Models\Content();
+        $contents = $contentModel->search($message, 3);
+        if (!empty($contents)) {
+            $first = $contents[0];
+            return "Contenido relacionado: " . $first["title"] . "\n" . ($first["description"] ?: $first["content"]);
+        }
+
+        // 6. Buscar en actualizaciones
+        $updates = \App\Models\Update::active()->ordered()->limit(3)->get();
+        foreach ($updates as $update) {
+            if (stripos($message, strtolower($update->title)) !== false) {
+                return "Actualización: " . $update->title . "\n" . $update->description;
+            }
+        }
+
+        // 7. Mensaje del rector
+        if (stripos($message, "rector") !== false) {
+            $rector = \App\Models\Rector::where('is_active', true)->first();
+            if ($rector) {
+                return "Mensaje del Rector " . $rector->name . ":\n" . $rector->message;
+            }
+        }
+
         // Default response
-        return "Gracias por tu mensaje. No he encontrado una respuesta para tu consulta. Puedo ayudarte con información sobre nuestras carreras, admisión, y horarios.";
+        return "Gracias por tu mensaje. No he encontrado una respuesta exacta, pero puedes consultar nuestras carreras, noticias, actualizaciones o contactar a un asesor para más información.";
     }
 
     /**

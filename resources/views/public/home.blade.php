@@ -185,7 +185,7 @@
     <!-- Chatbot Widget -->
     <div id="chatbot-widget" class="chatbot-widget">
         <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir Chatbot">
-        🤖
+            <img src="{{ asset('assets/images/chatbot-avatar.gif') }}" alt="Chatbot ISTS" class="chatbot-avatar" style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
         </button>
 
         <div id="chatbot-window" class="chatbot-window" style="display: none;">
@@ -218,6 +218,6 @@
 @push('scripts')
     <!-- Scripts -->
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/chatbot.js') }}"></script>
+    <script src="{{ asset('ISTSSYSTEM/js/chatbot.js') }}"></script>
     <script src="{{ asset('js/harvard-interactions.js') }}"></script>
 @endpush

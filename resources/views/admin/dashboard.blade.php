@@ -179,6 +179,12 @@
                     <h3>Configuración General</h3>
                     <p>WhatsApp, email, redes sociales</p>
                 </a>
+
+                <a href="{{ route('about.index') }}" class="action-card">
+                    <div class="action-icon">ℹ️</div>
+                    <h3>Acerca</h3>
+                    <p>Gestionar secciones de Acerca, autoridades, rector, etc.</p>
+                </a>
             </div>
         </div>
 

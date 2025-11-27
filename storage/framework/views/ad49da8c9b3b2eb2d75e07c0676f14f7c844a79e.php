@@ -15,9 +15,41 @@
                     <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 50px; vertical-align: middle;">
                 </a>
             </li>
+            
+            <li class="dropdown">
+                <a href="#" class="header-link">ACERCA</a>
+                <div class="dropdown-content academic-dropdown">
+                    <div class="academic-dropdown-header">
+                        <h3>Acerca</h3>
+                        <p>Aprende cómo está estructurado el ISTS, explora nuestra historia y descubre nuestra comunidad extendida.</p>
+                    </div>
+                    <div class="academic-dropdown-columns">
+                        <div class="academic-column">
+                            <div class="academic-title">Historia del ISTS</div>
+                            <div class="academic-underline"></div>
+                            <ul>
+                                <li><a href="/acerca/historia">Línea de tiempo</a></li>
+                                <li><a href="/acerca/mision-vision">Misión y Visión</a></li>
+                                <li><a href="/acerca/autoridades">Autoridades</a></li>
+                            </ul>
+                        </div>
+                        <div class="academic-column">
+                            <div class="academic-title">Liderazgo y Gobierno</div>
+                            <div class="academic-underline"></div>
+                            <ul>
+                                <li><a href="/acerca/rector">Rector</a></li>
+                                <li><a href="/acerca/vicerrector">Vicerrector</a></li>
+                                <li><a href="/acerca/organigrama">Organigrama</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
             <?php $__currentLoopData = $menuItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $title = strtoupper($item->title); ?>
-                <?php if($title == 'ACADÉMICOS'): ?>
+                <?php if($title == 'ACERCA'): ?>
+                    <?php continue; ?>
+                <?php elseif($title == 'ACADÉMICOS'): ?>
                     <li class="dropdown">
                         <a href="<?php echo e(route('academicos')); ?>" class="header-link<?php echo e(request()->is('academicos') ? ' active' : ''); ?>">ACADÉMICOS</a>
                         <div class="dropdown-content academic-dropdown">
@@ -149,88 +181,27 @@
                     </div>
                 </div>
             </li>
-            
-            <?php if($transparencyContents->count() > 0): ?>
-                <li class="dropdown">
-                    <a href="#" class="header-link">TRANSPARENCIA</a>
-                    <div class="dropdown-content academic-dropdown">
-                        <div class="academic-dropdown-header">
-                            <h3>Transparencia</h3>
-                            <p>Acceso a documentos y normativas institucionales.</p>
-                        </div>
-                        <div class="academic-dropdown-columns">
-                            <div class="academic-column">
-                                <div class="academic-title">Documentos</div>
-                                <div class="academic-underline"></div>
-                                <ul>
-                                    <?php $__currentLoopData = $transparencyContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <li><a href="<?php echo e(route('transparency.show', $content->slug)); ?>"><?php echo e($content->title); ?></a></li>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            <?php endif; ?>
-            
-            <?php if(isset($tramites) && count($tramites) > 0): ?>
-                <li class="dropdown">
-                    <a href="#" class="header-link">TRÁMITES</a>
-                    <div class="dropdown-content academic-dropdown">
-                        <div class="academic-dropdown-header">
-                            <h3>Trámites</h3>
-                            <p>Accede a formularios, plataformas y servicios institucionales.</p>
-                        </div>
-                        <div class="academic-dropdown-columns">
-                            <div class="academic-column">
-                                <div class="academic-title">Opciones</div>
-                                <div class="academic-underline"></div>
-                                <ul>
-                                    <?php $__currentLoopData = $tramites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tramite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <?php if(isset($tramite->is_external) && $tramite->is_external): ?>
-                                            <li><a href="<?php echo e($tramite->url); ?>" target="_blank"><?php echo e($tramite->title); ?></a></li>
-                                        <?php else: ?>
-                                            <li><a href="<?php echo e(isset($tramite->slug) ? route('content.show', $tramite->slug) : '#'); ?>"><?php echo e($tramite->title); ?></a></li>
-                                        <?php endif; ?>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            <?php endif; ?>
-           
             <li class="dropdown">
-                <a href="#" class="header-link">ACERCA</a>
+                <a href="#" class="header-link">TRÁMITES</a>
                 <div class="dropdown-content academic-dropdown">
                     <div class="academic-dropdown-header">
-                        <h3>Acerca</h3>
-                        <p>Aprende cómo está estructurado el ISTS, explora nuestra historia y descubre nuestra comunidad extendida.</p>
+                        <h3>Trámites</h3>
+                        <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
                     </div>
                     <div class="academic-dropdown-columns">
                         <div class="academic-column">
-                            <div class="academic-title">Historia del ISTS</div>
+                            <div class="academic-title">Trámites Disponibles</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                <li><a href="/acerca/historia">Línea de tiempo</a></li>
-                                <li><a href="/acerca/mision-vision">Misión y Visión</a></li>
-                                <li><a href="/acerca/autoridades">Autoridades</a></li>
-                            </ul>
-                        </div>
-                        <div class="academic-column">
-                            <div class="academic-title">Liderazgo y Gobierno</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                <li><a href="/acerca/rector">Rector</a></li>
-                                <li><a href="/acerca/vicerrector">Vicerrector</a></li>
-                                <li><a href="/acerca/organigrama">Organigrama</a></li>
+                                <?php $__currentLoopData = $tramites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tramite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><a href="<?php echo e(url('/tramites/'.$tramite->slug)); ?>"><?php echo e($tramite->title); ?></a></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
                     </div>
                 </div>
             </li>
-        </ul>
-    </nav>
+        </nav>
 </header>
 
 <style>

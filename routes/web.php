@@ -1,5 +1,15 @@
+// Ruta pública para secciones de Acerca dinámicas
+Route::get('/acerca/{id}', function($id) {
+    $section = \App\Models\About::findOrFail($id);
+    return view('public.about_section', compact('section'));
+})->name('about.section');
 
 <?php
+
+// Redirección para login admin
+Route::get('/admin/login', function() {
+    return redirect('/login');
+});
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
@@ -243,4 +253,6 @@ Route::prefix("admin")
     });
 
 // Auth routes (assuming using Laravel's default)
+
 require __DIR__ . "/auth.php";
+require __DIR__ . "/admin_about.php";

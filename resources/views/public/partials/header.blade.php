@@ -15,9 +15,37 @@
                     <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 50px; vertical-align: middle;">
                 </a>
             </li>
+            {{-- Dropdown de Acerca dinámico --}}
+            @php
+                $aboutSections = \App\Models\About::all();
+            @endphp
+            <li class="dropdown">
+                <a href="#" class="header-link">ACERCA</a>
+                <div class="dropdown-content academic-dropdown">
+                    <div class="academic-dropdown-header">
+                        <h3>Acerca</h3>
+                        <p>Aprende cómo está estructurado el ISTS, explora nuestra historia y descubre nuestra comunidad extendida.</p>
+                    </div>
+                    <div class="academic-dropdown-columns">
+                        <div class="academic-column">
+                            <div class="academic-title">Secciones</div>
+                            <div class="academic-underline"></div>
+                            <ul>
+                                @foreach($aboutSections as $section)
+                                    <li>
+                                        <a href="{{ url('/acerca/'.$section->id) }}">{{ $section->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
             @foreach($menuItems as $item)
                 @php $title = strtoupper($item->title); @endphp
-                @if($title == 'ACADÉMICOS')
+                @if($title == 'ACERCA')
+                    @continue
+                @elseif($title == 'ACADÉMICOS')
                     <li class="dropdown">
                         <a href="{{ route('academicos') }}" class="header-link{{ request()->is('academicos') ? ' active' : '' }}">ACADÉMICOS</a>
                         <div class="dropdown-content academic-dropdown">
@@ -149,88 +177,27 @@
                     </div>
                 </div>
             </li>
-            {{-- Dropdown de Transparencia --}}
-            @if($transparencyContents->count() > 0)
-                <li class="dropdown">
-                    <a href="#" class="header-link">TRANSPARENCIA</a>
-                    <div class="dropdown-content academic-dropdown">
-                        <div class="academic-dropdown-header">
-                            <h3>Transparencia</h3>
-                            <p>Acceso a documentos y normativas institucionales.</p>
-                        </div>
-                        <div class="academic-dropdown-columns">
-                            <div class="academic-column">
-                                <div class="academic-title">Documentos</div>
-                                <div class="academic-underline"></div>
-                                <ul>
-                                    @foreach($transparencyContents as $content)
-                                        <li><a href="{{ route('transparency.show', $content->slug) }}">{{ $content->title }}</a></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            @endif
-            {{-- Dropdown de Trámites --}}
-            @if(isset($tramites) && count($tramites) > 0)
-                <li class="dropdown">
-                    <a href="#" class="header-link">TRÁMITES</a>
-                    <div class="dropdown-content academic-dropdown">
-                        <div class="academic-dropdown-header">
-                            <h3>Trámites</h3>
-                            <p>Accede a formularios, plataformas y servicios institucionales.</p>
-                        </div>
-                        <div class="academic-dropdown-columns">
-                            <div class="academic-column">
-                                <div class="academic-title">Opciones</div>
-                                <div class="academic-underline"></div>
-                                <ul>
-                                    @foreach($tramites as $tramite)
-                                        @if(isset($tramite->is_external) && $tramite->is_external)
-                                            <li><a href="{{ $tramite->url }}" target="_blank">{{ $tramite->title }}</a></li>
-                                        @else
-                                            <li><a href="{{ isset($tramite->slug) ? route('content.show', $tramite->slug) : '#' }}">{{ $tramite->title }}</a></li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            @endif
-           {{-- Dropdown de Acerca --}}
             <li class="dropdown">
-                <a href="#" class="header-link">ACERCA</a>
+                <a href="#" class="header-link">TRÁMITES</a>
                 <div class="dropdown-content academic-dropdown">
                     <div class="academic-dropdown-header">
-                        <h3>Acerca</h3>
-                        <p>Aprende cómo está estructurado el ISTS, explora nuestra historia y descubre nuestra comunidad extendida.</p>
+                        <h3>Trámites</h3>
+                        <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
                     </div>
                     <div class="academic-dropdown-columns">
                         <div class="academic-column">
-                            <div class="academic-title">Historia del ISTS</div>
+                            <div class="academic-title">Trámites Disponibles</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                <li><a href="/acerca/historia">Línea de tiempo</a></li>
-                                <li><a href="/acerca/mision-vision">Misión y Visión</a></li>
-                                <li><a href="/acerca/autoridades">Autoridades</a></li>
-                            </ul>
-                        </div>
-                        <div class="academic-column">
-                            <div class="academic-title">Liderazgo y Gobierno</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                <li><a href="/acerca/rector">Rector</a></li>
-                                <li><a href="/acerca/vicerrector">Vicerrector</a></li>
-                                <li><a href="/acerca/organigrama">Organigrama</a></li>
+                                @foreach($tramites as $tramite)
+                                    <li><a href="{{ url('/tramites/'.$tramite->slug) }}">{{ $tramite->title }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
             </li>
-        </ul>
-    </nav>
+        </nav>
 </header>
 
 <style>

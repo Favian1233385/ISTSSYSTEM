@@ -21,7 +21,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('about.update', $about['id']) }}" method="POST">
+            <form action="{{ route('about.update', $about['id']) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -32,7 +32,31 @@
 
                 <div class="form-group">
                     <label for="body">Contenido</label>
-                    <textarea name="body" id="body" class="form-control" rows="10" required>{{ old('body', $about['content']) }}</textarea>
+                    {{-- Added tinymce-editor class --}}
+                    <textarea name="body" id="body" class="form-control tinymce-editor" rows="10">{{ old('body', $about['content']) }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="image_url">Imagen (Opcional)</label>
+                    @if(!empty($about['image_url']))
+                        <div class="mb-2">
+                            <p>Imagen actual:</p>
+                            <img src="{{ asset('storage/' . $about['image_url']) }}" alt="Imagen actual" style="max-width: 200px; height: auto;">
+                        </div>
+                    @endif
+                    <input type="file" name="image_url" id="image_url" class="form-control-file">
+                    <small class="form-text text-muted">Sube una nueva imagen para reemplazar la actual.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="file_url">Archivo PDF (Opcional)</label>
+                     @if(!empty($about['file_url']))
+                        <div class="mb-2">
+                            <p>PDF actual: <a href="{{ asset('storage/' . $about['file_url']) }}" target="_blank">Ver PDF</a></p>
+                        </div>
+                    @endif
+                    <input type="file" name="file_url" id="file_url" class="form-control-file" accept="application/pdf">
+                    <small class="form-text text-muted">Sube un nuevo PDF para reemplazar el actual.</small>
                 </div>
 
                 <div class="form-group">

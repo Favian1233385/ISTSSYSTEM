@@ -12,6 +12,7 @@
                 <li><a href="{{ url('/admin/contents') }}" class="{{ request()->is('admin/contents*') ? 'active':'' }}">📝 Contenidos</a></li>
                 <li><a href="{{ url('/admin/news') }}" class="{{ request()->is('admin/news*') ? 'active':'' }}">📰 Noticias</a></li>
                 <li><a href="{{ url('/admin/about') }}" class="{{ request()->is('admin/about*') ? 'active':'' }}">ℹ️ Acerca</a></li>
+                <li><a href="{{ route('admin.autoridades.index') }}" class="{{ request()->is('admin/autoridades*') ? 'active':'' }}">👨‍💼 Autoridades</a></li>
                 <li><a href="{{ url('/admin/users') }}" class="{{ request()->is('admin/users*') ? 'active':'' }}">👥 Usuarios</a></li>
                 <li><a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active':'' }}">⚙️ Configuración</a></li>
             </ul>

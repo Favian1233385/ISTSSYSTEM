@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AboutController extends Controller
@@ -17,8 +18,8 @@ class AboutController extends Controller
     public function index()
     {
         $contentModel = new Content();
-        // Nota: getByCategory solo muestra contenidos con estado 'published'.
-        // Para un panel de admin, idealmente se deberían ver todos los estados.
+        // Para el panel de admin, es mejor tener un método que traiga todos los contenidos sin importar el estado.
+        // Por ahora, usamos getByCategory, pero considera añadir un getAllByCategory en el futuro.
         $abouts = $contentModel->getByCategory("about");
 
         return view("admin.about.index", compact("abouts"));
@@ -44,10 +45,27 @@ class AboutController extends Controller
     {
         $request->validate([
             "title" => "required|string|max:255",
-            "body" => "required|string",
+            "body" => "nullable|string",
+            "image_url" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "file_url" => "nullable|mimes:pdf|max:10240", // Max 10MB
         ]);
 
         $contentModel = new Content();
+
+        $imagePath = null;
+        if ($request->hasFile("image_url")) {
+            $imagePath = $request
+                ->file("image_url")
+                ->store("uploads/images", "public");
+        }
+
+        $filePath = null;
+        if ($request->hasFile("file_url")) {
+            $filePath = $request
+                ->file("file_url")
+                ->store("uploads/pdfs", "public");
+        }
+
         $slug = $this->generateUniqueSlug($request->title, $contentModel);
 
         $contentModel->create([
@@ -55,8 +73,10 @@ class AboutController extends Controller
             "slug" => $slug,
             "content" => $request->body,
             "category" => "about",
-            "status" => $request->status ?? "published", // Asume 'published' si no se especifica
+            "status" => $request->status ?? "published",
             "created_by" => auth()->id(),
+            "image_url" => $imagePath,
+            "file_url" => $filePath,
         ]);
 
         return redirect()
@@ -111,7 +131,9 @@ class AboutController extends Controller
     {
         $request->validate([
             "title" => "required|string|max:255",
-            "body" => "required|string",
+            "body" => "nullable|string",
+            "image_url" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "file_url" => "nullable|mimes:pdf|max:10240",
         ]);
 
         $contentModel = new Content();
@@ -121,24 +143,57 @@ class AboutController extends Controller
             abort(404);
         }
 
-        $slug = $this->generateUniqueSlug($request->title, $contentModel, $id);
+        $data = $request->only(["title", "body", "status"]);
 
-        // Prepara los datos para la actualización
-        $data = [
-            "title" => $request->title,
-            "slug" => $slug,
-            "content" => $request->body,
-            "status" => $request->status ?? $about["status"],
-            // Mantén los valores existentes para los campos no presentes en el formulario
-            "url" => $about["url"],
-            "is_external" => $about["is_external"],
-            "description" => $about["description"],
-            "category" => "about",
-            "featured" => $about["featured"],
-            "image_url" => $about["image_url"],
-            "parent_id" => $about["parent_id"],
-            "file_url" => $about["file_url"],
-        ];
+        if ($request->hasFile("image_url")) {
+            // Eliminar imagen anterior si existe
+            if (
+                $about["image_url"] &&
+                Storage::disk("public")->exists($about["image_url"])
+            ) {
+                Storage::disk("public")->delete($about["image_url"]);
+            }
+            $data["image_url"] = $request
+                ->file("image_url")
+                ->store("uploads/images", "public");
+        } else {
+            $data["image_url"] = $about["image_url"]; // Mantener la imagen existente si no se sube una nueva
+        }
+
+        if ($request->hasFile("file_url")) {
+            // Eliminar PDF anterior si existe
+            if (
+                $about["file_url"] &&
+                Storage::disk("public")->exists($about["file_url"])
+            ) {
+                Storage::disk("public")->delete($about["file_url"]);
+            }
+            $data["file_url"] = $request
+                ->file("file_url")
+                ->store("uploads/pdfs", "public");
+        } else {
+            $data["file_url"] = $about["file_url"]; // Mantener el PDF existente si no se sube uno nuevo
+        }
+
+        // Generar slug único si el título ha cambiado
+        if ($request->title !== $about["title"]) {
+            $data["slug"] = $this->generateUniqueSlug(
+                $request->title,
+                $contentModel,
+                $id,
+            );
+        } else {
+            $data["slug"] = $about["slug"]; // Mantener el slug si el título no cambia
+        }
+
+        // Completar los datos que no vienen del formulario pero son necesarios para el modelo
+        $data["category"] = "about";
+        $data["content"] = $request->body; // Asegurar que el campo content se mapee correctamente
+        $data["description"] = $about["description"]; // Mantener
+        $data["url"] = $about["url"]; // Mantener
+        $data["is_external"] = $about["is_external"]; // Mantener
+        $data["featured"] = $about["featured"]; // Mantener
+        $data["parent_id"] = $about["parent_id"]; // Mantener
 
         $contentModel->updateContent($id, $data);
 
@@ -160,6 +215,20 @@ class AboutController extends Controller
 
         if (!$about || $about["category"] !== "about") {
             abort(404);
+        }
+
+        // Eliminar archivos asociados del almacenamiento
+        if (
+            $about["image_url"] &&
+            Storage::disk("public")->exists($about["image_url"])
+        ) {
+            Storage::disk("public")->delete($about["image_url"]);
+        }
+        if (
+            $about["file_url"] &&
+            Storage::disk("public")->exists($about["file_url"])
+        ) {
+            Storage::disk("public")->delete($about["file_url"]);
         }
 
         $contentModel->deleteContent($id);
@@ -189,13 +258,11 @@ class AboutController extends Controller
         while (true) {
             $existingContent = null;
             if ($exceptId !== null) {
-                // Busca un slug que no sea el mismo que el contenido que estamos actualizando
                 $existingContent = $contentModel->findBySlugExceptId(
                     $slug,
                     $exceptId,
                 );
             } else {
-                // Busca cualquier contenido con este slug
                 $existingContent = $contentModel->findBySlug($slug);
             }
 
@@ -203,7 +270,6 @@ class AboutController extends Controller
                 $count++;
                 $slug = $originalSlug . "-" . $count;
             } else {
-                // No se encontró contenido existente (o el existente es el que estamos actualizando), el slug es único.
                 return $slug;
             }
         }

@@ -67,13 +67,9 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-header">
-                <h1>📊 Dashboard Administrativo</h1>
+                <h1>📊 Panel Administrativo</h1>
                 <p>Bienvenido al panel de administración del ISTS</p>
             </div>
-    <div class="dashboard-header">
-        <h1>📊 Panel Administrativo</h1>
-        <p>Bienvenido al panel de administración del ISTS</p>
-    </div>
 
     <!-- Estadísticas (recuperadas de la versión previa) -->
     <div class="stats-grid">

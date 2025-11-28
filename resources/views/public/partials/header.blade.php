@@ -1,16 +1,19 @@
 <header class="header-public">
-    {{-- Menu dinamico implementado --}}
+    {{-- Menu dinámico implementado --}}
     @php
+        // Cargar datos para los menús
         $allCareers = \App\Models\Career::where('is_active', true)->orderBy('name')->get();
-        $courses = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'course')->where('status', 'published')->orderBy('title')->get();
-        $transparencyContents = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->where('status', 'published')->orderBy('title')->get();
         $tramites = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'tramites')->where('status', 'published')->orderBy('title')->get();
         $menuItems = \App\Models\MenuItem::whereNull('parent_id')->where('is_active', true)->with('children')->orderBy('order')->get();
 
         // Cargar los contenidos de la categoría 'about' (Historia, Misión, etc.) para el menú dinámico
         $contentModel = new \App\Models\Content();
         $aboutContents = $contentModel->getByCategory('about');
+
+        // Encontrar el ítem de menú "ACERCA" para buscar sus hijos configurados en el admin
+        $acercaMenuItem = $menuItems->firstWhere('title', 'ACERCA');
     @endphp
+
     {{-- Header limpio y profesional --}}
     <nav class="header-navbar">
         <ul class="header-menu">
@@ -19,7 +22,8 @@
                     <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 50px; vertical-align: middle;">
                 </a>
             </li>
-            {{-- Dropdown de Acerca dinámico --}}
+
+            {{-- Dropdown de Acerca dinámico (CORREGIDO) --}}
             <li class="dropdown">
                 <a href="#" class="header-link">ACERCA</a>
                 <div class="dropdown-content academic-dropdown">
@@ -32,22 +36,36 @@
                             <div class="academic-title">Secciones</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                {{-- MODIFICACIÓN: Iterar sobre $aboutContents y usar slug para la URL --}}
+                                {{-- 1. Mostrar las páginas de contenido de la categoría "about" --}}
                                 @foreach($aboutContents as $section)
                                     <li>
-                                        {{-- Asumiendo que la ruta pública es /contenido/{slug} --}}
-                                        <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
+                                        @if(Str::lower($section['title']) === 'autoridades')
+                                            <a href="{{ url('/autoridades') }}">{{ $section['title'] }}</a>
+                                        @else
+                                            <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
+                                        @endif
                                     </li>
                                 @endforeach
+
+                                {{-- 2. Mostrar los sub-items configurados en "Gestión de Menús" (como "Autoridades") --}}
+                                @if($acercaMenuItem && count($acercaMenuItem->children) > 0)
+                                    @foreach($acercaMenuItem->children as $child)
+                                        <li>
+                                            <a href="{{ url($child->url) }}">{{ $child->title }}</a>
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                     </div>
                 </div>
             </li>
+
+            {{-- Iterar sobre el resto de los elementos del menú --}}
             @foreach($menuItems as $item)
                 @php $title = strtoupper($item->title); @endphp
                 @if($title == 'ACERCA')
-                    @continue
+                    @continue {{-- Ya se renderizó arriba --}}
                 @elseif($title == 'ACADÉMICOS')
                     <li class="dropdown">
                         <a href="{{ route('academicos') }}" class="header-link{{ request()->is('academicos') ? ' active' : '' }}">ACADÉMICOS</a>
@@ -79,8 +97,7 @@
                         </div>
                     </li>
                 @elseif($title == 'CAMPUS')
-                    {{-- Se omite el menú dinámico de CAMPUS para reemplazarlo por uno fijo abajo --}}
-                    @continue
+                    @continue {{-- Se omite para usar el hardcodeado de abajo --}}
                 @elseif($title == 'VISITAR')
                     <li class="dropdown">
                         <a href="#" class="header-link">VISITAR</a>
@@ -201,7 +218,8 @@
                     </div>
                 </div>
             </li>
-        </nav>
+        </ul>
+    </nav>
 </header>
 
 <style>

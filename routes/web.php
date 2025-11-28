@@ -20,6 +20,7 @@ use App\Http\Controllers\AcademicSectionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\Admin\CareerController;
+use App\Http\Controllers\Admin\AutoridadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,17 @@ Route::get("/noticias", function () {
         ->paginate(10);
     return view("public.news.index", compact("news"));
 })->name("noticias");
+
+// Ruta pública para Autoridades
+Route::get("/autoridades", [PublicController::class, "showAutoridades"])->name(
+    "autoridades",
+);
+
+// Ruta pública para el detalle de una autoridad individual por slug
+Route::get("/autoridades/{slug}", [
+    PublicController::class,
+    "showAutoridadDetail",
+])->name("autoridades.show");
 
 // Admin routes
 Route::prefix("admin")
@@ -189,6 +201,12 @@ Route::prefix("admin")
         // Careers
         Route::resource("careers", CareerController::class, [
             "as" => "admin",
+        ]);
+
+        // Autoridades management
+        Route::resource("autoridades", AutoridadController::class, [
+            "as" => "admin",
+            "parameters" => ["autoridades" => "autoridad"],
         ]);
 
         // Menu items management

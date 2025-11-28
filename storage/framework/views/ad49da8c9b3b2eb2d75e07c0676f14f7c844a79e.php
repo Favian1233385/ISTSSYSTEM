@@ -1,16 +1,19 @@
 <header class="header-public">
     
     <?php
+        // Cargar datos para los menús
         $allCareers = \App\Models\Career::where('is_active', true)->orderBy('name')->get();
-        $courses = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'course')->where('status', 'published')->orderBy('title')->get();
-        $transparencyContents = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'transparency')->whereNull('parent_id')->where('status', 'published')->orderBy('title')->get();
         $tramites = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'tramites')->where('status', 'published')->orderBy('title')->get();
         $menuItems = \App\Models\MenuItem::whereNull('parent_id')->where('is_active', true)->with('children')->orderBy('order')->get();
 
         // Cargar los contenidos de la categoría 'about' (Historia, Misión, etc.) para el menú dinámico
         $contentModel = new \App\Models\Content();
         $aboutContents = $contentModel->getByCategory('about');
+
+        // Encontrar el ítem de menú "ACERCA" para buscar sus hijos configurados en el admin
+        $acercaMenuItem = $menuItems->firstWhere('title', 'ACERCA');
     ?>
+
     
     <nav class="header-navbar">
         <ul class="header-menu">
@@ -19,6 +22,7 @@
                     <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 50px; vertical-align: middle;">
                 </a>
             </li>
+
             
             <li class="dropdown">
                 <a href="#" class="header-link">ACERCA</a>
@@ -35,19 +39,33 @@
                                 
                                 <?php $__currentLoopData = $aboutContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li>
-                                        
-                                        <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
+                                        <?php if(Str::lower($section['title']) === 'autoridades'): ?>
+                                            <a href="<?php echo e(url('/autoridades')); ?>"><?php echo e($section['title']); ?></a>
+                                        <?php else: ?>
+                                            <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
+                                        <?php endif; ?>
                                     </li>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                
+                                <?php if($acercaMenuItem && count($acercaMenuItem->children) > 0): ?>
+                                    <?php $__currentLoopData = $acercaMenuItem->children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <li>
+                                            <a href="<?php echo e(url($child->url)); ?>"><?php echo e($child->title); ?></a>
+                                        </li>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                             </ul>
                         </div>
                     </div>
                 </div>
             </li>
+
+            
             <?php $__currentLoopData = $menuItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php $title = strtoupper($item->title); ?>
                 <?php if($title == 'ACERCA'): ?>
-                    <?php continue; ?>
+                    <?php continue; ?> 
                 <?php elseif($title == 'ACADÉMICOS'): ?>
                     <li class="dropdown">
                         <a href="<?php echo e(route('academicos')); ?>" class="header-link<?php echo e(request()->is('academicos') ? ' active' : ''); ?>">ACADÉMICOS</a>
@@ -79,8 +97,7 @@
                         </div>
                     </li>
                 <?php elseif($title == 'CAMPUS'): ?>
-                    
-                    <?php continue; ?>
+                    <?php continue; ?> 
                 <?php elseif($title == 'VISITAR'): ?>
                     <li class="dropdown">
                         <a href="#" class="header-link">VISITAR</a>
@@ -201,7 +218,8 @@
                     </div>
                 </div>
             </li>
-        </nav>
+        </ul>
+    </nav>
 </header>
 
 <style>

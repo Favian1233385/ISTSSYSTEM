@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\AcademicSection;
+use App\Models\Autoridad;
 
 class PublicController extends Controller
 {
@@ -17,12 +18,17 @@ class PublicController extends Controller
             ->first();
 
         // Get active rector
-        $rector = \App\Models\Rector::where('is_active', true)->orderByDesc('id')->first();
+        $rector = \App\Models\Rector::where("is_active", true)
+            ->orderByDesc("id")
+            ->first();
 
         // Get latest updates (máximo 3)
         $updates = \App\Models\Update::recent(3)->get();
 
-        return view("public.home", compact("misionVision", "rector", "updates"));
+        return view(
+            "public.home",
+            compact("misionVision", "rector", "updates"),
+        );
     }
 
     public function transparencyShow($slug)
@@ -214,5 +220,33 @@ class PublicController extends Controller
             ->get();
 
         return view("public.academicos", compact("careers", "courses"));
+    }
+
+    /**
+     * Muestra la lista de autoridades.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showAutoridades()
+    {
+        $autoridades = Autoridad::orderBy("orden")->get();
+        return view("public.autoridades.index", compact("autoridades"));
+    }
+
+    /**
+     * Muestra los detalles de una autoridad específica por su slug.
+     *
+     * @param  string  $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function showAutoridadDetail($slug)
+    {
+        $autoridad = Autoridad::where("slug", $slug)->first();
+
+        if (!$autoridad) {
+            abort(404);
+        }
+
+        return view("public.autoridades.show", compact("autoridad"));
     }
 }

@@ -190,6 +190,7 @@
     <div class="quick-actions" id="seccion-academicos">
         <h2>🎓 SECCIÓN ACADÉMICOS</h2>
         <div class="actions-grid">
+
             <a href="<?php echo e(route('admin.careers.index')); ?>" class="action-card">
                 <div class="action-icon">🎓</div>
                 <h3>Programas de Grado</h3>
@@ -197,10 +198,10 @@
                 <a href="<?php echo e(route('admin.careers.create')); ?>" class="btn btn-sm btn-outline-primary mt-2">Crear Nueva Carrera</a>
             </a>
 
-            <a href="<?php echo e(route('admin.academic-sections.index')); ?>" class="action-card">
+            <a href="<?php echo e(route('admin.academic_modalities.index')); ?>" class="action-card">
                 <div class="action-icon">📚</div>
                 <h3>Educación Continua</h3>
-                <p><?php echo e($sections->count()); ?> cursos y programas</p>
+                <p>Gestionar modalidades y programas</p>
             </a>
 
             <a href="<?php echo e(route('admin.teachers.index')); ?>" class="action-card">

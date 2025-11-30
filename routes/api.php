@@ -1,5 +1,20 @@
 <?php
-
+use App\Models\AcademicProgram;
+// Endpoint para detalles de un programa (curso) de educación continua
+Route::get('/programa/{id}', function ($id) {
+    $programa = AcademicProgram::with('modality')->findOrFail($id);
+    return response()->json([
+        'id' => $programa->id,
+        'title' => $programa->title,
+        'description' => $programa->description,
+        'start_date' => $programa->start_date,
+        'end_date' => $programa->end_date,
+        'document' => $programa->document ? asset('storage/' . $programa->document) : null,
+        'url' => $programa->url,
+        'registration_enabled' => $programa->registration_enabled,
+        'inscripcion_disponible' => $programa->registration_enabled, // o lógica según fechas
+    ]);
+});
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QAController;
@@ -15,7 +30,8 @@ use App\Http\Controllers\QAController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
-Route::post('/chatbot', [QAController::class, 'responder']);
+Route::post("/chatbot", [QAController::class, "responder"]);
+

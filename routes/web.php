@@ -1,5 +1,11 @@
-
 <?php
+use App\Http\Controllers\Admin\InscripcionAdminController;
+// Inscripciones admin
+Route::middleware(['auth', 'is_admin'])->get('/admin/inscripciones', [InscripcionAdminController::class, 'index'])->name('admin.inscripciones.index');
+use App\Http\Controllers\InscripcionController;
+// Inscripción a cursos de educación continua
+Route::get('/inscripcion/{programa}', [InscripcionController::class, 'create'])->name('inscripcion.create');
+Route::post('/inscripcion', [InscripcionController::class, 'store'])->name('inscripcion.store');
 // Redirección para login admin
 Route::get("/admin/login", function () {
     return redirect("/login");
@@ -281,6 +287,8 @@ Route::prefix("admin")
 
 // Auth routes (assuming using Laravel's default)
 
+
 require __DIR__ . "/auth.php";
 require __DIR__ . "/admin_about.php";
+require __DIR__ . "/admin_academics.php";
 

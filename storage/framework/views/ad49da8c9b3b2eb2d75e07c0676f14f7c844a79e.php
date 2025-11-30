@@ -90,10 +90,74 @@
                                 <div class="academic-column">
                                     <div class="academic-title">Educación Continua</div>
                                     <div class="academic-underline"></div>
-                                    <ul>
-                                        <li>Modalidad Presencial</li>
-                                        <li>Modalidad Dual</li>
+                                    <?php
+                                        $modalidades = \App\Models\AcademicModality::where('is_active', true)->orderBy('order')->get();
+                                    ?>
+                                    <ul class="educacion-continua-list" style="list-style:none; padding-left:0;">
+                                        <?php $__currentLoopData = $modalidades; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mod): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li class="modalidad-item" style="margin-bottom:10px;">
+                                                <div class="modalidad-title" style="font-weight:bold; margin-bottom:4px;"><?php echo e($mod->title); ?></div>
+                                                <?php if($mod->programs()->where('is_active', true)->count()): ?>
+                                                    <ul class="programas-list" style="margin-left:20px; list-style:disc;">
+                                                        <?php $__currentLoopData = $mod->programs()->where('is_active', true)->orderBy('order')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prog): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <li class="programa-item" style="margin-bottom:4px;">
+                                                                <a href="<?php echo e(route('inscripcion.create', $prog->id)); ?>" class="programa-link" style="color:#007bff; text-decoration:underline; cursor:pointer; font-weight:500;" target="_blank"><?php echo e($prog->title); ?></a>
+                                                            </li>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </ul>
+                                                <?php else: ?>
+                                                    <div style="margin-left:20px; color:#888; font-size:13px;">No hay cursos registrados.</div>
+                                                <?php endif; ?>
+                                                <?php if($mod->description): ?>
+                                                    <div class="modalidad-desc" style="margin-left:20px; color:#666; font-size:13px;"><?php echo e($mod->description); ?></div>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
+
+                                    
+                                    <div id="programa-modal" class="modal fade" tabindex="-1" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); align-items:center; justify-content:center;">
+                                        <div class="modal-dialog" style="max-width:480px; margin:40px auto; background:#fff; border-radius:8px; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
+                                            <div class="modal-content" id="programa-modal-content">
+                                                <div style="padding:32px; text-align:center;">
+                                                    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <script>
+                                    function showProgramaModal(e, id) {
+                                        e.preventDefault();
+                                        var modal = document.getElementById('programa-modal');
+                                        var content = document.getElementById('programa-modal-content');
+                                        modal.style.display = 'flex';
+                                        content.innerHTML = '<div style="padding:32px; text-align:center;"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
+                                        fetch('/api/programa/'+id)
+                                            .then(resp => resp.json())
+                                            .then(data => {
+                                                let html = '<div style="padding:24px 24px 8px 24px;">';
+                                                html += '<h4 style="font-weight:bold;">'+data.title+'</h4>';
+                                                if(data.start_date && data.end_date) html += '<div style="color:#666; font-size:14px; margin-bottom:8px;">'+data.start_date+' - '+data.end_date+'</div>';
+                                                if(data.description) html += '<div style="margin-bottom:10px;">'+data.description+'</div>';
+                                                if(data.document) html += '<div style="margin-bottom:10px;"><a href="'+data.document+'" target="_blank" class="btn btn-outline-secondary btn-sm">Descargar PDF</a></div>';
+                                                if(data.url) html += '<div style="margin-bottom:10px;"><a href="'+data.url+'" target="_blank" class="btn btn-outline-info btn-sm">Ver más información</a></div>';
+                                                if(data.registration_enabled && data.inscripcion_disponible) {
+                                                    html += '<div style="margin-bottom:10px;"><a href="/inscripcion/'+data.id+'" class="btn btn-primary">Inscribirse</a></div>';
+                                                }
+                                                html += '<button onclick="closeProgramaModal()" class="btn btn-link mt-2">Cerrar</button>';
+                                                html += '</div>';
+                                                content.innerHTML = html;
+                                            });
+                                        document.body.style.overflow = 'hidden';
+                                    }
+                                    function closeProgramaModal() {
+                                        document.getElementById('programa-modal').style.display = 'none';
+                                        document.body.style.overflow = '';
+                                    }
+                                    document.addEventListener('keydown', function(e){
+                                        if(e.key==='Escape') closeProgramaModal();
+                                    });
+                                    </script>
                                 </div>
                             </div>
                         </div>

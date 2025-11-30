@@ -41,6 +41,8 @@
                                     <li>
                                         @if(Str::lower($section['title']) === 'autoridades')
                                             <a href="{{ url('/autoridades') }}">{{ $section['title'] }}</a>
+                                        @elseif(Str::lower($section['title']) === 'planta docente')
+                                            <a href="{{ url('/planta-docente') }}">{{ $section['title'] }}</a>
                                         @else
                                             <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
                                         @endif

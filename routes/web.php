@@ -90,6 +90,10 @@ Route::get("/noticias", function () {
     return view("public.news.index", compact("news"));
 })->name("noticias");
 
+
+// Ruta pública para Planta Docente
+Route::get('/planta-docente', [PublicController::class, 'showPlantaDocente'])->name('planta-docente');
+
 // Ruta pública para Autoridades
 Route::get("/autoridades", [PublicController::class, "showAutoridades"])->name(
     "autoridades",

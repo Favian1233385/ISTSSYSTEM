@@ -9,6 +9,16 @@ use App\Models\Autoridad;
 
 class PublicController extends Controller
 {
+    /**
+     * Muestra la lista de docentes (planta docente).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showPlantaDocente()
+    {
+        $teachers = \App\Models\Teacher::orderBy('order')->get();
+        return view('public.planta-docente', compact('teachers'));
+    }
     public function home()
     {
         // Get misionVision content

@@ -41,6 +41,8 @@
                                     <li>
                                         <?php if(Str::lower($section['title']) === 'autoridades'): ?>
                                             <a href="<?php echo e(url('/autoridades')); ?>"><?php echo e($section['title']); ?></a>
+                                        <?php elseif(Str::lower($section['title']) === 'planta docente'): ?>
+                                            <a href="<?php echo e(url('/planta-docente')); ?>"><?php echo e($section['title']); ?></a>
                                         <?php else: ?>
                                             <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
                                         <?php endif; ?>

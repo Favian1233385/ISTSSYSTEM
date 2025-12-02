@@ -16,8 +16,8 @@ class PublicController extends Controller
      */
     public function showPlantaDocente()
     {
-        $teachers = \App\Models\Teacher::orderBy('order')->get();
-        return view('public.planta-docente', compact('teachers'));
+        $teachers = \App\Models\Teacher::orderBy("order")->get();
+        return view("public.planta-docente", compact("teachers"));
     }
     public function home()
     {
@@ -212,6 +212,7 @@ class PublicController extends Controller
     {
         $section = \App\Models\AcademicSection::where("slug", $slug)
             ->where("is_active", true)
+            ->with("careers") // Cargar los programas/carreras asociados
             ->first();
 
         if (!$section) {

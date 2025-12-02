@@ -3,51 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inscripcion;
-use App\Models\Content; // Usar el modelo Content personalizado
-use App\Models\AcademicSection; // Usar el modelo correcto para modalidades
+use App\Models\AcademicProgram; // Original model
+use App\Models\AcademicModality; // Original model
+use App\Models\AcademicSection; // Keep this one for validation if still needed
 use Illuminate\Http\Request;
 
 class InscripcionController extends Controller
 {
-    /**
-     * Muestra el formulario de inscripción.
-     *
-     * @param int $programa_id
-     * @return \Illuminate\Http\Response
-     */
+    // Mostrar formulario de inscripción
     public function create($programa_id)
     {
-        // Utilizar el modelo Content personalizado para buscar el programa
-        $contentModel = new Content();
-        $programa = $contentModel->findById($programa_id);
-
-        if (!$programa) {
-            abort(404, "Programa no encontrado.");
-        }
-
-        // El modelo Content personalizado devuelve un array, por lo que usamos la sintaxis de array
-        $modalidad_id = $programa["parent_id"] ?? null;
-        $modalidad = null;
-        if ($modalidad_id) {
-            // Usar el modelo AcademicSection para encontrar la modalidad
-            $modalidad = AcademicSection::find($modalidad_id);
-        }
-
-        if (!$modalidad) {
-            // Si no se encuentra la modalidad, es un problema grave, pero manejamos el error
-            abort(404, "Modalidad no encontrada para este programa.");
-        }
-
-        // El controlador anterior pasaba un objeto, ahora pasamos un array. La vista se adaptará.
+        $programa = AcademicProgram::findOrFail($programa_id);
+        $modalidad = $programa->modality ?? null; // Original relationship was $programa->modality
         return view("public.inscripcion", compact("programa", "modalidad"));
     }
 
-    /**
-     * Almacena una nueva inscripción en la base de datos.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Guardar inscripción
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -56,8 +27,11 @@ class InscripcionController extends Controller
             "email" => "required|email|max:255",
             "telefono" => "nullable|string|max:50",
             "especialidad" => "nullable|string|max:255",
+            // Corrected this earlier to academic_sections, assuming it's the correct table for modalities
             "modalidad_id" => "required|exists:academic_sections,id",
-            "programa_id" => "required|exists:contents,id",
+            // The original logic assumes programs are in academic_programs
+            // This was previously changed to contents, but we are reverting to original understanding
+            "programa_id" => "required|exists:academic_programs,id",
             "observaciones" => "nullable|string",
         ]);
 

@@ -2,7 +2,18 @@
 
 @section('content')
 <div class="container py-4">
-    <h2 class="mb-4">Inscripciones a Cursos de Educación Continua</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Inscripciones a Cursos de Educación Continua</h2>
+        @if($programa_id)
+            <a href="{{ route('admin.inscripciones.export', ['programa_id' => $programa_id]) }}" class="btn btn-success">
+                <i class="bi bi-download"></i> Descargar CSV
+            </a>
+        @endif
+    </div>
+    <div class="alert alert-info" style="max-width:700px">
+        <b>Nota:</b> Si al abrir el archivo CSV en Excel los datos aparecen en una sola columna, use la opción <b>Datos &gt; Desde texto/CSV</b> y seleccione <b>punto y coma (;)</b> como delimitador.<br>
+        También puede cambiar la configuración regional de Excel para que reconozca el punto y coma como separador predeterminado.
+    </div>
     <form method="GET" class="row g-3 mb-3">
         <div class="col-md-6">
             <select name="programa_id" class="form-select" onchange="this.form.submit()">

@@ -15,7 +15,7 @@
 <body>
     @include('public.partials.header')
 
-    <main class="main-content">
+    <main class="main-content" style="padding-top: 120px;">
         @yield('content')
     </main>
 

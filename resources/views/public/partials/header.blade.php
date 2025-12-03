@@ -165,6 +165,21 @@
                 @elseif($title == 'CAMPUS')
                     @continue {{-- Se omite para usar el hardcodeado de abajo --}}
                 @elseif($title == 'VISITAR')
+                    @php
+                        $visitSections = \App\Models\VisitSection::active()->ordered()->get();
+                        $icons = [
+                            'asesoria-juridica' => '⚖️',
+                            'bienestar-institucional' => '❤️',
+                            'planificacion-estrategica' => '📈',
+                            'relaciones-internacionales' => '🌍',
+                            'secretaria-general' => '📋',
+                            'seguridad-salud-ocupacional' => '🛡️',
+                            'talento-humano' => '👥',
+                            'tecnologias-informacion' => '💻',
+                            'unidad-administrativa' => '🏢',
+                            'unidad-comunicacion' => '📢',
+                        ];
+                    @endphp
                     <li class="dropdown">
                         <a href="#" class="header-link">VISITAR</a>
                         <div class="dropdown-content academic-dropdown">
@@ -174,29 +189,16 @@
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Historia y Presentación</div>
+                                    <div class="academic-title">Secciones Institucionales</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <li><a href="/visitar/historia">Historia de Visitar</a></li>
-                                        <li><a href="/visitar/presentacion">Presentación</a></li>
-                                    </ul>
-                                </div>
-                                <div class="academic-column">
-                                    <div class="academic-title">Unidades y Servicios</div>
-                                    <div class="academic-underline"></div>
-                                    <ul>
-                                        <li><a href="/visitar/talento-humano">Talento Humano</a></li>
-                                        <li><a href="/visitar/unidad-administrativa">Unidad Administrativa</a></li>
-                                        <li><a href="/visitar/unidad-comunicacion">Unidad de Comunicación</a></li>
-                                    </ul>
-                                </div>
-                                <div class="academic-column">
-                                    <div class="academic-title">Áreas y Recursos</div>
-                                    <div class="academic-underline"></div>
-                                    <ul>
-                                        <li><a href="/visitar/tecnologias-informacion">Tecnologías de la Información</a></li>
-                                        <li><a href="/visitar/biblioteca">Biblioteca</a></li>
-                                        <li><a href="/visitar/laboratorios">Laboratorios</a></li>
+                                        @foreach($visitSections as $section)
+                                            <li>
+                                                <a href="{{ url('/visitar/'.$section->slug) }}">
+                                                    {{ $icons[$section->slug] ?? '' }} {{ $section->title }}
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

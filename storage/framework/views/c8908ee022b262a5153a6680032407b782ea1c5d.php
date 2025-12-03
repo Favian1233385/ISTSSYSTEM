@@ -15,7 +15,7 @@
 <body>
     <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-    <main class="main-content">
+    <main class="main-content" style="padding-top: 120px;">
         <?php echo $__env->yieldContent('content'); ?>
     </main>
 

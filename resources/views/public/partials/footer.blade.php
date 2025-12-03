@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="container">
+    <!-- Contenedor eliminado para ancho completo -->
         <div class="footer-grid">
             <div class="footer-section">
                 <h4>Instituto Superior Tecnológico Sudamericano</h4>
@@ -51,7 +51,7 @@
                 <a href="/accesibilidad">Accesibilidad</a>
             </nav>
         </div>
-    </div>
+    <!-- Fin del contenedor eliminado -->
 
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">↑</button>
 

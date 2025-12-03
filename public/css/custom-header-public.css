@@ -1,0 +1,26 @@
+/* Estilos para que el menú superior no parezca un encabezado de página */
+.header-public {
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-dark);
+    border-bottom: 1px solid var(--color-border);
+}
+.header-public .header-navbar {
+    padding: 0.5rem 0;
+}
+.header-public .header-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.header-public .header-link.active {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.header-public img {
+    height: 40px !important;
+}

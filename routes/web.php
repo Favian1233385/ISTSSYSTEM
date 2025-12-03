@@ -1,4 +1,12 @@
+
+
 <?php
+use App\Http\Controllers\PublicController;
+use Illuminate\Support\Facades\Route;
+// ...existing code...
+
+// Ruta pública para sección de visitar por slug
+Route::get('/visitar/{slug}', [PublicController::class, 'showVisitSection'])->name('visitar.section');
 use App\Http\Controllers\Admin\InscripcionAdminController;
 // Inscripciones admin
 Route::middleware(["auth", "is_admin"])
@@ -17,9 +25,7 @@ Route::post("/inscripcion", [InscripcionController::class, "store"])->name(
 Route::get("/admin/login", function () {
     return redirect("/login");
 });
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PublicController;
+// ...existing code...
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QAController;
@@ -196,16 +202,10 @@ Route::prefix("admin")
             ->defaults("category", "timeline")
             ->name("admin.timeline.index");
 
-        // Visit sections management
-        Route::get("/visit-sections", [ContentController::class, "index"])
-            ->defaults("category", "visit-sections")
-            ->name("admin.visit-sections.index");
-        Route::get("/visit-sections/{content}/edit", [
-            ContentController::class,
-            "edit",
-        ])
-            ->defaults("category", "visit-sections")
-            ->name("admin.visit-sections.edit");
+        // Visit sections management (corregido)
+        Route::resource("visit-sections", \App\Http\Controllers\Admin\VisitSectionController::class, [
+            "as" => "admin",
+        ]);
 
         // Campus items
         Route::resource("campus-items", CampusItemController::class, [

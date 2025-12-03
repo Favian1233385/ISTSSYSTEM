@@ -10,6 +10,17 @@ use App\Models\Autoridad;
 class PublicController extends Controller
 {
     /**
+     * Muestra una sección de visitar por slug.
+     */
+    public function showVisitSection($slug)
+    {
+        $section = \App\Models\VisitSection::where('slug', $slug)->where('is_active', true)->first();
+        if (!$section) {
+            abort(404);
+        }
+        return view('public.visit-section', compact('section'));
+    }
+    /**
      * Muestra la lista de docentes (planta docente).
      *
      * @return \Illuminate\Http\Response

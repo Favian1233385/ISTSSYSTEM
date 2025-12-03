@@ -46,10 +46,14 @@ class AdminController extends Controller
 
         $teachersCount = Teacher::count();
 
+        // VISIT SECTIONS: cargar todas las secciones por slug clave
+        $visitSections = \App\Models\VisitSection::all()->keyBy('slug');
+
         return view("admin.dashboard", [
             "title" => "Dashboard - ISTS Admin",
             "academicSections" => $academicSections,
             "teachersCount" => $teachersCount,
+            "visitSections" => $visitSections,
         ]);
     }
 

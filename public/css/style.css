@@ -1,3 +1,34 @@
+.header-public,
+.header-public .header-navbar,
+.header-public .header-menu,
+.header-public .container,
+.header-public nav,
+.header-public ul,
+.header-public li,
+.header-public a {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+.header-public, .header-public * {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+.header-public .header-navbar,
+.header-public .header-menu,
+.header-public .dropdown,
+.header-public .dropdown-content,
+.header-public .header-link {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+.header-public {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+}
 /* ==================== VARIABLES Y RESET ==================== */
 :root {
     /* Colores ISTS - Paleta Impactante */
@@ -73,10 +104,11 @@ a:hover {
 }
 
 /* ==================== HEADER ==================== */
+
 .header {
-    background: var(--color-white); /* Fondo sólido */
-    box-shadow: var(--shadow-md); /* Sombra sutil */
-    position: relative; /* Cambiado desde sticky */
+    background: transparent !important;
+    box-shadow: var(--shadow-md);
+    position: relative;
     top: 0;
     z-index: 1000;
     backdrop-filter: none;
@@ -307,7 +339,7 @@ a:hover {
 
 .featured-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    box-shadow: none !important;
 }
 
 .featured-card img {
@@ -1765,4 +1797,37 @@ a:hover {
 
 .career-pdf .btn {
     margin-top: 1rem;
+}
+/* ==================== PUBLIC HEADER STYLES ==================== */
+
+.header-public {
+    position: fixed; /* Header fijo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1030;
+    background: transparent; /* Fondo transparente por defecto */
+    box-shadow: none; /* Sin sombra por defecto */
+    transition:
+        background 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s ease-in-out;
+    transform: translateY(0);
+    min-height: 80px; /* Altura mínima para asegurar espacio */
+    display: flex;
+    align-items: center;
+}
+
+.header-hidden {
+    transform: translateY(-100%);
+}
+
+.scrolled-header {
+    background: rgba(
+        44,
+        62,
+        80,
+        0.95
+    ) !important; /* Color oscuro al hacer scroll */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }

@@ -291,6 +291,46 @@
 </header>
 
 <style>
+        .header-public.scrolled-header {
+            background: linear-gradient(90deg, rgba(23,102,163,0.65) 0%, rgba(34,197,94,0.18) 100%) !important;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .header-public.scrolled-header .header-link {
+            color: #fff !important;
+        }
+        .header-public.scrolled-header .header-link {
+            color: #222 !important;
+        }
+        .header-public.scrolled-header .header-link.active {
+            color: var(--color-primary) !important;
+        }
+        .header-public .header-navbar {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 2rem;
+        }
+        .header-public .header-menu {
+            display: flex;
+            align-items: center;
+            margin-left: 2.5rem;
+        }
+        .header-public .header-menu li {
+            margin-left: 2rem;
+        }
+        .header-public .header-menu li:first-child {
+            margin-left: 0;
+        }
+        .header-public .header-menu img {
+            height: 70px !important;
+            margin-right: 2.5rem;
+            margin-left: 0;
+            transition: height 0.3s;
+        }
+        .header-public.scrolled-header .header-menu img {
+            height: 50px !important;
+            margin-right: 2.5rem;
+        }
     /* Reset Box Sizing para mejor control de layout */
     *, *::before, *::after {
         box-sizing: border-box;
@@ -298,12 +338,13 @@
 
     .header-public {
         width: 100%;
-        background: transparent;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1030; /* Incrementado para asegurar que esté por encima de otros elementos */
+        z-index: 1030;
         transition: background 0.3s, box-shadow 0.3s, transform 0.3s ease-in-out;
         transform: translateY(0);
     }
@@ -312,32 +353,30 @@
     }
     .scrolled-header {
         background: rgba(44,62,80,0.95) !important;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        box-shadow: none !important;
+        border: none !important;
     }
 .dropdown {
     position: relative; /* Esencial para que el dropdown-content se posicione correctamente */
 }
-.dropdown-content {
-    /* Estado inicial para escritorio */
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transiciones suaves */
-
-    position: absolute;
-    top: 100%; /* Posiciona justo debajo del elemento padre */
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 300px;
-    background: #ffffff;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    border-radius: 6px;
-    padding: 1rem;
-    z-index: 9999; /* Asegura que esté por encima de todo */
-    margin-top: 0.5rem;
-    /* Añadido para prevenir que el texto fuerce anchos excesivos */
-    white-space: normal;
-}
+    .dropdown-content {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 300px;
+        background: #fff !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+        border-radius: 6px;
+        padding: 1rem;
+        z-index: 9999;
+        margin-top: 0.5rem;
+        white-space: normal;
+    }
         /* Estilos específicos para el menú académico */
         .academic-dropdown {
             min-width: 600px;
@@ -350,9 +389,11 @@
             transform: translateX(-50%);
         }
         .academic-dropdown-header {
-            background: linear-gradient(90deg, #1766a3 0%, #1abc9c 100%);
+            background: linear-gradient(90deg, #1766a3 0%, #1abc9c 100%) !important;
             color: #fff;
             padding: 1.2rem 2rem 1rem 2rem;
+            box-shadow: none !important;
+            border: none !important;
         }
         .academic-dropdown-header h3 {
             margin: 0 0 0.3rem 0;
@@ -371,7 +412,9 @@
             display: flex;
             gap: 2.5rem;
             padding: 2rem 2rem 1.5rem 2rem;
-            background: #fff;
+            background: #fff !important;
+            box-shadow: none !important;
+            border: none !important;
         }
         .academic-column {
             flex: 1;
@@ -593,11 +636,11 @@
             letter-spacing: 0.5px;
             padding: 0.7rem 1.2rem;
         }
-        .header-navbar .header-menu > li {
-            margin-right: 0.5rem;
-        }
-        .header-navbar img[alt="Logo ISTS"] {
-            height: 80px !important;
+            .header-public {
+                background: transparent !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
             max-width: 180px;
             width: auto;
             vertical-align: middle;

@@ -3,9 +3,9 @@
 .visit-page-header {
     background: linear-gradient(135deg, var(--harvard-primary) 0%, var(--harvard-secondary) 100%);
     color: white;
-    padding: 8rem 0 3rem;
+    padding: 4.5rem 0 2.2rem;
     margin-top: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 2.2rem;
 }
 
 .visit-page-title {

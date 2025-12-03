@@ -1,0 +1,252 @@
+/* ==================== Custom Header Styles - ISTS Public ==================== */
+/* Styles extracted from public/partials/header.blade.php */
+
+/* Reset Box Sizing para mejor control de layout */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.header-public {
+    width: 100%;
+    background: transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07); /* Sombra inicial sutil */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1030; /* Incrementado para asegurar que esté por encima de otros elementos */
+    transition: background 0.3s, box-shadow 0.3s, transform 0.3s ease-in-out;
+    transform: translateY(0);
+    min-height: 80px; /* Asegurar una altura mínima */
+    display: flex;
+    align-items: center;
+}
+.header-hidden {
+    transform: translateY(-100%);
+}
+.scrolled-header {
+    background: rgba(44,62,80,0.95) !important; /* Fondo oscuro al hacer scroll */
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important; /* Sombra al hacer scroll */
+}
+.dropdown {
+    position: relative; /* Esencial para que el dropdown-content se posicione correctamente */
+}
+.dropdown-content {
+    /* Estado inicial para escritorio */
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transiciones suaves */
+
+    position: absolute;
+    top: 100%; /* Posiciona justo debajo del elemento padre */
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 300px;
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    padding: 1rem;
+    z-index: 9999; /* Asegura que esté por encima de todo */
+    margin-top: 0.5rem;
+    /* Añadido para prevenir que el texto fuerce anchos excesivos */
+    white-space: normal;
+}
+        /* Estilos específicos para el menú académico (y otros mega-menús) */
+        .academic-dropdown {
+            min-width: 600px;
+            max-width: 700px;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            overflow: hidden;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .academic-dropdown-header {
+            background: linear-gradient(90deg, #1766a3 0%, #1abc9c 100%);
+            color: #fff;
+            padding: 1.2rem 2rem 1rem 2rem;
+        }
+        .academic-dropdown-header h3 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffb300;
+            letter-spacing: 0.5px;
+        }
+        .academic-dropdown-header p {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: #fff;
+        }
+        .academic-dropdown-columns {
+            display: flex;
+            gap: 2.5rem;
+            padding: 2rem 2rem 1.5rem 2rem;
+            background: #fff;
+        }
+        .academic-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        .academic-title {
+            color: #10b981;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .academic-underline {
+            width: 60px;
+            height: 3px;
+            background: #ffb300;
+            margin-bottom: 0.7rem;
+            border-radius: 2px;
+        }
+        .academic-desc {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 0.7rem;
+        }
+        .academic-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .academic-column li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            color: #222;
+        }
+        .academic-column a {
+            color: #1766a3;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .academic-column a:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+        @media (max-width: 900px) {
+            .academic-dropdown {
+                min-width: 100vw;
+                max-width: 100vw;
+                padding: 0;
+                left: 0;
+                transform: none;
+            }
+            .academic-dropdown-columns {
+                flex-direction: column;
+                gap: 1.2rem;
+                padding: 1.2rem;
+            }
+        }
+    .two-column { /* Este estilo parece no usarse en el header, pero lo mantengo si es relevante para otras partes */
+        display: flex;
+        gap: 2rem;
+        max-width: 600px;
+        min-width: 400px;
+    }
+    .two-column .column {
+        flex: 1;
+    }
+    .two-column .column h4 {
+        color: #333;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+    .two-column .column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .two-column .column li {
+        margin-bottom: 0.4rem;
+    }
+
+    .header-logo {
+        width: 70px;
+        height: auto;
+        margin-bottom: 0.2rem;
+    }
+
+    .header-navbar {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: transparent;
+        border-top: 1px solid rgba(0,0,0,0.04);
+        border-bottom: 1px solid rgba(0,0,0,0.07);
+        margin-bottom: 0.5rem;
+    }
+    .header-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem; /* Espacio entre los elementos del menú principal */
+        list-style: none;
+        margin: 0;
+        padding: 0.7rem 0;
+    }
+    .header-link {
+        color: #fff; /* Color de texto inicial para header transparente */
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
+        transition: color 0.2s;
+        padding: 0.2rem 0.7rem;
+        border-radius: 3px;
+        position: relative;
+    }
+    .header-link.active,
+    .header-link:hover {
+        color: #2eaf3b;
+        background: rgba(255,255,255,0.15);
+    }
+
+    /* Media queries para responsividad */
+    @media (max-width: 992px) { /* Tablet y móvil */
+        .header-menu {
+            gap: 1.2rem;
+        }
+        .header-link {
+            font-size: 1rem;
+        }
+        .header-logo {
+            width: 50px;
+        }
+    }
+    @media (max-width: 600px) {
+        .header-menu {
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+        .header-logo-bar { /* Esta clase no está en el HTML, pero la mantengo si se usaba antes */
+            padding-bottom: 0.2rem;
+        }
+    }
+
+    /* Reglas específicas para pantallas de escritorio grandes (mantener original si aplica) */
+    @media (min-width: 993px) {
+        .header-navbar .header-link {
+            font-size: 1.05rem !important;
+            letter-spacing: 0.5px;
+            padding: 0.7rem 1.2rem;
+        }
+        .header-navbar .header-menu > li {
+            margin-right: 0.5rem;
+        }
+        .header-navbar img[alt="Logo ISTS"] {
+            height: 80px !important;
+            max-width: 180px;
+            width: auto;
+            vertical-align: middle;
+        }
+    }

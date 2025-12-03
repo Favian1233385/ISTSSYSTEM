@@ -1,3 +1,103 @@
+/* Fondo diferenciado para títulos y descripciones en menús desplegables */
+.header-public .academic-dropdown-header {
+    background: linear-gradient(90deg, #e0f7ef 0%, #e3eafc 100%);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+}
+/* Estilo profesional para menús desplegables institucionales */
+.header-public .dropdown-content.academic-dropdown {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 2rem 2.5rem;
+    min-width: 320px;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.header-public .academic-dropdown-header h3 {
+    font-size: 1.35rem;
+    color: var(--color-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+.header-public .academic-dropdown-header p {
+    font-size: 1rem;
+    color: var(--color-secondary);
+    margin-bottom: 1.2rem;
+}
+.header-public .academic-dropdown-columns .academic-title {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.3px;
+}
+.header-public .academic-dropdown-columns ul {
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+.header-public .academic-dropdown-columns ul li {
+    margin-bottom: 0.5rem;
+}
+.header-public .academic-dropdown-columns ul li a {
+    color: var(--color-secondary);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 5px;
+    transition: background 0.2s, color 0.2s;
+    display: block;
+    border: none;
+    box-shadow: none;
+    text-decoration: none;
+}
+.header-public .academic-dropdown-columns ul li a:hover {
+    background: var(--color-accent);
+    color: #fff;
+}
+/* Eliminar subrayado/border-bottom de todos los enlaces del header público, incluyendo hover y active */
+.header-public .header-link,
+.header-public .header-link:active,
+.header-public .header-link:focus,
+.header-public .header-link:hover {
+    border-bottom: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+}
+/* Quitar subrayado/border-bottom de los enlaces del header público */
+.header-public .header-link {
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+/* Mostrar menú desplegable al hacer hover en el header público */
+.header-public .dropdown:hover .dropdown-content.academic-dropdown {
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+}
+/* Columnas para menús desplegables grandes */
+.academic-dropdown-columns {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    max-width: 700px;
+    overflow-x: auto;
+}
+.academic-column {
+    flex: 1 1 0;
+    min-width: 220px;
+    max-width: 350px;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    word-break: break-word;
+}
 .header-public,
 .header-public .header-navbar,
 .header-public .header-menu,
@@ -6,28 +106,29 @@
 .header-public ul,
 .header-public li,
 .header-public a {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+/* Solo fondo transparente, sin !important para permitir JS */
+    background: transparent;
+    box-shadow: none;
+    border: none;
 }
 .header-public, .header-public * {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+/* Regla eliminada para permitir ocultar hijos con transform del header */
 }
 .header-public .header-navbar,
 .header-public .header-menu,
 .header-public .dropdown,
 .header-public .dropdown-content,
 .header-public .header-link {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
+/* Eliminar !important para permitir cambios dinámicos */
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 .header-public {
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
+/* Eliminar !important para permitir cambios dinámicos */
+    background: transparent;
+    box-shadow: none;
+    border: none;
 }
 /* ==================== VARIABLES Y RESET ==================== */
 :root {
@@ -866,9 +967,10 @@ a:hover {
     position: absolute;
     top: 0;
     left: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+    transform: translateX(-50%) translateY(0);
 }
 
 .career-image.active {
@@ -1485,47 +1587,26 @@ a:hover {
     transition-delay: 0.9s;
 }
 /* ==================== DROPDOWN MENU ==================== */
+/* Menú desplegable aparece justo debajo del ítem correspondiente */
+.header-public .dropdown {
+    position: relative;
+}
 .header-public .dropdown-content.academic-dropdown {
-    position: fixed;
-    top: 70px; /* Altura del header */
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transform: none;
     background: var(--color-white);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
-    min-width: 400px;
-    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: none;
+    min-width: 320px;
+    max-width: 700px;
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
     z-index: 2000;
-    padding: 1rem;
-}
-.header-public .dropdown:hover .dropdown-content.academic-dropdown {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0);
-}
-.topbar-nav li {
-    position: relative;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background: var(--color-white);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
-    min-width: 400px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--transition);
-    z-index: 1000;
-    padding: 1rem;
+    padding: 1.5rem 2rem;
 }
 
 .topbar-nav li:hover .dropdown-menu {
@@ -1552,27 +1633,20 @@ a:hover {
     gap: 0.5rem;
 }
 
-.dropdown-section p {
-    font-size: 0.875rem;
-    color: var(--color-gray);
-    margin-bottom: 0.75rem;
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    min-width: 400px;
+    z-index: 1000;
+    padding: 1rem;
+    /* El control de visibilidad lo maneja Bootstrap JS */
 }
-
-.dropdown-section a {
-    display: block;
-    padding: 0.375rem 0;
-    color: var(--color-dark);
-    font-size: 0.875rem;
-    transition: var(--transition);
-}
-
-.dropdown-section a:hover {
-    color: var(--color-primary);
-    background-color: rgba(0, 168, 107, 0.05);
-    padding-left: 0.5rem;
-}
-
-.dropdown-modes {
+/* El control de visibilidad lo maneja Bootstrap JS, no forzar con hover */
     display: flex;
     gap: 1rem;
     margin-top: 0.75rem;

@@ -1,31 +1,73 @@
+<style>
+    .header-public {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        background: linear-gradient(90deg, #1766a3 0%, #10b981 100%);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let lastScrollTop = window.scrollY;
+        let ticking = false;
+        const header = document.querySelector('.header-public');
+        function onScroll() {
+            let st = window.scrollY;
+            if (st > lastScrollTop && st > 30) {
+                header.style.transform = 'translateY(-100%)';
+            } else if (st < lastScrollTop) {
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = st;
+        }
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    onScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    });
+</script>
+
+
 <header class="header-public">
-    {{-- Menu dinámico implementado --}}
     @php
-        // Cargar datos para los menús
         $allCareers = \App\Models\Career::where('is_active', true)->orderBy('name')->get();
         $tramites = \Illuminate\Support\Facades\DB::table('contents')->where('category', 'tramites')->where('status', 'published')->orderBy('title')->get();
         $menuItems = \App\Models\MenuItem::whereNull('parent_id')->where('is_active', true)->with('children')->orderBy('order')->get();
-
-        // Cargar los contenidos de la categoría 'about' (Historia, Misión, etc.) para el menú dinámico
         $contentModel = new \App\Models\Content();
         $aboutContents = $contentModel->getByCategory('about');
-
-        // Encontrar el ítem de menú "ACERCA" para buscar sus hijos configurados en el admin
         $acercaMenuItem = $menuItems->firstWhere('title', 'ACERCA');
+        $visitSections = \App\Models\VisitSection::active()->ordered()->get();
+        $icons = [
+            'asesoria-juridica' => '⚖️',
+            'bienestar-institucional' => '❤️',
+            'planificacion-estrategica' => '📈',
+            'relaciones-internacionales' => '🌍',
+            'secretaria-general' => '📋',
+            'seguridad-salud-ocupacional' => '🛡️',
+            'talento-humano' => '👥',
+            'tecnologias-informacion' => '💻',
+            'unidad-administrativa' => '🏢',
+            'unidad-comunicacion' => '📢',
+        ];
     @endphp
-
-    {{-- Header limpio y profesional --}}
-    <nav class="header-navbar">
-        <ul class="header-menu">
-            <li>
-                <a href="{{ url('/') }}">
-                    <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 50px; vertical-align: middle;">
+    <nav class="header-navbar" style="width: 100%; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center; padding: 0.75rem 0;">
+        <ul class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
+            <li style="margin-right: 2.5rem; display: flex; align-items: center;">
+                <a href="{{ url('/') }}" style="display: flex; align-items: center;">
+                    <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 56px; vertical-align: middle; margin-right: 1rem;">
                 </a>
             </li>
-
-            {{-- Dropdown de Acerca dinámico (CORREGIDO) --}}
-            <li class="dropdown">
-                <a href="#" class="header-link">ACERCA</a>
+            <li class="dropdown" style="position: relative;">
+                <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">ACERCA</a>
                 <div class="dropdown-content academic-dropdown">
                     <div class="academic-dropdown-header">
                         <h3>Acerca</h3>
@@ -36,7 +78,6 @@
                             <div class="academic-title">Secciones</div>
                             <div class="academic-underline"></div>
                             <ul>
-                                {{-- 1. Mostrar las páginas de contenido de la categoría "about" --}}
                                 @foreach($aboutContents as $section)
                                     <li>
                                         @if(Str::lower($section['title']) === 'autoridades')
@@ -48,8 +89,6 @@
                                         @endif
                                     </li>
                                 @endforeach
-
-                                {{-- 2. Mostrar los sub-items configurados en "Gestión de Menús" (como "Autoridades") --}}
                                 @if($acercaMenuItem && count($acercaMenuItem->children) > 0)
                                     @foreach($acercaMenuItem->children as $child)
                                         <li>
@@ -62,15 +101,13 @@
                     </div>
                 </div>
             </li>
-
-            {{-- Iterar sobre el resto de los elementos del menú --}}
             @foreach($menuItems as $item)
                 @php $title = strtoupper($item->title); @endphp
                 @if($title == 'ACERCA')
-                    @continue {{-- Ya se renderizó arriba --}}
+                    @continue
                 @elseif($title == 'ACADÉMICOS')
-                    <li class="dropdown">
-                        <a href="{{ route('academicos') }}" class="header-link{{ request()->is('academicos') ? ' active' : '' }}">ACADÉMICOS</a>
+                    <li class="dropdown" style="position: relative;">
+                        <a href="{{ route('academicos') }}" class="header-link{{ request()->is('academicos') ? ' active' : '' }}" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">ACADÉMICOS</a>
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Académicos</h3>
@@ -114,74 +151,49 @@
                                             </li>
                                         @endforeach
                                     </ul>
-
-                                    {{-- Modal para mostrar detalles del curso --}}
-                                    <div id="programa-modal" class="modal fade" tabindex="-1" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.45); align-items:center; justify-content:center;">
-                                        <div class="modal-dialog" style="max-width:480px; margin:40px auto; background:#fff; border-radius:8px; box-shadow:0 4px 24px rgba(0,0,0,0.18);">
-                                            <div class="modal-content" id="programa-modal-content">
-                                                <div style="padding:32px; text-align:center;">
-                                                    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <script>
-                                    function showProgramaModal(e, id) {
-                                        e.preventDefault();
-                                        var modal = document.getElementById('programa-modal');
-                                        var content = document.getElementById('programa-modal-content');
-                                        modal.style.display = 'flex';
-                                        content.innerHTML = '<div style="padding:32px; text-align:center;"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div>';
-                                        fetch('/api/programa/'+id)
-                                            .then(resp => resp.json())
-                                            .then(data => {
-                                                let html = '<div style="padding:24px 24px 8px 24px;">';
-                                                html += '<h4 style="font-weight:bold;">'+data.title+'</h4>';
-                                                if(data.start_date && data.end_date) html += '<div style="color:#666; font-size:14px; margin-bottom:8px;">'+data.start_date+' - '+data.end_date+'</div>';
-                                                if(data.description) html += '<div style="margin-bottom:10px;">'+data.description+'</div>';
-                                                if(data.document) html += '<div style="margin-bottom:10px;"><a href="'+data.document+'" target="_blank" class="btn btn-outline-secondary btn-sm">Descargar PDF</a></div>';
-                                                if(data.url) html += '<div style="margin-bottom:10px;"><a href="'+data.url+'" target="_blank" class="btn btn-outline-info btn-sm">Ver más información</a></div>';
-                                                if(data.registration_enabled && data.inscripcion_disponible) {
-                                                    html += '<div style="margin-bottom:10px;"><a href="/inscripcion/'+data.id+'" class="btn btn-primary">Inscribirse</a></div>';
-                                                }
-                                                html += '<button onclick="closeProgramaModal()" class="btn btn-link mt-2">Cerrar</button>';
-                                                html += '</div>';
-                                                content.innerHTML = html;
-                                            });
-                                        document.body.style.overflow = 'hidden';
-                                    }
-                                    function closeProgramaModal() {
-                                        document.getElementById('programa-modal').style.display = 'none';
-                                        document.body.style.overflow = '';
-                                    }
-                                    document.addEventListener('keydown', function(e){
-                                        if(e.key==='Escape') closeProgramaModal();
-                                    });
-                                    </script>
                                 </div>
                             </div>
                         </div>
                     </li>
                 @elseif($title == 'CAMPUS')
-                    @continue {{-- Se omite para usar el hardcodeado de abajo --}}
+                    <li class="dropdown" style="position: relative;">
+                        <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">CAMPUS</a>
+                        <div class="dropdown-content academic-dropdown">
+                            <div class="academic-dropdown-header">
+                                <h3>Campus</h3>
+                                <p>Explora los servicios, instalaciones y recursos del campus ISTS.</p>
+                            </div>
+                            <div class="academic-dropdown-columns">
+                                <div class="academic-column">
+                                    <div class="academic-title">Servicios e Infraestructura</div>
+                                    <div class="academic-underline"></div>
+                                    <ul>
+                                        <li><a href="/campus/biblioteca">Biblioteca</a></li>
+                                        <li><a href="/campus/laboratorios">Laboratorios</a></li>
+                                        <li><a href="/campus/tecnologias">Tecnologías de la Información</a></li>
+                                    </ul>
+                                </div>
+                                <div class="academic-column">
+                                    <div class="academic-title">Vida Estudiantil</div>
+                                    <div class="academic-underline"></div>
+                                    <ul>
+                                        <li><a href="/campus/bienestar">Bienestar Estudiantil</a></li>
+                                        <li><a href="/campus/deportes">Deportes</a></li>
+                                        <li><a href="/campus/comedor">Comedor</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 @elseif($title == 'VISITAR')
                     @php
-                        $visitSections = \App\Models\VisitSection::active()->ordered()->get();
-                        $icons = [
-                            'asesoria-juridica' => '⚖️',
-                            'bienestar-institucional' => '❤️',
-                            'planificacion-estrategica' => '📈',
-                            'relaciones-internacionales' => '🌍',
-                            'secretaria-general' => '📋',
-                            'seguridad-salud-ocupacional' => '🛡️',
-                            'talento-humano' => '👥',
-                            'tecnologias-informacion' => '💻',
-                            'unidad-administrativa' => '🏢',
-                            'unidad-comunicacion' => '📢',
-                        ];
+                        $total = count($visitSections);
+                        $half = ceil($total / 2);
+                        $firstCol = $visitSections->slice(0, $half);
+                        $secondCol = $visitSections->slice($half);
                     @endphp
-                    <li class="dropdown">
-                        <a href="#" class="header-link">VISITAR</a>
+                    <li class="dropdown" style="position: relative;">
+                        <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">VISITAR</a>
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Visitar</h3>
@@ -192,7 +204,20 @@
                                     <div class="academic-title">Secciones Institucionales</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        @foreach($visitSections as $section)
+                                        @foreach($firstCol as $section)
+                                            <li>
+                                                <a href="{{ url('/visitar/'.$section->slug) }}">
+                                                    {{ $icons[$section->slug] ?? '' }} {{ $section->title }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div class="academic-column">
+                                    <div class="academic-title">Más Secciones</div>
+                                    <div class="academic-underline"></div>
+                                    <ul>
+                                        @foreach($secondCol as $section)
                                             <li>
                                                 <a href="{{ url('/visitar/'.$section->slug) }}">
                                                     {{ $icons[$section->slug] ?? '' }} {{ $section->title }}
@@ -204,512 +229,35 @@
                             </div>
                         </div>
                     </li>
-                {{-- CORRECCIÓN: Usar count() en lugar de ->count() --}}
-                @elseif(count($item->children) > 0 && !in_array($title, ['ACERCA', 'CAMPUS']))
-                    <li class="dropdown">
-                        <a href="{{ $item->url ?? '#' }}" class="header-link{{ request()->is(str_replace('/', '', $item->url).'/*') ? ' active' : '' }}">{{ $item->title }}</a>
+                @elseif($title == 'NOTICIAS')
+                    <li><a href="/noticias" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">NOTICIAS</a></li>
+                @elseif($title == 'TRANSPARENCIA')
+                    <li><a href="/transparencia" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">TRANSPARENCIA</a></li>
+                @elseif($title == 'TRÁMITES')
+                    <li class="dropdown" style="position: relative;">
+                        <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">TRÁMITES</a>
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
-                                <h3>{{ $item->title }}</h3>
-                                @if($item->description)
-                                    <p>{{ $item->description }}</p>
-                                @else
-                                    <p>Opciones disponibles para {{ strtolower($item->title) }}.</p>
-                                @endif
+                                <h3>Trámites</h3>
+                                <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Opciones</div>
+                                    <div class="academic-title">Trámites Disponibles</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        @foreach($item->children as $child)
-                                            <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                                        @foreach($tramites as $tramite)
+                                            <li><a href="{{ url('/tramites/'.$tramite->slug) }}">{{ $tramite->title }}</a></li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </li>
-                @elseif($item->url && $item->url != '#')
-                    <li>
-                        <a href="{{ $item->url }}" class="header-link{{ request()->is(ltrim($item->url, '/')) ? ' active' : '' }}">{{ $item->title }}</a>
-                    </li>
+                @else
+                    <li><a href="{{ $item->url }}" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">{{ $item->title }}</a></li>
                 @endif
             @endforeach
-            {{-- Dropdown de CAMPUS (fijo, moderno) --}}
-            <li class="dropdown">
-                <a href="#" class="header-link">CAMPUS</a>
-                <div class="dropdown-content academic-dropdown">
-                    <div class="academic-dropdown-header">
-                        <h3>Campus</h3>
-                        <p>Explora los servicios, instalaciones y recursos del campus ISTS.</p>
-                    </div>
-                    <div class="academic-dropdown-columns">
-                        <div class="academic-column">
-                            <div class="academic-title">Servicios e Infraestructura</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                <li><a href="/campus/biblioteca">Biblioteca</a></li>
-                                <li><a href="/campus/laboratorios">Laboratorios</a></li>
-                                <li><a href="/campus/tecnologias">Tecnologías de la Información</a></li>
-                            </ul>
-                        </div>
-                        <div class="academic-column">
-                            <div class="academic-title">Vida Estudiantil</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                <li><a href="/campus/bienestar">Bienestar Estudiantil</a></li>
-                                <li><a href="/campus/deportes">Deportes</a></li>
-                                <li><a href="/campus/comedor">Comedor</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="header-link">TRÁMITES</a>
-                <div class="dropdown-content academic-dropdown">
-                    <div class="academic-dropdown-header">
-                        <h3>Trámites</h3>
-                        <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
-                    </div>
-                    <div class="academic-dropdown-columns">
-                        <div class="academic-column">
-                            <div class="academic-title">Trámites Disponibles</div>
-                            <div class="academic-underline"></div>
-                            <ul>
-                                @foreach($tramites as $tramite)
-                                    <li><a href="{{ url('/tramites/'.$tramite->slug) }}">{{ $tramite->title }}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
         </ul>
     </nav>
 </header>
-
-<style>
-        .header-public.scrolled-header {
-            background: linear-gradient(90deg, rgba(23,102,163,0.65) 0%, rgba(34,197,94,0.18) 100%) !important;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
-            transition: background 0.3s, box-shadow 0.3s;
-        }
-        .header-public.scrolled-header .header-link {
-            color: #fff !important;
-        }
-        .header-public.scrolled-header .header-link {
-            color: #222 !important;
-        }
-        .header-public.scrolled-header .header-link.active {
-            color: var(--color-primary) !important;
-        }
-        .header-public .header-navbar {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 2rem;
-        }
-        .header-public .header-menu {
-            display: flex;
-            align-items: center;
-            margin-left: 2.5rem;
-        }
-        .header-public .header-menu li {
-            margin-left: 2rem;
-        }
-        .header-public .header-menu li:first-child {
-            margin-left: 0;
-        }
-        .header-public .header-menu img {
-            height: 70px !important;
-            margin-right: 2.5rem;
-            margin-left: 0;
-            transition: height 0.3s;
-        }
-        .header-public.scrolled-header .header-menu img {
-            height: 50px !important;
-            margin-right: 2.5rem;
-        }
-    /* Reset Box Sizing para mejor control de layout */
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
-
-    .header-public {
-        width: 100%;
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1030;
-        transition: background 0.3s, box-shadow 0.3s, transform 0.3s ease-in-out;
-        transform: translateY(0);
-    }
-    .header-hidden {
-        transform: translateY(-100%);
-    }
-    .scrolled-header {
-        background: rgba(44,62,80,0.95) !important;
-        box-shadow: none !important;
-        border: none !important;
-    }
-.dropdown {
-    position: relative; /* Esencial para que el dropdown-content se posicione correctamente */
-}
-    .dropdown-content {
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: 300px;
-        background: #fff !important;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
-        border-radius: 6px;
-        padding: 1rem;
-        z-index: 9999;
-        margin-top: 0.5rem;
-        white-space: normal;
-    }
-        /* Estilos específicos para el menú académico */
-        .academic-dropdown {
-            min-width: 600px;
-            max-width: 700px;
-            padding: 0;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-            overflow: hidden;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .academic-dropdown-header {
-            background: linear-gradient(90deg, #1766a3 0%, #1abc9c 100%) !important;
-            color: #fff;
-            padding: 1.2rem 2rem 1rem 2rem;
-            box-shadow: none !important;
-            border: none !important;
-        }
-        .academic-dropdown-header h3 {
-            margin: 0 0 0.3rem 0;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffb300;
-            letter-spacing: 0.5px;
-        }
-        .academic-dropdown-header p {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 400;
-            color: #fff;
-        }
-        .academic-dropdown-columns {
-            display: flex;
-            gap: 2.5rem;
-            padding: 2rem 2rem 1.5rem 2rem;
-            background: #fff !important;
-            box-shadow: none !important;
-            border: none !important;
-        }
-        .academic-column {
-            flex: 1;
-            min-width: 200px;
-        }
-        .academic-title {
-            color: #10b981;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.2rem;
-        }
-        .academic-underline {
-            width: 60px;
-            height: 3px;
-            background: #ffb300;
-            margin-bottom: 0.7rem;
-            border-radius: 2px;
-        }
-        .academic-desc {
-            font-size: 1rem;
-            color: #444;
-            margin-bottom: 0.7rem;
-        }
-        .academic-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .academic-column li {
-            margin-bottom: 0.5rem;
-            font-size: 1.05rem;
-            color: #222;
-        }
-        .academic-column a {
-            color: #1766a3;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .academic-column a:hover {
-            color: #10b981;
-            text-decoration: underline;
-        }
-        @media (max-width: 900px) {
-            .academic-dropdown {
-                min-width: 100vw;
-                max-width: 100vw;
-                padding: 0;
-                left: 0;
-                transform: none;
-            }
-            .academic-dropdown-columns {
-                flex-direction: column;
-                gap: 1.2rem;
-                padding: 1.2rem;
-            }
-        }
-    .two-column {
-        display: flex;
-        gap: 2rem;
-        /* Limita el ancho máximo para evitar que se extienda demasiado */
-        max-width: 600px; /* Ajusta este valor según tu diseño */
-        min-width: 400px; /* Asegura un ancho mínimo para dos columnas */
-    }
-    .two-column .column {
-        flex: 1;
-        /* box-sizing: border-box; ya en el reset universal */
-    }
-    .two-column .column h4 {
-        color: #333;
-        font-size: 1.2rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-    }
-    .two-column .column ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-    .two-column .column li {
-        margin-bottom: 0.4rem;
-    }
-
-    /* Reglas para mostrar el dropdown al pasar el mouse (escritorio) */
-    .dropdown:hover > .dropdown-content,
-    .dropdown:focus-within > .dropdown-content {
-        display: block; /* Muestra el elemento */
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .dropdown-content li {
-        margin-bottom: 0.5rem;
-    }
-    .dropdown-content li:last-child {
-        margin-bottom: 0;
-    }
-    .dropdown-content a {
-        color: #007bff;
-        text-decoration: none;
-        font-size: 1rem;
-        font-weight: 500;
-        display: block; /* Para que el área de clic sea más grande */
-        padding: 0.2rem 0; /* Pequeño padding para cada enlace */
-    }
-    .dropdown-content a:hover {
-        color: #0056b3;
-    }
-    .header-logo {
-        width: 70px;
-        height: auto;
-        margin-bottom: 0.2rem;
-    }
-    .header-logo-text {
-        text-align: center;
-        font-family: 'Inter', Arial, sans-serif;
-        font-size: 1rem;
-        color: #1a3c2b;
-        font-weight: 500;
-        line-height: 1.1;
-    }
-    .header-logo-title {
-        font-size: 1.1rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
-    .header-logo-subtitle {
-        color: #2eaf3b;
-        font-size: 1.2rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-    }
-    .header-navbar {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        background: transparent;
-        border-top: 1px solid rgba(0,0,0,0.04);
-        border-bottom: 1px solid rgba(0,0,0,0.07);
-        margin-bottom: 0.5rem;
-    }
-    .header-menu {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 2.5rem; /* Espacio entre los elementos del menú principal */
-        list-style: none;
-        margin: 0;
-        padding: 0.7rem 0;
-    }
-    .header-link {
-        color: #fff;
-        font-size: 1.25rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        text-decoration: none;
-        letter-spacing: 1px;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.25);
-        transition: color 0.2s;
-        padding: 0.2rem 0.7rem;
-        border-radius: 3px;
-        position: relative;
-    }
-    .header-link.active,
-    .header-link:hover {
-        color: #2eaf3b;
-        background: rgba(255,255,255,0.15);
-    }
-
-    /* Media queries para responsividad */
-    @media (max-width: 992px) { /* Tablet y móvil */
-        .dropdown-content {
-            position: static; /* Cambia a posición estática para fluir con el contenido */
-            min-width: 100%;
-            box-shadow: none;
-            background: #fff;
-            padding: 0.5rem 1rem;
-            opacity: 1; /* Asegura visibilidad en móvil */
-            visibility: visible;
-            transition: none; /* Deshabilita transiciones para móvil */
-        }
-        .dropdown.open > .dropdown-content {
-            display: block !important; /* Muestra si la clase 'open' está presente (controlado por JS) */
-        }
-        .two-column {
-            flex-direction: column; /* Columnas apiladas en móvil */
-            max-width: 100%;
-            min-width: unset;
-        }
-    }
-
-    @media (max-width: 900px) {
-        .header-menu {
-            gap: 1.2rem;
-        }
-        .header-link {
-            font-size: 1rem;
-        }
-        .header-logo {
-            width: 50px;
-        }
-    }
-    @media (max-width: 600px) {
-        .header-menu {
-            flex-wrap: wrap;
-            gap: 0.7rem;
-        }
-        .header-logo-bar {
-            padding-bottom: 0.2rem;
-        }
-    }
-
-    /* Reglas específicas para pantallas de escritorio grandes (mantener original si aplica) */
-    @media (min-width: 993px) {
-        .header-navbar .header-link {
-            font-size: 1.05rem !important;
-            letter-spacing: 0.5px;
-            padding: 0.7rem 1.2rem;
-        }
-            .header-public {
-                background: transparent !important;
-                box-shadow: none !important;
-                border: none !important;
-            }
-            max-width: 180px;
-            width: auto;
-            vertical-align: middle;
-        }
-    }
-</style>
-
-<script>
-let lastScrollTop = 0;
-const header = document.querySelector('.header-public');
-const scrollThreshold = 50; // a little bit of scroll before anything happens
-
-window.addEventListener('scroll', function() {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-        // Scroll Down
-        header.classList.add('header-hidden');
-    } else {
-        // Scroll Up
-        header.classList.remove('header-hidden');
-    }
-
-    if (scrollTop > 30) {
-        header.classList.add('scrolled-header');
-    } else {
-        header.classList.remove('scrolled-header');
-    }
-
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
-}, false);
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Eliminar el estilo inline 'display: none;' o 'opacity: 0' de los dropdown-content
-    // Esto asegura que las reglas CSS de :hover/clase 'open' puedan tomar efecto.
-    document.querySelectorAll('.dropdown-content').forEach(function(content) {
-        if (content.style.display === 'none') {
-            content.style.removeProperty('display');
-        }
-        if (content.style.opacity === '0') {
-            content.style.removeProperty('opacity');
-        }
-        if (content.style.visibility === 'hidden') {
-            content.style.removeProperty('visibility');
-        }
-    });
-
-    // Solo para móvil/tablet
-    if(window.innerWidth <= 992) {
-        document.querySelectorAll('.dropdown > .header-link').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                var parent = this.parentElement;
-                parent.classList.toggle('open');
-                // Cierra otros dropdowns
-                document.querySelectorAll('.dropdown').forEach(function(drop) {
-                    if(drop !== parent) drop.classList.remove('open');
-                });
-            });
-        });
-        // Cierra dropdowns al hacer click fuera
-        document.addEventListener('click', function(e) {
-            if(!e.target.closest('.dropdown')) {
-                document.querySelectorAll('.dropdown').forEach(function(drop) {
-                    drop.classList.remove('open');
-                });
-            }
-        });
-    }
-});
-</script>

@@ -1,3 +1,27 @@
+                <div class="mb-3">
+                    <label for="schedule" class="form-label">Horario de Atención</label>
+                    <input type="text" class="form-control" id="schedule" name="schedule" value="<?php echo e(old('schedule', $campusItem->schedule)); ?>" placeholder="Ej: Lunes a Viernes, 08:00-16:00">
+                </div>
+
+                <div class="mb-3">
+                    <label for="location" class="form-label">Dirección / Ubicación</label>
+                    <input type="text" class="form-control" id="location" name="location" value="<?php echo e(old('location', $campusItem->location)); ?>" placeholder="Ej: Edif. Central, Planta Baja">
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="phone" name="phone" value="<?php echo e(old('phone', $campusItem->phone)); ?>" placeholder="Ej: (07) 274-0421">
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<?php echo e(old('email', $campusItem->email)); ?>" placeholder="Ej: contacto@istsucua.edu.ec">
+                </div>
+
+                <div class="mb-3">
+                    <label for="manager" class="form-label">Nombre del Encargado</label>
+                    <input type="text" class="form-control" id="manager" name="manager" value="<?php echo e(old('manager', $campusItem->manager)); ?>" placeholder="Ej: Juan Pérez">
+                </div>
 
 
 <?php $__env->startSection('content'); ?>
@@ -42,6 +66,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                 </div>
 
+
                 <div class="mb-3">
                     <label for="description" class="form-label">Descripción Corta</label>
                     <textarea class="form-control <?php $__errorArgs = ['description'];
@@ -67,6 +92,8 @@ endif;
 unset($__errorArgs, $__bag); ?>
                     <small class="form-text text-muted">Breve descripción que aparecerá en el menú</small>
                 </div>
+
+
 
                 <div class="mb-3 form-check">
                     <input type="checkbox" 
@@ -145,6 +172,27 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
+                </div>
+
+
+                <div class="mb-3">
+                    <label class="form-label">Funciones Principales</label>
+                    <div id="functions-list">
+                        <?php
+                            $functions = old('functions', $campusItem->functions ?? []);
+                            if (is_string($functions)) {
+                                $functions = json_decode($functions, true) ?: [];
+                            }
+                        ?>
+                        <?php $__currentLoopData = $functions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $function): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="input-group mb-2 function-item">
+                                <input type="text" name="functions[]" class="form-control" value="<?php echo e($function); ?>" required>
+                                <button type="button" class="btn btn-danger btn-remove-function"><i class="fas fa-trash"></i></button>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                    <button type="button" class="btn btn-outline-primary" id="add-function-btn"><i class="fas fa-plus"></i> Agregar Función</button>
+                    <small class="form-text text-muted d-block">Agrega las funciones principales, servicios o atributos de este campus.</small>
                 </div>
 
                 <div class="mb-3">
@@ -276,12 +324,46 @@ unset($__errorArgs, $__bag); ?>
                     <small class="form-text text-muted">Puedes subir un archivo PDF (máx. 10MB)</small>
                 </div>
 
+
                 <?php if($campusItem->pdf_url): ?>
                 <div class="mb-3">
                     <label class="form-label">PDF actual</label>
                     <a href="<?php echo e(asset($campusItem->pdf_url)); ?>" target="_blank" class="btn btn-outline-primary">Ver PDF</a>
                 </div>
                 <?php endif; ?>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="schedule" class="form-label">Horario de Atención</label>
+                            <input type="text" class="form-control" id="schedule" name="schedule" value="<?php echo e(old('schedule', $campusItem->schedule)); ?>" placeholder="Ej: Lunes a Viernes, 08:00-16:00">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Dirección / Ubicación</label>
+                            <input type="text" class="form-control" id="location" name="location" value="<?php echo e(old('location', $campusItem->location)); ?>" placeholder="Ej: Edif. Central, Planta Baja">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?php echo e(old('phone', $campusItem->phone)); ?>" placeholder="Ej: (07) 274-0421">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?php echo e(old('email', $campusItem->email)); ?>" placeholder="Ej: contacto@istsucua.edu.ec">
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="manager" class="form-label">Nombre del Encargado</label>
+                    <input type="text" class="form-control" id="manager" name="manager" value="<?php echo e(old('manager', $campusItem->manager)); ?>" placeholder="Ej: Juan Pérez">
                 </div>
 
                 <div class="mb-3 form-check">
@@ -344,9 +426,21 @@ function toggleContentField() {
     }
 }
 
-// Ejecutar al cargar la página
+// Funcionalidad dinámica para funciones principales
 document.addEventListener('DOMContentLoaded', function() {
     toggleContentField();
+    document.getElementById('add-function-btn').addEventListener('click', function() {
+        const list = document.getElementById('functions-list');
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2 function-item';
+        div.innerHTML = `<input type="text" name="functions[]" class="form-control" required><button type="button" class="btn btn-danger btn-remove-function"><i class="fas fa-trash"></i></button>`;
+        list.appendChild(div);
+    });
+    document.getElementById('functions-list').addEventListener('click', function(e) {
+        if (e.target.closest('.btn-remove-function')) {
+            e.target.closest('.function-item').remove();
+        }
+    });
 });
 </script>
 <?php $__env->stopSection(); ?>

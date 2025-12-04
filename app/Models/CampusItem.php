@@ -22,6 +22,12 @@ class CampusItem extends Model
         'category',
         'order',
         'is_active',
+        'schedule',
+        'location',
+        'phone',
+        'email',
+        'manager',
+        'functions',
     ];
 
     protected $casts = [

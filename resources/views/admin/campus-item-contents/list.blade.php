@@ -3,7 +3,7 @@
 @section('content')
 <div class="admin-content">
     <h2>Contenidos de {{ $campusItem->title }}</h2>
-    <a href="{{ route('admin.campus-item-contents.create', $campusItem) }}" class="btn btn-primary mb-3">Crear nuevo contenido</a>
+    <a href="{{ route('admin.campus-items.contents.create', $campusItem) }}" class="btn btn-primary mb-3">Crear nuevo contenido</a>
     @if($contents->count() === 0)
         <p>No hay contenidos asociados.</p>
     @else

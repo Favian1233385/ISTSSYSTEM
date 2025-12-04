@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="admin-content">
     <h2>Contenidos de <?php echo e($campusItem->title); ?></h2>
-    <a href="<?php echo e(route('admin.campus-item-contents.create', $campusItem)); ?>" class="btn btn-primary mb-3">Crear nuevo contenido</a>
+    <a href="<?php echo e(route('admin.campus-items.contents.create', $campusItem)); ?>" class="btn btn-primary mb-3">Crear nuevo contenido</a>
     <?php if($contents->count() === 0): ?>
         <p>No hay contenidos asociados.</p>
     <?php else: ?>

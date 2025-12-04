@@ -39,8 +39,22 @@ class CampusItemController extends Controller
             'order' => 'required|integer|min:0',
             'is_active' => 'boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'pdf_file' => 'nullable|file|mimes:pdf|max:10240'
+            'pdf_file' => 'nullable|file|mimes:pdf|max:10240',
+            'schedule' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:50',
+            'email' => 'nullable|string|max:100',
+            'manager' => 'nullable|string|max:100',
+            'functions' => 'nullable|array',
         ]);
+        $validated['schedule'] = $request->input('schedule');
+        $validated['location'] = $request->input('location');
+        $validated['phone'] = $request->input('phone');
+        $validated['email'] = $request->input('email');
+        $validated['manager'] = $request->input('manager');
+        if ($request->has('functions')) {
+            $validated['functions'] = json_encode($request->input('functions'));
+        }
 
         // Subir PDF si existe
         $pdfUrl = null;
@@ -94,8 +108,23 @@ class CampusItemController extends Controller
             'category' => 'required|string|max:50',
             'order' => 'required|integer|min:0',
             'is_active' => 'boolean',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'schedule' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:50',
+            'email' => 'nullable|string|max:100',
+            'manager' => 'nullable|string|max:100',
+            'functions' => 'nullable|array',
         ]);
+
+        $validated['schedule'] = $request->input('schedule');
+        $validated['location'] = $request->input('location');
+        $validated['phone'] = $request->input('phone');
+        $validated['email'] = $request->input('email');
+        $validated['manager'] = $request->input('manager');
+        if ($request->has('functions')) {
+            $validated['functions'] = json_encode($request->input('functions'));
+        }
 
         $campusItem->update($validated);
 

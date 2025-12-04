@@ -46,6 +46,8 @@
         $aboutContents = $contentModel->getByCategory('about');
         $acercaMenuItem = $menuItems->firstWhere('title', 'ACERCA');
         $visitSections = \App\Models\VisitSection::active()->ordered()->get();
+        $campusItems = \App\Models\CampusItem::active()->where('category', 'servicios')->ordered()->get();
+        $vidaEstudiantilItems = \App\Models\CampusItem::active()->where('category', 'Vida Estudiantil')->ordered()->get();
         $icons = [
             'asesoria-juridica' => '⚖️',
             'bienestar-institucional' => '❤️',
@@ -171,15 +173,6 @@
                                         <?php $__currentLoopData = $campusItems ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $campusItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li>
                                                 <a href="<?php echo e($campusItem->url ?? '#'); ?>" style="font-weight:bold;"><?php echo e($campusItem->title); ?></a>
-                                                <?php if($campusItem->contents && $campusItem->contents->count()): ?>
-                                                    <ul style="margin-left:20px;">
-                                                        <?php $__currentLoopData = $campusItem->contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <li>
-                                                                <a href="<?php echo e($content->external_url ?? '#'); ?>" target="_blank" style="color:#007bff; text-decoration:underline;"><?php echo e($content->title); ?></a>
-                                                            </li>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </ul>
-                                                <?php endif; ?>
                                             </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>

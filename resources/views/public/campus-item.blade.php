@@ -31,6 +31,18 @@
                     <div class="campus-text-content">
                         {!! $item->content !!}
 
+                        {{-- Información de contacto y responsable --}}
+                        <div class="campus-contact-info" style="margin-bottom:2rem; background:#f8f9fa; border-radius:8px; padding:1.5rem 1.5rem 1rem 1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                            <h2 style="color:#1e293b; font-size:1.25rem; font-weight:700; margin-bottom:1rem;">Información de contacto</h2>
+                            <ul style="list-style:none;padding-left:0; font-size:1rem; color:#333;">
+                                <li><strong>Horario de Atención:</strong> {{ $item->schedule ?? 'No especificado' }}</li>
+                                <li><strong>Dirección / Ubicación:</strong> {{ $item->location ?? 'No especificado' }}</li>
+                                <li><strong>Teléfono:</strong> {{ $item->phone ?? 'No especificado' }}</li>
+                                <li><strong>Email:</strong> @if($item->email)<a href="mailto:{{ $item->email }}">{{ $item->email }}</a>@else No especificado @endif</li>
+                                <li><strong>Encargado:</strong> {{ $item->manager ?? 'No especificado' }}</li>
+                            </ul>
+                        </div>
+
                         {{-- Contenidos asociados (PDFs, enlaces, formularios, etc.) --}}
                         @if($item->contents()->where('is_active', true)->count() > 0)
                             <div class="campus-associated-contents">

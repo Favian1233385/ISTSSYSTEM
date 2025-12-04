@@ -46,6 +46,8 @@
         $aboutContents = $contentModel->getByCategory('about');
         $acercaMenuItem = $menuItems->firstWhere('title', 'ACERCA');
         $visitSections = \App\Models\VisitSection::active()->ordered()->get();
+        $campusItems = \App\Models\CampusItem::active()->where('category', 'servicios')->ordered()->get();
+        $vidaEstudiantilItems = \App\Models\CampusItem::active()->where('category', 'Vida Estudiantil')->ordered()->get();
         $icons = [
             'asesoria-juridica' => '⚖️',
             'bienestar-institucional' => '❤️',
@@ -171,15 +173,6 @@
                                         @foreach($campusItems ?? [] as $campusItem)
                                             <li>
                                                 <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;">{{ $campusItem->title }}</a>
-                                                @if($campusItem->contents && $campusItem->contents->count())
-                                                    <ul style="margin-left:20px;">
-                                                        @foreach($campusItem->contents as $content)
-                                                            <li>
-                                                                <a href="{{ $content->external_url ?? '#' }}" target="_blank" style="color:#007bff; text-decoration:underline;">{{ $content->title }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
                                             </li>
                                         @endforeach
                                     </ul>

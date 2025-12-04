@@ -33,6 +33,18 @@
 
 
                         
+                        <div class="campus-contact-info" style="margin-bottom:2rem; background:#f8f9fa; border-radius:8px; padding:1.5rem 1.5rem 1rem 1.5rem; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+                            <h2 style="color:#1e293b; font-size:1.25rem; font-weight:700; margin-bottom:1rem;">Información de contacto</h2>
+                            <ul style="list-style:none;padding-left:0; font-size:1rem; color:#333;">
+                                <li><strong>Horario de Atención:</strong> <?php echo e($item->schedule ?? 'No especificado'); ?></li>
+                                <li><strong>Dirección / Ubicación:</strong> <?php echo e($item->location ?? 'No especificado'); ?></li>
+                                <li><strong>Teléfono:</strong> <?php echo e($item->phone ?? 'No especificado'); ?></li>
+                                <li><strong>Email:</strong> <?php if($item->email): ?><a href="mailto:<?php echo e($item->email); ?>"><?php echo e($item->email); ?></a><?php else: ?> No especificado <?php endif; ?></li>
+                                <li><strong>Encargado:</strong> <?php echo e($item->manager ?? 'No especificado'); ?></li>
+                            </ul>
+                        </div>
+
+                        
                         <?php if($item->contents()->where('is_active', true)->count() > 0): ?>
                             <div class="campus-associated-contents">
                                 <h2>Contenidos y servicios asociados</h2>

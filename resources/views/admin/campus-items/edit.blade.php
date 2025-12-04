@@ -1,27 +1,3 @@
-                <div class="mb-3">
-                    <label for="schedule" class="form-label">Horario de Atención</label>
-                    <input type="text" class="form-control" id="schedule" name="schedule" value="{{ old('schedule', $campusItem->schedule) }}" placeholder="Ej: Lunes a Viernes, 08:00-16:00">
-                </div>
-
-                <div class="mb-3">
-                    <label for="location" class="form-label">Dirección / Ubicación</label>
-                    <input type="text" class="form-control" id="location" name="location" value="{{ old('location', $campusItem->location) }}" placeholder="Ej: Edif. Central, Planta Baja">
-                </div>
-
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $campusItem->phone) }}" placeholder="Ej: (07) 274-0421">
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $campusItem->email) }}" placeholder="Ej: contacto@istsucua.edu.ec">
-                </div>
-
-                <div class="mb-3">
-                    <label for="manager" class="form-label">Nombre del Encargado</label>
-                    <input type="text" class="form-control" id="manager" name="manager" value="{{ old('manager', $campusItem->manager) }}" placeholder="Ej: Juan Pérez">
-                </div>
 @extends('layouts.admin')
 
 @section('content')
@@ -98,23 +74,22 @@
 
                 <div class="mb-3">
                     <label for="category" class="form-label">Categoría *</label>
-                    <select class="form-select @error('category') is-invalid @enderror" 
-                            id="category" 
-                            name="category" 
-                            required>
-                        <option value="">Seleccione una categoría</option>
-                        <option value="coordinaciones" 
-                                {{ old('category', $campusItem->category) === 'coordinaciones' ? 'selected' : '' }}>
-                            Coordinaciones
-                        </option>
-                        <option value="servicios" 
-                                {{ old('category', $campusItem->category) === 'servicios' ? 'selected' : '' }}>
-                            Servicios
-                        </option>
-                    </select>
+                    <input type="text" class="form-control @error('category') is-invalid @enderror" id="category" name="category" value="{{ old('category', $campusItem->category) }}" list="category-suggestions" required>
+                    <datalist id="category-suggestions">
+                        <option value="servicios">
+                        <option value="coordinaciones">
+                        <option value="vida_estudiantil">
+                        <option value="infraestructura">
+                        <option value="biblioteca">
+                        <option value="eventos">
+                        <option value="vinculacion">
+                        <option value="calidad">
+                        <option value="idiomas">
+                    </datalist>
                     @error('category')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <small class="form-text text-muted">Puedes escribir cualquier categoría. Sugerencias: servicios, coordinaciones, vida_estudiantil, infraestructura, biblioteca, eventos, vinculación, calidad, idiomas.</small>
                 </div>
 
 

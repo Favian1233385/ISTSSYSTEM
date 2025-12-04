@@ -33,6 +33,7 @@ class CampusItem extends Model
     protected $casts = [
         'is_active' => 'boolean',
         'is_external' => 'boolean',
+        'functions' => 'array',
     ];
 
     /**

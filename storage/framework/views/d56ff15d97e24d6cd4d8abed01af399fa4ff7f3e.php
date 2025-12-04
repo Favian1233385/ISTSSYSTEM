@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="admin-content">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="h3 mb-0">Crear Item del Campus</h1>
+        <h1 class="h3 mb-0">Editar Item del Campus</h1>
         <a href="<?php echo e(route('admin.campus-items.index')); ?>" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Volver
         </a>
@@ -11,8 +11,9 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="<?php echo e(route('admin.campus-items.store')); ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?php echo e(route('admin.campus-items.update', $campusItem)); ?>" method="POST" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
+                <?php echo method_field('PUT'); ?>
 
                 <div class="mb-3">
                     <label for="title" class="form-label">Título *</label>
@@ -27,7 +28,7 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                            id="title" 
                            name="title" 
-                           value="<?php echo e(old('title')); ?>" 
+                           value="<?php echo e(old('title', $campusItem->title)); ?>" 
                            required>
                     <?php $__errorArgs = ['title'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -53,7 +54,7 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                               id="description" 
                               name="description" 
-                              rows="2"><?php echo e(old('description')); ?></textarea>
+                              rows="2"><?php echo e(old('description', $campusItem->description)); ?></textarea>
                     <?php $__errorArgs = ['description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -73,7 +74,7 @@ unset($__errorArgs, $__bag); ?>
                            id="is_external" 
                            name="is_external" 
                            value="1"
-                           <?php echo e(old('is_external') ? 'checked' : ''); ?>
+                           <?php echo e(old('is_external', $campusItem->is_external) ? 'checked' : ''); ?>
 
                            onchange="toggleContentField()">
                     <label class="form-check-label" for="is_external">
@@ -95,7 +96,7 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                            id="url" 
                            name="url" 
-                           value="<?php echo e(old('url')); ?>" 
+                           value="<?php echo e(old('url', $campusItem->url)); ?>" 
                            placeholder="/campus/ejemplo"
                            required>
                     <?php $__errorArgs = ['url'];
@@ -113,20 +114,27 @@ unset($__errorArgs, $__bag); ?>
 
                 <div class="mb-3">
                     <label for="category" class="form-label">Categoría *</label>
-                    <input type="text"
-                           class="form-control <?php $__errorArgs = ['category'];
+                    <select class="form-select <?php $__errorArgs = ['category'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>"
-                           id="category"
-                           name="category"
-                           value="<?php echo e(old('category')); ?>"
-                           required
-                           placeholder="Ejemplo: servicios, coordinaciones, vida_estudiantil, infraestructura">
+unset($__errorArgs, $__bag); ?>" 
+                            id="category" 
+                            name="category" 
+                            required>
+                        <option value="">Seleccione una categoría</option>
+                        <option value="coordinaciones" 
+                                <?php echo e(old('category', $campusItem->category) === 'coordinaciones' ? 'selected' : ''); ?>>
+                            Coordinaciones
+                        </option>
+                        <option value="servicios" 
+                                <?php echo e(old('category', $campusItem->category) === 'servicios' ? 'selected' : ''); ?>>
+                            Servicios
+                        </option>
+                    </select>
                     <?php $__errorArgs = ['category'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -137,9 +145,6 @@ $message = $__bag->first($__errorArgs[0]); ?>
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                    <small class="form-text text-muted">
-                        Puedes usar categorías como: <b>servicios</b>, <b>coordinaciones</b>, <b>vida_estudiantil</b>, <b>infraestructura</b>, etc. Escribe la que corresponda.
-                    </small>
                 </div>
 
                 <div class="mb-3">
@@ -155,7 +160,7 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                            id="order" 
                            name="order" 
-                           value="<?php echo e(old('order', 0)); ?>" 
+                           value="<?php echo e(old('order', $campusItem->order)); ?>" 
                            min="0"
                            required>
                     <?php $__errorArgs = ['order'];
@@ -183,7 +188,7 @@ endif;
 unset($__errorArgs, $__bag); ?>" 
                               id="content" 
                               name="content" 
-                              rows="15"><?php echo e(old('content')); ?></textarea>
+                              rows="15"><?php echo e(old('content', $campusItem->content)); ?></textarea>
                     <?php $__errorArgs = ['content'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -197,8 +202,27 @@ unset($__errorArgs, $__bag); ?>
                     <small class="form-text text-muted">Usa el editor para dar formato al contenido (solo para enlaces internos)</small>
                 </div>
 
+                <!-- Imágenes existentes -->
+                <?php if($campusItem->images->count() > 0): ?>
+                <div class="mb-3">
+                    <label class="form-label">Imágenes actuales</label>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <?php $__currentLoopData = $campusItem->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div style="position: relative; border: 1px solid #ddd; padding: 0.5rem; border-radius: 4px;">
+                                <img src="<?php echo e(asset($image->image_path)); ?>" alt="<?php echo e($image->caption); ?>" style="width: 150px; height: 150px; object-fit: cover;">
+                                <a href="<?php echo e(route('admin.campus-items.image.destroy', [$campusItem, $image])); ?>" 
+                                   onclick="return confirm('¿Eliminar esta imagen?')"
+                                   style="position: absolute; top: 0.5rem; right: 0.5rem; background: #dc3545; color: white; padding: 0.25rem 0.5rem; border-radius: 4px; text-decoration: none;">
+                                    ✕
+                                </a>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                 <div class="mb-3" id="images-field">
-                    <label for="images" class="form-label">Imágenes</label>
+                    <label for="images" class="form-label">Agregar nuevas imágenes</label>
                     <input type="file" 
                            class="form-control <?php $__errorArgs = ['images.*'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -252,13 +276,21 @@ unset($__errorArgs, $__bag); ?>
                     <small class="form-text text-muted">Puedes subir un archivo PDF (máx. 10MB)</small>
                 </div>
 
+                <?php if($campusItem->pdf_url): ?>
+                <div class="mb-3">
+                    <label class="form-label">PDF actual</label>
+                    <a href="<?php echo e(asset($campusItem->pdf_url)); ?>" target="_blank" class="btn btn-outline-primary">Ver PDF</a>
+                </div>
+                <?php endif; ?>
+                </div>
+
                 <div class="mb-3 form-check">
                     <input type="checkbox" 
                            class="form-check-input" 
                            id="is_active" 
                            name="is_active" 
                            value="1"
-                           <?php echo e(old('is_active', true) ? 'checked' : ''); ?>>
+                           <?php echo e(old('is_active', $campusItem->is_active) ? 'checked' : ''); ?>>
                     <label class="form-check-label" for="is_active">
                         Activo
                     </label>
@@ -266,7 +298,7 @@ unset($__errorArgs, $__bag); ?>
 
                 <div class="d-flex gap-2">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Guardar
+                        <i class="fas fa-save"></i> Actualizar
                     </button>
                     <a href="<?php echo e(route('admin.campus-items.index')); ?>" class="btn btn-secondary">
                         Cancelar
@@ -319,4 +351,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/campus-items/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/campus-items/edit.blade.php ENDPATH**/ ?>

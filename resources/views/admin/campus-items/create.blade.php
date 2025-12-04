@@ -70,21 +70,19 @@
 
                 <div class="mb-3">
                     <label for="category" class="form-label">Categoría *</label>
-                    <select class="form-select @error('category') is-invalid @enderror" 
-                            id="category" 
-                            name="category" 
-                            required>
-                        <option value="">Seleccione una categoría</option>
-                        <option value="coordinaciones" {{ old('category') === 'coordinaciones' ? 'selected' : '' }}>
-                            Coordinaciones
-                        </option>
-                        <option value="servicios" {{ old('category') === 'servicios' ? 'selected' : '' }}>
-                            Servicios
-                        </option>
-                    </select>
+                    <input type="text"
+                           class="form-control @error('category') is-invalid @enderror"
+                           id="category"
+                           name="category"
+                           value="{{ old('category') }}"
+                           required
+                           placeholder="Ejemplo: servicios, coordinaciones, vida_estudiantil, infraestructura">
                     @error('category')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <small class="form-text text-muted">
+                        Puedes usar categorías como: <b>servicios</b>, <b>coordinaciones</b>, <b>vida_estudiantil</b>, <b>infraestructura</b>, etc. Escribe la que corresponda.
+                    </small>
                 </div>
 
                 <div class="mb-3">

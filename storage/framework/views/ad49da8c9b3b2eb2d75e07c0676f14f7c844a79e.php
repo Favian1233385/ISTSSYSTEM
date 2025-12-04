@@ -188,9 +188,20 @@
                                     <div class="academic-title">Vida Estudiantil</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <li><a href="/campus/bienestar">Bienestar Estudiantil</a></li>
-                                        <li><a href="/campus/deportes">Deportes</a></li>
-                                        <li><a href="/campus/comedor">Comedor</a></li>
+                                        <?php $__currentLoopData = ($vidaEstudiantilItems ?? []); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $campusItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li>
+                                                <a href="<?php echo e($campusItem->url ?? '#'); ?>" style="font-weight:bold;"><?php echo e($campusItem->title); ?></a>
+                                                <?php if($campusItem->contents && $campusItem->contents->count()): ?>
+                                                    <ul style="margin-left:20px;">
+                                                        <?php $__currentLoopData = $campusItem->contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <li>
+                                                                <a href="<?php echo e($content->external_url ?? '#'); ?>" target="_blank" style="color:#007bff; text-decoration:underline;"><?php echo e($content->title); ?></a>
+                                                            </li>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </ul>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
                             </div>

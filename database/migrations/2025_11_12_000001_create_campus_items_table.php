@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('url');
-            $table->enum('category', ['coordinaciones', 'servicios'])->default('servicios');
+            $table->string('category', 50)->default('servicios');
             $table->integer('order')->default(0);
             $table->boolean('is_active')->default(true);
             $table->timestamps();

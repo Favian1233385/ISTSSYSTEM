@@ -35,7 +35,7 @@ class CampusItemController extends Controller
             'url' => 'required|string|max:255',
             'content' => 'nullable|string',
             'is_external' => 'boolean',
-            'category' => 'required|in:coordinaciones,servicios',
+            'category' => 'required|string|max:50',
             'order' => 'required|integer|min:0',
             'is_active' => 'boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -55,7 +55,7 @@ class CampusItemController extends Controller
             $pdfUrl = '/uploads/pdfs/' . $filename;
         }
 
-        $campusItem = CampusItem::create(array_merge($validated, ['pdf_url' => $pdfUrl]));
+        $campusItem = CampusItem::create($validated);
 
         // Manejar la subida de imágenes
         if ($request->hasFile('images')) {
@@ -91,7 +91,7 @@ class CampusItemController extends Controller
             'url' => 'required|string|max:255',
             'content' => 'nullable|string',
             'is_external' => 'boolean',
-            'category' => 'required|in:coordinaciones,servicios',
+            'category' => 'required|string|max:50',
             'order' => 'required|integer|min:0',
             'is_active' => 'boolean',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'

@@ -22,7 +22,6 @@ class CampusItem extends Model
         'category',
         'order',
         'is_active',
-        'pdf_url'
     ];
 
     protected $casts = [
@@ -43,7 +42,9 @@ class CampusItem extends Model
      */
     public function scopeByCategory($query, $category)
     {
-        return $query->where('category', $category);
+        // Normalizar categoría para búsqueda flexible
+        $normalized = strtolower(str_replace([' ', 'á', 'é', 'í', 'ó', 'ú', 'ü', 'ñ'], ['_', 'a', 'e', 'i', 'o', 'u', 'u', 'n'], $category));
+        return $query->whereRaw("LOWER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(category, ' ', '_'), 'á', 'a'), 'é', 'e'), 'í', 'i'), 'ó', 'o'), 'ú', 'u'), 'ü', 'u'), 'ñ', 'n')) = ?", [$normalized]);
     }
 
     /**

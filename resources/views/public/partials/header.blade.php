@@ -188,9 +188,20 @@
                                     <div class="academic-title">Vida Estudiantil</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <li><a href="/campus/bienestar">Bienestar Estudiantil</a></li>
-                                        <li><a href="/campus/deportes">Deportes</a></li>
-                                        <li><a href="/campus/comedor">Comedor</a></li>
+                                        @foreach(($vidaEstudiantilItems ?? []) as $campusItem)
+                                            <li>
+                                                <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;">{{ $campusItem->title }}</a>
+                                                @if($campusItem->contents && $campusItem->contents->count())
+                                                    <ul style="margin-left:20px;">
+                                                        @foreach($campusItem->contents as $content)
+                                                            <li>
+                                                                <a href="{{ $content->external_url ?? '#' }}" target="_blank" style="color:#007bff; text-decoration:underline;">{{ $content->title }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

@@ -289,4 +289,20 @@ class PublicController extends Controller
 
         return view("public.autoridades.show", compact("autoridad"));
     }
+
+    /**
+     * Muestra la información y contenidos de un campus item por slug.
+     */
+    public function showCampusItem($slug)
+    {
+        $item = \App\Models\CampusItem::where('url', '/campus/' . $slug)
+            ->with(['contents' => function($q) {
+                $q->where('is_active', true)->orderBy('date', 'desc');
+            }, 'images'])
+            ->first();
+        if (!$item) {
+            abort(404);
+        }
+        return view('public.campus-item', compact('item'));
+    }
 }

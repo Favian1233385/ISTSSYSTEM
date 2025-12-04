@@ -90,12 +90,7 @@ Route::get("/tramites", [PublicController::class, "tramites"])->name(
 Route::get("/campus", function () {
     return view("public.campus");
 })->name("campus");
-Route::get("/campus/instalaciones", function () {
-    return view("public.campus-item", ["item" => "instalaciones"]);
-})->name("campus.instalaciones");
-Route::get("/campus/servicios", function () {
-    return view("public.campus-item", ["item" => "servicios"]);
-})->name("campus.servicios");
+Route::get('/campus/{slug}', [PublicController::class, 'showCampusItem'])->name('campus.item');
 Route::get("/visitar", function () {
     return view("public.visitar");
 })->name("visitar");

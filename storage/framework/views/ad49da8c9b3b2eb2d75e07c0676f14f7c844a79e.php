@@ -168,9 +168,20 @@
                                     <div class="academic-title">Servicios e Infraestructura</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <li><a href="/campus/biblioteca">Biblioteca</a></li>
-                                        <li><a href="/campus/laboratorios">Laboratorios</a></li>
-                                        <li><a href="/campus/tecnologias">Tecnologías de la Información</a></li>
+                                        <?php $__currentLoopData = $campusItems ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $campusItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <li>
+                                                <a href="<?php echo e($campusItem->url ?? '#'); ?>" style="font-weight:bold;"><?php echo e($campusItem->title); ?></a>
+                                                <?php if($campusItem->contents && $campusItem->contents->count()): ?>
+                                                    <ul style="margin-left:20px;">
+                                                        <?php $__currentLoopData = $campusItem->contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                            <li>
+                                                                <a href="<?php echo e($content->external_url ?? '#'); ?>" target="_blank" style="color:#007bff; text-decoration:underline;"><?php echo e($content->title); ?></a>
+                                                            </li>
+                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                    </ul>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
                                 <div class="academic-column">

@@ -168,9 +168,20 @@
                                     <div class="academic-title">Servicios e Infraestructura</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <li><a href="/campus/biblioteca">Biblioteca</a></li>
-                                        <li><a href="/campus/laboratorios">Laboratorios</a></li>
-                                        <li><a href="/campus/tecnologias">Tecnologías de la Información</a></li>
+                                        @foreach($campusItems ?? [] as $campusItem)
+                                            <li>
+                                                <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;">{{ $campusItem->title }}</a>
+                                                @if($campusItem->contents && $campusItem->contents->count())
+                                                    <ul style="margin-left:20px;">
+                                                        @foreach($campusItem->contents as $content)
+                                                            <li>
+                                                                <a href="{{ $content->external_url ?? '#' }}" target="_blank" style="color:#007bff; text-decoration:underline;">{{ $content->title }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="academic-column">

@@ -46,9 +46,14 @@ class PublicController extends Controller
         // Get latest updates (máximo 3)
         $updates = \App\Models\Update::recent(3)->get();
 
+        // Campus items y sus contenidos activos
+        $campusItems = \App\Models\CampusItem::active()->orderBy('order')->with(['contents' => function($q) {
+            $q->where('is_active', true)->orderBy('date', 'desc');
+        }])->get();
+
         return view(
             "public.home",
-            compact("misionVision", "rector", "updates"),
+            compact("misionVision", "rector", "updates", "campusItems"),
         );
     }
 

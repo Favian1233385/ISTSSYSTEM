@@ -3,7 +3,7 @@
 <?php $__env->startSection('content'); ?>
 <div class="admin-content">
     <h2>Crear Contenido para <?php echo e($campusItem->title); ?></h2>
-    <form action="<?php echo e(route('admin.campus-item-contents.store', $campusItem)); ?>" method="POST" enctype="multipart/form-data">
+        <form method="POST" action="<?php echo e(route('admin.campus-items.contents.store', $campusItem)); ?>">
         <?php echo csrf_field(); ?>
         <div class="mb-3">
             <label for="title" class="form-label">Título *</label>

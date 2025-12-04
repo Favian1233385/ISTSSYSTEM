@@ -1,20 +1,21 @@
-@extends('layouts.admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="admin-content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0">Items del Menú Campus</h1>
-        <a href="{{ route('admin.campus-items.create') }}" class="btn btn-primary">
+        <a href="<?php echo e(route('admin.campus-items.create')); ?>" class="btn btn-primary">
             <i class="fas fa-plus"></i> Nuevo Item
         </a>
     </div>
 
-    @if(session('success'))
+    <?php if(session('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
+            <?php echo e(session('success')); ?>
+
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+    <?php endif; ?>
 
     <div class="card">
         <div class="card-body">
@@ -30,36 +31,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($campusItems as $item)
+                        <?php $__empty_1 = true; $__currentLoopData = $campusItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <tr>
-                                <td>{{ $item->order }}</td>
-                                <td>{{ $item->title }}</td>
+                                <td><?php echo e($item->order); ?></td>
+                                <td><?php echo e($item->title); ?></td>
                                 <td>
-                                    <span class="badge bg-{{ $item->category === 'coordinaciones' ? 'primary' : 'info' }}">
-                                        {{ ucfirst($item->category) }}
+                                    <span class="badge bg-<?php echo e($item->category === 'coordinaciones' ? 'primary' : 'info'); ?>">
+                                        <?php echo e(ucfirst($item->category)); ?>
+
                                     </span>
                                 </td>
                                 <td>
-                                    <span class="badge bg-{{ $item->is_active ? 'success' : 'secondary' }}">
-                                        {{ $item->is_active ? 'Activo' : 'Inactivo' }}
+                                    <span class="badge bg-<?php echo e($item->is_active ? 'success' : 'secondary'); ?>">
+                                        <?php echo e($item->is_active ? 'Activo' : 'Inactivo'); ?>
+
                                     </span>
                                 </td>
                                 <td>
                                     <div style="display: flex; gap: 0.5rem;">
-                                        <a href="{{ route('admin.campus-items.edit', $item) }}" 
+                                        <a href="<?php echo e(route('admin.campus-items.edit', $item)); ?>" 
                                            style="padding: 0.375rem 0.75rem; background-color: #ffc107; color: #000; text-decoration: none; border-radius: 4px; display: inline-block;">
                                             ✏️ Editar
                                         </a>
-                                        <a href="{{ route('admin.campus-items.contents.index', $item) }}" 
+                                        <a href="<?php echo e(route('admin.campus-items.contents.index', $item)); ?>" 
                                            style="padding: 0.375rem 0.75rem; background-color: #0d6efd; color: #fff; text-decoration: none; border-radius: 4px; display: inline-block;">
                                             📄 Contenidos
                                         </a>
-                                        <form action="{{ route('admin.campus-items.destroy', $item) }}" 
+                                        <form action="<?php echo e(route('admin.campus-items.destroy', $item)); ?>" 
                                               method="POST" 
                                               style="display: inline-block; margin: 0;"
                                               onsubmit="return confirm('¿Estás seguro de eliminar este item?');">
-                                            @csrf
-                                            @method('DELETE')
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
                                             <button type="submit" 
                                                     style="padding: 0.375rem 0.75rem; background-color: #dc3545; color: white; border: none; border-radius: 4px; cursor: pointer;">
                                                 🗑️ Eliminar
@@ -68,15 +71,17 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                        
                             <tr>
                                 <td colspan="6" class="text-center">No hay items registrados</td>
                             </tr>
-                        @endforelse
+                        <?php endif; ?>
                 </table>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/campus-items/index.blade.php ENDPATH**/ ?>

@@ -1,3 +1,5 @@
+
+
 <?php $__env->startSection('title', 'ISTS Sucúa - Instituto Superior Tecnológico Sucúa'); ?>
 
 <?php $__env->startSection('content'); ?>

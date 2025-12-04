@@ -211,6 +211,12 @@ Route::prefix("admin")
         Route::resource("campus-items", CampusItemController::class, [
             "as" => "admin",
         ]);
+        
+        // Campus item contents (nested resource)
+        Route::resource("campus-items.contents", \App\Http\Controllers\CampusItemContentController::class, [
+            "as" => "admin",
+            "except" => ["show"],
+        ]);
 
         // Academic sections
         Route::resource("academic-sections", AcademicSectionController::class, [

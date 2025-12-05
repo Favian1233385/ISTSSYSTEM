@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Gestión de Contenidos - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/harvard-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body class="admin-body">

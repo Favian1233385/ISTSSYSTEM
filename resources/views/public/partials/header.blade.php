@@ -60,6 +60,7 @@
             'unidad-administrativa' => '🏢',
             'unidad-comunicacion' => '📢',
         ];
+        $transparencyMenu = $transparencyMenu ?? [];
     @endphp
     <nav class="header-navbar" style="width: 100%; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center; padding: 0.75rem 0;">
         <ul class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
@@ -247,7 +248,37 @@
                 @elseif($title == 'NOTICIAS')
                     <li><a href="/noticias" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">NOTICIAS</a></li>
                 @elseif($title == 'TRANSPARENCIA')
-                    <li><a href="/transparencia" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">TRANSPARENCIA</a></li>
+                    <li class="dropdown" style="position: relative;">
+                        <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">TRANSPARENCIA</a>
+                        <div class="dropdown-content academic-dropdown">
+                            <div class="academic-dropdown-header">
+                                <h3>Transparencia</h3>
+                                <p>Accede a información transparente y oportuna sobre nuestra gestión institucional.</p>
+                            </div>
+                            <div class="academic-dropdown-columns">
+                                <div class="academic-column">
+                                    <div class="academic-title">Secciones</div>
+                                    <div class="academic-underline"></div>
+                                    <ul>
+                                        @foreach($transparencyMenu as $parent)
+                                            <li class="dropdown-item">
+                                                <a href="{{ url('transparency/' . $parent['slug']) }}">{{ $parent['title'] }}</a>
+                                                @if(!empty($parent['children']))
+                                                    <ul class="dropdown-submenu">
+                                                        @foreach($parent['children'] as $child)
+                                                            <li class="dropdown-subitem">
+                                                                <a href="{{ url('transparency/' . $child['slug']) }}">{{ $child['title'] }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 @elseif($title == 'TRÁMITES')
                     <li class="dropdown" style="position: relative;">
                         <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">TRÁMITES</a>

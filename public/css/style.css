@@ -116,9 +116,6 @@
     box-shadow: none;
     border: none;
 }
-.header-public, .header-public * {
-/* Regla eliminada para permitir ocultar hijos con transform del header */
-}
 .header-public .header-navbar,
 .header-public .header-menu,
 .header-public .dropdown,
@@ -1650,12 +1647,12 @@ a:hover {
     z-index: 1000;
     padding: 1rem;
     /* El control de visibilidad lo maneja Bootstrap JS */
-}
-/* El control de visibilidad lo maneja Bootstrap JS, no forzar con hover */
+    /* El control de visibilidad lo maneja Bootstrap JS, no forzar con hover */
     display: flex;
     gap: 1rem;
     margin-top: 0.75rem;
 }
+
 
 .dropdown-modes span {
     font-size: 0.75rem;
@@ -1913,5 +1910,16 @@ a:hover {
 
 /* Ajuste dinámico para el título de carrera debajo del header */
 .career-title-container {
-    margin-top: 220px !important; /* Valor base, será ajustado por JS */
+    margin-top: 300px !important; /* Ajuste para evitar interferencias con el encabezado */
+    text-align: center;
+}
+
+/* Eliminar conjunto de reglas vacío */
+/* .header-public, .header-public * { } */
+
+/* Agrupar propiedades sueltas en un selector válido */
+.flex-gap {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.75rem;
 }

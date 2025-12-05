@@ -44,7 +44,10 @@ class ContentController extends Controller
             $category = $request->route()->defaults["category"] ?? null;
 
             if ($category === "transparency" || $category === "tramites") {
-                // Para transparencia y trámites, mostrar jerarquía sin paginación
+                // Para transparencia y trámites, mostrar jerarquía con paginación
+                $page = (int) $request->query("page", 1);
+                $perPage = 10;
+
                 $allItems = \Illuminate\Support\Facades\DB::table("contents")
                     ->where("category", $category)
                     ->orderBy("parent_id", "asc")
@@ -68,6 +71,20 @@ class ContentController extends Controller
                     $parent["children"] = $children[$parent["id"]] ?? [];
                 }
 
+                // Crear paginador manualmente
+                $total = count($parents);
+                $paginatedParents = array_slice($parents, ($page - 1) * $perPage, $perPage);
+                $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+                    $paginatedParents,
+                    $total,
+                    $perPage,
+                    $page,
+                    [
+                        "path" => $request->url(),
+                        "query" => $request->query(),
+                    ]
+                );
+
                 $title = "Gestión de Contenidos - ISTS Admin";
                 if ($category === "tramites") {
                     $title = "Gestión de Trámites - ISTS Admin";
@@ -77,7 +94,7 @@ class ContentController extends Controller
 
                 return view("admin.crud.contents.list", [
                     "title" => $title,
-                    "items" => $parents,
+                    "items" => $paginator,
                     "category" => $category,
                     "is_hierarchical" => true,
                 ]);
@@ -636,5 +653,19 @@ class ContentController extends Controller
                 "error" => "Error al cargar mensaje del rector",
             ]);
         }
+    }
+
+    public function showTransparency()
+    {
+        $items = \Illuminate\Support\Facades\DB::table("contents")
+            ->where("category", "transparency")
+            ->orderBy("parent_id", "asc")
+            ->orderBy("created_at", "desc")
+            ->paginate(10); // Implementar paginación
+
+        return view("public.transparency.index", [
+            "title" => "Transparencia",
+            "items" => $items,
+        ]);
     }
 }

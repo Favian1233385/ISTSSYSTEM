@@ -305,4 +305,38 @@ class PublicController extends Controller
         }
         return view('public.campus-item', compact('item'));
     }
+
+    public function transparencyMenu()
+    {
+        $contents = DB::table("contents")
+            ->where("category", "transparency")
+            ->where("status", "published")
+            ->orderBy("parent_id", "asc")
+            ->orderBy("created_at", "desc")
+            ->get()
+            ->map(fn($item) => (array) $item)
+            ->toArray();
+
+        $parents = [];
+        $children = [];
+        foreach ($contents as $content) {
+            if ($content["parent_id"] === null) {
+                $parents[] = $content;
+            } else {
+                $children[$content["parent_id"]][] = $content;
+            }
+        }
+
+        foreach ($parents as &$parent) {
+            $parent["children"] = $children[$parent["id"]] ?? [];
+        }
+
+        return $parents;
+    }
+
+    public function headerData()
+    {
+        $transparencyMenu = $this->transparencyMenu();
+        return view('public.partials.header', compact('transparencyMenu'));
+    }
 }

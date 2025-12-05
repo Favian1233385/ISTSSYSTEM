@@ -131,7 +131,7 @@
         var titleContainer = document.querySelector('.career-title-container');
         if (header && titleContainer) {
             var headerHeight = header.offsetHeight;
-            titleContainer.style.marginTop = (headerHeight + 40) + 'px';
+            titleContainer.style.marginTop = (headerHeight + 60) + 'px';
         }
     });
     </script>

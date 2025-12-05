@@ -1,3 +1,8 @@
+/* Separación profesional para el header de carreras */
+.career-header {
+    margin-top: 3.5rem;
+    display: block;
+}
 /* Fondo diferenciado para títulos y descripciones en menús desplegables */
 .header-public .academic-dropdown-header {
     background: linear-gradient(90deg, #e0f7ef 0%, #e3eafc 100%);
@@ -1904,4 +1909,9 @@ a:hover {
         0.95
     ) !important; /* Color oscuro al hacer scroll */
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Ajuste dinámico para el título de carrera debajo del header */
+.career-title-container {
+    margin-top: 220px !important; /* Valor base, será ajustado por JS */
 }

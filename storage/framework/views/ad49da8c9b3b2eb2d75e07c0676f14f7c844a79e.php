@@ -287,15 +287,15 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Trámites</h3>
-                                <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
+                                <p>Accede a información sobre los trámites disponibles.</p>
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Trámites Disponibles</div>
-                                    <div class="academic-underline"></div>
                                     <ul>
                                         <?php $__currentLoopData = $tramites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tramite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <li><a href="<?php echo e(url('/tramites/'.$tramite->slug)); ?>"><?php echo e($tramite->title); ?></a></li>
+                                            <li class="dropdown-item">
+                                                <a href="<?php echo e(url('tramites/' . $tramite->slug)); ?>"><?php echo e($tramite->title); ?></a>
+                                            </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>

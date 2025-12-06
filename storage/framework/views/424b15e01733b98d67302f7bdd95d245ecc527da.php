@@ -90,6 +90,18 @@
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
+                        <label for="file_url">Archivo PDF</label>
+                        <input type="file" name="file_url" id="file_url" class="form-control" accept="application/pdf">
+                        <?php if($item['file_url'] && !$item['is_external']): ?>
+                            <a href="<?php echo e(asset($item['file_url'])); ?>" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="external_url">Enlace externo</label>
+                        <input type="url" name="external_url" id="external_url" class="form-control" value="<?php echo e(old('external_url', $item['is_external'] ? $item['file_url'] : '')); ?>" placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
                         <label for="status">Estado</label>
                         <select name="status" id="status" class="form-control">
                             <option value="draft" <?php if(old('status', $item['status']) == 'draft'): ?> selected <?php endif; ?>>Borrador</option>

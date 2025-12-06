@@ -110,6 +110,24 @@ class ContentsController extends Controller
         }
     }
 
+    private function handleFileOrExternalUrl($data, $fileKey)
+    {
+        $result = ["file_url" => null, "is_external" => false];
+
+        if (!empty($data["external_url"])) {
+            $result["file_url"] = Security::sanitizeInput($data["external_url"], "url");
+            $result["is_external"] = true;
+        } elseif (!empty($_FILES[$fileKey]["name"])) {
+            $uploadResult = $this->handleFileUpload($fileKey, ["pdf"]);
+            if (isset($uploadResult["error"])) {
+                throw new Exception($uploadResult["error"]);
+            }
+            $result["file_url"] = $uploadResult["path"];
+        }
+
+        return $result;
+    }
+
     public function edit($id)
     {
         $this->requireAuth(); // Verificar autenticación
@@ -117,48 +135,16 @@ class ContentsController extends Controller
 
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             try {
-                $imageUploadResult = $this->handleImageUpload("image_file");
-                if (isset($imageUploadResult["error"])) {
-                    $this->view("admin/crud/edit", [
-                        "title" => "Editar Contenido - ISTS Admin",
-                        "errors" => [$imageUploadResult["error"]],
-                        "item" => $this->contentModel->findById($id),
-                        "type" => "contents",
-                    ]);
-                    return;
-                }
-
                 $data = $this->validateContentData($_POST);
-                $data["data"]["image_url"] =
-                    $imageUploadResult["path"] ??
-                    $this->contentModel->findById($id)["image_url"];
+                $fileData = $this->handleFileOrExternalUrl($_POST, "file_url");
+
+                $data["data"]["file_url"] = $fileData["file_url"];
+                $data["data"]["is_external"] = $fileData["is_external"];
 
                 if (empty($data["errors"])) {
-                    $originalContent = $this->contentModel->findById($id);
-                    if ($originalContent["title"] !== $data["data"]["title"]) {
-                        $data["data"]["slug"] = $this->generateSlug(
-                            $data["data"]["title"],
-                        );
-                    } else {
-                        $data["data"]["slug"] = $originalContent["slug"];
-                    }
-
-                    // rowCount() puede retornar 0 si no hay cambios, pero eso NO es error
-                    $this->contentModel->updateContent(
-                        $id,
-                        $data["data"],
-                    );
-
-                    Security::logSecurity(
-                        "content_updated",
-                        $_SESSION["user_id"],
-                        "Content ID: $id",
-                        "low",
-                    );
-                    $this->redirect(
-                        APP_URL .
-                            "/contents/index?success=Contenido actualizado exitosamente",
-                    );
+                    $this->contentModel->updateContent($id, $data["data"]);
+                    Security::logSecurity("content_updated", $_SESSION["user_id"], "Content ID: $id", "low");
+                    $this->redirect(APP_URL . "/contents/index?success=Contenido actualizado exitosamente");
                 }
 
                 $this->view("admin/crud/contents/edit", [
@@ -168,21 +154,17 @@ class ContentsController extends Controller
                     "item" => $this->contentModel->findById($id),
                 ]);
             } catch (Exception $e) {
-                error_log(
-                    "Error en ContentsController::edit(): " . $e->getMessage(),
-                );
+                error_log("Error en ContentsController::edit(): " . $e->getMessage());
                 $this->view("admin/crud/contents/edit", [
                     "title" => "Editar Contenido - ISTS Admin",
-                    "errors" => ["Error interno del servidor"],
+                    "errors" => [$e->getMessage()],
                     "item" => $this->contentModel->findById($id),
                 ]);
             }
         } else {
             $item = $this->contentModel->findById($id);
             if (!$item) {
-                $this->redirect(
-                    "/contents/index?error=Contenido no encontrado",
-                );
+                $this->redirect("/contents/index?error=Contenido no encontrado");
                 return;
             }
             $this->view("admin/crud/contents/edit", [

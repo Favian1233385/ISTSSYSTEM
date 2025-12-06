@@ -285,15 +285,15 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Trámites</h3>
-                                <p>Consulta y accede a los trámites institucionales disponibles en el ISTS.</p>
+                                <p>Accede a información sobre los trámites disponibles.</p>
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Trámites Disponibles</div>
-                                    <div class="academic-underline"></div>
                                     <ul>
                                         @foreach($tramites as $tramite)
-                                            <li><a href="{{ url('/tramites/'.$tramite->slug) }}">{{ $tramite->title }}</a></li>
+                                            <li class="dropdown-item">
+                                                <a href="{{ url('tramites/' . $tramite->slug) }}">{{ $tramite->title }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </div>

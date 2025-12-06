@@ -22,7 +22,7 @@
                                 @endif
                             </div>
                             <div class="career-info">
-                                <h3><a href="{{ route('career.show', $career->slug) }}">{{ $career->name }}</a></h3>
+                                <h3 style="text-align: center; color: var(--color-primary);"><a href="{{ route('career.show', $career->slug) }}">{{ $career->name }}</a></h3>
                                 @if($career->description)
                                     <p>{{ Str::limit($career->description, 100) }}</p>
                                 @endif

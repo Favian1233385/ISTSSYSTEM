@@ -6,7 +6,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="content-detail">
-    <div class="section-page-header">
+    <div class="section-page-header" style="margin-top: 80px;">
         <div class="container">
             <h1 class="section-page-title"><?php echo e($career->name); ?></h1>
             <?php if($career->description): ?>

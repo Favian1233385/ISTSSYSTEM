@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="content-detail">
-    <div class="section-page-header">
+    <div class="section-page-header" style="margin-top: 80px;">
         <div class="container">
             <h1 class="section-page-title">{{ $career->name }}</h1>
             @if($career->description)

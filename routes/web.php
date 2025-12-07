@@ -16,9 +16,6 @@ Route::get("/inscripcion/{programa}", [
     InscripcionController::class,
     "create",
 ])->name("inscripcion.create");
-Route::post("/inscripcion", [InscripcionController::class, "store"])->name(
-    "inscripcion.store",
-);
 // Redirección para login admin
 Route::get("/admin/login", function () {
     return redirect("/login");

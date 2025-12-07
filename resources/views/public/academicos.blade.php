@@ -46,11 +46,19 @@
                                 @endif
                             </div>
                             <div class="course-info">
-                                <h3><a href="{{ route('content.show', $course->slug) }}">{{ $course->title }}</a></h3>
+                                <h3 style="text-align: center; color: var(--color-secondary);">
+                                    @if($course->url)
+                                        <a href="{{ $course->url }}" target="_blank">{{ $course->title }}</a>
+                                    @else
+                                        <a href="{{ route('content.show', $course->slug) }}">{{ $course->title }}</a>
+                                    @endif
+                                </h3>
                                 @if($course->description)
                                     <p>{{ Str::limit($course->description, 100) }}</p>
                                 @endif
-                                <a href="{{ route('content.show', $course->slug) }}" class="btn btn-primary">Ver más</a>
+                                @if(!$course->url)
+                                    <a href="{{ route('content.show', $course->slug) }}" class="btn btn-primary">Ver más</a>
+                                @endif
                             </div>
                         </div>
                     @endforeach

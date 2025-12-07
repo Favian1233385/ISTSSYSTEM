@@ -60,7 +60,7 @@
             'unidad-administrativa' => '🏢',
             'unidad-comunicacion' => '📢',
         ];
-        $transparencyMenu = $transparencyMenu ?? [];
+        $transparencyContents = $transparencyContents ?? [];
     ?>
     <nav class="header-navbar" style="width: 100%; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center; padding: 0.75rem 0;">
         <ul class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
@@ -262,7 +262,7 @@
                                     <div class="academic-title">Secciones</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        <?php $__currentLoopData = $transparencyMenu; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $transparencyContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="dropdown-item">
                                                 <a href="<?php echo e(url('transparency/' . $parent['slug'])); ?>"><?php echo e($parent['title']); ?></a>
                                                 <?php if(!empty($parent['children'])): ?>

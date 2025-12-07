@@ -262,13 +262,27 @@
                                     <ul>
                                         @foreach($transparencyContents as $parent)
                                             <li class="dropdown-item">
-                                                <a href="{{ url('transparency/' . $parent['slug']) }}">{{ $parent['title'] }}</a>
+                                                @php
+                                                    $url = isset($parent['file_url']) && filter_var($parent['file_url'], FILTER_VALIDATE_URL)
+                                                        ? $parent['file_url']
+                                                        : (isset($parent['file_url']) && $parent['file_url'] ? asset($parent['file_url']) : url('transparency/' . $parent['slug']));
+                                                    $target = (isset($parent['file_url']) && $parent['file_url']) ? '_blank' : '_self';
+                                                @endphp
+                                                <a href="{{ $url }}" target="{{ $target }}">{{ $parent['title'] }}</a>
                                                 @if(!empty($parent['children']))
                                                     <ul class="dropdown-submenu">
                                                         @foreach($parent['children'] as $child)
-                                                            <li class="dropdown-subitem">
-                                                                <a href="{{ url('transparency/' . $child['slug']) }}">{{ $child['title'] }}</a>
-                                                            </li>
+                                                            @if($parent['title'] === 'Reglamentos Internos')
+                                                                <li class="dropdown-subitem">
+                                                                    @php
+                                                                        $url = isset($child['file_url']) && filter_var($child['file_url'], FILTER_VALIDATE_URL)
+                                                                            ? $child['file_url']
+                                                                            : (isset($child['file_url']) && $child['file_url'] ? asset($child['file_url']) : url('transparency/' . $child['slug']));
+                                                                        $target = (isset($child['file_url']) && $child['file_url']) ? '_blank' : '_self';
+                                                                    @endphp
+                                                                    <a href="{{ $url }}" target="{{ $target }}">{{ $child['title'] }}</a>
+                                                                </li>
+                                                            @endif
                                                         @endforeach
                                                     </ul>
                                                 @endif

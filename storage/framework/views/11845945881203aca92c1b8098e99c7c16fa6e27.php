@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-<html lang="es" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+<html lang="es" <?php if(app()->getLocale() === 'ar'): ?> dir="rtl" <?php endif; ?>>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Crear Contenido - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
+    <title><?php echo e($title ?? 'Crear Contenido - ISTS Admin'); ?></title>
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    @if(app()->getLocale() === 'ar')
-        <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
-    @endif
+    <?php if(app()->getLocale() === 'ar'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/app-rtl.css')); ?>">
+    <?php endif; ?>
 </head>
 <body class="admin-body">
     <!-- Header Administrativo -->
     <header class="admin-header">
         <div class="admin-header-content">
             <div class="admin-logo">
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="ISTS Logo" class="admin-logo-img">
+                <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="ISTS Logo" class="admin-logo-img">
                 <h1>ISTS Admin</h1>
             </div>
 
             <nav class="admin-nav">
                 <ul class="admin-nav-menu">
-                    <li><a href="{{ url('/admin/dashboard') }}">📊 Dashboard</a></li>
-                    <li><a href="{{ url('/admin/contents') }}" class="active">📝 Contenidos</a></li>
-                    <li><a href="{{ url('/admin/news') }}">📰 Noticias</a></li>
-                    <li><a href="{{ url('/admin/leadership') }}">👨‍🏫 Equipo</a></li>
-                    <li><a href="{{ url('/admin/users') }}">👥 Usuarios</a></li>
-                    <li><a href="{{ url('/admin/settings') }}">⚙️ Configuración</a></li>
+                    <li><a href="<?php echo e(url('/admin/dashboard')); ?>">📊 Dashboard</a></li>
+                    <li><a href="<?php echo e(url('/admin/contents')); ?>" class="active">📝 Contenidos</a></li>
+                    <li><a href="<?php echo e(url('/admin/news')); ?>">📰 Noticias</a></li>
+                    <li><a href="<?php echo e(url('/admin/leadership')); ?>">👨‍🏫 Equipo</a></li>
+                    <li><a href="<?php echo e(url('/admin/users')); ?>">👥 Usuarios</a></li>
+                    <li><a href="<?php echo e(url('/admin/settings')); ?>">⚙️ Configuración</a></li>
                 </ul>
             </nav>
 
             <div class="admin-user-menu">
                 <div class="user-info">
-                    <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
+                    <span class="user-name"><?php echo e(optional(Auth::user())->email ?? 'Usuario'); ?></span>
                     <div class="user-dropdown">
-                        <a href="{{ url('/admin/profile') }}">👤 Perfil</a>
-                        <a href="{{ url('/auth/change-password') }}">🔒 Cambiar Contraseña</a>
-                        <a href="{{ url('/auth/logout') }}">🚪 Cerrar Sesión</a>
+                        <a href="<?php echo e(url('/admin/profile')); ?>">👤 Perfil</a>
+                        <a href="<?php echo e(url('/auth/change-password')); ?>">🔒 Cambiar Contraseña</a>
+                        <a href="<?php echo e(url('/auth/logout')); ?>">🚪 Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -55,38 +55,38 @@
                 </div>
 
                 <div class="form-container">
-                    @if(session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
+                    <?php if(session('success')): ?>
+                        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+                    <?php endif; ?>
 
-                    @if ($errors->any())
+                    <?php if($errors->any()): ?>
                         <div class="alert alert-danger">
                             <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    <form method="POST" action="{{ route('admin.contents.store') }}" enctype="multipart/form-data" id="content-form" class="styled-form">
-                        @csrf
-                        @if(request('parent_id'))
+                    <form method="POST" action="<?php echo e(route('admin.contents.store')); ?>" enctype="multipart/form-data" id="content-form" class="styled-form">
+                        <?php echo csrf_field(); ?>
+                        <?php if(request('parent_id')): ?>
                             <input type="hidden" name="category" value="transparency">
-                            <input type="hidden" name="parent_id" value="{{ request('parent_id') }}">
-                        @endif
+                            <input type="hidden" name="parent_id" value="<?php echo e(request('parent_id')); ?>">
+                        <?php endif; ?>
 
                         <div class="form-card">
                             <div class="form-group">
                                 <label for="title">Título</label>
-                                <input type="text" id="title" name="title" class="form-control" required value="{{ old('title') }}">
+                                <input type="text" id="title" name="title" class="form-control" required value="<?php echo e(old('title')); ?>">
                             </div>
 
                             <div class="form-group">
                                 <label for="category">Categoría</label>
-                                @if(request('parent_id'))
+                                <?php if(request('parent_id')): ?>
                                     <input type="text" class="form-control" value="Transparencia" disabled readonly>
-                                @else
+                                <?php else: ?>
                                     <select id="category" name="category" class="form-control" required>
                                         <option value="">Selecciona una categoría</option>
                                         <option value="transparency">Transparencia</option>
@@ -98,17 +98,17 @@
                                         <option value="eventos">Eventos</option>
                                         <option value="servicios">Servicios</option>
                                     </select>
-                                @endif
+                                <?php endif; ?>
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Descripción</label>
-                                <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3"><?php echo e(old('description')); ?></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content') }}</textarea>
+                                <textarea id="content" name="content" class="form-control" rows="10" required><?php echo e(old('content')); ?></textarea>
                             </div>
 
 
@@ -120,7 +120,7 @@
                             <div class="form-group">
                                 <label for="file_url">Archivo PDF o Enlace externo</label>
                                 <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
-                                <input type="url" name="file_url" id="file_url" class="form-control" value="{{ old('file_url') }}" placeholder="https://example.com (opcional)">
+                                <input type="url" name="file_url" id="file_url" class="form-control" value="<?php echo e(old('file_url')); ?>" placeholder="https://example.com (opcional)">
                             </div>
 
                             <div class="form-row">
@@ -141,7 +141,7 @@
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">Crear Contenido</button>
-                            <a href="{{ route('admin.contents.index') }}" class="btn btn-secondary">Cancelar</a>
+                            <a href="<?php echo e(route('admin.contents.index')); ?>" class="btn btn-secondary">Cancelar</a>
                         </div>
                     </form>
                 </div>
@@ -152,17 +152,17 @@
     <!-- Footer Administrativo -->
     <footer class="admin-footer">
         <div class="admin-footer-content">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
+            <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
             <div class="admin-footer-links">
-                <a href="{{ url('/') }}" target="_blank">🌐 Ver Sitio Web</a>
-                <a href="{{ url('/admin/help') }}">❓ Ayuda</a>
-                <a href="{{ url('/admin/logs') }}">📋 Logs del Sistema</a>
+                <a href="<?php echo e(url('/')); ?>" target="_blank">🌐 Ver Sitio Web</a>
+                <a href="<?php echo e(url('/admin/help')); ?>">❓ Ayuda</a>
+                <a href="<?php echo e(url('/admin/logs')); ?>">📋 Logs del Sistema</a>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/admin.js') }}"></script>
+    <script src="<?php echo e(asset('js/admin.js')); ?>"></script>
     <script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -181,3 +181,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/crud/contents/create.blade.php ENDPATH**/ ?>

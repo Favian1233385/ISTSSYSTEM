@@ -1,3 +1,6 @@
+                <?php if(session('success')): ?>
+                    <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+                <?php endif; ?>
 <!DOCTYPE html>
 <html lang="es" <?php if(app()->getLocale() === 'ar'): ?> dir="rtl" <?php endif; ?>>
 <head>
@@ -90,16 +93,12 @@
                         <?php endif; ?>
                     </div>
                     <div class="form-group">
-                        <label for="file_url">Archivo PDF</label>
-                        <input type="file" name="file_url" id="file_url" class="form-control" accept="application/pdf">
-                        <?php if($item['file_url'] && !$item['is_external']): ?>
-                            <a href="<?php echo e(asset($item['file_url'])); ?>" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
+                        <label for="file_url">Archivo PDF o Enlace externo</label>
+                        <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
+                        <input type="url" name="file_url" id="file_url" class="form-control" value="<?php echo e(old('file_url', (filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : '') )); ?>" placeholder="https://example.com (opcional)">
+                        <?php if($item['file_url']): ?>
+                            <a href="<?php echo e(filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : asset($item['file_url'])); ?>" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
                         <?php endif; ?>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="external_url">Enlace externo</label>
-                        <input type="url" name="external_url" id="external_url" class="form-control" value="<?php echo e(old('external_url', $item['is_external'] ? $item['file_url'] : '')); ?>" placeholder="https://example.com">
                     </div>
                     <div class="form-group">
                         <label for="status">Estado</label>

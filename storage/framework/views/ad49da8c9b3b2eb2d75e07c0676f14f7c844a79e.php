@@ -264,13 +264,27 @@
                                     <ul>
                                         <?php $__currentLoopData = $transparencyContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parent): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li class="dropdown-item">
-                                                <a href="<?php echo e(url('transparency/' . $parent['slug'])); ?>"><?php echo e($parent['title']); ?></a>
+                                                <?php
+                                                    $url = isset($parent['file_url']) && filter_var($parent['file_url'], FILTER_VALIDATE_URL)
+                                                        ? $parent['file_url']
+                                                        : (isset($parent['file_url']) && $parent['file_url'] ? asset($parent['file_url']) : url('transparency/' . $parent['slug']));
+                                                    $target = (isset($parent['file_url']) && $parent['file_url']) ? '_blank' : '_self';
+                                                ?>
+                                                <a href="<?php echo e($url); ?>" target="<?php echo e($target); ?>"><?php echo e($parent['title']); ?></a>
                                                 <?php if(!empty($parent['children'])): ?>
                                                     <ul class="dropdown-submenu">
                                                         <?php $__currentLoopData = $parent['children']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <li class="dropdown-subitem">
-                                                                <a href="<?php echo e(url('transparency/' . $child['slug'])); ?>"><?php echo e($child['title']); ?></a>
-                                                            </li>
+                                                            <?php if($parent['title'] === 'Reglamentos Internos'): ?>
+                                                                <li class="dropdown-subitem">
+                                                                    <?php
+                                                                        $url = isset($child['file_url']) && filter_var($child['file_url'], FILTER_VALIDATE_URL)
+                                                                            ? $child['file_url']
+                                                                            : (isset($child['file_url']) && $child['file_url'] ? asset($child['file_url']) : url('transparency/' . $child['slug']));
+                                                                        $target = (isset($child['file_url']) && $child['file_url']) ? '_blank' : '_self';
+                                                                    ?>
+                                                                    <a href="<?php echo e($url); ?>" target="<?php echo e($target); ?>"><?php echo e($child['title']); ?></a>
+                                                                </li>
+                                                            <?php endif; ?>
                                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                                     </ul>
                                                 <?php endif; ?>

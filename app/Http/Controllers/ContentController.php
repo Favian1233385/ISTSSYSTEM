@@ -455,28 +455,18 @@ class ContentController extends Controller
             }
 
             $fileUrl = $item["file_url"] ?? null;
-            // Prioritize external URL over file uploads
-            if ($request->filled("external_pdf_url")) {
-                $fileUrl = $validated["external_pdf_url"];
-            } elseif ($request->hasFile("pdf_files")) {
-                $pdfPaths = [];
-                foreach ($request->file("pdf_files") as $file) {
-                    $filename =
-                        uniqid() .
-                        "-" .
-                        preg_replace(
-                            "/[^A-Za-z0-9_.-]/",
-                            "",
-                            $file->getClientOriginalName(),
-                        );
-                    $destination = public_path("uploads/pdfs");
-                    if (!is_dir($destination)) {
-                        mkdir($destination, 0755, true);
-                    }
-                    $file->move($destination, $filename);
-                    $pdfPaths[] = "/uploads/pdfs/" . $filename;
+            // Si se ingresa un enlace externo válido, se prioriza
+            if ($request->filled("file_url") && filter_var($request->input("file_url"), FILTER_VALIDATE_URL)) {
+                $fileUrl = $request->input("file_url");
+            } elseif ($request->hasFile("file_url_upload")) {
+                $file = $request->file("file_url_upload");
+                $filename = uniqid() . '-' . preg_replace("/[^A-Za-z0-9_.-]/", "", $file->getClientOriginalName());
+                $destination = public_path("uploads/pdfs");
+                if (!is_dir($destination)) {
+                    mkdir($destination, 0755, true);
                 }
-                $fileUrl = json_encode($pdfPaths);
+                $file->move($destination, $filename);
+                $fileUrl = "/uploads/pdfs/" . $filename;
             }
 
             // Si es un contenido con slug protegido, mantener el slug original
@@ -530,7 +520,7 @@ class ContentController extends Controller
             $this->contentModel->updateContent((int) $id, $data);
 
             return redirect()
-                ->route("admin.contents.index")
+                ->route("admin.contents.edit", $id)
                 ->with("success", "Contenido actualizado exitosamente");
         } catch (\Exception $e) {
             Log::error("ContentController@update: " . $e->getMessage());

@@ -60,7 +60,7 @@
             'unidad-administrativa' => '🏢',
             'unidad-comunicacion' => '📢',
         ];
-        $transparencyMenu = $transparencyMenu ?? [];
+        $transparencyContents = $transparencyContents ?? [];
     @endphp
     <nav class="header-navbar" style="width: 100%; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center; padding: 0.75rem 0;">
         <ul class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
@@ -260,7 +260,7 @@
                                     <div class="academic-title">Secciones</div>
                                     <div class="academic-underline"></div>
                                     <ul>
-                                        @foreach($transparencyMenu as $parent)
+                                        @foreach($transparencyContents as $parent)
                                             <li class="dropdown-item">
                                                 <a href="{{ url('transparency/' . $parent['slug']) }}">{{ $parent['title'] }}</a>
                                                 @if(!empty($parent['children']))

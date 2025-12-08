@@ -49,6 +49,32 @@
                         </div>
                     @endif
                 </div>
+                {{-- Mostrar subreglamentos si existen --}}
+                @if (!empty($children) && count($children) > 0)
+                    <div class="subreglamentos-list">
+                        <h2 class="mt-8 mb-4 text-2xl font-bold">Subreglamentos</h2>
+                        <ul>
+                            @foreach ($children as $child)
+                                <li class="mb-6 p-4 border rounded shadow">
+                                    <h3 class="text-xl font-semibold mb-2">{{ $child['title'] }}</h3>
+                                    <p class="mb-2">{{ $child['description'] }}</p>
+                                    @if (!empty($child['file_url']))
+                                        @php
+                                            $files = json_decode($child['file_url'], true);
+                                            if (!is_array($files)) $files = [$child['file_url']];
+                                        @endphp
+                                        @foreach ($files as $file)
+                                            <a href="{{ filter_var($file, FILTER_VALIDATE_URL) ? $file : asset($file) }}" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
+                                            <a href="{{ filter_var($file, FILTER_VALIDATE_URL) ? $file : asset($file) }}" download class="btn btn-secondary">Descargar PDF</a>
+                                        @endforeach
+                                    @else
+                                        <span class="text-gray-500">No hay documento PDF</span>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             @else
                 <p>El contenido no está disponible.</p>
             @endif

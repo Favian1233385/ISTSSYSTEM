@@ -58,7 +58,6 @@
                     <?php if(session('success')): ?>
                         <div class="alert alert-success"><?php echo e(session('success')); ?></div>
                     <?php endif; ?>
-
                     <?php if($errors->any()): ?>
                         <div class="alert alert-danger">
                             <ul>
@@ -108,7 +107,7 @@
 
                             <div class="form-group">
                                 <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" required><?php echo e(old('content')); ?></textarea>
+                                <textarea id="content" name="content" class="form-control" rows="10" <?php if(request('parent_id')): ?> style="display:none;" <?php else: ?> required <?php endif; ?>><?php echo e(old('content')); ?></textarea>
                             </div>
 
 
@@ -181,4 +180,4 @@
     </script>
 </body>
 </html>
-<?php /**PATH C:\worspace\ISTSSYSTEM\resources\views/admin/crud/contents/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/crud/contents/create.blade.php ENDPATH**/ ?>

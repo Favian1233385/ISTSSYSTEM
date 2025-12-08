@@ -185,11 +185,8 @@ class ContentController extends Controller
             "slug" => "nullable|string|unique:contents,slug",
             "url" => "nullable|url",
             "is_external" => "nullable|boolean",
-            "description" => "required|string|min:10",
-            "content" =>
-                $request->input("category") === "tramites"
-                    ? "nullable|string"
-                    : "required|string|min:20",
+            "description" => "nullable|string",
+            "content" => "nullable|string",
             "category" => "nullable|string",
             "parent_id" => "nullable|exists:contents,id",
             "image_file" => "nullable|file|image|max:5120",
@@ -240,7 +237,7 @@ class ContentController extends Controller
                 ),
                 "slug" => $slug,
                 "url" => $validated["url"] ?? null,
-                "is_external" => $request->boolean("is_external"),
+                "is_external" => $request->boolean("is_external") ? 1 : 0,
                 "description" => html_entity_decode(
                     $validated["description"],
                     ENT_QUOTES | ENT_HTML5,
@@ -311,8 +308,12 @@ class ContentController extends Controller
             }
 
             if ($contentId) {
+                $route = 'admin.contents.index';
+                if ($data['category'] === 'transparency') {
+                    $route = 'admin.transparency.index';
+                }
                 return redirect()
-                    ->route("admin.contents.index")
+                    ->route($route)
                     ->with("success", "Contenido creado exitosamente");
             }
 
@@ -387,9 +388,13 @@ class ContentController extends Controller
             "is_external" => "nullable|boolean",
             "description" => "required|string|min:10",
             "content" =>
-                $request->input("category") === "tramites"
+                $request->input("parent_id")
                     ? "nullable|string"
-                    : "required|string|min:20",
+                    : (
+                        $request->input("category") === "tramites"
+                            ? "nullable|string"
+                            : "required|string|min:20"
+                    ),
             "category" => "nullable|string",
             "parent_id" => "nullable|exists:contents,id",
             "image_file" => "nullable|file|image|max:5120",
@@ -544,14 +549,25 @@ class ContentController extends Controller
                 $image->delete();
             }
 
+            $item = $this->contentModel->findById((int) $id);
+            $category = $item['category'] ?? null;
+            $route = 'admin.contents.index';
+            if ($category === 'transparency') {
+                $route = 'admin.transparency.index';
+            } elseif ($category === 'tramites') {
+                $route = 'admin.tramites.index';
+            } elseif ($category === 'news') {
+                $route = 'admin.news.index';
+            }
+
             $deleted = $this->contentModel->deleteContent((int) $id);
             if ($deleted) {
                 return redirect()
-                    ->route("admin.contents.index")
+                    ->route($route)
                     ->with("success", "Contenido eliminado exitosamente");
             }
             return redirect()
-                ->route("admin.contents.index")
+                ->route($route)
                 ->withErrors(["error" => "Error al eliminar el contenido"]);
         } catch (\Exception $e) {
             Log::error("ContentController@destroy: " . $e->getMessage());

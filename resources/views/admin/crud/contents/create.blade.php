@@ -58,11 +58,10 @@
                     @if(session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
-
-                    @if ($errors->any())
+                    @if($errors->any())
                         <div class="alert alert-danger">
                             <ul>
-                                @foreach ($errors->all() as $error)
+                                @foreach($errors->all() as $error)
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -108,7 +107,7 @@
 
                             <div class="form-group">
                                 <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" required>{{ old('content') }}</textarea>
+                                <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @else required @endif>{{ old('content') }}</textarea>
                             </div>
 
 

@@ -48,7 +48,7 @@
                 <div class="dashboard-header">
                     <h1>📝 Gestión de Contenidos</h1>
                     <p>Administra los contenidos del sitio.</p>
-                    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Crear Contenido</a>
+                    <a href="{{ route('admin.contents.create') }}" class="btn btn-primary">Crear Sección</a>
                 </div>
 
                 @if(session('success'))
@@ -113,6 +113,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                                             </form>
+                                            <a href="{{ route('admin.contents.create', ['parent_id' => $parent['id']]) }}" class="btn btn-sm btn-success">Agregar Subreglamento</a>
                                         </td>
                                     </tr>
                                 @if(!empty($parent['children']))

@@ -61,9 +61,10 @@ class AutoridadController extends Controller
         $data["slug"] = $this->generateUniqueSlug($request->nombre);
 
         if ($request->hasFile("foto_path")) {
-            $data["foto_path"] = $request
-                ->file("foto_path")
-                ->store("autoridades/fotos", "public");
+            $file = $request->file("foto_path");
+            $filename = uniqid() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images'), $filename);
+            $data["foto_path"] = $filename;
         }
 
         if ($request->hasFile("pdf_path")) {
@@ -140,16 +141,14 @@ class AutoridadController extends Controller
         }
 
         if ($request->hasFile("foto_path")) {
-            // Eliminar foto anterior
-            if (
-                $autoridad->foto_path &&
-                Storage::disk("public")->exists($autoridad->foto_path)
-            ) {
-                Storage::disk("public")->delete($autoridad->foto_path);
+            // Eliminar foto anterior del disco público
+            if ($autoridad->foto_path && file_exists(public_path('uploads/images/' . $autoridad->foto_path))) {
+                unlink(public_path('uploads/images/' . $autoridad->foto_path));
             }
-            $data["foto_path"] = $request
-                ->file("foto_path")
-                ->store("autoridades/fotos", "public");
+            $file = $request->file("foto_path");
+            $filename = uniqid() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images'), $filename);
+            $data["foto_path"] = $filename;
         }
 
         if ($request->hasFile("pdf_path")) {

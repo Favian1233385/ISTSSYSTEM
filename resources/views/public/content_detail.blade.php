@@ -31,7 +31,7 @@
                     {{-- Display Image if it exists --}}
                     @if (!empty($content->image_url))
                         <div class="content-image">
-                            <img src="{{ asset('storage/' . $content->image_url) }}" alt="{{ $content->title }}">
+                            <img src="{{ asset($content->image_url) }}" alt="{{ $content->title }}">
                         </div>
                     @endif
 
@@ -56,6 +56,11 @@
                         <ul>
                             @foreach ($children as $child)
                                 <li class="mb-6 p-4 border rounded shadow">
+                                    @if (!empty($child->image_url))
+                                        <div class="content-image">
+                                            <img src="{{ asset($child->image_url) }}" alt="{{ $child->title }}">
+                                        </div>
+                                    @endif
                                     @if (!empty($child->file_url) || !empty($child->url))
                                         @php
                                             $file = $child->file_url ?? $child->url ?? null;

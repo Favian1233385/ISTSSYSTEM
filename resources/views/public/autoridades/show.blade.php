@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-md-4 text-center">
                     @if($autoridad->foto_path)
-                        <img src="{{ asset('storage/' . $autoridad->foto_path) }}" class="img-fluid rounded-circle mb-3" alt="Foto de {{ $autoridad->nombre }}" style="max-width: 250px; height: auto; object-fit: cover;">
+                        <img src="{{ asset('uploads/images/' . $autoridad->foto_path) }}" class="img-fluid rounded-circle mb-3" alt="Foto de {{ $autoridad->nombre }}" style="max-width: 250px; height: auto; object-fit: cover;">
                     @else
                         <img src="{{ asset('images/default_avatar.png') }}" class="img-fluid rounded-circle mb-3" alt="Foto por defecto" style="max-width: 250px; height: auto; object-fit: cover;">
                     @endif

@@ -1,6 +1,9 @@
 <?php
-use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PublicController;
+
+// Ruta para crear docentes desde la gestión de Acerca (si se requiere fuera del resource)
+// Route::get('/admin/teachers/create', [TeacherController::class, 'create'])->name('teachers.create');
 // ...existing code...
 
 // Ruta pública para sección de visitar por slug

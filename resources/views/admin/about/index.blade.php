@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container-fluid">
+    @if (session('success'))
+        <div class="alert alert-success">
+            <span>✅</span> {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger">
+            <span>❌</span> {{ session('error') }}
+        </div>
+    @endif
     <h1 class="h3 mb-2 text-gray-800">Gestión de Contenido "Acerca"</h1>
     <p class="mb-4">Aquí puedes crear, editar y eliminar las secciones de contenido que aparecen en la página "Acerca".</p>
 
@@ -37,6 +47,16 @@
                                         <i class="fas fa-trash"></i> Eliminar
                                     </button>
                                 </form>
+                                @if (strtolower($about['title']) === 'autoridades')
+                                    <a href="{{ route('admin.autoridades.create') }}" class="btn btn-sm btn-success mt-1" title="Crear Autoridad">
+                                        <i class="fas fa-user-plus"></i> Crear Autoridad
+                                    </a>
+                                @endif
+                                @if (strtolower($about['title']) === 'planta docente')
+                                    <a href="{{ route('admin.teachers.create') }}" class="btn btn-sm btn-success mt-1" title="Crear Docente">
+                                        <i class="fas fa-user-plus"></i> Crear Docente
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                         @empty

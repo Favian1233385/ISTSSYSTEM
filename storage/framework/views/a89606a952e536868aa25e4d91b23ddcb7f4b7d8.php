@@ -31,7 +31,7 @@
                     
                     <?php if(!empty($content->image_url)): ?>
                         <div class="content-image">
-                            <img src="<?php echo e(asset('storage/' . $content->image_url)); ?>" alt="<?php echo e($content->title); ?>">
+                            <img src="<?php echo e(asset($content->image_url)); ?>" alt="<?php echo e($content->title); ?>">
                         </div>
                     <?php endif; ?>
 
@@ -57,6 +57,11 @@
                         <ul>
                             <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="mb-6 p-4 border rounded shadow">
+                                    <?php if(!empty($child->image_url)): ?>
+                                        <div class="content-image">
+                                            <img src="<?php echo e(asset($child->image_url)); ?>" alt="<?php echo e($child->title); ?>">
+                                        </div>
+                                    <?php endif; ?>
                                     <?php if(!empty($child->file_url) || !empty($child->url)): ?>
                                         <?php
                                             $file = $child->file_url ?? $child->url ?? null;

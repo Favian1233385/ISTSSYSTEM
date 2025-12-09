@@ -19,7 +19,7 @@
                     <div class="autoridad-card">
                         <div class="autoridad-img-wrap">
                             <?php if($autoridad->foto_path): ?>
-                                <img src="<?php echo e(asset('storage/' . $autoridad->foto_path)); ?>" alt="Foto de <?php echo e($autoridad->nombre); ?>" class="autoridad-img">
+                                <img src="<?php echo e(asset('uploads/images/' . $autoridad->foto_path)); ?>" alt="Foto de <?php echo e($autoridad->nombre); ?>" class="autoridad-img">
                             <?php else: ?>
                                 <div class="autoridad-img autoridad-img-placeholder">Sin foto</div>
                             <?php endif; ?>

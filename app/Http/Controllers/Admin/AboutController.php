@@ -145,19 +145,22 @@ class AboutController extends Controller
 
         $data = $request->only(["title", "body", "status"]);
 
-        if ($request->hasFile("image_url")) {
+        if ($request->hasFile('image_url')) {
             // Eliminar imagen anterior si existe
-            if (
-                $about["image_url"] &&
-                Storage::disk("public")->exists($about["image_url"])
-            ) {
-                Storage::disk("public")->delete($about["image_url"]);
+            $oldPath = public_path($about['image_url']);
+            if ($about['image_url'] && file_exists($oldPath)) {
+                @unlink($oldPath);
             }
-            $data["image_url"] = $request
-                ->file("image_url")
-                ->store("uploads/images", "public");
+            $file = $request->file('image_url');
+            $filename = uniqid() . '-' . preg_replace('/[^A-Za-z0-9_.-]/', '', $file->getClientOriginalName());
+            $destination = public_path('uploads/images');
+            if (!is_dir($destination)) {
+                mkdir($destination, 0755, true);
+            }
+            $file->move($destination, $filename);
+            $data['image_url'] = 'uploads/images/' . $filename;
         } else {
-            $data["image_url"] = $about["image_url"]; // Mantener la imagen existente si no se sube una nueva
+            $data['image_url'] = $about['image_url'];
         }
 
         if ($request->hasFile("file_url")) {

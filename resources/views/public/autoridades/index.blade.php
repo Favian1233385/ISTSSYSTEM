@@ -19,7 +19,7 @@
                     <div class="autoridad-card">
                         <div class="autoridad-img-wrap">
                             @if($autoridad->foto_path)
-                                <img src="{{ asset('storage/' . $autoridad->foto_path) }}" alt="Foto de {{ $autoridad->nombre }}" class="autoridad-img">
+                                <img src="{{ asset('uploads/images/' . $autoridad->foto_path) }}" alt="Foto de {{ $autoridad->nombre }}" class="autoridad-img">
                             @else
                                 <div class="autoridad-img autoridad-img-placeholder">Sin foto</div>
                             @endif

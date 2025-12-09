@@ -2,6 +2,18 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid">
+    <?php if(session('success')): ?>
+        <div class="alert alert-success">
+            <span>✅</span> <?php echo e(session('success')); ?>
+
+        </div>
+    <?php endif; ?>
+    <?php if(session('error')): ?>
+        <div class="alert alert-danger">
+            <span>❌</span> <?php echo e(session('error')); ?>
+
+        </div>
+    <?php endif; ?>
     <h1 class="h3 mb-2 text-gray-800">Gestión de Contenido "Acerca"</h1>
     <p class="mb-4">Aquí puedes crear, editar y eliminar las secciones de contenido que aparecen en la página "Acerca".</p>
 
@@ -37,6 +49,16 @@
                                         <i class="fas fa-trash"></i> Eliminar
                                     </button>
                                 </form>
+                                <?php if(strtolower($about['title']) === 'autoridades'): ?>
+                                    <a href="<?php echo e(route('admin.autoridades.create')); ?>" class="btn btn-sm btn-success mt-1" title="Crear Autoridad">
+                                        <i class="fas fa-user-plus"></i> Crear Autoridad
+                                    </a>
+                                <?php endif; ?>
+                                <?php if(strtolower($about['title']) === 'planta docente'): ?>
+                                    <a href="<?php echo e(route('admin.teachers.create')); ?>" class="btn btn-sm btn-success mt-1" title="Crear Docente">
+                                        <i class="fas fa-user-plus"></i> Crear Docente
+                                    </a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

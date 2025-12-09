@@ -89,6 +89,7 @@
                                     <select id="category" name="category" class="form-control" required>
                                         <option value="">Selecciona una categoría</option>
                                         <option value="transparency">Transparencia</option>
+                                        <option value="tramites">Trámites</option>
                                         <option value="carreras">Carreras</option>
                                         <option value="course">Cursos</option>
                                         <option value="noticias">Noticias</option>
@@ -100,28 +101,34 @@
                                 @endif
                             </div>
 
-                            @if(request('category') !== 'tramites' && old('category') !== 'tramites')
-                                <div class="form-group">
-                                    <label for="description">Descripcin</label>
-                                    <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="content">Contenido</label>
-                                    <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @endif>{{ old('content') }}</textarea>
-                                </div>
-                            @endif
-                            @if(request('category') === 'tramites' || old('category') === 'tramites')
-                                <!-- Solo mostrar título, archivo PDF, enlace externo y estado -->
-                                <!-- Los campos de descripción, contenido e imagen quedan ocultos -->
-                            @endif
-
-
-                            @if(request('category') !== 'tramites' && old('category') !== 'tramites')
-                                <div class="form-group">
-                                    <label for="image_url">Imagen</label>
-                                    <input type="file" id="image_url" name="image_url" class="form-control">
-                                </div>
-                            @endif
+                            <div class="form-group" id="description-group" style="display: none;">
+                                <label for="description">Descripción (opcional)</label>
+                                <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                            </div>
+                            <div class="form-group" id="content-group" style="display: none;">
+                                <label for="content">Contenido (opcional)</label>
+                                <textarea id="content" name="content" class="form-control" rows="10">{{ old('content') }}</textarea>
+                            </div>
+                            <div class="form-group" id="image-group" style="display: none;">
+                                <label for="image_url">Imagen (opcional)</label>
+                                <input type="file" id="image_url" name="image_url" class="form-control">
+                            </div>
+    <script>
+        // Mostrar/ocultar campos según la categoría seleccionada
+        document.addEventListener('DOMContentLoaded', function() {
+            function toggleFields() {
+                var cat = document.getElementById('category').value;
+                document.getElementById('description-group').style.display = (cat !== 'tramites') ? '' : 'none';
+                document.getElementById('content-group').style.display = (cat !== 'tramites') ? '' : 'none';
+                document.getElementById('image-group').style.display = (cat !== 'tramites') ? '' : 'none';
+            }
+            var catSelect = document.getElementById('category');
+            if (catSelect) {
+                catSelect.addEventListener('change', toggleFields);
+                toggleFields();
+            }
+        });
+    </script>
 
                             <div class="form-group">
                                 <label for="file_url">Archivo PDF o Enlace externo</label>

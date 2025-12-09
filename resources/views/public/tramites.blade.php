@@ -37,21 +37,28 @@
                                 @endif
                                 <div class="focus-content">
                                     @php
-                                        $file = $tramite['file_url'] ?? $tramite['url'] ?? null;
-                                        $isUrl = $file && filter_var($file, FILTER_VALIDATE_URL);
+                                        $url = $tramite['url'] ?? null;
+                                        $file = $tramite['file_url'] ?? null;
+                                        $isExternalUrl = $url && filter_var($url, FILTER_VALIDATE_URL);
+                                        $isFile = $file && !$isExternalUrl;
                                     @endphp
-                                    @if ($file)
+                                    @if ($isExternalUrl)
                                         <h3>
-                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ htmlspecialchars($tramite['title']) }}</a>
+                                            <a href="{{ $url }}" target="_blank" class="text-primary underline">{{ htmlspecialchars($tramite['title']) }}</a>
+                                        </h3>
+                                    @elseif ($isFile)
+                                        <h3>
+                                            <a href="{{ asset($file) }}" target="_blank" class="text-primary underline">{{ htmlspecialchars($tramite['title']) }}</a>
                                         </h3>
                                     @else
                                         <h3>{{ htmlspecialchars($tramite['title']) }}</h3>
                                     @endif
-                                    <p>{{ htmlspecialchars($tramite['description']) }}</p>
+                                    <p>{{ htmlspecialchars($tramite['description'] ?? '') }}</p>
                                     <div class="focus-actions">
-                                        @if ($file)
-                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="btn btn-outline">Ir al trámite</a>
-                                            @endif
+                                        @if ($isExternalUrl)
+                                            <a href="{{ $url }}" target="_blank" class="btn btn-outline">Ir al trámite</a>
+                                        @elseif ($isFile)
+                                            <a href="{{ asset($file) }}" target="_blank" class="btn btn-outline">Ir al trámite</a>
                                         @endif
                                     </div>
                                 </div>

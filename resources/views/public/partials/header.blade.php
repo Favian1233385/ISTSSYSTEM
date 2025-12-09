@@ -305,8 +305,20 @@
                                 <div class="academic-column">
                                     <ul>
                                         @foreach($tramites as $tramite)
+                                            @php
+                                                $url = $tramite->url ?? null;
+                                                $file = $tramite->file_url ?? null;
+                                                $isExternalUrl = $url && filter_var($url, FILTER_VALIDATE_URL);
+                                                $isFile = $file && !$isExternalUrl;
+                                            @endphp
                                             <li class="dropdown-item">
-                                                <a href="{{ url('tramites/' . $tramite->slug) }}">{{ $tramite->title }}</a>
+                                                @if($isExternalUrl)
+                                                    <a href="{{ $url }}" target="_blank">{{ $tramite->title }}</a>
+                                                @elseif($isFile)
+                                                    <a href="{{ asset($file) }}" target="_blank">{{ $tramite->title }}</a>
+                                                @else
+                                                    <span>{{ $tramite->title }}</span>
+                                                @endif
                                             </li>
                                         @endforeach
                                     </ul>

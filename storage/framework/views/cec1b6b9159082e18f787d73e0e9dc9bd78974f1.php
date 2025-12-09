@@ -307,8 +307,20 @@
                                 <div class="academic-column">
                                     <ul>
                                         <?php $__currentLoopData = $tramites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tramite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php
+                                                $url = $tramite->url ?? null;
+                                                $file = $tramite->file_url ?? null;
+                                                $isExternalUrl = $url && filter_var($url, FILTER_VALIDATE_URL);
+                                                $isFile = $file && !$isExternalUrl;
+                                            ?>
                                             <li class="dropdown-item">
-                                                <a href="<?php echo e(url('tramites/' . $tramite->slug)); ?>"><?php echo e($tramite->title); ?></a>
+                                                <?php if($isExternalUrl): ?>
+                                                    <a href="<?php echo e($url); ?>" target="_blank"><?php echo e($tramite->title); ?></a>
+                                                <?php elseif($isFile): ?>
+                                                    <a href="<?php echo e(asset($file)); ?>" target="_blank"><?php echo e($tramite->title); ?></a>
+                                                <?php else: ?>
+                                                    <span><?php echo e($tramite->title); ?></span>
+                                                <?php endif; ?>
                                             </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>

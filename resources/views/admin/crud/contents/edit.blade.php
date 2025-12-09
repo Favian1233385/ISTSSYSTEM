@@ -107,14 +107,16 @@
                             @endif
                         </div>
                     @endif
-                    <div class="form-group">
-                        <label for="file_url">Archivo PDF o Enlace externo</label>
-                        <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
-                        <input type="url" name="file_url" id="file_url" class="form-control" value="{{ old('file_url', (filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : '') ) }}" placeholder="https://example.com (opcional)">
-                        @if($item['file_url'])
-                            <a href="{{ filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : asset($item['file_url']) }}" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
-                        @endif
-                    </div>
+                    @if($item['category'] !== 'tramites')
+                        <div class="form-group">
+                            <label for="file_url">Archivo PDF o Enlace externo</label>
+                            <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
+                            <input type="url" name="file_url" id="file_url" class="form-control" value="{{ old('file_url', (filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : '') ) }}" placeholder="https://example.com (opcional)">
+                            @if($item['file_url'])
+                                <a href="{{ filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : asset($item['file_url']) }}" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
+                            @endif
+                        </div>
+                    @endif
                     <div class="form-group">
                         <label for="status">Estado</label>
                         <select name="status" id="status" class="form-control">

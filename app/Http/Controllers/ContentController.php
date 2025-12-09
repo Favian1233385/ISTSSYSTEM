@@ -188,6 +188,8 @@ class ContentController extends Controller
         $rules = [
             "title" => "required|string|max:255",
             "category" => "required|string|max:255",
+            "description" => "nullable|string",
+            "content" => "nullable|string",
             "image_url" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
             "file_url" => "nullable|mimes:pdf|max:10240",
             "url" => "nullable|url",
@@ -195,10 +197,6 @@ class ContentController extends Controller
             "status" => "nullable|in:published,draft,archived",
             "parent_id" => "nullable|exists:contents,id",
         ];
-        if ($category !== 'tramites') {
-            $rules["description"] = "nullable|string";
-            $rules["content"] = "nullable|string";
-        }
         $validatedData = $request->validate($rules);
 
         // Si no se envía status, poner draft por defecto
@@ -319,9 +317,10 @@ class ContentController extends Controller
         // Contenidos especiales con slug protegido
         $protectedSlugs = ["linea-de-tiempo", "mision-y-vision", "organigrama"];
         $currentItem = $this->contentModel->findById((int) $id);
-        $isProtectedSlug =
-            $currentItem && in_array($currentItem["slug"], $protectedSlugs);
+        $isProtectedSlug = $currentItem && in_array($currentItem["slug"], $protectedSlugs);
 
+        // Usar la categoría del request, o la del contenido actual si no viene
+        $category = $request->input('category') ?? ($currentItem["category"] ?? null);
         $rules = [
             "title" => "required|string|min:3",
             "slug" => $isProtectedSlug
@@ -337,14 +336,14 @@ class ContentController extends Controller
             "external_pdf_url" => "nullable|url",
             "featured" => "nullable|boolean",
         ];
-        if ($request->input('category') !== 'tramites') {
+        if ($category === 'tramites') {
+            $rules["description"] = "nullable|string";
+            $rules["content"] = "nullable|string";
+        } else {
             $rules["description"] = "required|string|min:10";
             $rules["content"] = $request->input("parent_id")
                 ? "nullable|string"
                 : "required|string|min:20";
-        } else {
-            $rules["description"] = "nullable|string";
-            $rules["content"] = "nullable|string";
         }
 
         $validated = $request->validate($rules);
@@ -451,22 +450,20 @@ class ContentController extends Controller
                 ),
                 "slug" => $slug,
                 "url" => $validated["url"] ?? null,
-                "is_external" => $request->boolean("is_external"),
+                "is_external" => $request->has('is_external') ? 1 : 0,
                 "description" => html_entity_decode(
-                    $validated["description"],
+                    $validated["description"] ?? '',
                     ENT_QUOTES | ENT_HTML5,
                     "UTF-8",
                 ),
                 "content" => html_entity_decode(
-                    $validated["content"] ?? "",
+                    $validated["content"] ?? '',
                     ENT_QUOTES | ENT_HTML5,
                     "UTF-8",
                 ),
                 "category" =>
-                    $request->input("category") ?:
-                    ($request->input("parent_id")
-                        ? "transparency"
-                        : null),
+                    $request->input("category")
+                        ?: ($currentItem["category"] ?? ($request->input("parent_id") ? "transparency" : null)),
                 "parent_id" => $request->input("parent_id"),
                 "status" => $request->input("status", "published"), // Publicar por defecto
                 "featured" => (int) $request->boolean("featured"),

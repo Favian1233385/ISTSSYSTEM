@@ -113,10 +113,12 @@
                                                 <?php echo method_field('DELETE'); ?>
                                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                                             </form>
-                                            <a href="<?php echo e(route('admin.contents.create', ['parent_id' => $parent['id']])); ?>" class="btn btn-sm btn-success">Agregar Subreglamento</a>
+                                            <?php if($parent['category'] !== 'tramites'): ?>
+                                                <a href="<?php echo e(route('admin.contents.create', ['parent_id' => $parent['id']])); ?>" class="btn btn-sm btn-success">Agregar Subreglamento</a>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
-                                <?php if(!empty($parent['children'])): ?>
+                                <?php if($parent['category'] !== 'tramites' && !empty($parent['children'])): ?>
                                     <?php $__currentLoopData = $parent['children']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr style="background-color: #f9f9f9;">
                                             <td><?php echo e($child["id"]); ?></td>

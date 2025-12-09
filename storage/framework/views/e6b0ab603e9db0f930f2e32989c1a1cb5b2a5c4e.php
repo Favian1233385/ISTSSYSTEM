@@ -73,25 +73,40 @@
                 <form action="<?php echo e(route('admin.contents.update', $item['id'])); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
-                    <div class="form-group">
-                        <label for="title">Título</label>
-                        <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $item['title'])); ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea name="description" id="description" class="form-control" rows="3" required><?php echo e(old('description', $item['description'])); ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="content">Contenido</label>
-                        <textarea name="content" id="content" class="form-control" rows="10" required><?php echo e(old('content', $item['content'])); ?></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image_file">Imagen</label>
-                        <input type="file" name="image_file" id="image_file" class="form-control">
-                        <?php if($item['image_url']): ?>
-                            <img src="<?php echo e(asset($item['image_url'])); ?>" alt="Imagen actual" style="max-width: 200px; margin-top: 10px;">
-                        <?php endif; ?>
-                    </div>
+                    <?php if($item['category'] === 'tramites'): ?>
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $item['title'])); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="file_url">Archivo PDF o Enlace externo</label>
+                            <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
+                            <input type="url" name="file_url" id="file_url" class="form-control" value="<?php echo e(old('file_url', (filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : '') )); ?>" placeholder="https://example.com (opcional)">
+                            <?php if($item['file_url']): ?>
+                                <a href="<?php echo e(filter_var($item['file_url'], FILTER_VALIDATE_URL) ? $item['file_url'] : asset($item['file_url'])); ?>" target="_blank" style="display: block; margin-top: 10px;">Ver archivo actual</a>
+                            <?php endif; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="form-group">
+                            <label for="title">Título</label>
+                            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $item['title'])); ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Descripción</label>
+                            <textarea name="description" id="description" class="form-control" rows="3" required><?php echo e(old('description', $item['description'])); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">Contenido</label>
+                            <textarea name="content" id="content" class="form-control" rows="10" required><?php echo e(old('content', $item['content'])); ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="image_file">Imagen</label>
+                            <input type="file" name="image_file" id="image_file" class="form-control">
+                            <?php if($item['image_url']): ?>
+                                <img src="<?php echo e(asset($item['image_url'])); ?>" alt="Imagen actual" style="max-width: 200px; margin-top: 10px;">
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
                     <div class="form-group">
                         <label for="file_url">Archivo PDF o Enlace externo</label>
                         <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">

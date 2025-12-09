@@ -100,15 +100,16 @@
                                 <?php endif; ?>
                             </div>
 
-                            <div class="form-group">
-                                <label for="description">Descripción</label>
-                                <textarea id="description" name="description" class="form-control" rows="3"><?php echo e(old('description')); ?></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" <?php if(request('parent_id')): ?> style="display:none;" <?php endif; ?>><?php echo e(old('content')); ?></textarea>
-                            </div>
+                            <?php if(request('category') !== 'tramites' && old('category') !== 'tramites'): ?>
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <textarea id="description" name="description" class="form-control" rows="3"><?php echo e(old('description')); ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content">Contenido</label>
+                                    <textarea id="content" name="content" class="form-control" rows="10" <?php if(request('parent_id')): ?> style="display:none;" <?php endif; ?>><?php echo e(old('content')); ?></textarea>
+                                </div>
+                            <?php endif; ?>
 
 
                             <div class="form-group">

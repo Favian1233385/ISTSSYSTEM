@@ -100,21 +100,28 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
-                                <label for="description">Descripción</label>
-                                <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
-                            </div>
+                            @if(request('category') !== 'tramites' && old('category') !== 'tramites')
+                                <div class="form-group">
+                                    <label for="description">Descripcin</label>
+                                    <textarea id="description" name="description" class="form-control" rows="3">{{ old('description') }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="content">Contenido</label>
+                                    <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @endif>{{ old('content') }}</textarea>
+                                </div>
+                            @endif
+                            @if(request('category') === 'tramites' || old('category') === 'tramites')
+                                <!-- Solo mostrar título, archivo PDF, enlace externo y estado -->
+                                <!-- Los campos de descripción, contenido e imagen quedan ocultos -->
+                            @endif
 
-                            <div class="form-group">
-                                <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @endif>{{ old('content') }}</textarea>
-                            </div>
 
-
-                            <div class="form-group">
-                                <label for="image_url">Imagen</label>
-                                <input type="file" id="image_url" name="image_url" class="form-control">
-                            </div>
+                            @if(request('category') !== 'tramites' && old('category') !== 'tramites')
+                                <div class="form-group">
+                                    <label for="image_url">Imagen</label>
+                                    <input type="file" id="image_url" name="image_url" class="form-control">
+                                </div>
+                            @endif
 
                             <div class="form-group">
                                 <label for="file_url">Archivo PDF o Enlace externo</label>

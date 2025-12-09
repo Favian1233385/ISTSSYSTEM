@@ -184,18 +184,22 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         // 1. Validación de todos los datos de entrada
-        $validatedData = $request->validate([
+        $category = $request->input('category');
+        $rules = [
             "title" => "required|string|max:255",
             "category" => "required|string|max:255",
-            "description" => "nullable|string",
-            "content" => "nullable|string",
             "image_url" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
             "file_url" => "nullable|mimes:pdf|max:10240",
             "url" => "nullable|url",
             "is_external" => "nullable|boolean",
             "status" => "nullable|in:published,draft,archived",
             "parent_id" => "nullable|exists:contents,id",
-        ]);
+        ];
+        if ($category !== 'tramites') {
+            $rules["description"] = "nullable|string";
+            $rules["content"] = "nullable|string";
+        }
+        $validatedData = $request->validate($rules);
 
         // Si no se envía status, poner draft por defecto
         if (empty($validatedData['status'])) {
@@ -325,12 +329,6 @@ class ContentController extends Controller
                 : "nullable|string|unique:contents,slug," . $id,
             "url" => "nullable|url",
             "is_external" => "nullable|boolean",
-            "description" => "required|string|min:10",
-            "content" => $request->input("parent_id")
-                ? "nullable|string"
-                : ($request->input("category") === "tramites"
-                    ? "nullable|string"
-                    : "required|string|min:20"),
             "category" => "nullable|string",
             "parent_id" => "nullable|exists:contents,id",
             "image_file" => "nullable|file|image|max:5120",
@@ -339,6 +337,15 @@ class ContentController extends Controller
             "external_pdf_url" => "nullable|url",
             "featured" => "nullable|boolean",
         ];
+        if ($request->input('category') !== 'tramites') {
+            $rules["description"] = "required|string|min:10";
+            $rules["content"] = $request->input("parent_id")
+                ? "nullable|string"
+                : "required|string|min:20";
+        } else {
+            $rules["description"] = "nullable|string";
+            $rules["content"] = "nullable|string";
+        }
 
         $validated = $request->validate($rules);
 

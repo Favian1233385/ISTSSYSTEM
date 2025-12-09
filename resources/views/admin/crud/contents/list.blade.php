@@ -113,10 +113,12 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
                                             </form>
-                                            <a href="{{ route('admin.contents.create', ['parent_id' => $parent['id']]) }}" class="btn btn-sm btn-success">Agregar Subreglamento</a>
+                                            @if($parent['category'] !== 'tramites')
+                                                <a href="{{ route('admin.contents.create', ['parent_id' => $parent['id']]) }}" class="btn btn-sm btn-success">Agregar Subreglamento</a>
+                                            @endif
                                         </td>
                                     </tr>
-                                @if(!empty($parent['children']))
+                                @if($parent['category'] !== 'tramites' && !empty($parent['children']))
                                     @foreach($parent['children'] as $child)
                                         <tr style="background-color: #f9f9f9;">
                                             <td>{{ $child["id"] }}</td>

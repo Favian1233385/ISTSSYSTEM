@@ -36,10 +36,23 @@
                                     </div>
                                 @endif
                                 <div class="focus-content">
-                                    <h3>{{ htmlspecialchars($tramite['title']) }}</h3>
+                                    @php
+                                        $file = $tramite['file_url'] ?? $tramite['url'] ?? null;
+                                        $isUrl = $file && filter_var($file, FILTER_VALIDATE_URL);
+                                    @endphp
+                                    @if ($file)
+                                        <h3>
+                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ htmlspecialchars($tramite['title']) }}</a>
+                                        </h3>
+                                    @else
+                                        <h3>{{ htmlspecialchars($tramite['title']) }}</h3>
+                                    @endif
                                     <p>{{ htmlspecialchars($tramite['description']) }}</p>
                                     <div class="focus-actions">
-                                        <a href="{{ url('/contents/' . htmlspecialchars($tramite['slug'])) }}" class="btn btn-outline">Leer más</a>
+                                        @if ($file)
+                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="btn btn-outline">Ir al trámite</a>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>

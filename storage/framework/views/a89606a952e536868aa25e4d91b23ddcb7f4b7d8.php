@@ -24,7 +24,7 @@
             <?php if(!empty($content)): ?>
                 
                 <?php
-                    $isMisionVision = ($content['slug'] === 'mision-y-vision' || $content['slug'] === 'mision-y-vision-2');
+                    $isMisionVision = ($content->slug === 'mision-y-vision' || $content->slug === 'mision-y-vision-2');
                 ?>
 
                 <div class="content-wrapper <?php echo e($isMisionVision ? 'content-layout-two-column' : ''); ?>">
@@ -37,7 +37,7 @@
 
                     
                     <div class="content-body">
-                        <?php echo $content['content'] ?? ''; ?>
+                        <?php echo $content->content ?? ''; ?>
 
                     </div>
 
@@ -57,19 +57,19 @@
                         <ul>
                             <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="mb-6 p-4 border rounded shadow">
-                                    <?php if(!empty($child['file_url']) || !empty($child['url'])): ?>
+                                    <?php if(!empty($child->file_url) || !empty($child->url)): ?>
                                         <?php
-                                            $file = $child['file_url'] ?? $child['url'] ?? null;
+                                            $file = $child->file_url ?? $child->url ?? null;
                                             $isUrl = filter_var($file, FILTER_VALIDATE_URL);
                                         ?>
                                         <h3 class="text-xl font-semibold mb-2">
-                                            <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="text-primary underline"><?php echo e($child['title']); ?></a>
+                                            <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="text-primary underline"><?php echo e($child->title); ?></a>
                                         </h3>
                                     <?php else: ?>
-                                        <h3 class="text-xl font-semibold mb-2"><?php echo e($child['title']); ?></h3>
+                                        <h3 class="text-xl font-semibold mb-2"><?php echo e($child->title); ?></h3>
                                     <?php endif; ?>
-                                    <p class="mb-2"><?php echo e($child['description']); ?></p>
-                                    <?php if(!empty($child['file_url']) || !empty($child['url'])): ?>
+                                    <p class="mb-2"><?php echo e($child->description); ?></p>
+                                    <?php if(!empty($child->file_url) || !empty($child->url)): ?>
                                         <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
                                         <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" download class="btn btn-secondary">Descargar PDF</a>
                                     <?php else: ?>

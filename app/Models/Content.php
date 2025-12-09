@@ -29,13 +29,10 @@ class Content extends \Model
      */
     public function getByCategory($category, $limit = null)
     {
-        $sql =
-            "SELECT * FROM contents WHERE category = ? AND (status = 'published' OR status IS NULL) ORDER BY created_at DESC";
-
+        $sql = "SELECT * FROM contents WHERE category = ? ORDER BY created_at DESC";
         if ($limit) {
             $sql .= " LIMIT $limit";
         }
-
         return $this->fetchAll($sql, [$category]);
     }
 
@@ -54,13 +51,10 @@ class Content extends \Model
      */
     public function getByCategoryAndParent($category, $limit = null)
     {
-        $sql =
-            "SELECT * FROM contents WHERE category = ? AND parent_id IS NULL AND (status = 'published' OR status IS NULL) ORDER BY created_at DESC";
-
+        $sql = "SELECT * FROM contents WHERE category = ? AND parent_id IS NULL ORDER BY created_at DESC";
         if ($limit) {
             $sql .= " LIMIT $limit";
         }
-
         return $this->fetchAll($sql, [$category]);
     }
 

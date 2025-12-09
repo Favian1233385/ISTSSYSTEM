@@ -24,7 +24,7 @@
             @if (!empty($content))
                 {{-- Determine if a two-column layout should be applied --}}
                 @php
-                    $isMisionVision = ($content['slug'] === 'mision-y-vision' || $content['slug'] === 'mision-y-vision-2');
+                    $isMisionVision = ($content->slug === 'mision-y-vision' || $content->slug === 'mision-y-vision-2');
                 @endphp
 
                 <div class="content-wrapper {{ $isMisionVision ? 'content-layout-two-column' : '' }}">
@@ -37,7 +37,7 @@
 
                     {{-- Display Rich Text Content --}}
                     <div class="content-body">
-                        {!! $content['content'] ?? '' !!}
+                        {!! $content->content ?? '' !!}
                     </div>
 
                     {{-- Display PDF Link if it exists --}}
@@ -56,19 +56,19 @@
                         <ul>
                             @foreach ($children as $child)
                                 <li class="mb-6 p-4 border rounded shadow">
-                                    @if (!empty($child['file_url']) || !empty($child['url']))
+                                    @if (!empty($child->file_url) || !empty($child->url))
                                         @php
-                                            $file = $child['file_url'] ?? $child['url'] ?? null;
+                                            $file = $child->file_url ?? $child->url ?? null;
                                             $isUrl = filter_var($file, FILTER_VALIDATE_URL);
                                         @endphp
                                         <h3 class="text-xl font-semibold mb-2">
-                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ $child['title'] }}</a>
+                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ $child->title }}</a>
                                         </h3>
                                     @else
-                                        <h3 class="text-xl font-semibold mb-2">{{ $child['title'] }}</h3>
+                                        <h3 class="text-xl font-semibold mb-2">{{ $child->title }}</h3>
                                     @endif
-                                    <p class="mb-2">{{ $child['description'] }}</p>
-                                    @if (!empty($child['file_url']) || !empty($child['url']))
+                                    <p class="mb-2">{{ $child->description }}</p>
+                                    @if (!empty($child->file_url) || !empty($child->url))
                                         <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
                                         <a href="{{ $isUrl ? $file : asset($file) }}" download class="btn btn-secondary">Descargar PDF</a>
                                     @else

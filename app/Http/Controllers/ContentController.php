@@ -232,18 +232,14 @@ class ContentController extends Controller
             $contentModel = new \App\Models\Content();
             $contentId = $contentModel->create($dataToCreate);
 
-            if (!$contentId) {
-                // Si el método create del modelo personalizado devuelve false o null
+            if (!$contentId || $contentId === false) {
+                \Log::error("Fallo al crear contenido: " . json_encode($dataToCreate));
                 return redirect()
                     ->back()
                     ->withInput()
-                    ->with(
-                        "error",
-                        "No se pudo crear el contenido. Verifica que el título no esté duplicado.",
-                    );
+                    ->withErrors(["error" => "No se pudo crear el contenido. Verifica los datos ingresados y revisa el log del sistema."]);
             }
 
-            // Redireccionar con mensaje de éxito
             $route =
                 "admin." .
                 ($validatedData["category"] === "transparency"
@@ -253,18 +249,11 @@ class ContentController extends Controller
                 ->route($route)
                 ->with("success", "Contenido creado exitosamente.");
         } catch (\Exception $e) {
-            // Si hay un error de base de datos (ej. slug duplicado), registrarlo y redirigir
-            \Illuminate\Support\Facades\Log::error(
-                "Error al crear contenido en ContentController@store: " .
-                    $e->getMessage(),
-            );
+            \Log::error("Error al crear contenido en ContentController@store: " . $e->getMessage() . " | Datos: " . json_encode($dataToCreate));
             return redirect()
                 ->back()
                 ->withInput()
-                ->with(
-                    "error",
-                    "Hubo un error al crear el contenido. Es posible que el título o el slug ya existan. Por favor, inténtelo de nuevo.",
-                );
+                ->withErrors(["error" => "Error interno: " . $e->getMessage()]);
         }
     }
 

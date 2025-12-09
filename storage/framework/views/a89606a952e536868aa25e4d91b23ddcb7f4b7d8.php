@@ -3,90 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $content->description ?? '' }}">
-    <title>{{ $content->title ?? 'Contenido - ISTS' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <meta name="description" content="<?php echo e($content->description ?? ''); ?>">
+    <title><?php echo e($content->title ?? 'Contenido - ISTS'); ?></title>
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
 </head>
 <body>
     <!-- Header -->
-    @include('public.partials.header')
+    <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- Hero Section -->
     <section class="about-hero">
         <div class="container">
-            <h1>{{ $content->title ?? 'Contenido' }}</h1>
+            <h1><?php echo e($content->title ?? 'Contenido'); ?></h1>
         </div>
     </section>
 
     <!-- Content -->
     <section class="about-content">
         <div class="container">
-            @if (!empty($content))
-                {{-- Determine if a two-column layout should be applied --}}
-                @php
+            <?php if(!empty($content)): ?>
+                
+                <?php
                     $isMisionVision = ($content['slug'] === 'mision-y-vision' || $content['slug'] === 'mision-y-vision-2');
-                @endphp
+                ?>
 
-                <div class="content-wrapper {{ $isMisionVision ? 'content-layout-two-column' : '' }}">
-                    {{-- Display Image if it exists --}}
-                    @if (!empty($content->image_url))
+                <div class="content-wrapper <?php echo e($isMisionVision ? 'content-layout-two-column' : ''); ?>">
+                    
+                    <?php if(!empty($content->image_url)): ?>
                         <div class="content-image">
-                            <img src="{{ asset('storage/' . $content->image_url) }}" alt="{{ $content->title }}">
+                            <img src="<?php echo e(asset('storage/' . $content->image_url)); ?>" alt="<?php echo e($content->title); ?>">
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    {{-- Display Rich Text Content --}}
+                    
                     <div class="content-body">
-                        {!! $content['content'] ?? '' !!}
+                        <?php echo $content['content'] ?? ''; ?>
+
                     </div>
 
-                    {{-- Display PDF Link if it exists --}}
-                    @if (!empty($content->file_url))
+                    
+                    <?php if(!empty($content->file_url)): ?>
                         <div class="content-file-download">
-                            <a href="{{ asset('storage/' . $content->file_url) }}" target="_blank" class="btn btn-primary">
+                            <a href="<?php echo e(asset('storage/' . $content->file_url)); ?>" target="_blank" class="btn btn-primary">
                                 Descargar PDF
                             </a>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
-                {{-- Mostrar subreglamentos si existen --}}
-                @if (!empty($children) && count($children) > 0)
+                
+                <?php if(!empty($children) && count($children) > 0): ?>
                     <div class="subreglamentos-list">
                         <h2 class="mt-8 mb-4 text-2xl font-bold">Subreglamentos</h2>
                         <ul>
-                            @foreach ($children as $child)
+                            <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="mb-6 p-4 border rounded shadow">
-                                    @if (!empty($child['file_url']) || !empty($child['url']))
-                                        @php
+                                    <?php if(!empty($child['file_url']) || !empty($child['url'])): ?>
+                                        <?php
                                             $file = $child['file_url'] ?? $child['url'] ?? null;
                                             $isUrl = filter_var($file, FILTER_VALIDATE_URL);
-                                        @endphp
+                                        ?>
                                         <h3 class="text-xl font-semibold mb-2">
-                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ $child['title'] }}</a>
+                                            <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="text-primary underline"><?php echo e($child['title']); ?></a>
                                         </h3>
-                                    @else
-                                        <h3 class="text-xl font-semibold mb-2">{{ $child['title'] }}</h3>
-                                    @endif
-                                    <p class="mb-2">{{ $child['description'] }}</p>
-                                    @if (!empty($child['file_url']) || !empty($child['url']))
-                                        <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
-                                        <a href="{{ $isUrl ? $file : asset($file) }}" download class="btn btn-secondary">Descargar PDF</a>
-                                    @else
+                                    <?php else: ?>
+                                        <h3 class="text-xl font-semibold mb-2"><?php echo e($child['title']); ?></h3>
+                                    <?php endif; ?>
+                                    <p class="mb-2"><?php echo e($child['description']); ?></p>
+                                    <?php if(!empty($child['file_url']) || !empty($child['url'])): ?>
+                                        <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
+                                        <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" download class="btn btn-secondary">Descargar PDF</a>
+                                    <?php else: ?>
                                         <span class="text-gray-500">No hay documento PDF</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
-            @else
+                <?php endif; ?>
+            <?php else: ?>
                 <p>El contenido no está disponible.</p>
-            @endif
+            <?php endif; ?>
         </div>
     </section>
 
     <!-- Footer -->
-    @include('public.partials.footer')
+    <?php echo $__env->make('public.partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <style>
         .about-hero {
@@ -231,3 +232,4 @@
     </style>
 </body>
 </html>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/content_detail.blade.php ENDPATH**/ ?>

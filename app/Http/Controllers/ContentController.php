@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Log;
 use App\Models\ContentImage;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -73,7 +72,11 @@ class ContentController extends Controller
 
                 // Crear paginador manualmente
                 $total = count($parents);
-                $paginatedParents = array_slice($parents, ($page - 1) * $perPage, $perPage);
+                $paginatedParents = array_slice(
+                    $parents,
+                    ($page - 1) * $perPage,
+                    $perPage,
+                );
                 $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
                     $paginatedParents,
                     $total,
@@ -82,7 +85,7 @@ class ContentController extends Controller
                     [
                         "path" => $request->url(),
                         "query" => $request->query(),
-                    ]
+                    ],
                 );
 
                 $title = "Gestión de Contenidos - ISTS Admin";
@@ -180,154 +183,86 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
-        $rules = [
-            "title" => "required|string|min:3",
-            "slug" => "nullable|string|unique:contents,slug",
-            "url" => "nullable|url",
-            "is_external" => "nullable|boolean",
+        // 1. Validación de todos los datos de entrada
+        $validatedData = $request->validate([
+            "title" => "required|string|max:255",
+            "category" => "required|string|max:255",
             "description" => "nullable|string",
             "content" => "nullable|string",
-            "category" => "nullable|string",
+            "image_url" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+            "file_url" => "nullable|mimes:pdf|max:10240",
+            "url" => "nullable|url",
+            "is_external" => "nullable|boolean",
+            "status" => "nullable|in:published,draft,archived",
             "parent_id" => "nullable|exists:contents,id",
-            "image_file" => "nullable|file|image|max:5120",
-            "pdf_files" => "nullable|array",
-            "pdf_files.*" => "nullable|file|mimes:pdf|max:10240",
-            "external_pdf_url" => "nullable|url",
-            "featured" => "nullable|boolean",
-        ];
+        ]);
 
-        $validated = $request->validate($rules);
+        // Si no se envía status, poner draft por defecto
+        if (empty($validatedData['status'])) {
+            $validatedData['status'] = 'draft';
+        }
 
+        // 2. Preparar los datos para la base de datos
+        $dataToCreate = $validatedData;
+        // Convertir checkbox a 0 o 1 (entero)
+        $dataToCreate["is_external"] = $request->has("is_external") ? 1 : 0;
+        $dataToCreate["parent_id"] = $request->input("parent_id") ?: null; // Asegurar que parent_id sea NULL si está vacío
+
+        // 3. Generar slug único
+        $dataToCreate["slug"] = $this->generateSlug($request->title);
+
+        // 4. Manejar la subida de imagen
+        if ($request->hasFile("image_url")) {
+            $dataToCreate["image_url"] = $request
+                ->file("image_url")
+                ->store("uploads/images", "public");
+        }
+
+        // 5. Manejar la subida de PDF
+        if ($request->hasFile("file_url")) {
+            $dataToCreate["file_url"] = $request
+                ->file("file_url")
+                ->store("uploads/pdfs", "public");
+        }
+
+        // 6. Intentar crear el contenido y manejar errores
         try {
-            // Usar el slug proporcionado o generar uno del título
-            $slug =
-                $validated["slug"] ?? $this->generateSlug($validated["title"]);
+            $contentModel = new \App\Models\Content();
+            $contentId = $contentModel->create($dataToCreate);
 
-            $fileUrl = null;
-            // Prioritize external URL over file uploads
-            if ($request->filled("external_pdf_url")) {
-                $fileUrl = $validated["external_pdf_url"];
-            } elseif ($request->hasFile("pdf_files")) {
-                $pdfPaths = [];
-                foreach ($request->file("pdf_files") as $file) {
-                    $filename =
-                        uniqid() .
-                        "-" .
-                        preg_replace(
-                            "/[^A-Za-z0-9_.-]/",
-                            "",
-                            $file->getClientOriginalName(),
-                        );
-                    $destination = public_path("uploads/pdfs");
-                    if (!is_dir($destination)) {
-                        mkdir($destination, 0755, true);
-                    }
-                    $file->move($destination, $filename);
-                    $pdfPaths[] = "/uploads/pdfs/" . $filename;
-                }
-                $fileUrl = json_encode($pdfPaths);
-            }
-
-            // Decodificar entidades HTML para evitar doble escapado
-            $data = [
-                "title" => html_entity_decode(
-                    $validated["title"],
-                    ENT_QUOTES | ENT_HTML5,
-                    "UTF-8",
-                ),
-                "slug" => $slug,
-                "url" => $validated["url"] ?? null,
-                "is_external" => $request->boolean("is_external") ? 1 : 0,
-                "description" => html_entity_decode(
-                    $validated["description"],
-                    ENT_QUOTES | ENT_HTML5,
-                    "UTF-8",
-                ),
-                "content" => html_entity_decode(
-                    $validated["content"] ?? "",
-                    ENT_QUOTES | ENT_HTML5,
-                    "UTF-8",
-                ),
-                "category" =>
-                    $request->input("category") ?:
-                    ($request->input("parent_id")
-                        ? "transparency"
-                        : null),
-                "parent_id" => $request->input("parent_id"),
-                "status" => $request->input("status", "published"),
-                "featured" => (int) $request->boolean("featured"),
-                "created_by" => Auth::id(),
-                "image_url" => null,
-                "file_url" => $fileUrl,
-            ];
-
-            $contentId = $this->contentModel->create($data);
-
-            // Handle image upload
-            if ($contentId && $request->hasFile("image_file")) {
-                $file = $request->file("image_file");
-                $filename =
-                    uniqid() .
-                    "-" .
-                    preg_replace(
-                        "/[^A-Za-z0-9_.-]/",
-                        "",
-                        $file->getClientOriginalName(),
-                    );
-                $destination = public_path("uploads/images/contents");
-                if (!is_dir($destination)) {
-                    mkdir($destination, 0755, true);
-                }
-                $file->move($destination, $filename);
-                $imagePath = "/uploads/images/contents/" . $filename;
-                $this->contentModel->updateImage($contentId, $imagePath);
-            }
-
-            if ($contentId && $request->hasFile("image_files")) {
-                foreach ($request->file("image_files") as $file) {
-                    $filename =
-                        uniqid() .
-                        "-" .
-                        preg_replace(
-                            "/[^A-Za-z0-9_.-]/",
-                            "",
-                            $file->getClientOriginalName(),
-                        );
-                    $destination = public_path("uploads/images/contents");
-                    if (!is_dir($destination)) {
-                        mkdir($destination, 0755, true);
-                    }
-                    $file->move($destination, $filename);
-                    $imagePath = "/uploads/images/contents/" . $filename;
-
-                    ContentImage::create([
-                        "content_id" => $contentId,
-                        "image_path" => $imagePath,
-                    ]);
-                }
-            }
-
-            if ($contentId) {
-                $route = 'admin.contents.index';
-                if ($data['category'] === 'transparency') {
-                    $route = 'admin.transparency.index';
-                }
+            if (!$contentId) {
+                // Si el método create del modelo personalizado devuelve false o null
                 return redirect()
-                    ->route($route)
-                    ->with("success", "Contenido creado exitosamente");
+                    ->back()
+                    ->withInput()
+                    ->with(
+                        "error",
+                        "No se pudo crear el contenido. Verifica que el título no esté duplicado.",
+                    );
             }
 
-            return back()
-                ->withInput()
-                ->withErrors(["error" => "Error al crear el contenido"]);
+            // Redireccionar con mensaje de éxito
+            $route =
+                "admin." .
+                ($validatedData["category"] === "transparency"
+                    ? "transparency.index"
+                    : "contents.index");
+            return redirect()
+                ->route($route)
+                ->with("success", "Contenido creado exitosamente.");
         } catch (\Exception $e) {
-            Log::error("ContentController@store: " . $e->getMessage());
-            return back()
+            // Si hay un error de base de datos (ej. slug duplicado), registrarlo y redirigir
+            \Illuminate\Support\Facades\Log::error(
+                "Error al crear contenido en ContentController@store: " .
+                    $e->getMessage(),
+            );
+            return redirect()
+                ->back()
                 ->withInput()
-                ->withErrors([
-                    "error" =>
-                        "Error interno del servidor: " . $e->getMessage(),
-                ]);
+                ->with(
+                    "error",
+                    "Hubo un error al crear el contenido. Es posible que el título o el slug ya existan. Por favor, inténtelo de nuevo.",
+                );
         }
     }
 
@@ -354,7 +289,11 @@ class ContentController extends Controller
         }
 
         $children = [];
-        if (!$item["parent_id"] && ($item["category"] === "transparency" || $item["category"] === "tramites")) {
+        if (
+            !$item["parent_id"] &&
+            ($item["category"] === "transparency" ||
+                $item["category"] === "tramites")
+        ) {
             $children = \Illuminate\Support\Facades\DB::table("contents")
                 ->where("parent_id", $item["id"])
                 ->orderBy("created_at", "desc")
@@ -387,14 +326,11 @@ class ContentController extends Controller
             "url" => "nullable|url",
             "is_external" => "nullable|boolean",
             "description" => "required|string|min:10",
-            "content" =>
-                $request->input("parent_id")
+            "content" => $request->input("parent_id")
+                ? "nullable|string"
+                : ($request->input("category") === "tramites"
                     ? "nullable|string"
-                    : (
-                        $request->input("category") === "tramites"
-                            ? "nullable|string"
-                            : "required|string|min:20"
-                    ),
+                    : "required|string|min:20"),
             "category" => "nullable|string",
             "parent_id" => "nullable|exists:contents,id",
             "image_file" => "nullable|file|image|max:5120",
@@ -461,11 +397,21 @@ class ContentController extends Controller
 
             $fileUrl = $item["file_url"] ?? null;
             // Si se ingresa un enlace externo válido, se prioriza
-            if ($request->filled("file_url") && filter_var($request->input("file_url"), FILTER_VALIDATE_URL)) {
+            if (
+                $request->filled("file_url") &&
+                filter_var($request->input("file_url"), FILTER_VALIDATE_URL)
+            ) {
                 $fileUrl = $request->input("file_url");
             } elseif ($request->hasFile("file_url_upload")) {
                 $file = $request->file("file_url_upload");
-                $filename = uniqid() . '-' . preg_replace("/[^A-Za-z0-9_.-]/", "", $file->getClientOriginalName());
+                $filename =
+                    uniqid() .
+                    "-" .
+                    preg_replace(
+                        "/[^A-Za-z0-9_.-]/",
+                        "",
+                        $file->getClientOriginalName(),
+                    );
                 $destination = public_path("uploads/pdfs");
                 if (!is_dir($destination)) {
                     mkdir($destination, 0755, true);
@@ -550,14 +496,14 @@ class ContentController extends Controller
             }
 
             $item = $this->contentModel->findById((int) $id);
-            $category = $item['category'] ?? null;
-            $route = 'admin.contents.index';
-            if ($category === 'transparency') {
-                $route = 'admin.transparency.index';
-            } elseif ($category === 'tramites') {
-                $route = 'admin.tramites.index';
-            } elseif ($category === 'news') {
-                $route = 'admin.news.index';
+            $category = $item["category"] ?? null;
+            $route = "admin.contents.index";
+            if ($category === "transparency") {
+                $route = "admin.transparency.index";
+            } elseif ($category === "tramites") {
+                $route = "admin.tramites.index";
+            } elseif ($category === "news") {
+                $route = "admin.news.index";
             }
 
             $deleted = $this->contentModel->deleteContent((int) $id);
@@ -630,9 +576,12 @@ class ContentController extends Controller
 
             if (!$content) {
                 // Crear contenido por defecto si no existe
-                $contentId = \Illuminate\Support\Facades\DB::table("contents")->insertGetId([
+                $contentId = \Illuminate\Support\Facades\DB::table(
+                    "contents",
+                )->insertGetId([
                     "title" => "Mensaje del Rector",
-                    "description" => "Bienvenidos al Instituto Superior Tecnológico Sucúa...",
+                    "description" =>
+                        "Bienvenidos al Instituto Superior Tecnológico Sucúa...",
                     "category" => "rector",
                     "status" => "published",
                     "created_at" => now(),
@@ -641,7 +590,8 @@ class ContentController extends Controller
                 $content = (object) [
                     "id" => $contentId,
                     "title" => "Mensaje del Rector",
-                    "description" => "Bienvenidos al Instituto Superior Tecnológico Sucúa...",
+                    "description" =>
+                        "Bienvenidos al Instituto Superior Tecnológico Sucúa...",
                     "category" => "rector",
                     "status" => "published",
                 ];

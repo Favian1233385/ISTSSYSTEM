@@ -2,6 +2,7 @@
 /**
  * Controlador de Autenticación - Sistema ISTS
  */
+namespace App\Http\Controllers;
 class AuthController extends Controller
 {
     public function __construct() {}

@@ -107,19 +107,19 @@
 
                             <div class="form-group">
                                 <label for="content">Contenido</label>
-                                <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @else required @endif>{{ old('content') }}</textarea>
+                                <textarea id="content" name="content" class="form-control" rows="10" @if(request('parent_id')) style="display:none;" @endif>{{ old('content') }}</textarea>
                             </div>
 
 
                             <div class="form-group">
-                                <label for="image_file">Imagen</label>
-                                <input type="file" id="image_file" name="image_file" class="form-control">
+                                <label for="image_url">Imagen</label>
+                                <input type="file" id="image_url" name="image_url" class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label for="file_url">Archivo PDF o Enlace externo</label>
-                                <input type="file" name="file_url_upload" id="file_url_upload" class="form-control" accept="application/pdf">
-                                <input type="url" name="file_url" id="file_url" class="form-control" value="{{ old('file_url') }}" placeholder="https://example.com (opcional)">
+                                <input type="file" name="file_url" id="file_url" class="form-control" accept="application/pdf">
+                                <input type="url" name="url" id="url" class="form-control" value="{{ old('url') }}" placeholder="https://example.com (opcional)">
                             </div>
 
                             <div class="form-row">

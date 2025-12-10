@@ -176,7 +176,7 @@ Route::prefix("admin")
             ->name("admin.updates.index");
 
         // Hero slides management
-        Route::resource("hero-slides", HeroSlidesController::class, [
+        Route::resource("hero-slides", App\Http\Controllers\Admin\HeroSlideController::class, [
             "as" => "admin",
         ]);
 

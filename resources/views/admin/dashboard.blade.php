@@ -181,6 +181,12 @@
                     <h3>Acerca</h3>
                     <p>Gestionar secciones de Acerca, autoridades, rector, etc.</p>
                 </a>
+
+                <a href="{{ route('admin.hero-slides.index') }}" class="action-card" style="background: linear-gradient(135deg, #e0f7fa 0%, #80deea 100%); border: 2px solid #00bcd4;">
+                    <div class="action-icon">🖼️</div>
+                    <h3>Gestionar Carrusel</h3>
+                    <p>Administra las imágenes del carrusel principal</p>
+                </a>
             </div>
         </div>
 
@@ -239,8 +245,6 @@
             </a>
         </div>
     </div>
-
-    <!-- ...existing code... -->
 
     <!-- Contenido Reciente -->
     <div class="recent-content">

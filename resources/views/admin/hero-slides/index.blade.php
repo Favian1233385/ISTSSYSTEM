@@ -38,10 +38,10 @@
                                 <tr>
                                     <td>
                                         @if($slide->image_path)
-                                            <img src="{{ asset('storage/' . $slide->image_path) }}" 
-                                                 alt="{{ $slide->title }}" 
-                                                 class="img-thumbnail" 
-                                                 style="max-width: 80px; height: auto;">
+                                                <img src="{{ asset('uploads/images/' . $slide->image_path) }}" 
+                                                    alt="{{ $slide->title }}" 
+                                                    class="img-thumbnail" 
+                                                    style="max-width: 80px; height: auto;">
                                         @else
                                             <span class="text-muted">Sin imagen</span>
                                         @endif

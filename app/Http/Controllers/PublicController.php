@@ -46,6 +46,8 @@ class PublicController extends Controller
         // Get latest updates (máximo 3)
         $updates = \App\Models\Update::recent(3)->get();
 
+        // Slides activos para el carrusel
+        $heroSlides = \App\Models\HeroSlide::where('is_active', true)->orderBy('sort_order')->get();
 
         // Campus items y sus contenidos activos
         $campusItems = \App\Models\CampusItem::active()
@@ -66,7 +68,7 @@ class PublicController extends Controller
 
         return view(
             "public.home",
-            compact("misionVision", "rector", "updates", "campusItems", "vidaEstudiantilItems"),
+            compact("misionVision", "rector", "updates", "campusItems", "vidaEstudiantilItems", "heroSlides"),
         );
     }
 

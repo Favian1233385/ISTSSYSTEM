@@ -1,3 +1,25 @@
+/* --- DEBUG: Forzar visibilidad y funcionalidad del carrusel principal --- */
+.hero-section,
+#heroCarousel,
+.carousel-inner,
+.carousel-item,
+.carousel-control-prev,
+.carousel-control-next {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+/* --- DEBUG: Forzar visibilidad del carrusel principal --- */
+.hero-section,
+#heroCarousel,
+.carousel-inner,
+.carousel-item {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 /* Separación profesional para el header de carreras */
 .career-header {
     margin-top: 3.5rem;

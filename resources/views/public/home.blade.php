@@ -7,19 +7,37 @@
     <main id="main-content" class="main-content">
         <!-- Hero Section -->
         <section class="hero-section">
-            <div class="hero-background" style="background-image: url('{{ asset('assets/images/hero.jpg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-                <div class="hero-overlay">
-                    <div class="container">
-                        <div class="hero-content">
-                            <h1 class="hero-title">Instituto Superior Tecnológico Sucúa</h1>
-                            <p class="hero-subtitle">Fortaleciendo la Educación Superior de Tercer Nivel en Morona Santiago</p>
-                            <div class="hero-actions">
-                                <a href="{{ url('/academicos') }}" class="btn btn-primary">Explorar Carreras</a>
-                                <a href="{{ url('/contacto') }}" class="btn btn-secondary">Solicitar Información</a>
+            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($heroSlides ?? [] as $index => $slide)
+                        @if($slide->is_active)
+                        <div class="carousel-item @if($index === 0) active @endif">
+                            <div class="hero-background" style="background-image: url('{{ asset('uploads/images/' . $slide->image_path) }}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px;">
+                                <div class="hero-overlay">
+                                    <div class="container">
+                                        <div class="hero-content">
+                                            <h1 class="hero-title">{{ $slide->title }}</h1>
+                                            <p class="hero-subtitle">{{ $slide->subtitle }}</p>
+                                            <div class="hero-actions">
+                                                <a href="{{ url('/academicos') }}" class="btn btn-primary">Explorar Carreras</a>
+                                                <a href="{{ url('/contacto') }}" class="btn btn-secondary">Solicitar Información</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
             </div>
         </section>
 
@@ -42,7 +60,7 @@
                 <div class="careers-grid">
                     <div class="career-card">
                         <div class="career-images">
-                            <img class="career-image active" src="{{ asset('assets/images/carreras/software.jpg') }}" alt="Desarrollo de Software">
+                            <img class="career-image active" src="{{ asset('uploads/images/69389bfbe28ab-software.jpeg') }}" alt="Desarrollo de Software">
                         </div>
                         <div class="career-content">
                             <h3>Desarrollo de Software</h3>
@@ -52,7 +70,7 @@
                     </div>
                     <div class="career-card">
                         <div class="career-images">
-                            <img class="career-image active" src="{{ asset('assets/images/carreras/contabilidad.jpg') }}" alt="Contabilidad y Asesoría Tributaria">
+                            <img class="career-image active" src="{{ asset('uploads/images/690b6155ab769-conta.jpg') }}" alt="Contabilidad y Asesoría Tributaria">
                         </div>
                         <div class="career-content">
                             <h3>Contabilidad y Asesoría Tributaria</h3>
@@ -62,7 +80,7 @@
                     </div>
                     <div class="career-card">
                         <div class="career-images">
-                            <img class="career-image active" src="{{ asset('assets/images/carreras/agroecologia.jpg') }}" alt="Agroecología">
+                            <img class="career-image active" src="{{ asset('uploads/images/690b625993c58-agro.jpeg') }}" alt="Agroecología">
                         </div>
                         <div class="career-content">
                             <h3>Agroecología</h3>
@@ -72,7 +90,7 @@
                     </div>
                     <div class="career-card">
                         <div class="career-images">
-                            <img class="career-image active" src="{{ asset('assets/images/carreras/educacion-inicial.jpg') }}" alt="Educación Inicial">
+                            <img class="career-image active" src="{{ asset('uploads/images/690b6389a6930-educacion.jpg') }}" alt="Educación Inicial">
                         </div>
                         <div class="career-content">
                             <h3>Educación Inicial</h3>
@@ -136,7 +154,7 @@
                 <div class="news-grid">
                     <div class="news-card featured">
                         <div class="news-image">
-                            <img src="{{ asset('assets/images/noticia-principal.jpg') }}" alt="Noticia Principal">
+                            <img src="{{ asset('uploads/images/69388a0728100-RENDICION DE CUENTAS 20242.jpg') }}" alt="Noticia Principal">
                         </div>
                         <div class="news-content">
                             <span class="news-category">Tecnología</span>
@@ -148,7 +166,7 @@
 
                     <div class="news-card">
                         <div class="news-image">
-                            <img src="{{ asset('assets/images/noticia-2.jpg') }}" alt="Noticia 2">
+                            <img src="{{ asset('uploads/images/69388a38bb063-foto.jpeg') }}" alt="Noticia 2">
                         </div>
                         <div class="news-content">
                             <span class="news-category">Académico</span>
@@ -160,7 +178,7 @@
 
                     <div class="news-card">
                         <div class="news-image">
-                            <img src="{{ asset('assets/images/noticia-3.jpg') }}" alt="Noticia 3">
+                            <img src="{{ asset('uploads/images/69388a533e4a0-luis.jpg') }}" alt="Noticia 3">
                         </div>
                         <div class="news-content">
                             <span class="news-category">Campus</span>

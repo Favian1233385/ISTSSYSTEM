@@ -32,8 +32,10 @@ class HeroSlideController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('hero-slides', 'public');
-            $validated['image_path'] = $imagePath;
+            $file = $request->file('image');
+            $filename = uniqid() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images'), $filename);
+            $validated['image_path'] = $filename;
         }
 
         $validated['is_active'] = $request->has('is_active');
@@ -62,11 +64,13 @@ class HeroSlideController extends Controller
 
         if ($request->hasFile('image')) {
             // Eliminar imagen anterior
-            if ($heroSlide->image_path) {
-                Storage::disk('public')->delete($heroSlide->image_path);
+            if ($heroSlide->image_path && file_exists(public_path('uploads/images/' . $heroSlide->image_path))) {
+                unlink(public_path('uploads/images/' . $heroSlide->image_path));
             }
-            $imagePath = $request->file('image')->store('hero-slides', 'public');
-            $validated['image_path'] = $imagePath;
+            $file = $request->file('image');
+            $filename = uniqid() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/images'), $filename);
+            $validated['image_path'] = $filename;
         }
 
         $validated['is_active'] = $request->has('is_active');

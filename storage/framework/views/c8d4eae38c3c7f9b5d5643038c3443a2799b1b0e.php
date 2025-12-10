@@ -26,6 +26,17 @@
     <script src="<?php echo e(asset('js/main.js')); ?>"></script>
     <script src="<?php echo e(asset('js/chatbot.js')); ?>"></script>
     <script src="<?php echo e(asset('js/dropdowns.js')); ?>"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var myCarousel = document.querySelector('#heroCarousel');
+        if (myCarousel) {
+            new bootstrap.Carousel(myCarousel, {
+                interval: 5000,
+                ride: 'carousel'
+            });
+        }
+    });
+    </script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

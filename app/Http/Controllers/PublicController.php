@@ -47,7 +47,11 @@ class PublicController extends Controller
         $updates = \App\Models\Update::recent(3)->get();
 
         // Slides activos para el carrusel
-        $heroSlides = \App\Models\HeroSlide::where('is_active', true)->orderBy('sort_order')->get();
+        $heroSlides = \App\Models\HeroSlide::where('is_active', true)
+            ->whereNotNull('image_path')
+            ->where('image_path', '!=', '')
+            ->orderBy('sort_order')
+            ->get();
 
         // Campus items y sus contenidos activos
         $campusItems = \App\Models\CampusItem::active()

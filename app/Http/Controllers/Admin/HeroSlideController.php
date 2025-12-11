@@ -33,8 +33,15 @@ class HeroSlideController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $filename = uniqid() . '-' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/images'), $filename);
+            $originalName = $file->getClientOriginalName();
+            $destination = public_path('uploads/images');
+            $filename = $originalName;
+            $i = 1;
+            while (file_exists($destination . '/' . $filename)) {
+                $filename = pathinfo($originalName, PATHINFO_FILENAME) . "_{$i}." . $file->getClientOriginalExtension();
+                $i++;
+            }
+            $file->move($destination, $filename);
             $validated['image_path'] = $filename;
         }
 
@@ -68,8 +75,15 @@ class HeroSlideController extends Controller
                 unlink(public_path('uploads/images/' . $heroSlide->image_path));
             }
             $file = $request->file('image');
-            $filename = uniqid() . '-' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/images'), $filename);
+            $originalName = $file->getClientOriginalName();
+            $destination = public_path('uploads/images');
+            $filename = $originalName;
+            $i = 1;
+            while (file_exists($destination . '/' . $filename)) {
+                $filename = pathinfo($originalName, PATHINFO_FILENAME) . "_{$i}." . $file->getClientOriginalExtension();
+                $i++;
+            }
+            $file->move($destination, $filename);
             $validated['image_path'] = $filename;
         }
 

@@ -30,23 +30,24 @@
     document.addEventListener('DOMContentLoaded', function() {
         var myCarousel = document.querySelector('#heroCarousel');
         if (myCarousel) {
-            var items = myCarousel.querySelectorAll('.carousel-item');
-            console.log('Bootstrap Carousel: inicializando. Slides encontrados:', items.length);
             var carousel = new bootstrap.Carousel(myCarousel, {
-                interval: 3000,
+                interval: 5000,
                 ride: 'carousel',
                 pause: false,
                 wrap: true
             });
-            // Mostrar el estado de los slides
-            items.forEach(function(item, idx) {
-                console.log('Slide', idx+1, 'clases:', item.className);
-            });
+            console.log('Bootstrap Carousel inicializado:', carousel);
+            // Forzar avance cada 5 segundos para depuración
+            setInterval(function() {
+                carousel.next();
+                console.log('Forzando avance de slide');
+            }, 5000);
         } else {
             console.log('Bootstrap Carousel: no encontrado en el DOM');
         }
     });
     </script>
     @stack('scripts')
+
 </body>
 </html>

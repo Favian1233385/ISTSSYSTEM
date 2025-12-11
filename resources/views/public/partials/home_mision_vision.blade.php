@@ -1,28 +1,8 @@
+<!-- Textos estáticos para Misión y Visión en el dashboard principal -->
 @php
-    // Helper to safely get key/property from array or object
-    $get = function ($src, $key, $default = null) {
-        if (is_array($src)) return array_key_exists($key, $src) ? $src[$key] : $default;
-        if (is_object($src)) return isset($src->{$key}) ? $src->{$key} : $default;
-        return $default;
-    };
-
-    $c = $content ?? null;
-    $title = $get($c, 'title', 'Misión y Visión');
-    $body = $get($c, 'body', $get($c, 'content', ''));
-
-    // Simple excerpt split for Misión and Visión: try to split body text into two parts
-    $plain = trim(strip_tags($body));
-    $partA = $partB = '';
-    if ($plain) {
-        $mid = intval(strlen($plain) / 2);
-        // split at nearest space
-        $pos = strpos($plain, ' ', $mid);
-        if ($pos === false) $pos = $mid;
-        $partA = substr($plain, 0, $pos);
-        $partB = trim(substr($plain, $pos));
-        if (strlen($partA) > 280) $partA = substr($partA, 0, 280) . '...';
-        if (strlen($partB) > 280) $partB = substr($partB, 0, 280) . '...';
-    }
+    $title = 'Misión y Visión';
+    $mision = 'Formar profesionales de calidad y excelencia, competentes con pensamiento crítico, compromiso ético, valores y principios, garantizando el uso racional de los recursos naturales, que les permita insertarse al mundo laboral y social, por lo que la labor diaria, es la formación integral de ciudadanos, fortaleciendo la investigación, desarrollo e innovación, la vinculación con la sociedad y la cultura ecológica, promoviendo la mejora continua.';
+    $vision = 'Ser una Institución de Educación Superior modelo y líder en la Provincia, generando conocimiento innovador en base a la investigación científica y aplicada, desarrollando la capacidad para ser productivos, con docentes comprometidos y de excelencia, con perfiles profesionales acorde a las carreras que oferta, contando con implementación tecnológica adecuada para garantizar la formación de profesionales proactivos comprometidos para construir una sociedad equitativa libre de violencia y en equilibrio con el medio ambiente.';
 @endphp
 
 <!-- Sección separada: Misión y Visión como bloque independiente bajo el hero -->
@@ -37,27 +17,24 @@
 
         <div class="card">
             <div class="card-body">
-
                 <div class="mv-cards">
-                <article class="mv-card">
-                    <div class="mv-card-icon">
-                        <!-- target icon -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="#0b3b5a"/></svg>
-                    </div>
-                    <h3>Misión</h3>
-                    <p class="mv-excerpt">{{ $partA }}</p>
-                    <button type="button" class="btn btn-primary mv-fetch" data-part="mision">Leer más</button>
-                </article>
-
-                <article class="mv-card">
-                    <div class="mv-card-icon">
-                        <!-- vision icon -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" fill="#0b3b5a"/></svg>
-                    </div>
-                    <h3>Visión</h3>
-                    <p class="mv-excerpt">{{ $partB }}</p>
-                    <button type="button" class="btn btn-primary mv-fetch" data-part="vision">Leer más</button>
-                </article>
+                    <article class="mv-card">
+                        <div class="mv-card-icon">
+                            <!-- target icon -->
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="#0b3b5a"/></svg>
+                        </div>
+                        <h3>Misión</h3>
+                        <p class="mv-excerpt">{{ $mision }}</p>
+                    </article>
+                    <article class="mv-card">
+                        <div class="mv-card-icon">
+                            <!-- vision icon -->
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" fill="#0b3b5a"/></svg>
+                        </div>
+                        <h3>Visión</h3>
+                        <p class="mv-excerpt">{{ $vision }}</p>
+                    </article>
+                </div>
             </div>
             </div>
         </div>

@@ -4,30 +4,37 @@
 
 @section('content')
     <!-- Main Content -->
-    <main id="main-content" class="main-content">
+    <main id="main-content" class="main-content p-0 m-0">
         <!-- Hero Section -->
-        <section class="hero-section">
-            <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    @foreach($heroSlides ?? [] as $index => $slide)
-                        @if($slide->is_active)
-                        <div class="carousel-item @if($index === 0) active @endif">
-                            <div class="hero-background" style="background-image: url('{{ asset('uploads/images/' . $slide->image_path) }}'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 400px;">
-                                <div class="hero-overlay">
-                                    <div class="container">
-                                        <div class="hero-content">
-                                            <h1 class="hero-title">{{ $slide->title }}</h1>
-                                            <p class="hero-subtitle">{{ $slide->subtitle }}</p>
-                                            <div class="hero-actions">
-                                                <a href="{{ url('/academicos') }}" class="btn btn-primary">Explorar Carreras</a>
-                                                <a href="{{ url('/contacto') }}" class="btn btn-secondary">Solicitar Información</a>
-                                            </div>
-                                        </div>
+        <section class="hero-section p-0 m-0" style="height:100vh; min-height:100vh; overflow:hidden;">
+            @if(isset($heroSlides) && count($heroSlides))
+            @php
+                $minSortOrder = $heroSlides->min('sort_order');
+            @endphp
+            @php
+                $first = true;
+            @endphp
+            @php
+                $activeSlides = $heroSlides->where('is_active', true)->values();
+            @endphp
+            <div id="heroCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="3000" style="height:100vh; min-height:100vh;">
+                <div class="carousel-inner h-100">
+                    @foreach($activeSlides as $index => $slide)
+                        <div class="carousel-item @if($index === 0) active @endif h-100">
+                            <img src="{{ asset('uploads/images/' . $slide->image_path) }}" class="d-block w-100 h-100 object-fit-cover" alt="{{ $slide->title }}" style="height:100vh; min-height:100vh; object-fit:cover;">
+                            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100" style="top:0; bottom:0; left:0; right:0; position:absolute; height:100vh;">
+                                <div style="background:rgba(30,30,30,0.55); border-radius:20px; padding:2.5rem 2rem; box-shadow:0 4px 32px rgba(0,0,0,0.15); max-width:700px; width:100%;">
+                                    <h1 class="fw-bold text-white" style="font-size:3rem; text-shadow:0 2px 8px rgba(0,0,0,0.4);">{{ $slide->title }}</h1>
+                                    <p class="lead text-white mb-4" style="font-size:1.5rem; text-shadow:0 1px 6px rgba(0,0,0,0.3);">{{ $slide->subtitle }}</p>
+                                    <div class="d-flex justify-content-center gap-3">
+                                        @if($slide->link)
+                                            <a href="{{ $slide->link }}" class="btn btn-warning btn-lg fw-bold" style="box-shadow:0 2px 8px rgba(0,0,0,0.2);">EXPLORAR CARRERAS</a>
+                                        @endif
+                                        <a href="#" class="btn btn-outline-light btn-lg fw-bold" style="box-shadow:0 2px 8px rgba(0,0,0,0.2);">SOLICITAR INFORMACIÓN</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endif
                     @endforeach
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
@@ -39,6 +46,7 @@
                     <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
+            @endif
         </section>
 
 

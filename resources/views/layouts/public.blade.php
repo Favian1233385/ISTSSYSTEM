@@ -15,7 +15,7 @@
 <body>
     @include('public.partials.header')
 
-    <main class="main-content" style="padding-top: 120px;">
+    <main class="main-content">
         @yield('content')
     </main>
 
@@ -30,10 +30,20 @@
     document.addEventListener('DOMContentLoaded', function() {
         var myCarousel = document.querySelector('#heroCarousel');
         if (myCarousel) {
-            new bootstrap.Carousel(myCarousel, {
-                interval: 5000,
-                ride: 'carousel'
+            var items = myCarousel.querySelectorAll('.carousel-item');
+            console.log('Bootstrap Carousel: inicializando. Slides encontrados:', items.length);
+            var carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 3000,
+                ride: 'carousel',
+                pause: false,
+                wrap: true
             });
+            // Mostrar el estado de los slides
+            items.forEach(function(item, idx) {
+                console.log('Slide', idx+1, 'clases:', item.className);
+            });
+        } else {
+            console.log('Bootstrap Carousel: no encontrado en el DOM');
         }
     });
     </script>

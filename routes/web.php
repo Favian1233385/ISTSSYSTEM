@@ -27,7 +27,6 @@ Route::get("/admin/login", function () {
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\QAController;
-use App\Http\Controllers\HeroSlidesController;
 use App\Http\Controllers\LeadershipController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\SettingController;
@@ -38,6 +37,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\AutoridadController;
+use App\Http\Controllers\Admin\HeroSlideController;
 
 /*
 |--------------------------------------------------------------------------
@@ -175,11 +175,6 @@ Route::prefix("admin")
             ->defaults("category", "updates")
             ->name("admin.updates.index");
 
-        // Hero slides management
-        Route::resource("hero-slides", App\Http\Controllers\Admin\HeroSlideController::class, [
-            "as" => "admin",
-        ]);
-
         // Leadership management
         Route::resource("leadership", LeadershipController::class, [
             "as" => "admin",
@@ -297,6 +292,9 @@ Route::prefix("admin")
         Route::get("/createNews", [AdminController::class, "createNews"])->name(
             "admin.createNews",
         );
+
+        // Carrusel (Hero Slides) management
+        Route::resource('hero-slides', HeroSlideController::class, ['as' => 'admin']);
     });
 
 // Auth routes (assuming using Laravel's default)

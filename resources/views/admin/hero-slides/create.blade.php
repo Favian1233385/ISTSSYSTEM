@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Crear Slide del Hero')
+@section('title', 'Crear Slide del Carrusel')
 
 @section('content')
 <div class="container-fluid">
@@ -10,6 +10,22 @@
             <i class="bi bi-arrow-left"></i> Volver
         </a>
     </div>
+
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="row">
         <div class="col-md-8">
@@ -25,7 +41,8 @@
                                    id="title" 
                                    name="title" 
                                    value="{{ old('title') }}"
-                                   placeholder="Ej: Bienvenido al ISTS">
+                                   placeholder="Ej: Bienvenido al ISTS"
+                                   required>
                             @error('title')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -45,7 +62,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="image" class="form-label">Imagen del Slide <span class="text-danger">*</span></label>
+                            <label for="image" class="form-label">Imagen</label>
                             <input type="file" 
                                    class="form-control @error('image') is-invalid @enderror" 
                                    id="image" 

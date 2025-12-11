@@ -27,7 +27,7 @@ class HeroSlideController extends Controller
             'subtitle' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'link' => 'nullable|url',
-            'sort_order' => 'required|integer|min:0',
+            'sort_order' => 'required|integer|min:0|unique:hero_slides,sort_order',
             'is_active' => 'boolean'
         ]);
 
@@ -58,7 +58,7 @@ class HeroSlideController extends Controller
             'subtitle' => 'nullable|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
             'link' => 'nullable|url',
-            'sort_order' => 'required|integer|min:0',
+            'sort_order' => 'required|integer|min:0|unique:hero_slides,sort_order,' . $heroSlide->id,
             'is_active' => 'boolean'
         ]);
 

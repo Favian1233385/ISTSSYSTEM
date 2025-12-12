@@ -11,50 +11,31 @@
         <div class="section-page-header">
             <div class="container text-center">
                 <h1 class="section-page-title"><?php echo e($title); ?></h1>
+                <div class="mv-separator"></div>
                 <p class="section-page-subtitle">Conoce la misión y visión que guían nuestro trabajo educativo</p>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="mv-cards">
-                    <article class="mv-card">
-                        <div class="mv-card-icon">
-                            <!-- target icon -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" fill="#0b3b5a"/></svg>
-                        </div>
-                        <h3>Misión</h3>
-                        <p class="mv-excerpt"><?php echo e($mision); ?></p>
-                    </article>
-                    <article class="mv-card">
-                        <div class="mv-card-icon">
-                            <!-- vision icon -->
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5c-7 0-10 7-10 7s3 7 10 7 10-7 10-7-3-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8z" fill="#0b3b5a"/></svg>
-                        </div>
-                        <h3>Visión</h3>
-                        <p class="mv-excerpt"><?php echo e($vision); ?></p>
-                    </article>
+        <div class="mv-cards">
+            <article class="mv-card">
+                <div class="mv-card-icon">
+                    <!-- target icon -->
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" fill="#1766a3"/><circle cx="12" cy="12" r="6" fill="#fff"/><circle cx="12" cy="12" r="4" fill="#10b981"/></svg>
                 </div>
-            </div>
-            </div>
+                <h3>Misión</h3>
+                <p class="mv-excerpt"><?php echo e($mision); ?></p>
+            </article>
+            <article class="mv-card">
+                <div class="mv-card-icon">
+                    <!-- vision icon -->
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="12" cy="12" rx="10" ry="7" fill="#1766a3"/><circle cx="12" cy="12" r="4" fill="#10b981"/></svg>
+                </div>
+                <h3>Visión</h3>
+                <p class="mv-excerpt"><?php echo e($vision); ?></p>
+            </article>
         </div>
     </div>
 </section>
-
-<style>
-    .mv-section { margin-top: 48px; }
-    .mv-cards { display:flex; gap:18px; }
-    .mv-card { flex:1; background: var(--color-muted, #f8fafc); padding:18px; border-radius:10px; transition: transform .18s ease, box-shadow .18s ease; }
-    .mv-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(3,10,18,0.06); }
-    .mv-card-icon{ width:48px; height:48px; border-radius:10px; background:var(--color-soft, #e6eef6); display:flex; align-items:center; justify-content:center; margin-bottom:10px }
-    .mv-card h3 { margin:0 0 8px; }
-    .mv-excerpt { margin-bottom:12px; text-align:justify; text-justify:inter-word; }
-
-    @media(max-width:900px){
-        .mv-section{ margin-top: 28px }
-        .mv-cards{ flex-direction:column }
-    }
-</style>
 
 <!-- Modal placeholder -->
 <div id="mv-modal" class="mv-modal" style="display:none;">

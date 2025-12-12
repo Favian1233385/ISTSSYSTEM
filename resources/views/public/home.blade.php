@@ -32,13 +32,13 @@
                                 <div
                                     class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
                                     <div class="p-4 rounded-4"
-                                        style="background:rgba(30,30,30,0.55); backdrop-filter:blur(8px); box-shadow:0 4px 32px rgba(0,0,0,0.15); max-width:700px; width:100%;">
+                                        style="background:rgba(30,30,30,0.03); backdrop-filter:blur(4px); box-shadow:0 2px 8px rgba(0,0,0,0.03); max-width:700px; width:100%;">
                                         <h1 class="fw-bold text-white"
-                                            style="font-size:3rem; text-shadow:0 2px 8px rgba(0,0,0,0.4);">
+                                            style="font-size:4.2rem; text-shadow:0 2px 12px rgba(0,0,0,0.5); line-height:1.1;">
                                             {{ $slide->title }}
                                         </h1>
                                         <p class="lead text-white mb-4"
-                                            style="font-size:1.5rem; text-shadow:0 1px 6px rgba(0,0,0,0.3);">
+                                            style="font-size:2rem; text-shadow:0 1px 8px rgba(0,0,0,0.35); line-height:1.2;">
                                             {{ $slide->subtitle }}
                                         </p>
                                         <div class="d-flex justify-content-center gap-3">

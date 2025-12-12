@@ -123,59 +123,28 @@
                         impacto y formación docente de excelencia.</p>
                 </div>
                 <div class="careers-grid">
-                    <div class="career-card">
-                        <div class="career-images">
-                            <img class="career-image active"
-                                src="{{ asset('uploads/images/69389bfbe28ab-software.jpeg') }}"
-                                alt="Desarrollo de Software">
+                    @foreach($careers as $career)
+                        <div class="career-card has-image">
+                            <div class="career-banner-thumb" style="width:100%;height:140px;overflow:hidden;position:relative;background:#e8f5f1;">
+                                @if($career->image_path)
+                                    <img src="{{ asset('storage/' . $career->image_path) }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                                @elseif($career->image_path_2)
+                                    <img src="{{ asset('storage/' . $career->image_path_2) }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                                @else
+                                    <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                                @endif
+                            </div>
+                            <div class="career-info">
+                                <h3 style="text-align: center; color: var(--color-primary);">
+                                    <a href="{{ route('career.show', $career->slug) }}">{{ $career->name }}</a>
+                                </h3>
+                                @if($career->description)
+                                    <p>{{ Str::limit($career->description, 100) }}</p>
+                                @endif
+                                <a href="{{ route('career.show', $career->slug) }}" class="btn btn-primary">Más información</a>
+                            </div>
                         </div>
-                        <div class="career-content">
-                            <h3>Desarrollo de Software</h3>
-                            <p>Formación en programación, ingeniería de software y desarrollo de aplicaciones modernas para
-                                la industria 4.0.</p>
-                            <a href="{{ url('/academicos/desarrollo-software') }}" class="btn-career">Más información <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-images">
-                            <img class="career-image active" src="{{ asset('uploads/images/690b6155ab769-conta.jpg') }}"
-                                alt="Contabilidad y Asesoría Tributaria">
-                        </div>
-                        <div class="career-content">
-                            <h3>Contabilidad y Asesoría Tributaria</h3>
-                            <p>Especialización en contabilidad, asesoría fiscal y gestión financiera para empresas y
-                                emprendimientos.</p>
-                            <a href="{{ url('/academicos/contabilidad') }}" class="btn-career">Más información <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-images">
-                            <img class="career-image active" src="{{ asset('uploads/images/690b625993c58-agro.jpeg') }}"
-                                alt="Agroecología">
-                        </div>
-                        <div class="career-content">
-                            <h3>Agroecología</h3>
-                            <p>Desarrollo sostenible, agricultura ecológica y gestión ambiental para el futuro del planeta.
-                            </p>
-                            <a href="{{ url('/academicos/agroecologia') }}" class="btn-career">Más información <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="career-card">
-                        <div class="career-images">
-                            <img class="career-image active"
-                                src="{{ asset('uploads/images/690b6389a6930-educacion.jpg') }}" alt="Educación Inicial">
-                        </div>
-                        <div class="career-content">
-                            <h3>Educación Inicial</h3>
-                            <p>Formación docente de excelencia para la educación inicial y el desarrollo integral de la
-                                niñez.</p>
-                            <a href="{{ url('/academicos/educacion-inicial') }}" class="btn-career">Más información <i
-                                    class="bi bi-arrow-right"></i></a>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="programs-cta">
                     <a href="{{ url('/academicos') }}" class="btn-primary-large">Ver todas las carreras</a>

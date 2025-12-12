@@ -48,17 +48,15 @@ class CareerController extends Controller
         // Manejar la carga de imagen principal
         if ($request->hasFile("image")) {
             $file = $request->file("image");
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/careers'), $filename);
-            $validated["image_path"] = '/uploads/careers/' . $filename;
+            $path = $file->store('careers', 'public');
+            $validated["image_path"] = $path;
         }
 
         // Manejar la carga de imagen secundaria
         if ($request->hasFile("image_2")) {
             $file = $request->file("image_2");
-            $filename = time() . '_2_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/careers'), $filename);
-            $validated["image_path_2"] = '/uploads/careers/' . $filename;
+            $path = $file->store('careers', 'public');
+            $validated["image_path_2"] = $path;
         }
 
         // Manejar la carga de PDF de malla curricular
@@ -116,59 +114,37 @@ class CareerController extends Controller
 
             // Manejar la carga de imagen principal
             if ($request->hasFile("image")) {
-                \Log::info(
-                    "Subiendo imagen principal para carrera: " . $career->name,
-                );
-
+                \Log::info("Subiendo imagen principal para carrera: " . $career->name);
                 if ($request->file("image")->isValid()) {
                     // Eliminar imagen anterior si existe
-                    if ($career->image_path && file_exists(public_path($career->image_path))) {
-                        unlink(public_path($career->image_path));
+                    if ($career->image_path && \Storage::disk('public')->exists($career->image_path)) {
+                        \Storage::disk('public')->delete($career->image_path);
                     }
-
                     $file = $request->file("image");
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $file->move(public_path('uploads/careers'), $filename);
-                    $validated["image_path"] = '/uploads/careers/' . $filename;
+                    $path = $file->store('careers', 'public');
+                    $validated["image_path"] = $path;
                     \Log::info("Imagen principal guardada en: " . $validated["image_path"]);
                 } else {
                     \Log::error("Imagen principal no válida");
-                    return redirect()
-                        ->back()
-                        ->with(
-                            "error",
-                            "El archivo de imagen principal no es válido.",
-                        )
-                        ->withInput();
+                    return redirect()->back()->with("error", "El archivo de imagen principal no es válido.")->withInput();
                 }
             }
 
             // Manejar la carga de imagen secundaria
             if ($request->hasFile("image_2")) {
-                \Log::info(
-                    "Subiendo imagen secundaria para carrera: " . $career->name,
-                );
-
+                \Log::info("Subiendo imagen secundaria para carrera: " . $career->name);
                 if ($request->file("image_2")->isValid()) {
                     // Eliminar imagen anterior si existe
-                    if ($career->image_path_2 && file_exists(public_path($career->image_path_2))) {
-                        unlink(public_path($career->image_path_2));
+                    if ($career->image_path_2 && \Storage::disk('public')->exists($career->image_path_2)) {
+                        \Storage::disk('public')->delete($career->image_path_2);
                     }
-
                     $file = $request->file("image_2");
-                    $filename = time() . '_2_' . $file->getClientOriginalName();
-                    $file->move(public_path('uploads/careers'), $filename);
-                    $validated["image_path_2"] = '/uploads/careers/' . $filename;
+                    $path = $file->store('careers', 'public');
+                    $validated["image_path_2"] = $path;
                     \Log::info("Imagen secundaria guardada en: " . $validated["image_path_2"]);
                 } else {
                     \Log::error("Imagen secundaria no válida");
-                    return redirect()
-                        ->back()
-                        ->with(
-                            "error",
-                            "El archivo de imagen secundaria no es válido.",
-                        )
-                        ->withInput();
+                    return redirect()->back()->with("error", "El archivo de imagen secundaria no es válido.")->withInput();
                 }
             }
 

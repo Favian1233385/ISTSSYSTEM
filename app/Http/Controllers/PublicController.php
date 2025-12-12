@@ -70,9 +70,10 @@ class PublicController extends Controller
             }])
             ->get();
 
+        $careers = \App\Models\Career::active()->ordered()->get();
         return view(
             "public.home",
-            compact("misionVision", "rector", "updates", "campusItems", "vidaEstudiantilItems", "heroSlides"),
+            compact("misionVision", "rector", "updates", "campusItems", "vidaEstudiantilItems", "heroSlides", "careers"),
         );
     }
 

@@ -171,9 +171,9 @@ Route::prefix("admin")
         Route::resource("qas", QAController::class, ["as" => "admin"]);
 
         // Updates management
-        Route::get("/updates", [ContentController::class, "index"])
-            ->defaults("category", "updates")
-            ->name("admin.updates.index");
+        Route::resource('updates', App\Http\Controllers\Admin\UpdateController::class, [
+            'as' => 'admin'
+        ]);
 
         // Leadership management
         Route::resource("leadership", LeadershipController::class, [

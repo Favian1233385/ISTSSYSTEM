@@ -41,7 +41,13 @@
                     </div>
                     @if($update->link_url)
                         <div style="text-align:center;margin:1rem 0;">
-                            <a href="{{ $update->link_url }}" class="btn btn-outline" target="_blank">{{ $update->link_text ?? 'Ver más' }}</a>
+                            <a href="{{ $update->link_url }}" class="btn-update-link" target="_blank">
+                                {{ $update->link_text ?? 'Entra Aquí!' }}
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-left:0.3em;">
+                                    <path d="M5 12h14"></path>
+                                    <path d="M13 6l6 6-6 6"></path>
+                                </svg>
+                            </a>
                         </div>
                     @endif
                 </div>

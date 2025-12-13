@@ -247,8 +247,6 @@
 
                 <div class="news-actions">
                     <a href="{{ url('/noticias') }}" class="btn btn-primary">Ver todas las noticias</a>
-                    <a href="{{ url('/noticias/suscribirse') }}" class="btn btn-outline">Suscribirse a la Gaceta
-                        Diaria</a>
                 </div>
             </div>
         </section>

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Gestión de Noticias - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/css/harvard-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     @if(app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
@@ -17,7 +17,7 @@
     <header class="admin-header">
         <div class="admin-header-content">
             <div class="admin-logo">
-                <img src="{{ asset('public/assets/images/logo-ists.png') }}" alt="ISTS Logo" class="admin-logo-img">
+                <img src="{{ asset('assets/images/logo-ists.png') }}" alt="ISTS Logo" class="admin-logo-img">
                 <h1>ISTS Admin</h1>
             </div>
 
@@ -81,7 +81,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($items as $item)
+                            @foreach ($news as $item)
                                 <tr>
                                     <td>{{ $item["id"] }}</td>
                                     <td>{{ $item["title"] }}</td>
@@ -104,7 +104,7 @@
                 </div>
 
                 <!-- Paginación -->
-                {{ $items->links() }}
+                {{ $news->links() }}
             </div>
         </div>
     </main>

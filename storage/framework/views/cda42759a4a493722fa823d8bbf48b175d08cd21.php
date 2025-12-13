@@ -204,44 +204,28 @@
                 </div>
 
                 <div class="news-grid">
-                    <div class="news-card featured">
-                        <div class="news-image">
-                            <img src="<?php echo e(asset('uploads/images/69388a0728100-RENDICION DE CUENTAS 20242.jpg')); ?>"
-                                alt="Noticia Principal">
+                    <?php
+                        $newsList = \App\Models\News::where('status', 'published')->orderBy('published_at', 'desc')->take(3)->get();
+                    ?>
+                    <?php $__empty_1 = true; $__currentLoopData = $newsList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                        <div class="news-card <?php if($loop->first): ?> featured <?php endif; ?>">
+                            <div class="news-image">
+                                <?php if(is_array($n->images) && count($n->images) > 0): ?>
+                                    <img src="<?php echo e(asset('storage/' . ltrim($n->images[0], '/'))); ?>" alt="<?php echo e($n->title); ?>">
+                                <?php else: ?>
+                                    <img src="<?php echo e(asset('uploads/images/placeholder.jpg')); ?>" alt="<?php echo e($n->title); ?>">
+                                <?php endif; ?>
+                            </div>
+                            <div class="news-content">
+                                <span class="news-category"><?php echo e(ucfirst($n->category ?? 'Noticias')); ?></span>
+                                <h3><?php echo e($n->title); ?></h3>
+                                <p><?php echo e(\Illuminate\Support\Str::limit(strip_tags($n->summary), 120)); ?></p>
+                                <a href="<?php echo e(route('noticias.show', $n->slug)); ?>" class="read-more">Leer más →</a>
+                            </div>
                         </div>
-                        <div class="news-content">
-                            <span class="news-category">Tecnología</span>
-                            <h3>Nuevas Tecnologías en el ISTS</h3>
-                            <p>El Instituto Superior Tecnológico Sucúa implementa nuevas tecnologías para mejorar la
-                                experiencia educativa de nuestros estudiantes.</p>
-                            <a href="<?php echo e(url('/noticias/tecnologia-ists')); ?>" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image">
-                            <img src="<?php echo e(asset('uploads/images/69388a38bb063-foto.jpeg')); ?>" alt="Noticia 2">
-                        </div>
-                        <div class="news-content">
-                            <span class="news-category">Académico</span>
-                            <h3>Nuevas Carreras Disponibles</h3>
-                            <p>Conoce las nuevas carreras que el ISTS ofrece para el próximo semestre.</p>
-                            <a href="<?php echo e(url('/noticias/nuevas-carreras')); ?>" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image">
-                            <img src="<?php echo e(asset('uploads/images/69388a533e4a0-luis.jpg')); ?>" alt="Noticia 3">
-                        </div>
-                        <div class="news-content">
-                            <span class="news-category">Campus</span>
-                            <h3>Mejoras en el Campus</h3>
-                            <p>El ISTS continúa mejorando sus instalaciones para brindar una mejor experiencia educativa.
-                            </p>
-                            <a href="<?php echo e(url('/noticias/mejoras-campus')); ?>" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                        <p>No hay noticias recientes.</p>
+                    <?php endif; ?>
                 </div>
 
                 <div class="news-actions">

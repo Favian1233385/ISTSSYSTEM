@@ -69,16 +69,35 @@ class NewsController extends Controller
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
         ]);
 
+
         $images = $news->images ?? [];
+        // Eliminar imágenes marcadas
+        if ($request->has('remove_images')) {
+            $toRemove = $request->input('remove_images');
+            foreach ($toRemove as $idx) {
+                if (isset($images[$idx])) {
+                    // Opcional: eliminar físicamente el archivo
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($images[$idx]);
+                    unset($images[$idx]);
+                }
+            }
+            // Reindexar el array para evitar huecos
+            $images = array_values($images);
+        }
+        // Agregar nuevas imágenes
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $img) {
                 $images[] = $img->store('news', 'public');
             }
         }
 
+        $slug = $news->slug;
+        if ($request->title !== $news->title) {
+            $slug = Str::slug($request->title) . '-' . uniqid();
+        }
         $news->update([
             'title' => $request->title,
-            'slug' => Str::slug($request->title) . '-' . uniqid(),
+            'slug' => $slug,
             'summary' => $request->summary,
             'content' => $request->content,
             'order' => $request->order ?? 99,

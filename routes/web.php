@@ -102,6 +102,13 @@ Route::get("/noticias", function () {
     return view("public.news.index", compact("news"));
 })->name("noticias");
 
+
+// Ruta pública para ver una noticia individual por slug
+Route::get('/noticias/{slug}', function($slug) {
+    $news = \App\Models\News::where('slug', $slug)->where('status', 'published')->firstOrFail();
+    return view('public.news.show', ['news' => $news]);
+})->name('noticias.show');
+
 // Ruta pública para Planta Docente
 Route::get("/planta-docente", [
     PublicController::class,
@@ -142,30 +149,13 @@ Route::prefix("admin")
             "rector",
         ])->name("admin.contents.rector.index");
 
-        // News management
-        Route::get("/news", [ContentController::class, "index"])
-            ->defaults("category", "news")
-            ->name("admin.news.index");
-        Route::get("/news/create", [ContentController::class, "create"])
-            ->defaults("category", "news")
-            ->name("admin.news.create");
-        Route::post("/news", [ContentController::class, "store"])->name(
-            "admin.news.store",
-        );
-        Route::get("/news/{content}", [ContentController::class, "show"])
-            ->defaults("category", "news")
-            ->name("admin.news.show");
-        Route::get("/news/{content}/edit", [ContentController::class, "edit"])
-            ->defaults("category", "news")
-            ->name("admin.news.edit");
-        Route::put("/news/{content}", [
-            ContentController::class,
-            "update",
-        ])->name("admin.news.update");
-        Route::delete("/news/{content}", [
-            ContentController::class,
-            "destroy",
-        ])->name("admin.news.destroy");
+        // News management (Gaceta del ISTS)
+        Route::get('/news', [\App\Http\Controllers\Admin\NewsController::class, 'index'])->name('admin.news.index');
+        Route::get('/news/create', [\App\Http\Controllers\Admin\NewsController::class, 'create'])->name('admin.news.create');
+        Route::post('/news', [\App\Http\Controllers\Admin\NewsController::class, 'store'])->name('admin.news.store');
+        Route::get('/news/{news}/edit', [\App\Http\Controllers\Admin\NewsController::class, 'edit'])->name('admin.news.edit');
+        Route::put('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'update'])->name('admin.news.update');
+        Route::delete('/news/{news}', [\App\Http\Controllers\Admin\NewsController::class, 'destroy'])->name('admin.news.destroy');
 
         // Q&A management
         Route::resource("qas", QAController::class, ["as" => "admin"]);

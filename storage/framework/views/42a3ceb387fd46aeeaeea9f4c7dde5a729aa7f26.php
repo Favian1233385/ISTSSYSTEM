@@ -1,43 +1,43 @@
 <!DOCTYPE html>
-<html lang="es" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
+<html lang="es" <?php if(app()->getLocale() === 'ar'): ?> dir="rtl" <?php endif; ?>>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Crear Noticia - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
+    <title><?php echo e($title ?? 'Crear Noticia - ISTS Admin'); ?></title>
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    @if(app()->getLocale() === 'ar')
-        <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
-    @endif
+    <?php if(app()->getLocale() === 'ar'): ?>
+        <link rel="stylesheet" href="<?php echo e(asset('css/app-rtl.css')); ?>">
+    <?php endif; ?>
 </head>
 <body class="admin-body">
     <!-- Header Administrativo -->
     <header class="admin-header">
         <div class="admin-header-content">
                 <div class="admin-logo">
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="ISTS Logo" class="admin-logo-img">
+                <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="ISTS Logo" class="admin-logo-img">
                 <h1>ISTS Admin</h1>
             </div>
 
             <nav class="admin-nav">
                 <ul class="admin-nav-menu">
-                    <li><a href="{{ url('/admin/dashboard') }}">📊 Dashboard</a></li>
-                    <li><a href="{{ url('/admin/contents') }}">📝 Contenidos</a></li>
-                    <li><a href="{{ url('/admin/news') }}" class="active">📰 Noticias</a></li>
-                    <li><a href="{{ url('/admin/users') }}">👥 Usuarios</a></li>
-                    <li><a href="{{ url('/admin/settings') }}">⚙️ Configuración</a></li>
+                    <li><a href="<?php echo e(url('/admin/dashboard')); ?>">📊 Dashboard</a></li>
+                    <li><a href="<?php echo e(url('/admin/contents')); ?>">📝 Contenidos</a></li>
+                    <li><a href="<?php echo e(url('/admin/news')); ?>" class="active">📰 Noticias</a></li>
+                    <li><a href="<?php echo e(url('/admin/users')); ?>">👥 Usuarios</a></li>
+                    <li><a href="<?php echo e(url('/admin/settings')); ?>">⚙️ Configuración</a></li>
                 </ul>
             </nav>
 
             <div class="admin-user-menu">
                 <div class="user-info">
-                    <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
+                    <span class="user-name"><?php echo e(optional(Auth::user())->email ?? 'Usuario'); ?></span>
                     <div class="user-dropdown">
-                        <a href="{{ url('/admin/profile') }}">👤 Perfil</a>
-                        <a href="{{ url('/auth/change-password') }}">🔒 Cambiar Contraseña</a>
-                        <a href="{{ url('/auth/logout') }}">🚪 Cerrar Sesión</a>
+                        <a href="<?php echo e(url('/admin/profile')); ?>">👤 Perfil</a>
+                        <a href="<?php echo e(url('/auth/change-password')); ?>">🔒 Cambiar Contraseña</a>
+                        <a href="<?php echo e(url('/auth/logout')); ?>">🚪 Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -53,29 +53,29 @@
                     <p>Rellena el formulario para crear una nueva noticia.</p>
                 </div>
 
-                @if($errors->any())
+                <?php if($errors->any()): ?>
                     <div class="alert alert-danger">
                         <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                <form action="<?php echo e(route('admin.news.store')); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
                     <div class="form-group">
                         <label for="title">Título</label>
-                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+                        <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title')); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="summary">Resumen</label>
-                        <textarea name="summary" id="summary" class="form-control" rows="3">{{ old('summary') }}</textarea>
+                        <textarea name="summary" id="summary" class="form-control" rows="3"><?php echo e(old('summary')); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="content">Contenido</label>
-                        <textarea name="content" id="content" class="form-control" rows="10">{{ old('content') }}</textarea>
+                        <textarea name="content" id="content" class="form-control" rows="10"><?php echo e(old('content')); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="images">Imágenes</label>
@@ -84,23 +84,23 @@
                     </div>
                                         <div class="form-group">
                                             <label for="order">Orden/Prioridad</label>
-                                            <input type="number" name="order" id="order" class="form-control" min="1" value="{{ old('order') }}">
+                                            <input type="number" name="order" id="order" class="form-control" min="1" value="<?php echo e(old('order')); ?>">
                                             <small>1 = más importante. Si se deja vacío, se ordena por fecha.</small>
                                         </div>
                     <div class="form-group">
                         <label for="category">Categoría</label>
                         <select name="category" id="category" class="form-control">
-                            <option value="noticias" @if(old('category') == 'noticias') selected @endif>Noticias</option>
-                            <option value="institucional" @if(old('category') == 'institucional') selected @endif>Institucional</option>
-                            <option value="eventos" @if(old('category') == 'eventos') selected @endif>Eventos</option>
-                            <option value="comunicados" @if(old('category') == 'comunicados') selected @endif>Comunicados</option>
+                            <option value="noticias" <?php if(old('category') == 'noticias'): ?> selected <?php endif; ?>>Noticias</option>
+                            <option value="institucional" <?php if(old('category') == 'institucional'): ?> selected <?php endif; ?>>Institucional</option>
+                            <option value="eventos" <?php if(old('category') == 'eventos'): ?> selected <?php endif; ?>>Eventos</option>
+                            <option value="comunicados" <?php if(old('category') == 'comunicados'): ?> selected <?php endif; ?>>Comunicados</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="status">Estado</label>
                         <select name="status" id="status" class="form-control">
-                            <option value="draft" @if(old('status') == 'draft') selected @endif>Borrador</option>
-                            <option value="published" @if(old('status') == 'published') selected @endif>Publicado</option>
+                            <option value="draft" <?php if(old('status') == 'draft'): ?> selected <?php endif; ?>>Borrador</option>
+                            <option value="published" <?php if(old('status') == 'published'): ?> selected <?php endif; ?>>Publicado</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Crear Noticia</button>
@@ -112,11 +112,11 @@
     <!-- Footer Administrativo -->
     <footer class="admin-footer">
         <div class="admin-footer-content">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
+            <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
             <div class="admin-footer-links">
-                <a href="{{ url('/') }}" target="_blank">🌐 Ver Sitio Web</a>
-                <a href="{{ url('/admin/help') }}">❓ Ayuda</a>
-                <a href="{{ url('/admin/logs') }}">📋 Logs del Sistema</a>
+                <a href="<?php echo e(url('/')); ?>" target="_blank">🌐 Ver Sitio Web</a>
+                <a href="<?php echo e(url('/admin/help')); ?>">❓ Ayuda</a>
+                <a href="<?php echo e(url('/admin/logs')); ?>">📋 Logs del Sistema</a>
             </div>
         </div>
     </footer>
@@ -153,3 +153,4 @@
         </script>
 </body>
 </html>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/crud/news/create.blade.php ENDPATH**/ ?>

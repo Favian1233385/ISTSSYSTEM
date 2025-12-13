@@ -202,44 +202,28 @@
                 </div>
 
                 <div class="news-grid">
-                    <div class="news-card featured">
-                        <div class="news-image">
-                            <img src="{{ asset('uploads/images/69388a0728100-RENDICION DE CUENTAS 20242.jpg') }}"
-                                alt="Noticia Principal">
+                    @php
+                        $newsList = \App\Models\News::where('status', 'published')->orderBy('published_at', 'desc')->take(3)->get();
+                    @endphp
+                    @forelse($newsList as $n)
+                        <div class="news-card @if($loop->first) featured @endif">
+                            <div class="news-image">
+                                @if(is_array($n->images) && count($n->images) > 0)
+                                    <img src="{{ asset('storage/' . ltrim($n->images[0], '/')) }}" alt="{{ $n->title }}">
+                                @else
+                                    <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $n->title }}">
+                                @endif
+                            </div>
+                            <div class="news-content">
+                                <span class="news-category">{{ ucfirst($n->category ?? 'Noticias') }}</span>
+                                <h3>{{ $n->title }}</h3>
+                                <p>{{ \Illuminate\Support\Str::limit(strip_tags($n->summary), 120) }}</p>
+                                <a href="{{ route('noticias.show', $n->slug) }}" class="read-more">Leer más →</a>
+                            </div>
                         </div>
-                        <div class="news-content">
-                            <span class="news-category">Tecnología</span>
-                            <h3>Nuevas Tecnologías en el ISTS</h3>
-                            <p>El Instituto Superior Tecnológico Sucúa implementa nuevas tecnologías para mejorar la
-                                experiencia educativa de nuestros estudiantes.</p>
-                            <a href="{{ url('/noticias/tecnologia-ists') }}" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image">
-                            <img src="{{ asset('uploads/images/69388a38bb063-foto.jpeg') }}" alt="Noticia 2">
-                        </div>
-                        <div class="news-content">
-                            <span class="news-category">Académico</span>
-                            <h3>Nuevas Carreras Disponibles</h3>
-                            <p>Conoce las nuevas carreras que el ISTS ofrece para el próximo semestre.</p>
-                            <a href="{{ url('/noticias/nuevas-carreras') }}" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
-
-                    <div class="news-card">
-                        <div class="news-image">
-                            <img src="{{ asset('uploads/images/69388a533e4a0-luis.jpg') }}" alt="Noticia 3">
-                        </div>
-                        <div class="news-content">
-                            <span class="news-category">Campus</span>
-                            <h3>Mejoras en el Campus</h3>
-                            <p>El ISTS continúa mejorando sus instalaciones para brindar una mejor experiencia educativa.
-                            </p>
-                            <a href="{{ url('/noticias/mejoras-campus') }}" class="read-more">Leer más →</a>
-                        </div>
-                    </div>
+                    @empty
+                        <p>No hay noticias recientes.</p>
+                    @endforelse
                 </div>
 
                 <div class="news-actions">

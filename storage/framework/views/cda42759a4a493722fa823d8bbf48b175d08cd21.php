@@ -120,9 +120,20 @@
             style="padding: 3.5rem 0; background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);">
             <div class="container">
                 <div class="programs-header">
-                    <h2>¡Tenemos una carrera para ti!</h2>
-                    <p>Descubre nuestras ofertas académicas diseñadas para el futuro, con carreras tecnológicas de alto
-                        impacto y formación docente de excelencia.</p>
+                    <h2 style="
+                        font-size:2.3rem;
+                        font-weight:800;
+                        color:#00796b;
+                        margin-bottom:0.7rem;
+                        letter-spacing:-1px;
+                        text-align:center;
+                        position:relative;">
+                        ¡Tenemos una carrera para ti!
+                        <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
+                    </h2>
+                    <p style="font-size:1.18rem; color:#1976d2; text-align:center; max-width:700px; margin:0 auto 1.7rem auto; font-weight:500;">
+                        Descubre nuestras ofertas académicas diseñadas para el futuro, con carreras tecnológicas de alto impacto y formación docente de excelencia.
+                    </p>
                 </div>
                 <div class="careers-grid">
                     <?php $__currentLoopData = $careers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $career): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -148,9 +159,7 @@
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                <div class="programs-cta">
-                    <a href="<?php echo e(url('/academicos')); ?>" class="btn-primary-large">Ver todas las carreras</a>
-                </div>
+                <!-- Botón 'Ver todas las carreras' eliminado por solicitud -->
             </div>
         </section>
 

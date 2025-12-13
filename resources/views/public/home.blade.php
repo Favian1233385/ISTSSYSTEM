@@ -55,7 +55,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             @endif
                         @endforeach
@@ -295,4 +294,3 @@
     <script src="{{ asset('js/harvard-interactions.js') }}"></script>
 @endpush
 
-<pre>{{ json_encode($heroSlides) }}</pre>

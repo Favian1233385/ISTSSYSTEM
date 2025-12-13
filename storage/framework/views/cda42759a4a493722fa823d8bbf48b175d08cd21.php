@@ -57,7 +57,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -297,6 +296,5 @@
     <script src="<?php echo e(asset('js/harvard-interactions.js')); ?>"></script>
 <?php $__env->stopPush(); ?>
 
-<pre><?php echo e(json_encode($heroSlides)); ?></pre>
 
 <?php echo $__env->make('layouts.public', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/home.blade.php ENDPATH**/ ?>

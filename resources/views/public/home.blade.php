@@ -204,10 +204,21 @@
         <!-- News Section - Harvard Style -->
         <section class="news-section">
             <div class="container">
-                <div class="section-header">
-                    <h2>La Gaceta del ISTS</h2>
-                    <p>Noticias oficiales del Instituto Superior Tecnológico Sucúa sobre ciencia, tecnología, vida del
-                        campus, temas universitarios y preocupaciones nacionales y globales más amplias.</p>
+                <div class="section-header" style="text-align:center;">
+                    <h2 style="
+                        font-size:2.3rem;
+                        font-weight:800;
+                        color:#00796b;
+                        margin-bottom:0.7rem;
+                        letter-spacing:-1px;
+                        display:inline-block;
+                        position:relative;">
+                        La Gaceta del ISTS
+                        <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
+                    </h2>
+                    <p style="font-size:1.18rem; color:#1976d2; text-align:center; max-width:700px; margin:0 auto 1.7rem auto; font-weight:500;">
+                        Noticias oficiales del Instituto Superior Tecnológico Sucúa sobre ciencia, tecnología, vida del campus, temas universitarios y preocupaciones nacionales y globales más amplias.
+                    </p>
                 </div>
 
                 <div class="news-grid">

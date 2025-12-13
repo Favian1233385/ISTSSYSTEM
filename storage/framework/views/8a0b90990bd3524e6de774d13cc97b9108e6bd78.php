@@ -10,9 +10,21 @@
     <div class="container">
         <div class="section-page-header">
             <div class="container text-center">
-                <h1 class="section-page-title"><?php echo e($title); ?></h1>
-                <div class="mv-separator"></div>
-                <p class="section-page-subtitle">Conoce la misión y visión que guían nuestro trabajo educativo</p>
+                <h1 class="section-page-title" style="
+                    font-size:2.3rem;
+                    font-weight:800;
+                    color:#00796b;
+                    margin-bottom:0.7rem;
+                    letter-spacing:-1px;
+                    text-align:center;
+                    position:relative;">
+                    <?php echo e($title); ?>
+
+                    <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
+                </h1>
+                <p class="section-page-subtitle" style="font-size:1.18rem; color:#1976d2; text-align:center; max-width:700px; margin:0 auto 1.7rem auto; font-weight:500;">
+                    Conoce la misión y visión que guían nuestro trabajo educativo
+                </p>
             </div>
         </div>
 

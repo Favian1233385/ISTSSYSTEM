@@ -2,8 +2,20 @@
 <section class="updates-section">
     <div class="container">
         <div class="section-header">
-            <h2>Últimas actualizaciones</h2>
-            <p>Videos, imágenes y novedades recientes del ISTS.</p>
+            <h2 style="
+                font-size:2.3rem;
+                font-weight:800;
+                color:#00796b;
+                margin-bottom:0.7rem;
+                letter-spacing:-1px;
+                text-align:center;
+                position:relative;">
+                Últimas actualizaciones
+                <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
+            </h2>
+            <p style="font-size:1.18rem; color:#1976d2; text-align:center; max-width:700px; margin:0 auto 1.7rem auto; font-weight:500;">
+                Videos, imágenes y novedades recientes del ISTS.
+            </p>
         </div>
         <div class="updates-container">
             @foreach($updates as $update)

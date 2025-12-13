@@ -136,10 +136,10 @@
                     <p><?php echo e($updatesActiveCount); ?> novedades activas</p>
                 </a>
 
-                <a href="<?php echo e(route('admin.timeline.index')); ?>" class="action-card">
-                    <div class="action-icon">📅</div>
-                    <h3>Timeline Institucional</h3>
-                    <p>Historia y eventos importantes</p>
+                <a href="<?php echo e(route('admin.news.index')); ?>" class="action-card">
+                    <div class="action-icon">📰</div>
+                    <h3>Noticias</h3>
+                    <p>Gestionar La Gaceta del ISTS</p>
                 </a>
 
                 <a href="<?php echo e(route('admin.contents.rector.index')); ?>" class="action-card">

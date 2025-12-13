@@ -185,10 +185,7 @@ Route::prefix("admin")
             "as" => "admin",
         ]);
 
-        // Timeline management
-        Route::get("/timeline", [ContentController::class, "index"])
-            ->defaults("category", "timeline")
-            ->name("admin.timeline.index");
+        // Timeline eliminado y reemplazado por gestión de noticias oficiales (news)
 
         // Visit sections management (corregido)
         Route::resource("visit-sections", \App\Http\Controllers\Admin\VisitSectionController::class, [

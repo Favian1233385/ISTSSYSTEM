@@ -2,7 +2,7 @@
     <div class="container">
         <h2>Enlaces Rápidos de Navegación</h2>
         <div class="links-grid">
-            <a href="<?php echo e(url('/indice')); ?>" class="quick-link">Índice A-Z</a>
+            <a href="<?php echo e(url('/indice-a-z')); ?>" class="quick-link">Índice A-Z</a>
             <a href="<?php echo e(url('/buscar-persona')); ?>" class="quick-link">Buscar una persona</a>
             <a href="<?php echo e(url('/eventos')); ?>" class="quick-link">Eventos</a>
             <a href="<?php echo e(url('/relaciones-publicas')); ?>" class="quick-link">Relaciones Públicas</a>

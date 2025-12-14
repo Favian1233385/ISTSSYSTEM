@@ -81,6 +81,8 @@ Route::get("/contact", function () {
     return view("public.contact");
 })->name("contact");
 
+
+Route::get('/indice-a-z', [PublicController::class, 'azIndex'])->name('public.azindex');
 Route::get("/tramites", [PublicController::class, "tramites"])->name(
     "tramites",
 );
@@ -288,6 +290,9 @@ Route::prefix("admin")
 
         // Carrusel (Hero Slides) management
         Route::resource('hero-slides', HeroSlideController::class, ['as' => 'admin']);
+
+        // Índice A-Z (Personas y Áreas/Servicios)
+        Route::get('/az-index', [\App\Http\Controllers\Admin\AZIndexController::class, 'index'])->name('admin.azindex.index');
     });
 
 // Auth routes (assuming using Laravel's default)

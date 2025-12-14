@@ -10,6 +10,28 @@ use App\Models\Autoridad;
 class PublicController extends Controller
 {
     /**
+     * Muestra el índice A-Z institucional (personas, carreras, servicios, etc.)
+     */
+    public function azIndex()
+    {
+        // Si la columna 'name' existe, usarla; si no, obtener sin orden específico
+        $personas = \App\Models\User::query();
+        if (\Schema::hasColumn('users', 'name')) {
+            $personas = $personas->orderBy('name');
+        }
+        $personas = $personas->get();
+        $carreras = \App\Models\Career::orderBy('name')->get();
+        // Si la columna 'title' existe, usarla; si no, obtener sin orden específico
+        $secciones = \App\Models\AcademicSection::query();
+        if (\Schema::hasColumn('academic_sections', 'title')) {
+            $secciones = $secciones->orderBy('title');
+        }
+        $secciones = $secciones->get();
+        $servicios = \App\Models\CampusItem::orderBy('title')->get();
+        return view('public.azindex', compact('personas', 'carreras', 'secciones', 'servicios'));
+    }
+
+    /**
      * Muestra una sección de visitar por slug.
      */
     public function showVisitSection($slug)

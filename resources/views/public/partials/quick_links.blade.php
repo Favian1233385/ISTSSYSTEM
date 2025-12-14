@@ -2,7 +2,7 @@
     <div class="container">
         <h2>Enlaces Rápidos de Navegación</h2>
         <div class="links-grid">
-            <a href="{{ url('/indice') }}" class="quick-link">Índice A-Z</a>
+            <a href="{{ url('/indice-a-z') }}" class="quick-link">Índice A-Z</a>
             <a href="{{ url('/buscar-persona') }}" class="quick-link">Buscar una persona</a>
             <a href="{{ url('/eventos') }}" class="quick-link">Eventos</a>
             <a href="{{ url('/relaciones-publicas') }}" class="quick-link">Relaciones Públicas</a>

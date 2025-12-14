@@ -11,6 +11,7 @@ class Event extends Model
 
     protected $fillable = [
         'title',
+        'category',
         'description',
         'date',
         'place',
@@ -19,4 +20,19 @@ class Event extends Model
     ];
 
     protected $dates = ['date'];
+
+    public function images()
+    {
+        return $this->hasMany(EventImage::class);
+    }
+
+    public function files()
+    {
+        return $this->hasMany(EventFile::class);
+    }
+
+    public function links()
+    {
+        return $this->hasMany(EventLink::class);
+    }
 }

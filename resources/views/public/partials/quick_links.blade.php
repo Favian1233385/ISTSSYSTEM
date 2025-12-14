@@ -7,7 +7,6 @@
             <a href="{{ url('/eventos') }}" class="quick-link">Eventos</a>
             <a href="{{ url('/relaciones-publicas') }}" class="quick-link">Relaciones Públicas</a>
             <a href="{{ url('/egresados') }}" class="quick-link">Egresados</a>
-            <a href="{{ url('/donar') }}" class="quick-link">Donar Ahora</a>
             <a href="{{ url('/emergencia') }}" class="quick-link">Emergencia</a>
         </div>
     </div>

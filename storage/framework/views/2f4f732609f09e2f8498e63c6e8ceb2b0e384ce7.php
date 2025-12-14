@@ -7,7 +7,6 @@
             <a href="<?php echo e(url('/eventos')); ?>" class="quick-link">Eventos</a>
             <a href="<?php echo e(url('/relaciones-publicas')); ?>" class="quick-link">Relaciones Públicas</a>
             <a href="<?php echo e(url('/egresados')); ?>" class="quick-link">Egresados</a>
-            <a href="<?php echo e(url('/donar')); ?>" class="quick-link">Donar Ahora</a>
             <a href="<?php echo e(url('/emergencia')); ?>" class="quick-link">Emergencia</a>
         </div>
     </div>

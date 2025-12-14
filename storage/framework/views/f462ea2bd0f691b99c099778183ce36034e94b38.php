@@ -18,6 +18,17 @@
     <form action="<?php echo e(route('admin.events.store')); ?>" method="POST" enctype="multipart/form-data" class="admin-form">
         <?php echo csrf_field(); ?>
         <div class="form-group">
+            <label for="category">Tipo de Evento <span class="text-danger">*</span></label>
+            <select name="category" id="category" class="form-control" required>
+                <option value="">Seleccione una categoría</option>
+                <option value="Campeonato" <?php echo e(old('category') == 'Campeonato' ? 'selected' : ''); ?>>Campeonato</option>
+                <option value="Feria Estudiantil" <?php echo e(old('category') == 'Feria Estudiantil' ? 'selected' : ''); ?>>Feria Estudiantil</option>
+                <option value="Jornada Académica" <?php echo e(old('category') == 'Jornada Académica' ? 'selected' : ''); ?>>Jornada Académica</option>
+                <option value="Administrativo" <?php echo e(old('category') == 'Administrativo' ? 'selected' : ''); ?>>Administrativo</option>
+                <option value="Otro" <?php echo e(old('category') == 'Otro' ? 'selected' : ''); ?>>Otro</option>
+            </select>
+        </div>
+        <div class="form-group">
             <label for="title">Título <span class="text-danger">*</span></label>
             <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title')); ?>" required>
         </div>
@@ -34,8 +45,24 @@
             <input type="text" name="place" id="place" class="form-control" value="<?php echo e(old('place')); ?>">
         </div>
         <div class="form-group">
-            <label for="image">Imagen principal</label>
-            <input type="file" name="image" id="image" class="form-control-file" accept="image/*">
+            <label for="images">Imágenes del evento</label>
+            <input type="file" name="images[]" id="images" class="form-control-file" accept="image/*" multiple>
+            <small class="form-text text-muted">Puedes seleccionar varias imágenes.</small>
+        </div>
+        <div class="form-group">
+            <label for="files">Archivos adjuntos (PDF, reglamentos, etc.)</label>
+            <input type="file" name="files[]" id="files" class="form-control-file" accept="application/pdf" multiple>
+            <small class="form-text text-muted">Puedes subir varios archivos PDF.</small>
+        </div>
+        <div class="form-group">
+            <label>Enlaces externos (opcional)</label>
+            <div id="links-wrapper">
+                <div class="input-group mb-2">
+                    <input type="url" name="links[]" class="form-control" placeholder="https://...">
+                    <input type="text" name="link_labels[]" class="form-control" placeholder="Etiqueta (opcional)">
+                </div>
+            </div>
+            <button type="button" class="btn btn-sm btn-outline-primary" onclick="addLinkInput()">Agregar otro enlace</button>
         </div>
         <div class="form-group">
             <label for="status">Estado <span class="text-danger">*</span></label>
@@ -60,6 +87,15 @@
         language: 'es',
         branding: false
     });
+
+    function addLinkInput() {
+        const wrapper = document.getElementById('links-wrapper');
+        const div = document.createElement('div');
+        div.className = 'input-group mb-2';
+        div.innerHTML = `<input type="url" name="links[]" class="form-control" placeholder="https://...">
+            <input type="text" name="link_labels[]" class="form-control" placeholder="Etiqueta (opcional)">`;
+        wrapper.appendChild(div);
+    }
 </script>
 <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>

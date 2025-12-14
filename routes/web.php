@@ -38,6 +38,7 @@ use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\Admin\CareerController;
 use App\Http\Controllers\Admin\AutoridadController;
 use App\Http\Controllers\Admin\HeroSlideController;
+use App\Http\Controllers\PublicEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -125,6 +126,11 @@ Route::get("/autoridades/{slug}", [
     PublicController::class,
     "showAutoridadDetail",
 ])->name("autoridades.show");
+
+// Rutas públicas de eventos
+Route::get('/eventos', [PublicEventController::class, 'index'])->name('public.events.index');
+Route::get('/eventos/{id}', [PublicEventController::class, 'show'])->name('public.events.show');
+Route::get('/eventos/calendario', [PublicEventController::class, 'calendar'])->name('public.events.calendar');
 
 // Admin routes
 Route::prefix("admin")

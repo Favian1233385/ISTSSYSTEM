@@ -82,7 +82,7 @@ class ChatbotController extends Controller
         $message = strtolower(trim($message));
         $qas = QA::all();
 
-            // 1. Check for exact match
+            // 1. Coincidencia exacta
             foreach ($qas as $qa) {
                 $questions = array_map("trim", explode(",", strtolower($qa->question)));
                 if (in_array($message, $questions)) {
@@ -90,11 +90,11 @@ class ChatbotController extends Controller
                 }
             }
 
-            // 2. Check for keyword match
+            // 2. Coincidencia por palabra clave contenida (más flexible)
             foreach ($qas as $qa) {
                 $keywords = array_map("trim", explode(",", strtolower($qa->question)));
                 foreach ($keywords as $keyword) {
-                    if (!empty($keyword) && strpos($message, $keyword) !== false) {
+                    if (!empty($keyword) && (strpos($message, $keyword) !== false || strpos($keyword, $message) !== false)) {
                         return strip_tags($qa->answer);
                     }
                 }

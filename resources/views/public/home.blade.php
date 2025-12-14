@@ -288,7 +288,7 @@
 @push('scripts')
     <!-- Scripts -->
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('ISTSSYSTEM/js/chatbot.js') }}"></script>
+   
     <script src="{{ asset('js/harvard-interactions.js') }}"></script>
 @endpush
 

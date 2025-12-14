@@ -284,6 +284,7 @@ window.addEventListener('beforeunload', function() {
     }
 });
 // CSS para el chatbot
+// CSS para el chatbot
 const chatbotStyles = `
 <style>
 .chatbot-widget {
@@ -430,5 +431,7 @@ const chatbotStyles = `
 </style>
 `;
 
+// Insertar estilos
+document.head.insertAdjacentHTML('beforeend', chatbotStyles);
 // Insertar estilos
 document.head.insertAdjacentHTML('beforeend', chatbotStyles);

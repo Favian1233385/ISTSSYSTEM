@@ -56,6 +56,5 @@
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">↑</button>
 
     <script src="<?php echo e(asset(ltrim(($base ?? '') . '/js/main.js', '/'))); ?>"></script>
-    <script src="<?php echo e(asset(ltrim(($base ?? '') . '/js/chatbot.js', '/'))); ?>"></script>
 </footer>
 <?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/partials/footer.blade.php ENDPATH**/ ?>

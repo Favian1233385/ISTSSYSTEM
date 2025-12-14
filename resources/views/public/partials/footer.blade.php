@@ -56,5 +56,4 @@
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">↑</button>
 
     <script src="{{ asset(ltrim(($base ?? '') . '/js/main.js', '/')) }}"></script>
-    <script src="{{ asset(ltrim(($base ?? '') . '/js/chatbot.js', '/')) }}"></script>
 </footer>

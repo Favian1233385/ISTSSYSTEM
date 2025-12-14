@@ -290,7 +290,7 @@
 <?php $__env->startPush('scripts'); ?>
     <!-- Scripts -->
     <script src="<?php echo e(asset('js/main.js')); ?>"></script>
-    <script src="<?php echo e(asset('ISTSSYSTEM/js/chatbot.js')); ?>"></script>
+   
     <script src="<?php echo e(asset('js/harvard-interactions.js')); ?>"></script>
 <?php $__env->stopPush(); ?>
 

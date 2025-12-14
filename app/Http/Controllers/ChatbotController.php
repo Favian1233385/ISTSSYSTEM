@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
 {
+      // Fuentes de conocimiento dinámicas
+    private $knowledgeSources = [
+        \App\Chatbot\Sources\AutoridadesSource::class,
+        \App\Chatbot\Sources\DocentesSource::class,
+        \App\Chatbot\Sources\TramitesSource::class,
+        // Puedes agregar más aquí
+    ];
     /**
      * Enviar mensaje al chatbot
      */
@@ -98,6 +105,16 @@ class ChatbotController extends Controller
                         return strip_tags($qa->answer);
                     }
                 }
+            }
+
+        
+      
+        // Fallback: recorrer fuentes de conocimiento dinámicas
+            foreach ($this->knowledgeSources as $sourceClass) {
+                $source = new $sourceClass();
+                if ($source->canRespond($message)) {
+                    return $source->getResponse($message);
+                }   
             }
 
         // 3. Buscar en carreras

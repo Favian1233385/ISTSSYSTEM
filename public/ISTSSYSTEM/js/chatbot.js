@@ -112,7 +112,7 @@ class ISTSChatbot {
         messageDiv.className = `${sender}-message`;
         
         const messageContent = document.createElement('p');
-        messageContent.textContent = content;
+        messageContent.innerHTML = content;
         messageDiv.appendChild(messageContent);
         
         messagesContainer.appendChild(messageDiv);

@@ -13,9 +13,10 @@
         <!-- Encabezado personalizado por sección -->
         <?php echo $__env->yieldContent('header'); ?>
         <!-- Contenido principal -->
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-4" style="margin-bottom:2cm;">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
+        <?php echo $__env->make('public.partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 </body>
 </html>

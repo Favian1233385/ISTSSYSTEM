@@ -13,9 +13,10 @@
         <!-- Encabezado personalizado por sección -->
         @yield('header')
         <!-- Contenido principal -->
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-4" style="margin-bottom:2cm;">
             @yield('content')
         </div>
+        @include('public.partials.footer')
     </div>
 </body>
 </html>

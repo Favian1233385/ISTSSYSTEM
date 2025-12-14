@@ -142,6 +142,12 @@
                     <p>Gestionar La Gaceta del ISTS</p>
                 </a>
 
+                <a href="<?php echo e(route('admin.events.index')); ?>" class="action-card">
+                    <div class="action-icon">📅</div>
+                    <h3>Eventos</h3>
+                    <p>Gestionar eventos institucionales</p>
+                </a>
+
                 <a href="<?php echo e(route('admin.contents.rector.index')); ?>" class="action-card">
                     <div class="action-icon">🧑‍🏫</div>
                     <h3>Mensaje del Rector</h3>

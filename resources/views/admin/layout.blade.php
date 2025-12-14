@@ -10,17 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-    @if (!session('user_id') || session('user_role') !== 'admin')
-        <script>
-            window.location.href = "{{ url('/admin/login') }}";
-        </script>
-    @endif
+    {{-- Validación de sesión eliminada: ahora solo se usa Auth y middlewares estándar de Laravel --}}
 
     <div class="admin-layout" style="padding: 2rem;">
         @include('admin.partials.header')
 
         <main>
             @yield('content')
+            @stack('scripts')
         </main>
 
         @include('admin.partials.footer')

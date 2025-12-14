@@ -289,3 +289,4 @@ Route::prefix("admin")
 require __DIR__ . "/auth.php";
 require __DIR__ . "/admin_about.php";
 require __DIR__ . "/admin_academics.php";
+require __DIR__.'/admin_events.php';

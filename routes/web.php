@@ -1,6 +1,11 @@
+
 <?php
+// Ruta pública para enviar mensajes al chatbot
+use App\Http\Controllers\ChatbotController as PublicChatbotController;
+use App\Http\Controllers\Admin\ChatbotController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PublicController;
+Route::post('/chatbot/send', [PublicChatbotController::class, 'send'])->name('chatbot.send');
 
 // Ruta para crear docentes desde la gestión de Acerca (si se requiere fuera del resource)
 // Route::get('/admin/teachers/create', [TeacherController::class, 'create'])->name('teachers.create');
@@ -82,7 +87,6 @@ Route::get("/contact", function () {
 })->name("contact");
 
 
-Route::get('/indice-a-z', [PublicController::class, 'azIndex'])->name('public.azindex');
 Route::get("/tramites", [PublicController::class, "tramites"])->name(
     "tramites",
 );

@@ -1,8 +1,8 @@
-@extends('layouts.admin')
 
-@section('title', 'Mensajes del Chatbot')
 
-@section('content')
+<?php $__env->startSection('title', 'Mensajes del Chatbot'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col-12">
@@ -18,7 +18,7 @@
             <div class="card border-primary">
                 <div class="card-body text-center">
                     <h5 class="card-title">Total Mensajes</h5>
-                    <p class="display-4">{{ $stats['total'] }}</p>
+                    <p class="display-4"><?php echo e($stats['total']); ?></p>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <div class="card border-success">
                 <div class="card-body text-center">
                     <h5 class="card-title">Hoy</h5>
-                    <p class="display-4">{{ $stats['today'] }}</p>
+                    <p class="display-4"><?php echo e($stats['today']); ?></p>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <div class="card border-info">
                 <div class="card-body text-center">
                     <h5 class="card-title">Esta Semana</h5>
-                    <p class="display-4">{{ $stats['week'] }}</p>
+                    <p class="display-4"><?php echo e($stats['week']); ?></p>
                 </div>
             </div>
         </div>
@@ -42,25 +42,27 @@
             <div class="card border-warning">
                 <div class="card-body text-center">
                     <h5 class="card-title">Sesiones</h5>
-                    <p class="display-4">{{ $stats['sessions'] }}</p>
+                    <p class="display-4"><?php echo e($stats['sessions']); ?></p>
                 </div>
             </div>
         </div>
     </div>
 
-    @if(session('success'))
+    <?php if(session('success')): ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+            <?php echo e(session('success')); ?>
 
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
-    @endif
+    <?php endif; ?>
+
+    <?php if(session('error')): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php echo e(session('error')); ?>
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    <?php endif; ?>
 
     <!-- Filtros -->
     <div class="card mb-4">
@@ -68,42 +70,42 @@
             <h5 class="mb-0">Filtros de Búsqueda</h5>
         </div>
         <div class="card-body">
-            <form method="GET" action="{{ route('admin.chatbot.index') }}" class="row g-3">
+            <form method="GET" action="<?php echo e(route('admin.chatbot.index')); ?>" class="row g-3">
                 <div class="col-md-3">
                     <label for="session_id" class="form-label">ID de Sesión</label>
                     <input type="text" class="form-control" id="session_id" name="session_id" 
-                           value="{{ request('session_id') }}" placeholder="Buscar por sesión">
+                           value="<?php echo e(request('session_id')); ?>" placeholder="Buscar por sesión">
                 </div>
                 <div class="col-md-2">
                     <label for="date_from" class="form-label">Desde</label>
                     <input type="date" class="form-control" id="date_from" name="date_from" 
-                           value="{{ request('date_from') }}">
+                           value="<?php echo e(request('date_from')); ?>">
                 </div>
                 <div class="col-md-2">
                     <label for="date_to" class="form-label">Hasta</label>
                     <input type="date" class="form-control" id="date_to" name="date_to" 
-                           value="{{ request('date_to') }}">
+                           value="<?php echo e(request('date_to')); ?>">
                 </div>
                 <div class="col-md-2">
                     <label for="sentiment" class="form-label">Sentimiento</label>
                     <select class="form-control" id="sentiment" name="sentiment">
                         <option value="">Todos</option>
-                        <option value="positive" {{ request('sentiment') == 'positive' ? 'selected' : '' }}>Positivo</option>
-                        <option value="neutral" {{ request('sentiment') == 'neutral' ? 'selected' : '' }}>Neutral</option>
-                        <option value="negative" {{ request('sentiment') == 'negative' ? 'selected' : '' }}>Negativo</option>
+                        <option value="positive" <?php echo e(request('sentiment') == 'positive' ? 'selected' : ''); ?>>Positivo</option>
+                        <option value="neutral" <?php echo e(request('sentiment') == 'neutral' ? 'selected' : ''); ?>>Neutral</option>
+                        <option value="negative" <?php echo e(request('sentiment') == 'negative' ? 'selected' : ''); ?>>Negativo</option>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="unanswered" class="form-label">¿Sin respuesta?</label>
                     <select class="form-control" id="unanswered" name="unanswered">
                         <option value="">Todas</option>
-                        <option value="1" {{ request('unanswered') === '1' ? 'selected' : '' }}>Solo sin respuesta</option>
-                        <option value="0" {{ request('unanswered') === '0' ? 'selected' : '' }}>Solo con respuesta</option>
+                        <option value="1" <?php echo e(request('unanswered') === '1' ? 'selected' : ''); ?>>Solo sin respuesta</option>
+                        <option value="0" <?php echo e(request('unanswered') === '0' ? 'selected' : ''); ?>>Solo con respuesta</option>
                     </select>
                 </div>
                 <div class="col-md-3 d-flex align-items-end gap-2">
                     <button type="submit" class="btn btn-primary">🔍 Filtrar</button>
-                    <a href="{{ route('admin.chatbot.index') }}" class="btn btn-secondary">🔄 Limpiar</a>
+                    <a href="<?php echo e(route('admin.chatbot.index')); ?>" class="btn btn-secondary">🔄 Limpiar</a>
                 </div>
             </form>
         </div>
@@ -134,45 +136,45 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($messages as $message)
+                        <?php $__empty_1 = true; $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $message): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <tr>
-                            <td>{{ $message->id }}</td>
+                            <td><?php echo e($message->id); ?></td>
                             <td>
-                                <small class="text-muted">{{ Str::limit($message->session_id, 15) }}</small>
+                                <small class="text-muted"><?php echo e(Str::limit($message->session_id, 15)); ?></small>
                             </td>
-                            <td>{{ Str::limit($message->user_message, 50) }}</td>
-                            <td>{{ Str::limit($message->bot_response, 50) }}</td>
+                            <td><?php echo e(Str::limit($message->user_message, 50)); ?></td>
+                            <td><?php echo e(Str::limit($message->bot_response, 50)); ?></td>
                             <td>
-                                @if($message->sentiment == 'positive')
+                                <?php if($message->sentiment == 'positive'): ?>
                                     <span class="badge bg-success">😊 Positivo</span>
-                                @elseif($message->sentiment == 'negative')
+                                <?php elseif($message->sentiment == 'negative'): ?>
                                     <span class="badge bg-danger">😞 Negativo</span>
-                                @else
+                                <?php else: ?>
                                     <span class="badge bg-secondary">😐 Neutral</span>
-                                @endif
+                                <?php endif; ?>
                             </td>
                             <td>
-                                @if($message->unanswered)
+                                <?php if($message->unanswered): ?>
                                     <span class="badge bg-warning text-dark">Sin respuesta</span>
-                                @else
+                                <?php else: ?>
                                     <span class="badge bg-success">Respondida</span>
-                                @endif
+                                <?php endif; ?>
                             </td>
-                            <td><small>{{ $message->ip_address }}</small></td>
+                            <td><small><?php echo e($message->ip_address); ?></small></td>
                             <td>
-                                <small>{{ $message->created_at->format('d/m/Y H:i') }}</small>
+                                <small><?php echo e($message->created_at->format('d/m/Y H:i')); ?></small>
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm">
-                                    <a href="{{ route('admin.chatbot.show', $message->id) }}" 
+                                    <a href="<?php echo e(route('admin.chatbot.show', $message->id)); ?>" 
                                        class="btn btn-info" title="Ver detalles">
                                         👁️
                                     </a>
-                                    <form action="{{ route('admin.chatbot.destroy', $message->id) }}" 
+                                    <form action="<?php echo e(route('admin.chatbot.destroy', $message->id)); ?>" 
                                           method="POST" class="d-inline"
                                           onsubmit="return confirm('¿Está seguro de eliminar este mensaje?')">
-                                        @csrf
-                                        @method('DELETE')
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
                                         <button type="submit" class="btn btn-danger" title="Eliminar">
                                             🗑️
                                         </button>
@@ -180,19 +182,20 @@
                                 </div>
                             </td>
                         </tr>
-                        @empty
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="8" class="text-center py-4">
                                 <p class="text-muted mb-0">No hay mensajes registrados</p>
                             </td>
                         </tr>
-                        @endforelse
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
 
             <div class="mt-3">
-                {{ $messages->links() }}
+                <?php echo e($messages->links()); ?>
+
             </div>
         </div>
     </div>
@@ -206,9 +209,9 @@
                 <h5 class="modal-title">Limpiar Mensajes Antiguos</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('admin.chatbot.clear') }}" method="POST">
-                @csrf
-                @method('DELETE')
+            <form action="<?php echo e(route('admin.chatbot.clear')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="days" class="form-label">Eliminar mensajes anteriores a:</label>
@@ -232,4 +235,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/chatbot/index.blade.php ENDPATH**/ ?>

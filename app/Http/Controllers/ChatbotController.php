@@ -1,107 +1,76 @@
 <?php
-/**
- * Controlador de Chatbot - Sistema ISTS
- * Manejo del asistente virtual
- */
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\QA;
+use App\Models\ChatMessage;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
 {
-    private $chatMessageModel;
-
-    public function __construct()
-    {
-        $this->chatMessageModel = $this->model("ChatMessage");
-    }
-
     /**
      * Enviar mensaje al chatbot
      */
-    public function send()
+    public function send(Request $request)
     {
-        // Verificar que sea una petición POST
-        if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-            $this->jsonResponse(
-                ["success" => false, "message" => "Método no permitido"],
-                405,
-            );
-            return;
+        if (!$request->isMethod('post')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Método no permitido'
+            ], 405);
         }
 
-        // Verificar token CSRF
-        if (!Security::validateCSRFToken($_POST["csrf_token"] ?? "")) {
-            $this->jsonResponse(
-                ["success" => false, "message" => "Token CSRF inválido"],
-                403,
-            );
-            return;
-        }
+        // Validar token CSRF (Laravel lo hace automáticamente en web.php)
 
-        // Rate limiting
-        if (!Security::checkRateLimit("chatbot", 20, 60)) {
-            $this->jsonResponse(
-                [
-                    "success" => false,
-                    "message" => "Demasiados mensajes. Intenta más tarde.",
-                ],
-                429,
-            );
-            return;
-        }
+        // Rate limiting (opcional: puedes implementar con middleware si lo deseas)
 
         try {
-            // Sanitizar entrada
-            $message = Security::sanitizeInput(
-                $_POST["message"] ?? "",
-                "string",
-            );
-            $sessionId = Security::sanitizeInput(
-                $_POST["session_id"] ?? "",
-                "string",
-            );
+            $message = trim($request->input('message', ''));
+            $sessionId = trim($request->input('session_id', ''));
 
             if (empty($message)) {
-                $this->jsonResponse(
-                    ["success" => false, "message" => "Mensaje vacío"],
-                    400,
-                );
-                return;
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Mensaje vacío'
+                ], 400);
             }
 
             // Generar respuesta del chatbot
             $response = $this->generateResponse($message);
 
+            // Determinar si es una respuesta genérica (sin respuesta útil)
+            $unanswered = false;
+            $defaultResponses = [
+                'Gracias por tu mensaje. No he encontrado una respuesta exacta, pero puedes consultar nuestras carreras, noticias, actualizaciones o contactar a un asesor para más información.'
+            ];
+            if (in_array($response, $defaultResponses)) {
+                $unanswered = true;
+            }
+
             // Guardar conversación
-            $this->chatMessageModel->save([
-                "session_id" => $sessionId,
-                "user_message" => $message,
-                "bot_response" => $response,
-                "ip_address" => $_SERVER["REMOTE_ADDR"] ?? "unknown",
-                "user_agent" => $_SERVER["HTTP_USER_AGENT"] ?? "unknown",
-                "sentiment" => $this->analyzeSentiment($message),
+            ChatMessage::create([
+                'session_id' => $sessionId,
+                'user_message' => $message,
+                'bot_response' => $response,
+                'ip_address' => $request->ip(),
+                'user_agent' => $request->header('User-Agent', 'unknown'),
+                'sentiment' => $this->analyzeSentiment($message),
+                'unanswered' => $unanswered,
             ]);
 
-            // Log de interacción
-            Security::logSecurity(
-                "chatbot_interaction",
-                null,
-                "Mensaje: $message",
-                "low",
-            );
+            // Puedes agregar logs aquí si lo deseas
 
-            $this->jsonResponse([
-                "success" => true,
-                "response" => $response,
+            return response()->json([
+                'success' => true,
+                'response' => $response
             ]);
         } catch (Exception $e) {
-            error_log(
-                "Error en ChatbotController::send(): " . $e->getMessage(),
-            );
-            $this->jsonResponse(
-                ["success" => false, "message" => "Error interno del servidor"],
-                500,
-            );
+                Log::error('Error en ChatbotController::send(): ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Error interno del servidor'
+            ], 500);
         }
     }
 
@@ -113,23 +82,23 @@ class ChatbotController extends Controller
         $message = strtolower(trim($message));
         $qas = QA::all();
 
-        // 1. Check for exact match
-        foreach ($qas as $qa) {
-            $questions = array_map("trim", explode(",", strtolower($qa->question)));
-            if (in_array($message, $questions)) {
-                return $qa->answer;
-            }
-        }
-
-        // 2. Check for keyword match
-        foreach ($qas as $qa) {
-            $keywords = array_map("trim", explode(",", strtolower($qa->question)));
-            foreach ($keywords as $keyword) {
-                if (!empty($keyword) && strpos($message, $keyword) !== false) {
-                    return $qa->answer;
+            // 1. Check for exact match
+            foreach ($qas as $qa) {
+                $questions = array_map("trim", explode(",", strtolower($qa->question)));
+                if (in_array($message, $questions)) {
+                    return strip_tags($qa->answer);
                 }
             }
-        }
+
+            // 2. Check for keyword match
+            foreach ($qas as $qa) {
+                $keywords = array_map("trim", explode(",", strtolower($qa->question)));
+                foreach ($keywords as $keyword) {
+                    if (!empty($keyword) && strpos($message, $keyword) !== false) {
+                        return strip_tags($qa->answer);
+                    }
+                }
+            }
 
         // 3. Buscar en carreras
         $careers = \App\Models\Career::active()->get();
@@ -216,62 +185,4 @@ class ChatbotController extends Controller
         return "neutral";
     }
 
-    /**
-     * Obtener estadísticas del chatbot
-     */
-    public function stats()
-    {
-        if (!Security::isAuthenticated() || !Security::hasRole("admin")) {
-            $this->jsonResponse(
-                ["success" => false, "message" => "Acceso denegado"],
-                403,
-            );
-            return;
-        }
-
-        try {
-            $stats = $this->chatMessageModel->getStatistics();
-            $this->jsonResponse(["success" => true, "stats" => $stats]);
-        } catch (Exception $e) {
-            error_log(
-                "Error en ChatbotController::stats(): " . $e->getMessage(),
-            );
-            $this->jsonResponse(
-                [
-                    "success" => false,
-                    "message" => "Error al obtener estadísticas",
-                ],
-                500,
-            );
-        }
-    }
-
-    /**
-     * Obtener mensajes recientes
-     */
-    public function recent()
-    {
-        if (!Security::isAuthenticated() || !Security::hasRole("admin")) {
-            $this->jsonResponse(
-                ["success" => false, "message" => "Acceso denegado"],
-                403,
-            );
-            return;
-        }
-
-        try {
-            $limit = intval($_GET["limit"] ?? 50);
-            $messages = $this->chatMessageModel->getRecentMessages($limit);
-            $this->jsonResponse(["success" => true, "messages" => $messages]);
-        } catch (Exception $e) {
-            error_log(
-                "Error en ChatbotController::recent(): " . $e->getMessage(),
-            );
-            $this->jsonResponse(
-                ["success" => false, "message" => "Error al obtener mensajes"],
-                500,
-            );
-        }
-    }
 }
-?>

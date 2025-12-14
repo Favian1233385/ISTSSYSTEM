@@ -12,6 +12,7 @@
                 <li><a href="<?php echo e(url('/admin/contents')); ?>" class="<?php echo e(request()->is('admin/contents*') ? 'active':''); ?>">📝 Contenidos</a></li>
                 <li><a href="<?php echo e(url('/admin/news')); ?>" class="<?php echo e(request()->is('admin/news*') ? 'active':''); ?>">📰 Noticias</a></li>
                 <li><a href="<?php echo e(url('/admin/events')); ?>" class="<?php echo e(request()->is('admin/events*') ? 'active':''); ?>">📅 Eventos</a></li>
+                <li><a href="<?php echo e(route('admin.azindex.index')); ?>" class="<?php echo e(request()->is('admin/az-index*') ? 'active':''); ?>">🔤 Índice A-Z</a></li>
                 <li><a href="<?php echo e(url('/admin/about')); ?>" class="<?php echo e(request()->is('admin/about*') ? 'active':''); ?>">ℹ️ Acerca</a></li>
                 <li><a href="<?php echo e(route('admin.autoridades.index')); ?>" class="<?php echo e(request()->is('admin/autoridades*') ? 'active':''); ?>">👨‍💼 Autoridades</a></li>
                 <li><a href="<?php echo e(url('/admin/users')); ?>" class="<?php echo e(request()->is('admin/users*') ? 'active':''); ?>">👥 Usuarios</a></li>

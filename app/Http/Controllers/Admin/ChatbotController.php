@@ -14,6 +14,14 @@ class ChatbotController extends Controller
     public function index(Request $request)
     {
         $query = ChatMessage::query()->orderBy('created_at', 'desc');
+        // Filtro por preguntas sin respuesta
+        if ($request->filled('unanswered')) {
+            if ($request->unanswered === '1') {
+                $query->where('unanswered', true);
+            } elseif ($request->unanswered === '0') {
+                $query->where('unanswered', false);
+            }
+        }
 
         // Filtro por sesión
         if ($request->filled('session_id')) {

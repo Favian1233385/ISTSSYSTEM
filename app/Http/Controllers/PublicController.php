@@ -14,20 +14,14 @@ class PublicController extends Controller
      */
     public function azIndex()
     {
-        // Si la columna 'name' existe, usarla; si no, obtener sin orden específico
-        $personas = \App\Models\User::query();
-        if (\Schema::hasColumn('users', 'name')) {
-            $personas = $personas->orderBy('name');
-        }
-        $personas = $personas->get();
-        $carreras = \App\Models\Career::orderBy('name')->get();
-        // Si la columna 'title' existe, usarla; si no, obtener sin orden específico
-        $secciones = \App\Models\AcademicSection::query();
-        if (\Schema::hasColumn('academic_sections', 'title')) {
-            $secciones = $secciones->orderBy('title');
-        }
-        $secciones = $secciones->get();
-        $servicios = \App\Models\CampusItem::orderBy('title')->get();
+
+        // Personas: solo activas, no admins ni pruebas, deduplicadas
+        $personas = \App\Models\User::query()
+            ->whereNotIn('role', ['admin', 'superadmin'])
+            ->where(function($q) {
+                $q->whereNull('email')
+                  ->orWhere('email', 'not like', '%@example.com%');
+            });
         return view('public.azindex', compact('personas', 'carreras', 'secciones', 'servicios'));
     }
 

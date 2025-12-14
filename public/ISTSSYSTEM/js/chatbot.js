@@ -115,11 +115,13 @@ class ISTSChatbot {
         messageContent.textContent = content;
         messageDiv.appendChild(messageContent);
         
-            messagesContainer.appendChild(messageDiv);
-            // Scroll automático al final (siempre baja hasta el último mensaje)
-            setTimeout(() => {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            }, 100);
+        messagesContainer.appendChild(messageDiv);
+        
+        // Scroll automático al final
+        setTimeout(() => {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 100);
+        
         // Guardar en historial
         this.messageHistory.push({
             content,
@@ -131,7 +133,16 @@ class ISTSChatbot {
     clearHistory() {
         this.messageHistory = [];
         this.saveChatHistory();
-        this.renderHistory();
+        
+        // Limpiar mensajes visuales
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (messagesContainer) {
+            const welcomeMessage = messagesContainer.querySelector('.bot-message:first-child');
+            messagesContainer.innerHTML = '';
+            if (welcomeMessage) {
+                messagesContainer.appendChild(welcomeMessage);
+            }
+        }
     }
     
     showTypingIndicator() {
@@ -156,16 +167,27 @@ class ISTSChatbot {
     }
     
     sendMessage(message) {
+        // Obtener token CSRF del meta tag
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+        
         const formData = new FormData();
         formData.append('message', message);
         formData.append('session_id', this.sessionId);
-        formData.append('csrf_token', document.querySelector('input[name="csrf_token"]')?.value || '');
         
         fetch('/chatbot/send', {
             method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
             this.hideTypingIndicator();
             
@@ -213,7 +235,14 @@ class ISTSChatbot {
         
         // Renderizar historial
         this.messageHistory.forEach(msg => {
-            this.addMessage(msg.content, msg.sender);
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${msg.sender}-message`;
+            
+            const messageContent = document.createElement('p');
+            messageContent.textContent = msg.content;
+            messageDiv.appendChild(messageContent);
+            
+            messagesContainer.appendChild(messageDiv);
         });
     }
     
@@ -225,6 +254,7 @@ class ISTSChatbot {
 // Inicializar chatbot cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
     window.istsChatbot = new ISTSChatbot();
+    
     // Agregar botón de limpiar historial
     const header = document.querySelector('.chatbot-header');
     if (header) {
@@ -253,7 +283,6 @@ window.addEventListener('beforeunload', function() {
         window.istsChatbot.saveChatHistory();
     }
 });
-
 // CSS para el chatbot
 const chatbotStyles = `
 <style>
@@ -263,7 +292,6 @@ const chatbotStyles = `
     right: 20px;
     z-index: 1000;
 }
-
 
 .chatbot-toggle {
     width: 60px;
@@ -303,7 +331,6 @@ const chatbotStyles = `
     opacity: 1;
     transform: translateY(0);
 }
-
 
 .chatbot-header {
     background: #009e60;
@@ -347,14 +374,12 @@ const chatbotStyles = `
     word-wrap: break-word;
 }
 
-
 .user-message {
     background: #009e60;
     color: #fff;
     align-self: flex-end;
     border-bottom-right-radius: 5px;
 }
-
 
 .bot-message {
     background: #e8f5f1;
@@ -382,7 +407,6 @@ const chatbotStyles = `
     border-radius: 20px;
     outline: none;
 }
-
 
 .chatbot-form button {
     padding: 10px 15px;

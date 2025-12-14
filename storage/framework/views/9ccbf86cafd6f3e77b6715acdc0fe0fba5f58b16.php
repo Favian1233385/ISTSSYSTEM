@@ -14,27 +14,75 @@
     <input type="text" id="az-search" class="form-control mb-5" placeholder="Buscar por nombre, tipo, área, etc..." style="font-size:1.1rem; padding:0.8rem 1.2rem; border-radius:12px; border:1px solid #cbd5e1;">
     <div id="az-results">
         <!-- Resultados agrupados -->
+        
         <h2 class="text-xl font-bold mt-8 mb-3 text-emerald-800">Personas</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <?php $__currentLoopData = $personas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-4 az-item" data-type="persona" data-name="<?php echo e(strtolower($p->name ?? ($p->first_name.' '.$p->last_name))); ?>" data-role="<?php echo e(strtolower($p->role ?? '')); ?>">
-                    <span class="inline-block bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full mr-2">Persona</span>
-                    <div>
-                        <div class="font-semibold"><?php echo e($p->name ?? ($p->first_name.' '.$p->last_name)); ?></div>
-                        <div class="text-gray-500 text-sm"><?php echo e($p->role ?? '-'); ?></div>
-                        <div class="text-gray-400 text-xs"><?php echo e($p->email); ?></div>
+        <?php
+            $personasAgrupadas = $personas->groupBy(function($p) {
+                $nombre = $p->name ?? ($p->first_name.' '.$p->last_name);
+                return strtoupper(mb_substr(trim($nombre), 0, 1));
+            })->sortKeys();
+        ?>
+        <div class="mb-8">
+            <?php $__currentLoopData = $personasAgrupadas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $letra => $grupo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="mb-6">
+                    <div class="text-lg font-bold text-emerald-700 mb-3 border-b border-emerald-200 pb-1"><?php echo e($letra); ?></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <?php $__currentLoopData = $grupo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="az-item bg-white rounded-xl shadow-md p-5 flex flex-col gap-2 transition hover:shadow-lg border border-emerald-100 hover:border-emerald-400" data-type="persona" data-name="<?php echo e(strtolower($p->name ?? ($p->first_name.' '.$p->last_name))); ?>" data-role="<?php echo e(strtolower($p->role ?? '')); ?>">
+                                <div class="flex items-center gap-3 mb-2">
+                                    
+                                    <?php
+                                        $avatar = $p->avatar ?? null;
+                                        $nombre = $p->name ?? ($p->first_name.' '.$p->last_name);
+                                        $iniciales = collect(explode(' ', $nombre))->map(fn($n) => mb_substr($n,0,1))->join('');
+                                    ?>
+                                    <?php if($avatar): ?>
+                                        <img src="<?php echo e(asset('storage/'.$avatar)); ?>" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-emerald-200">
+                                    <?php else: ?>
+                                        <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg border border-emerald-200"><?php echo e($iniciales); ?></div>
+                                    <?php endif; ?>
+                                    <div class="flex flex-col">
+                                        <a href="<?php echo e(route('profile.show', $p->id)); ?>" class="font-semibold text-emerald-900 text-base hover:underline hover:text-emerald-700" title="Ver perfil"><?php echo e($nombre); ?></a>
+                                        <?php if(!empty($p->role)): ?>
+                                            <span class="text-gray-500 text-xs"><?php echo e($p->role); ?></span>
+                                        <?php endif; ?>
+                                        <?php if(!empty($p->area)): ?>
+                                            <span class="text-gray-400 text-xs"><?php echo e($p->area); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php if(!empty($p->email)): ?>
+                                    <div class="text-gray-400 text-xs"><a href="mailto:<?php echo e($p->email); ?>" class="hover:underline"><?php echo e($p->email); ?></a></div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
+
+        
         <h2 class="text-xl font-bold mt-8 mb-3 text-emerald-800">Carreras</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <?php $__currentLoopData = $carreras; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="bg-white rounded-lg shadow p-4 flex items-center gap-4 az-item" data-type="carrera" data-name="<?php echo e(strtolower($c->name)); ?>">
-                    <span class="inline-block bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full mr-2">Carrera</span>
-                    <div>
-                        <div class="font-semibold"><?php echo e($c->name); ?></div>
-                        <div class="text-gray-500 text-sm"><?php echo e($c->code ?? ''); ?></div>
+        <?php
+            $carrerasAgrupadas = $carreras->groupBy(function($c) {
+                return strtoupper(mb_substr(trim($c->name), 0, 1));
+            })->sortKeys();
+        ?>
+        <div class="mb-8">
+            <?php $__currentLoopData = $carrerasAgrupadas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $letra => $grupo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="mb-6">
+                    <div class="text-lg font-bold text-blue-700 mb-3 border-b border-blue-200 pb-1"><?php echo e($letra); ?></div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <?php $__currentLoopData = $grupo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $c): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="az-item bg-white rounded-xl shadow-md p-5 flex flex-col gap-2 transition hover:shadow-lg border border-blue-100 hover:border-blue-400" data-type="carrera" data-name="<?php echo e(strtolower($c->name)); ?>">
+                                <div class="font-semibold text-blue-900 text-base flex items-center gap-2">
+                                    <a href="<?php echo e(route('career.show', $c->slug)); ?>" class="hover:underline hover:text-blue-700" title="Ver carrera"><?php echo e($c->name); ?></a>
+                                </div>
+                                <?php if(!empty($c->code)): ?>
+                                    <div class="text-gray-500 text-sm"><?php echo e($c->code); ?></div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

@@ -16,7 +16,15 @@ class ChatMessage extends Model
         'ip_address',
         'user_agent',
         'sentiment',
+        'unanswered',
     ];
+    /**
+     * Scope para filtrar preguntas sin respuesta útil
+     */
+    public function scopeUnanswered($query)
+    {
+        return $query->where('unanswered', true);
+    }
 
     protected $casts = [
         'created_at' => 'datetime',

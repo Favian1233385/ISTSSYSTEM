@@ -153,7 +153,12 @@
     <div id="messages-content" class="tab-content">
         <h2>💬 Historial de Conversaciones</h2>
         <p class="text-muted mb-4">Revisa las conversaciones que los usuarios han tenido con el chatbot.</p>
-        
+        <form action="{{ route('admin.qas.clearHistory') }}" method="POST" style="margin-bottom: 1.5rem;">
+            @csrf
+            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas borrar todo el historial de conversaciones? Esta acción no se puede deshacer.');">
+                🗑️ Limpiar historial de conversaciones
+            </button>
+        </form>
         <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card-small">

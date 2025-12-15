@@ -1,17 +1,32 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Acerca') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Contenido de Acerca") }}
-                </div>
-            </div>
-        </div>
+@extends('layouts.public')
+@section('title', 'Sobre Nosotros')
+@section('content')
+<div class="container py-5">
+    <div style="margin-top:2cm"></div>
+    <h1 class="mb-4">Sobre Nosotros</h1>
+    <p class="mb-4">Conoce la misión, visión, autoridades y planta docente del Instituto Superior Tecnológico Sucúa.</p>
+    <div class="mb-5">
+        <h2>Misión y Visión</h2>
+        <ul>
+            <li><strong>Misión:</strong> {{ App\Models\Setting::get('mision') ?? 'No definida.' }}</li>
+            <li><strong>Visión:</strong> {{ App\Models\Setting::get('vision') ?? 'No definida.' }}</li>
+        </ul>
     </div>
-</x-app-layout>
+    <div class="mb-5">
+        <h2>Autoridades</h2>
+        <ul>
+            @foreach(App\Models\Autoridad::all() as $autoridad)
+                <li>{{ $autoridad->name }} - {{ $autoridad->role }}</li>
+            @endforeach
+        </ul>
+    </div>
+    <div class="mb-5">
+        <h2>Planta Docente</h2>
+        <ul>
+            @foreach(App\Models\Teacher::all() as $teacher)
+                <li>{{ $teacher->name }}</li>
+            @endforeach
+        </ul>
+    </div>
+</div>
+@endsection

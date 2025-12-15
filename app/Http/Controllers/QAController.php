@@ -318,4 +318,10 @@ class QAController extends Controller
         
         return implode('', $sugerencias);
     }
+
+    public function clearHistory()
+    {
+        \App\Models\ChatMessage::truncate();
+        return redirect()->route('admin.qas.index')->with('success', 'Historial de conversaciones eliminado correctamente.');
+    }
 }

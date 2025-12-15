@@ -6,6 +6,7 @@ use App\Models\QA;
 use App\Models\ChatMessage;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use App\Helpers\ChatbotHelper;
 
 class ChatbotController extends Controller
 {
@@ -158,7 +159,7 @@ class ChatbotController extends Controller
         }
 
         // Default response
-        return "Gracias por tu mensaje. No he encontrado una respuesta exacta, pero puedes consultar nuestras carreras, noticias, actualizaciones o contactar a un asesor para más información.";
+        return ChatbotHelper::getFallbackMessage();
     }
 
     /**

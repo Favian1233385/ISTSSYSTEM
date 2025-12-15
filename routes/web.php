@@ -1,4 +1,3 @@
-
 <?php
 // Ruta pública para enviar mensajes al chatbot
 use App\Http\Controllers\ChatbotController as PublicChatbotController;
@@ -297,6 +296,11 @@ Route::prefix("admin")
 
         // Índice A-Z (Personas y Áreas/Servicios)
         Route::get('/az-index', [\App\Http\Controllers\Admin\AZIndexController::class, 'index'])->name('admin.azindex.index');
+
+        // Chatbot settings management
+        Route::get('/chatbot-settings', [\App\Http\Controllers\Admin\ChatbotSettingController::class, 'edit'])->name('admin.chatbot-settings.edit');
+        Route::put('/chatbot-settings', [\App\Http\Controllers\Admin\ChatbotSettingController::class, 'update'])->name('admin.chatbot-settings.update');
+        Route::post('/qas/clear-history', [\App\Http\Controllers\QAController::class, 'clearHistory'])->name('admin.qas.clearHistory');
     });
 
 // Auth routes (assuming using Laravel's default)
@@ -305,3 +309,11 @@ require __DIR__ . "/auth.php";
 require __DIR__ . "/admin_about.php";
 require __DIR__ . "/admin_academics.php";
 require __DIR__.'/admin_events.php';
+
+// Rutas públicas agregadas para el footer
+Route::get('/carreras', function () {
+    return view('public.carreras');
+})->name('carreras');
+Route::get('/actualizaciones', function () {
+    return view('public.actualizaciones');
+})->name('actualizaciones');

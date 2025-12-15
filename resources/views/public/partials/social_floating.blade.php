@@ -11,6 +11,9 @@
     <a href="https://tiktok.com/@ist_sucua" target="_blank" aria-label="TikTok" rel="noopener">
         <img src="{{ asset('assets/images/footer/tiktok.png') }}" alt="TikTok" width="36" height="36">
     </a>
+    <a href="https://wa.me/593999999999" target="_blank" aria-label="WhatsApp" rel="noopener">
+        <img src="{{ asset('assets/images/footer/whatsapp.png') }}" alt="WhatsApp" width="36" height="36">
+    </a>
 </div>
 <style>
 .social-floating {

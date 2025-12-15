@@ -4,20 +4,12 @@
             <div class="footer-section">
                 <h4>Instituto Superior Tecnológico Sucúa</h4>
                 <p>Formando profesionales de excelencia desde 1995</p>
-                <div class="social-links">
-                    <a href="https://facebook.com/istsucua" aria-label="Facebook" target="_blank" rel="noopener">
-                        <img src="{{ asset('assets/images/footer/facebook.png') }}" alt="Facebook" width="32" height="32">
-                    </a>
-                    <a href="https://x.com/istsucua" aria-label="X" target="_blank" rel="noopener">
-                        <img src="{{ asset('assets/images/footer/x.png') }}" alt="X (Twitter)" width="32" height="32">
-                    </a>
-                    <a href="https://instagram.com/istsucua" aria-label="Instagram" target="_blank" rel="noopener">
-                        <img src="{{ asset('assets/images/footer/instagram.png') }}" alt="Instagram" width="32" height="32">
-                    </a>
-                    <a href="https://tiktok.com/@ist_sucua" aria-label="TikTok" target="_blank" rel="noopener">
-                        <img src="{{ asset('assets/images/footer/tiktok.png') }}" alt="TikTok" width="32" height="32">
+                <div class="footer-logo" style="margin-top: 1rem; margin-bottom: 1rem; text-align: left;">
+                    <a href="{{ url('/') }}" aria-label="Inicio ISTS">
+                        <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 56px; vertical-align: middle;">
                     </a>
                 </div>
+
             </div>
 
             <div class="footer-section">

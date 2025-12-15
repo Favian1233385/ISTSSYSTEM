@@ -294,6 +294,9 @@ Route::prefix("admin")
         // Carrusel (Hero Slides) management
         Route::resource('hero-slides', HeroSlideController::class, ['as' => 'admin']);
 
+        // Calendario Académico
+        Route::resource('academic-calendar', App\Http\Controllers\Admin\AcademicCalendarController::class, ['as' => 'admin']);
+
         // Índice A-Z (Personas y Áreas/Servicios)
         Route::get('/az-index', [\App\Http\Controllers\Admin\AZIndexController::class, 'index'])->name('admin.azindex.index');
 

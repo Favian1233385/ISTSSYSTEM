@@ -140,10 +140,17 @@
                     <p>Gestionar La Gaceta del ISTS</p>
                 </a>
 
+
                 <a href="{{ route('admin.events.index') }}" class="action-card">
                     <div class="action-icon">📅</div>
                     <h3>Eventos</h3>
                     <p>Gestionar eventos institucionales</p>
+                </a>
+
+                <a href="{{ route('admin.academic-calendar.index') }}" class="action-card">
+                    <div class="action-icon">📆</div>
+                    <h3>Calendario Académico</h3>
+                    <p>Gestionar fechas y periodos académicos</p>
                 </a>
 
                 <a href="{{ route('admin.contents.rector.index') }}" class="action-card">

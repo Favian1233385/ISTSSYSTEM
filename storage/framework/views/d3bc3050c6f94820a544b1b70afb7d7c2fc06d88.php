@@ -1,0 +1,1 @@
+<!-- Archivo de encabezado vacío migrado a Blade --><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/header.blade.php ENDPATH**/ ?>

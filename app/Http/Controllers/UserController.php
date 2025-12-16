@@ -94,9 +94,11 @@ class UserController extends Controller
 
         $request->validate($rules);
 
+
         $data = [
             "name" => $request->name,
             "email" => $request->email,
+            "status" => $request->status,
         ];
 
         if (auth()->id() !== $user->id) {

@@ -61,6 +61,14 @@ Route::get("/ajax/content/mision-vision", [
     PublicController::class,
     "getMisionVisionAjax",
 ])->name("ajax.mision-vision");
+
+// Página principal de transparencia con jerarquía correcta
+Route::get("/transparency", [
+    PublicController::class,
+    "showTransparency",
+])->name("transparency.index");
+
+// Detalle de reglamento o subreglamento
 Route::get("/transparency/{slug}", [
     PublicController::class,
     "transparencyShow",

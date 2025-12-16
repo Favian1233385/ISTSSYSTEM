@@ -329,10 +329,8 @@ class ContentController extends Controller
             $rules["description"] = "nullable|string";
             $rules["content"] = "nullable|string";
         } else {
-            $rules["description"] = "required|string|min:10";
-            $rules["content"] = $request->input("parent_id")
-                ? "nullable|string"
-                : "required|string|min:20";
+            $rules["description"] = "nullable|string";
+            $rules["content"] = "nullable|string";
         }
 
         $validated = $request->validate($rules);

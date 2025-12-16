@@ -199,26 +199,6 @@
                 }
             }
         </style>
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            color: #fff;
-            background-color: #0069d9;
-            border-color: #0062cc;
-        }
-        .mt-3 { margin-top: 1rem!important; }
-        .alert {
-            position: relative;
-            padding: .75rem 1.25rem;
-            margin-bottom: 1rem;
-            border: 1px solid transparent;
-            border-radius: .25rem;
-        }
-        .alert-info {
-            color: #0c5460;
-            background-color: #d1ecf1;
-            border-color: #bee5eb;
-        }
     </style>
 </body>
 </html>

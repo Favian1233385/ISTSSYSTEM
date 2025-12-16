@@ -93,11 +93,11 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Descripción</label>
-                            <textarea name="description" id="description" class="form-control" rows="3" required>{{ old('description', $item['description']) }}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="3">{{ old('description', $item['description']) }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="content">Contenido</label>
-                            <textarea name="content" id="content" class="form-control" rows="10" required>{{ old('content', $item['content']) }}</textarea>
+                            <textarea name="content" id="content" class="form-control" rows="10">{{ old('content', $item['content']) }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="image_file">Imagen</label>

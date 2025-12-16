@@ -10,6 +10,37 @@ use App\Models\Autoridad;
 class PublicController extends Controller
 {
     /**
+     * Muestra el detalle de un reglamento o subreglamento de transparencia.
+     */
+    public function transparencyShow($slug)
+    {
+        $content = DB::table("contents")
+            ->where("slug", $slug)
+            ->where("category", "transparency")
+            ->where("status", "published")
+            ->first();
+
+        if (!$content) {
+            abort(404);
+        }
+
+        $content = (array) $content;
+
+        // Obtener hijos si existen
+        $children = DB::table("contents")
+            ->where("parent_id", $content["id"])
+            ->where("status", "published")
+            ->orderBy("created_at", "desc")
+            ->get()
+            ->map(function ($item) {
+                return (array) $item;
+            })
+            ->toArray();
+
+        return view("public.content_detail", compact("content", "children"));
+    }
+
+    /**
      * Muestra el índice A-Z institucional (personas, carreras, servicios, etc.)
      */
     public function azIndex()
@@ -93,32 +124,51 @@ class PublicController extends Controller
         );
     }
 
-    public function transparencyShow($slug)
+
+    /**
+     * Muestra la página principal de transparencia con jerarquía correcta.
+     */
+    public function showTransparency()
     {
-        $content = DB::table("contents")
-            ->where("slug", $slug)
+        $contents = DB::table("contents")
             ->where("category", "transparency")
             ->where("status", "published")
-            ->first();
-
-        if (!$content) {
-            abort(404);
-        }
-
-        $content = (array) $content;
-
-        // Get children if any
-        $children = DB::table("contents")
-            ->where("parent_id", $content["id"])
-            ->where("status", "published")
+            ->orderBy("parent_id", "asc")
             ->orderBy("created_at", "desc")
             ->get()
-            ->map(function ($item) {
-                return (array) $item;
-            })
+            ->map(fn($item) => (array) $item)
             ->toArray();
 
-        return view("public.content_detail", compact("content", "children"));
+        // Buscar el ID de 'Reglamentos Internos' (por título o slug)
+        $main = null;
+        $mainId = null;
+        foreach ($contents as $item) {
+            if (
+                (isset($item['title']) && trim(mb_strtolower($item['title'])) === 'reglamentos internos') ||
+                (isset($item['slug']) && trim(mb_strtolower($item['slug'])) === 'reglamentos-internos')
+            ) {
+                $main = $item;
+                $mainId = $item['id'];
+                break;
+            }
+        }
+
+        $children = [];
+        if ($main && $mainId) {
+            foreach ($contents as $item) {
+                if ($item['parent_id'] == $mainId) {
+                    $children[] = $item;
+                }
+            }
+            $main['children'] = $children;
+        }
+
+        $items = $main ? [$main] : [];
+
+        return view("public.transparency.index", [
+            "title" => "Transparencia",
+            "items" => $items,
+        ]);
     }
 
     public function getMisionVisionAjax(Request $request)

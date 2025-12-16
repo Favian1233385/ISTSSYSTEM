@@ -117,15 +117,61 @@
     </style>
 </head>
 <body>
-    <div class="login-ists-container">
-        <div class="login-ists-logo">
-            <a href="/">
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS">
-            </a>
+    <div id="ists-login-bg" style="min-height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1766a3 0%, #10b981 100%);">
+        <div id="ists-login-card" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(23,102,163,0.18); padding: 2.7rem 2.2rem 2.2rem 2.2rem; max-width: 410px; width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 2;">
+            <div style="margin-bottom: 1.2rem;">
+                <a href="/">
+                    <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 64px;">
+                </a>
+            </div>
+            <div style="font-size: 1.6rem; font-weight: 800; color: #1766a3; margin-bottom: 0.2rem; text-align: center; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="font-size:1.5rem;">🔒</span> Acceso ISTS
+            </div>
+            <div style="font-size: 1.08rem; color: #10b981; margin-bottom: 1.5rem; text-align: center; font-weight: 500;">Sistema de Gestión - Instituto Superior Tecnológico Sucúa</div>
+            <div style="width: 100%; max-width: 370px; margin: 0 auto;">{{ $slot }}</div>
+            <div style="margin-top: 1.5rem; text-align: center; font-size: 0.97rem; color: #1766a3; opacity: 0.7;">
+                Acceso restringido solo para usuarios institucionales
+            </div>
         </div>
-        <div class="login-ists-title">Acceso al Sistema ISTS</div>
-        <div class="login-ists-desc">Instituto Superior Tecnológico Sucúa</div>
-        {{ $slot }}
+        <style>
+        #ists-login-bg { min-height: 100vh !important; background: linear-gradient(135deg, #1766a3 0%, #10b981 100%) !important; }
+        #ists-login-card { box-shadow: 0 8px 32px rgba(23,102,163,0.18) !important; border-radius: 18px !important; }
+        #ists-login-card input, #ists-login-card label, #ists-login-card button, #ists-login-card a { font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif !important; }
+        #ists-login-card input[type="email"], #ists-login-card input[type="password"] {
+            background: #f8fafc !important;
+            border: 1.5px solid #e0e7ef !important;
+            border-radius: 8px !important;
+            padding: 1rem 1.1rem !important;
+            font-size: 1.08rem !important;
+            margin-bottom: 0.7rem !important;
+        }
+        #ists-login-card label {
+            font-weight: 600 !important;
+            color: #1766a3 !important;
+            margin-bottom: 0.2rem !important;
+        }
+        #ists-login-card .login-btn {
+            width: 100% !important;
+            background: linear-gradient(90deg, #1766a3 0%, #10b981 100%) !important;
+            color: #fff !important;
+            font-weight: 700 !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 1rem 0 !important;
+            font-size: 1.12rem !important;
+            cursor: pointer !important;
+            margin-bottom: 0.7rem !important;
+            letter-spacing: 1px !important;
+            transition: background 0.2s;
+        }
+        #ists-login-card .login-btn:hover {
+            background: linear-gradient(90deg, #10b981 0%, #1766a3 100%) !important;
+        }
+        #ists-login-card .form-group { margin-bottom: 1.2rem !important; width: 100% !important; }
+        #ists-login-card .remember { display: flex !important; align-items: center !important; margin-bottom: 1.1rem !important; width: 100% !important; }
+        #ists-login-card .forgot { display: block !important; text-align: right !important; color: #10b981 !important; font-size: 0.97rem !important; text-decoration: none !important; margin-bottom: 0.5rem !important; }
+        #ists-login-card .forgot:hover { text-decoration: underline !important; }
+        </style>
     </div>
 </body>
 </html>

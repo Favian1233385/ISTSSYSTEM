@@ -5,8 +5,8 @@
                 <h4>Instituto Superior Tecnológico Sucúa</h4>
                 <p>Formando profesionales de excelencia desde 1995</p>
                 <div class="footer-logo" style="margin-top: 1rem; margin-bottom: 1rem; text-align: left;">
-                    <a href="{{ url('/') }}" aria-label="Inicio ISTS">
-                        <img src="{{ asset('assets/images/logoists.png') }}" alt="Logo ISTS" style="height: 56px; vertical-align: middle;">
+                    <a href="<?php echo e(url('/')); ?>" aria-label="Inicio ISTS">
+                        <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 56px; vertical-align: middle;">
                     </a>
                 </div>
 
@@ -15,9 +15,9 @@
             <div class="footer-section">
                 <h4>Enlaces Rápidos</h4>
                 <ul>
-                    <li><a href="{{ url('/eventos') }}">Eventos</a></li>
-                    <li><a href="{{ url('/carreras') }}">Carreras</a></li>
-                    <li><a href="{{ url('/actualizaciones') }}">Admisión</a></li>
+                    <li><a href="<?php echo e(url('/eventos')); ?>">Eventos</a></li>
+                    <li><a href="<?php echo e(url('/carreras')); ?>">Carreras</a></li>
+                    <li><a href="<?php echo e(url('/actualizaciones')); ?>">Admisión</a></li>
                     <li><a href="https://biblioteca.istsucua.edu.ec" target="_blank" rel="noopener">Biblioteca</a></li>
                 </ul>
             </div>
@@ -26,7 +26,7 @@
                 <h4>Recursos</h4>
                 <ul>
                     <li><a href="/calendario">Calendario Académico</a></li>
-                    @include('public.partials.footer_calendar_card')
+                    <?php echo $__env->make('public.partials.footer_calendar_card', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     <li><a href="/reglamentos">Reglamentos</a></li>
                     <li><a href="/becas">Becas</a></li>
                     <li><a href="/empleos">Bolsa de Empleo</a></li>
@@ -45,9 +45,9 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa. Todos los derechos reservados.</p>
+            <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa. Todos los derechos reservados.</p>
             <nav class="footer-nav">
-                <p>&copy; {{ date('Y') }} Desarrollado por: Favian Cumbanama.</p>
+                <p>&copy; <?php echo e(date('Y')); ?> Desarrollado por: Favian Cumbanama.</p>
                
             </nav>
         </div>
@@ -55,5 +55,6 @@
 
     <button id="back-to-top" class="back-to-top" aria-label="Volver arriba">↑</button>
 
-    <script src="{{ asset(ltrim(($base ?? '') . '/js/main.js', '/')) }}"></script>
+    <script src="<?php echo e(asset(ltrim(($base ?? '') . '/js/main.js', '/'))); ?>"></script>
 </footer>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/partials/footer.blade.php ENDPATH**/ ?>

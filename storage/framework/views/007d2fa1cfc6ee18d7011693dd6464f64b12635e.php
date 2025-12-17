@@ -185,6 +185,13 @@
                     <p>Gestionar elementos del menú público</p>
                 </a>
 
+
+                <a href="<?php echo e(route('admin.social_links.index')); ?>" class="action-card" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border: 2px solid #00bcd4;">
+                    <div class="action-icon">🔗</div>
+                    <h3>Redes Sociales</h3>
+                    <p>Gestionar enlaces y WhatsApp flotante</p>
+                </a>
+
                 <a href="<?php echo e(route('admin.settings.index')); ?>" class="action-card" style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border: 2px solid #ff9800;">
                     <div class="action-icon">⚙️</div>
                     <h3>Configuración General</h3>

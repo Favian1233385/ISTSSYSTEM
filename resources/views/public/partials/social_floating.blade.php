@@ -1,20 +1,4 @@
-<div class="social-floating">
-    <a href="https://facebook.com/istsucua" target="_blank" aria-label="Facebook" rel="noopener">
-        <img src="{{ asset('assets/images/footer/facebook.png') }}" alt="Facebook" width="36" height="36">
-    </a>
-    <a href="https://x.com/istsucua" target="_blank" aria-label="X" rel="noopener">
-        <img src="{{ asset('assets/images/footer/x.png') }}" alt="X (Twitter)" width="36" height="36">
-    </a>
-    <a href="https://instagram.com/istsucua" target="_blank" aria-label="Instagram" rel="noopener">
-        <img src="{{ asset('assets/images/footer/instagram.png') }}" alt="Instagram" width="36" height="36">
-    </a>
-    <a href="https://tiktok.com/@ist_sucua" target="_blank" aria-label="TikTok" rel="noopener">
-        <img src="{{ asset('assets/images/footer/tiktok.png') }}" alt="TikTok" width="36" height="36">
-    </a>
-    <a href="https://wa.me/593999999999" target="_blank" aria-label="WhatsApp" rel="noopener">
-        <img src="{{ asset('assets/images/footer/whatsapp.png') }}" alt="WhatsApp" width="36" height="36">
-    </a>
-</div>
+
 <style>
 .social-floating {
     position: fixed;

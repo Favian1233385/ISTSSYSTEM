@@ -306,24 +306,19 @@
     </div>
 
     <!-- Widget flotante de eventos, circular, animado y llamativo -->
-        <div id="event-widget"
-             style="position:fixed; bottom:1.5rem; left:1.5rem; z-index:2147483647; min-width:0; min-height:0;"
-             class="flex flex-col items-center">
-            <div onclick="window.location.href='<?php echo e(route('public.events.index')); ?>'"
-                 style="background: linear-gradient(135deg, #2563eb 0%, #22d3ee 100%); box-shadow: 0 8px 24px 2px rgba(0,0,0,0.25); border: 3px solid #fff; border-radius: 9999px; min-width: 120px; height: 56px; display: flex; align-items: center; justify-content: center; cursor: pointer; animation: bounce 1.2s infinite alternate; position: relative; padding: 0 18px; gap: 10px;"
-                 title="Ver eventos">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="white">
-                    <rect x="3" y="5" width="18" height="16" rx="3" fill="#fff" fill-opacity=".15" stroke="white" stroke-width="1.5"/>
-                    <path d="M8 3v2m8-2v2M3 9h18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-                <span style="color:#fff; font-size:1.1rem; font-weight:600; letter-spacing:1px;">Eventos</span>
-            </div>
-        </div>
+        <div id="social-widget"
+             style="position:fixed; bottom:7.5rem; left:1.5rem; z-index:2147483646; display:flex; flex-direction:column; gap:12px; align-items:center;">
+            <?php
+                $socialLinks = \App\Models\SocialLink::where('active', true)->orderBy('id')->get();
+            ?>
+            <?php $__currentLoopData = $socialLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e($link->url); ?>" target="_blank" rel="noopener" title="<?php echo e(ucfirst($link->name)); ?>"
+                   style="background:<?php echo e($link->bg_color); ?>; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+                    <?php echo $link->icon_svg; ?>
 
-        <style>
-        @keyframes bounce {
-          0% { transform: translateY(0); }
-          100% { transform: translateY(-12px); }
+                </a>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
         }
         </style>
 

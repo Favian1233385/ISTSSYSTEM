@@ -302,6 +302,14 @@ Route::prefix("admin")
         // Carrusel (Hero Slides) management
         Route::resource('hero-slides', HeroSlideController::class, ['as' => 'admin']);
 
+            // Social links management
+            Route::get('/social-links', [\App\Http\Controllers\Admin\SocialLinkController::class, 'index'])->name('admin.social_links.index');
+            Route::get('/social-links/create', [\App\Http\Controllers\Admin\SocialLinkController::class, 'create'])->name('admin.social_links.create');
+            Route::post('/social-links', [\App\Http\Controllers\Admin\SocialLinkController::class, 'store'])->name('admin.social_links.store');
+            Route::get('/social-links/{id}/edit', [\App\Http\Controllers\Admin\SocialLinkController::class, 'edit'])->name('admin.social_links.edit');
+            Route::put('/social-links/{id}', [\App\Http\Controllers\Admin\SocialLinkController::class, 'update'])->name('admin.social_links.update');
+            Route::post('/social-links/{id}/toggle', [\App\Http\Controllers\Admin\SocialLinkController::class, 'toggle'])->name('admin.social_links.toggle');
+
         // Calendario Académico
         Route::resource('academic-calendar', App\Http\Controllers\Admin\AcademicCalendarController::class, ['as' => 'admin']);
 

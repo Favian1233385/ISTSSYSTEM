@@ -237,11 +237,13 @@ class ISTSChatbot {
         this.messageHistory.forEach(msg => {
             const messageDiv = document.createElement('div');
             messageDiv.className = `${msg.sender}-message`;
-            
             const messageContent = document.createElement('p');
-            messageContent.textContent = msg.content;
+            if (msg.sender === 'bot') {
+                messageContent.innerHTML = msg.content;
+            } else {
+                messageContent.textContent = msg.content;
+            }
             messageDiv.appendChild(messageContent);
-            
             messagesContainer.appendChild(messageDiv);
         });
     }

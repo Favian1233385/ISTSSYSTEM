@@ -113,8 +113,75 @@
         </div>
     <?php endif; ?>
 
-    <div class="table-responsive">
-        <table class="table">
+    <style>
+        .card-table {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px 0 rgba(37,99,235,0.10);
+            padding: 2.2rem 2.2rem 1.5rem 2.2rem;
+            max-width: 1100px;
+            margin: 2.5rem auto 0 auto;
+        }
+        .card-table table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .card-table th {
+            background: #f3f6fd;
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 1.08rem;
+            padding: 12px 8px;
+            border-bottom: 2px solid #e0e7ef;
+            text-align: left;
+        }
+        .card-table td {
+            padding: 13px 8px;
+            font-size: 1.01rem;
+            border-bottom: 1px solid #f1f5fa;
+            vertical-align: middle;
+        }
+        .actions { display: flex; gap: 10px; align-items: center; }
+        .btn-edit {
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            min-width: 110px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .btn-edit:hover { background: #1746a2; color: #fff; }
+        .btn-danger {
+            background: #e53935;
+            color: #fff;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.2s;
+            min-width: 110px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+        }
+        .btn-danger:hover { background: #b71c1c; color: #fff; }
+        @media (max-width: 1100px) {
+            .card-table { padding: 1.2rem 0.5rem; }
+        }
+        @media (max-width: 700px) {
+            .card-table { padding: 0.5rem 0.1rem; }
+            .card-table th, .card-table td { font-size: 0.97rem; padding: 8px 4px; }
+            .btn-edit, .btn-danger { padding: 7px 10px; min-width: 80px; font-size: 0.95rem; }
+        }
+    </style>
+    <div class="card-table">
+        <table>
             <thead>
                 <tr>
                     <th>ID</th>
@@ -128,13 +195,13 @@
                     <tr>
                         <td><?php echo e($item->id); ?></td>
                         <td><?php echo e($item->question); ?></td>
-                        <td><?php echo e(Str::limit($item->answer, 100)); ?></td>
+                        <td><?php echo e(Str::limit(strip_tags($item->answer), 100)); ?></td>
                         <td class="actions">
-                            <a href="<?php echo e(route('admin.qas.edit', $item)); ?>" class="btn btn-sm btn-secondary">Editar</a>
-                            <form action="<?php echo e(route('admin.qas.destroy', $item)); ?>" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este Q&A?');">
+                            <a href="<?php echo e(route('admin.qas.edit', $item)); ?>" class="btn-edit">Editar</a>
+                            <form action="<?php echo e(route('admin.qas.destroy', $item)); ?>" method="POST" style="display:inline; margin:0;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este Q&A?');">
                                 <?php echo csrf_field(); ?>
                                 <?php echo method_field('DELETE'); ?>
-                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                <button type="submit" class="btn-danger">Eliminar</button>
                             </form>
                         </td>
                     </tr>

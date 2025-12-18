@@ -286,20 +286,38 @@
 
 
     <!-- Redes sociales flotantes lado izquierdo -->
+    <div id="social-widget"
+         style="position:fixed; bottom:7.5rem; left:1.5rem; z-index:2147483646; display:flex; flex-direction:column; gap:12px; align-items:center;">
+        @php
+            $socialLinks = \App\Models\SocialLink::where('active', true)->orderBy('id')->get();
+        @endphp
+        @foreach($socialLinks as $link)
+            <a href="{{ $link->url }}" target="_blank" rel="noopener" title="{{ ucfirst($link->name) }}"
+               style="background:{{ $link->bg_color }}; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+                {!! $link->icon_svg !!}
+            </a>
+        @endforeach
 
-    <!-- Widget flotante de eventos, circular, animado y llamativo -->
-        <div id="social-widget"
-             style="position:fixed; bottom:7.5rem; left:1.5rem; z-index:2147483646; display:flex; flex-direction:column; gap:12px; align-items:center;">
-            @php
-                $socialLinks = \App\Models\SocialLink::where('active', true)->orderBy('id')->get();
-            @endphp
-            @foreach($socialLinks as $link)
-                <a href="{{ $link->url }}" target="_blank" rel="noopener" title="{{ ucfirst($link->name) }}"
-                   style="background:{{ $link->bg_color }}; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-                    {!! $link->icon_svg !!}
-                </a>
-            @endforeach
-        </div>
+        <!-- Widget flotante de eventos, circular, animado y llamativo -->
+        <a href="{{ url('/eventos') }}" id="eventos-fab" title="Ver eventos ISTS"
+           style="background: linear-gradient(135deg, #10b981 60%, #f9d423 100%); box-shadow: 0 4px 16px rgba(16,185,129,0.18); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin-top: 10px; position: relative; animation: pulse-eventos 1.5s infinite; transition: transform 0.2s;">
+            <span style="font-size:2.1rem; color:#fff; display:flex; align-items:center; justify-content:center;">
+                <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#10b981"/><path d="M10 14h12v8a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2v-8Zm12-2V9a2 2 0 0 0-2-2h-1V6a1 1 0 1 0-2 0v1h-2V6a1 1 0 1 0-2 0v1h-1a2 2 0 0 0-2 2v3h12Z" fill="#fff"/></svg>
+            </span>
+            <span style="position:absolute; bottom:-28px; left:50%; transform:translateX(-50%); background:#fff; color:#10b981; font-weight:700; font-size:0.98rem; border-radius:8px; padding:2px 12px; box-shadow:0 2px 8px rgba(16,185,129,0.10); white-space:nowrap;">EVENTOS</span>
+        </a>
+        <style>
+            @keyframes pulse-eventos {
+                0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
+                70% { box-shadow: 0 0 0 16px rgba(16,185,129,0.0); }
+                100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
+            }
+            #eventos-fab:hover {
+                transform: scale(1.08) rotate(-3deg);
+                box-shadow: 0 6px 24px rgba(249,212,35,0.18);
+            }
+        </style>
+    </div>
         }
         </style>
 

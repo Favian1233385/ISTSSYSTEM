@@ -12,6 +12,7 @@
     <?php if(app()->getLocale() === 'ar'): ?>
         <link rel="stylesheet" href="<?php echo e(asset('css/app-rtl.css')); ?>">
     <?php endif; ?>
+    <link rel="icon" type="image/png" href="<?php echo e(asset('assets/images/logoists.png')); ?>" sizes="32x32">
 </head>
 <body class="admin-body">
     <?php echo $__env->make('admin.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

@@ -320,6 +320,11 @@ Route::prefix("admin")
         Route::get('/chatbot-settings', [\App\Http\Controllers\Admin\ChatbotSettingController::class, 'edit'])->name('admin.chatbot-settings.edit');
         Route::put('/chatbot-settings', [\App\Http\Controllers\Admin\ChatbotSettingController::class, 'update'])->name('admin.chatbot-settings.update');
         Route::post('/qas/clear-history', [\App\Http\Controllers\QAController::class, 'clearHistory'])->name('admin.qas.clearHistory');
+
+        // PopUp/Banner destacado
+        Route::resource('popups', App\Http\Controllers\Admin\PopupController::class, [
+            'as' => 'admin'
+        ]);
     });
 
 // Auth routes (assuming using Laravel's default)

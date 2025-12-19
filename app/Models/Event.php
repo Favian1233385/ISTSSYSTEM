@@ -16,9 +16,6 @@ class Event extends Model
         'date',
         'place',
         'image_path',
-        'banner_path',
-        'banner_link',
-        'banner_message',
         'status',
     ];
 

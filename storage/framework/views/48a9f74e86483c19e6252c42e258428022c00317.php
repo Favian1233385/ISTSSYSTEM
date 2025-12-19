@@ -92,24 +92,7 @@
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="addLinkInput()">Agregar otro enlace</button>
         </div>
         <div class="form-group">
-            <label for="banner_path">Imagen Banner Destacado (opcional, GIF/JPG/PNG)</label>
-            <?php if($event->banner_path): ?>
-                <div class="mb-2">
-                    <img src="<?php echo e(asset('storage/' . $event->banner_path)); ?>" alt="Banner actual" style="max-width:320px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.10);">
-                    <p class="text-muted small mt-1">Banner actual</p>
-                </div>
-            <?php endif; ?>
-            <input type="file" name="banner_path" id="banner_path" class="form-control-file" accept="image/*">
-            <small class="form-text text-muted">Ideal: 900x300px, puede ser animado (GIF).</small>
-        </div>
-        <div class="form-group">
-            <label for="banner_message">Mensaje del Banner (opcional)</label>
-            <input type="text" name="banner_message" id="banner_message" class="form-control" value="<?php echo e(old('banner_message', $event->banner_message)); ?>" maxlength="255">
-        </div>
-        <div class="form-group">
-            <label for="banner_link">Enlace del Banner (opcional)</label>
-            <input type="url" name="banner_link" id="banner_link" class="form-control" value="<?php echo e(old('banner_link', $event->banner_link)); ?>" maxlength="255" placeholder="https://...">
-        </div>
+        <!-- Banner eliminado: ahora se gestiona desde PopUps -->
         <div class="form-group">
             <label for="status">Estado <span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control" required>

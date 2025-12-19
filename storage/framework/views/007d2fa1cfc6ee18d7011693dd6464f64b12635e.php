@@ -209,6 +209,12 @@
                     <h3>Gestionar Carrusel</h3>
                     <p>Administra las imágenes del carrusel principal</p>
                 </a>
+
+                <a href="<?php echo e(route('admin.popups.index')); ?>" class="action-card">
+                    <div class="action-icon">🎯</div>
+                    <h3>PopUp</h3>
+                    <p>Gestionar banner destacado del sitio</p>
+                </a>
             </div>
         </div>
 

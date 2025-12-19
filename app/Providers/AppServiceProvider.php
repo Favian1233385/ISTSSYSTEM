@@ -23,6 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \View::composer('layouts.public', \App\Http\ViewComposers\BannerEventComposer::class);
+        \View::composer('layouts.public', \App\Http\ViewComposers\PopupComposer::class);
     }
 }

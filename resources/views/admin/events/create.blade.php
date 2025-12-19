@@ -65,18 +65,7 @@
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="addLinkInput()">Agregar otro enlace</button>
         </div>
         <div class="form-group">
-            <label for="banner_path">Imagen Banner Destacado (opcional, GIF/JPG/PNG)</label>
-            <input type="file" name="banner_path" id="banner_path" class="form-control-file" accept="image/*">
-            <small class="form-text text-muted">Ideal: 900x300px, puede ser animado (GIF).</small>
-        </div>
-        <div class="form-group">
-            <label for="banner_message">Mensaje del Banner (opcional)</label>
-            <input type="text" name="banner_message" id="banner_message" class="form-control" value="{{ old('banner_message') }}" maxlength="255">
-        </div>
-        <div class="form-group">
-            <label for="banner_link">Enlace del Banner (opcional)</label>
-            <input type="url" name="banner_link" id="banner_link" class="form-control" value="{{ old('banner_link') }}" maxlength="255" placeholder="https://...">
-        </div>
+        <!-- Banner eliminado: ahora se gestiona desde PopUps -->
         <div class="form-group">
             <label for="status">Estado <span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control" required>

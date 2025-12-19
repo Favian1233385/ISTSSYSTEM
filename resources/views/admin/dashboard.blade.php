@@ -153,11 +153,11 @@
                     <p>Gestionar fechas y periodos académicos</p>
                 </a>
 
-                <a href="{{ route('admin.contents.rector.index') }}" class="action-card">
+                {{-- <a href="{{ route('admin.contents.rector.index') }}" class="action-card">
                     <div class="action-icon">🧑‍🏫</div>
                     <h3>Mensaje del Rector</h3>
                     <p>Editar el mensaje que se muestra en la página principal</p>
-                </a>
+                </a> --}}
 
                 <a href="{{ route('admin.visit-sections.index') }}" class="action-card">
                     <div class="action-icon">🏢</div>
@@ -177,11 +177,11 @@
                     <p>{{ $tramitesCount ?? 0 }} documentos de trámites</p>
                 </a>
 
-                <a href="{{ route('admin.menu-items.index') }}" class="action-card">
+                {{-- <a href="{{ route('admin.menu-items.index') }}" class="action-card">
                     <div class="action-icon">🧭</div>
                     <h3>Menú de Navegación</h3>
                     <p>Gestionar elementos del menú público</p>
-                </a>
+                </a> --}}
 
 
                 <a href="{{ route('admin.social_links.index') }}" class="action-card" style="background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border: 2px solid #00bcd4;">
@@ -206,6 +206,12 @@
                     <div class="action-icon">🖼️</div>
                     <h3>Gestionar Carrusel</h3>
                     <p>Administra las imágenes del carrusel principal</p>
+                </a>
+
+                <a href="{{ route('admin.popups.index') }}" class="action-card">
+                    <div class="action-icon">🎯</div>
+                    <h3>PopUp</h3>
+                    <p>Gestionar banner destacado del sitio</p>
                 </a>
             </div>
         </div>

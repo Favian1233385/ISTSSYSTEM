@@ -31,16 +31,26 @@ class EventController extends Controller
             'place' => 'nullable|string|max:255',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
             'files.*' => 'nullable|mimes:pdf',
+            'banner_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+            'banner_message' => 'nullable|string|max:255',
+            'banner_link' => 'nullable|url|max:255',
             'status' => 'required|in:published,draft',
         ]);
 
-        // Crear el evento principal
+        $bannerPath = null;
+        if ($request->hasFile('banner_path')) {
+            $bannerPath = $request->file('banner_path')->store('events/banners', 'public');
+        }
+
         $event = Event::create([
             'title' => $request->title,
             'category' => $request->category,
             'description' => $request->description,
             'date' => $request->date,
             'place' => $request->place,
+            'banner_path' => $bannerPath,
+            'banner_message' => $request->banner_message,
+            'banner_link' => $request->banner_link,
             'status' => $request->status,
         ]);
 
@@ -93,17 +103,30 @@ class EventController extends Controller
             'place' => 'nullable|string|max:255',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
             'files.*' => 'nullable|mimes:pdf',
+            'banner_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp',
+            'banner_message' => 'nullable|string|max:255',
+            'banner_link' => 'nullable|url|max:255',
             'status' => 'required|in:published,draft',
         ]);
 
-        $event->update([
+        $data = [
             'title' => $request->title,
             'category' => $request->category,
             'description' => $request->description,
             'date' => $request->date,
             'place' => $request->place,
+            'banner_message' => $request->banner_message,
+            'banner_link' => $request->banner_link,
             'status' => $request->status,
-        ]);
+        ];
+        if ($request->hasFile('banner_path')) {
+            // Eliminar banner anterior si existe
+            if ($event->banner_path) {
+                Storage::disk('public')->delete($event->banner_path);
+            }
+            $data['banner_path'] = $request->file('banner_path')->store('events/banners', 'public');
+        }
+        $event->update($data);
 
         // Eliminar imágenes seleccionadas
         if ($request->filled('delete_images')) {

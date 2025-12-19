@@ -17,6 +17,26 @@
         Eventos Institucionales
         <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
     </h1>
+
+    
+    <?php
+        $bannerEvent = $events->first(function($e) { return $e->banner_path; });
+    ?>
+    <?php if($bannerEvent && $bannerEvent->banner_path): ?>
+        <div style="margin: 0 auto 2.2rem auto; max-width:900px; text-align:center;">
+            <?php if($bannerEvent->banner_link): ?>
+                <a href="<?php echo e($bannerEvent->banner_link); ?>" target="_blank" style="display:inline-block; text-decoration:none;">
+                    <img src="<?php echo e(asset('storage/' . $bannerEvent->banner_path)); ?>" alt="Banner evento" style="width:100%; max-width:900px; border-radius:14px; box-shadow:0 2px 16px rgba(44,62,80,0.13);">
+                </a>
+            <?php else: ?>
+                <img src="<?php echo e(asset('storage/' . $bannerEvent->banner_path)); ?>" alt="Banner evento" style="width:100%; max-width:900px; border-radius:14px; box-shadow:0 2px 16px rgba(44,62,80,0.13);">
+            <?php endif; ?>
+            <?php if($bannerEvent->banner_message): ?>
+                <div style="margin-top:0.7rem; font-size:1.18rem; font-weight:600; color:#1976d2;"><?php echo e($bannerEvent->banner_message); ?></div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+
     <?php if($events->count() === 0): ?>
         <p>No hay eventos disponibles.</p>
     <?php else: ?>

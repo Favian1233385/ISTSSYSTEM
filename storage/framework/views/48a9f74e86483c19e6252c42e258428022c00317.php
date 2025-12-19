@@ -1,59 +1,59 @@
-@extends('admin.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="admin-container">
     <div class="admin-header">
         <h1>Editar Evento</h1>
-        <a href="{{ route('admin.events.index') }}" class="btn btn-secondary">← Volver a eventos</a>
+        <a href="<?php echo e(route('admin.events.index')); ?>" class="btn btn-secondary">← Volver a eventos</a>
     </div>
-    @if ($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
-    <form action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data" class="admin-form">
-        @csrf
-        @method('PUT')
+    <?php endif; ?>
+    <form action="<?php echo e(route('admin.events.update', $event->id)); ?>" method="POST" enctype="multipart/form-data" class="admin-form">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
         <div class="form-group">
             <label for="category">Tipo de Evento <span class="text-danger">*</span></label>
             <select name="category" id="category" class="form-control" required>
                 <option value="">Seleccione una categoría</option>
-                <option value="Campeonato" {{ old('category', $event->category) == 'Campeonato' ? 'selected' : '' }}>Campeonato</option>
-                <option value="Feria Estudiantil" {{ old('category', $event->category) == 'Feria Estudiantil' ? 'selected' : '' }}>Feria Estudiantil</option>
-                <option value="Jornada Académica" {{ old('category', $event->category) == 'Jornada Académica' ? 'selected' : '' }}>Jornada Académica</option>
-                <option value="Administrativo" {{ old('category', $event->category) == 'Administrativo' ? 'selected' : '' }}>Administrativo</option>
-                <option value="Otro" {{ old('category', $event->category) == 'Otro' ? 'selected' : '' }}>Otro</option>
+                <option value="Campeonato" <?php echo e(old('category', $event->category) == 'Campeonato' ? 'selected' : ''); ?>>Campeonato</option>
+                <option value="Feria Estudiantil" <?php echo e(old('category', $event->category) == 'Feria Estudiantil' ? 'selected' : ''); ?>>Feria Estudiantil</option>
+                <option value="Jornada Académica" <?php echo e(old('category', $event->category) == 'Jornada Académica' ? 'selected' : ''); ?>>Jornada Académica</option>
+                <option value="Administrativo" <?php echo e(old('category', $event->category) == 'Administrativo' ? 'selected' : ''); ?>>Administrativo</option>
+                <option value="Otro" <?php echo e(old('category', $event->category) == 'Otro' ? 'selected' : ''); ?>>Otro</option>
             </select>
         </div>
         <div class="form-group">
             <label for="title">Título <span class="text-danger">*</span></label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $event->title) }}" required>
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $event->title)); ?>" required>
         </div>
         <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea name="description" id="description" class="form-control tinymce" rows="8">{{ old('description', $event->description) }}</textarea>
+            <textarea name="description" id="description" class="form-control tinymce" rows="8"><?php echo e(old('description', $event->description)); ?></textarea>
         </div>
         <div class="form-group">
             <label for="date">Fecha <span class="text-danger">*</span></label>
-            <input type="date" name="date" id="date" class="form-control" value="{{ old('date', $event->date ? $event->date->format('Y-m-d') : '') }}" required>
+            <input type="date" name="date" id="date" class="form-control" value="<?php echo e(old('date', $event->date ? $event->date->format('Y-m-d') : '')); ?>" required>
         </div>
         <div class="form-group">
             <label for="place">Lugar</label>
-            <input type="text" name="place" id="place" class="form-control" value="{{ old('place', $event->place) }}">
+            <input type="text" name="place" id="place" class="form-control" value="<?php echo e(old('place', $event->place)); ?>">
         </div>
         <div class="form-group">
             <label>Imágenes actuales</label>
             <div class="row mb-2">
-                @foreach($event->images as $img)
+                <?php $__currentLoopData = $event->images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="col-auto mb-2">
-                        <img src="{{ asset('storage/' . $img->image_path) }}" alt="Imagen" style="max-width:90px;max-height:60px;display:block;">
-                        <label><input type="checkbox" name="delete_images[]" value="{{ $img->id }}"> Eliminar</label>
+                        <img src="<?php echo e(asset('storage/' . $img->image_path)); ?>" alt="Imagen" style="max-width:90px;max-height:60px;display:block;">
+                        <label><input type="checkbox" name="delete_images[]" value="<?php echo e($img->id); ?>"> Eliminar</label>
                     </div>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             <label for="images">Agregar nuevas imágenes</label>
             <input type="file" name="images[]" id="images" class="form-control-file" accept="image/*" multiple>
@@ -61,12 +61,12 @@
         <div class="form-group">
             <label>Archivos actuales</label>
             <ul>
-                @foreach($event->files as $file)
+                <?php $__currentLoopData = $event->files; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $file): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li>
-                        <a href="{{ asset('storage/' . $file->file_path) }}" target="_blank">{{ $file->file_name }}</a>
-                        <label><input type="checkbox" name="delete_files[]" value="{{ $file->id }}"> Eliminar</label>
+                        <a href="<?php echo e(asset('storage/' . $file->file_path)); ?>" target="_blank"><?php echo e($file->file_name); ?></a>
+                        <label><input type="checkbox" name="delete_files[]" value="<?php echo e($file->id); ?>"> Eliminar</label>
                     </li>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <label for="files">Agregar nuevos archivos (PDF)</label>
             <input type="file" name="files[]" id="files" class="form-control-file" accept="application/pdf" multiple>
@@ -74,13 +74,13 @@
         <div class="form-group">
             <label>Enlaces actuales</label>
             <ul id="links-list">
-                @foreach($event->links as $link)
+                <?php $__currentLoopData = $event->links; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li>
-                        <input type="url" name="links_edit[]" value="{{ $link->url }}" class="form-control d-inline-block" style="width:60%" placeholder="https://...">
-                        <input type="text" name="link_labels_edit[]" value="{{ $link->label }}" class="form-control d-inline-block" style="width:35%" placeholder="Etiqueta (opcional)">
-                        <label><input type="checkbox" name="delete_links[]" value="{{ $link->id }}"> Eliminar</label>
+                        <input type="url" name="links_edit[]" value="<?php echo e($link->url); ?>" class="form-control d-inline-block" style="width:60%" placeholder="https://...">
+                        <input type="text" name="link_labels_edit[]" value="<?php echo e($link->label); ?>" class="form-control d-inline-block" style="width:35%" placeholder="Etiqueta (opcional)">
+                        <label><input type="checkbox" name="delete_links[]" value="<?php echo e($link->id); ?>"> Eliminar</label>
                     </li>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
             <label>Agregar nuevos enlaces</label>
             <div id="links-wrapper">
@@ -93,36 +93,36 @@
         </div>
         <div class="form-group">
             <label for="banner_path">Imagen Banner Destacado (opcional, GIF/JPG/PNG)</label>
-            @if($event->banner_path)
+            <?php if($event->banner_path): ?>
                 <div class="mb-2">
-                    <img src="{{ asset('storage/' . $event->banner_path) }}" alt="Banner actual" style="max-width:320px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.10);">
+                    <img src="<?php echo e(asset('storage/' . $event->banner_path)); ?>" alt="Banner actual" style="max-width:320px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.10);">
                     <p class="text-muted small mt-1">Banner actual</p>
                 </div>
-            @endif
+            <?php endif; ?>
             <input type="file" name="banner_path" id="banner_path" class="form-control-file" accept="image/*">
             <small class="form-text text-muted">Ideal: 900x300px, puede ser animado (GIF).</small>
         </div>
         <div class="form-group">
             <label for="banner_message">Mensaje del Banner (opcional)</label>
-            <input type="text" name="banner_message" id="banner_message" class="form-control" value="{{ old('banner_message', $event->banner_message) }}" maxlength="255">
+            <input type="text" name="banner_message" id="banner_message" class="form-control" value="<?php echo e(old('banner_message', $event->banner_message)); ?>" maxlength="255">
         </div>
         <div class="form-group">
             <label for="banner_link">Enlace del Banner (opcional)</label>
-            <input type="url" name="banner_link" id="banner_link" class="form-control" value="{{ old('banner_link', $event->banner_link) }}" maxlength="255" placeholder="https://...">
+            <input type="url" name="banner_link" id="banner_link" class="form-control" value="<?php echo e(old('banner_link', $event->banner_link)); ?>" maxlength="255" placeholder="https://...">
         </div>
         <div class="form-group">
             <label for="status">Estado <span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control" required>
-                <option value="published" {{ old('status', $event->status) == 'published' ? 'selected' : '' }}>Publicado</option>
-                <option value="draft" {{ old('status', $event->status) == 'draft' ? 'selected' : '' }}>Borrador</option>
+                <option value="published" <?php echo e(old('status', $event->status) == 'published' ? 'selected' : ''); ?>>Publicado</option>
+                <option value="draft" <?php echo e(old('status', $event->status) == 'draft' ? 'selected' : ''); ?>>Borrador</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar Evento</button>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .admin-form {
         max-width: 600px;
@@ -172,9 +172,9 @@
         margin-bottom: 1.5rem;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -194,4 +194,6 @@
         wrapper.appendChild(div);
     }
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/events/edit.blade.php ENDPATH**/ ?>

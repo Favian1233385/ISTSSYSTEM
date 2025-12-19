@@ -16,6 +16,36 @@
 <body>
     <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
+    
+    <?php if(isset($bannerEvent) && $bannerEvent): ?>
+        <div id="bannerEventModal" class="modal fade show" tabindex="-1" aria-modal="true" role="dialog" style="display:block; background:rgba(30,30,30,0.35); z-index:2000;">
+            <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:950px;">
+                <div class="modal-content" style="border-radius:18px; overflow:hidden; position:relative;">
+                    <button type="button" class="btn-close position-absolute" style="right:18px;top:18px;z-index:10;" aria-label="Cerrar" onclick="document.getElementById('bannerEventModal').style.display='none';"></button>
+                    <?php if($bannerEvent->banner_link): ?>
+                        <a href="<?php echo e($bannerEvent->banner_link); ?>" target="_blank" style="display:block;">
+                            <img src="<?php echo e(asset('storage/' . $bannerEvent->banner_path)); ?>" alt="Banner evento" style="width:100%; max-width:900px; display:block; margin:0 auto;">
+                        </a>
+                    <?php else: ?>
+                        <img src="<?php echo e(asset('storage/' . $bannerEvent->banner_path)); ?>" alt="Banner evento" style="width:100%; max-width:900px; display:block; margin:0 auto;">
+                    <?php endif; ?>
+                    <?php if($bannerEvent->banner_message): ?>
+                        <div style="text-align:center; font-size:1.18rem; font-weight:600; color:#1976d2; margin:0.7rem 0 1.2rem 0;"><?php echo e($bannerEvent->banner_message); ?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Cerrar modal al hacer click fuera del contenido
+            document.addEventListener('click', function(e) {
+                var modal = document.getElementById('bannerEventModal');
+                if (modal && e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        </script>
+    <?php endif; ?>
+
     <main class="main-content">
         <?php echo $__env->yieldContent('content'); ?>
     </main>

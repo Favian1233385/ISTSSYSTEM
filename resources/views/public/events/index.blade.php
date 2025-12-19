@@ -17,6 +17,26 @@
         Eventos Institucionales
         <span style="display:block; height:4px; width:54px; background:linear-gradient(90deg,#1abc9c,#3498db); border-radius:2px; margin:10px auto 0 auto;"></span>
     </h1>
+
+    {{-- Banner destacado si existe en el primer evento publicado --}}
+    @php
+        $bannerEvent = $events->first(function($e) { return $e->banner_path; });
+    @endphp
+    @if($bannerEvent && $bannerEvent->banner_path)
+        <div style="margin: 0 auto 2.2rem auto; max-width:900px; text-align:center;">
+            @if($bannerEvent->banner_link)
+                <a href="{{ $bannerEvent->banner_link }}" target="_blank" style="display:inline-block; text-decoration:none;">
+                    <img src="{{ asset('storage/' . $bannerEvent->banner_path) }}" alt="Banner evento" style="width:100%; max-width:900px; border-radius:14px; box-shadow:0 2px 16px rgba(44,62,80,0.13);">
+                </a>
+            @else
+                <img src="{{ asset('storage/' . $bannerEvent->banner_path) }}" alt="Banner evento" style="width:100%; max-width:900px; border-radius:14px; box-shadow:0 2px 16px rgba(44,62,80,0.13);">
+            @endif
+            @if($bannerEvent->banner_message)
+                <div style="margin-top:0.7rem; font-size:1.18rem; font-weight:600; color:#1976d2;">{{ $bannerEvent->banner_message }}</div>
+            @endif
+        </div>
+    @endif
+
     @if($events->count() === 0)
         <p>No hay eventos disponibles.</p>
     @else

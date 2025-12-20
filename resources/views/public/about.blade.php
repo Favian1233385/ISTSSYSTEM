@@ -45,6 +45,6 @@
     </section>
 
     <!-- Footer -->
-    @include('public.footer')
+    @include('public.partials.footer')
 </body>
 </html>

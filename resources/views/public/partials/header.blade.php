@@ -5,7 +5,8 @@
         left: 0;
         width: 100%;
         z-index: 1000;
-        background: linear-gradient(90deg, #1766a3 0%, #10b981 100%);
+        /* Azul más suave y transparencia */
+        background: linear-gradient(90deg, rgba(52,152,219,0.85) 0%, rgba(72,224,164,0.85) 100%);
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
     }

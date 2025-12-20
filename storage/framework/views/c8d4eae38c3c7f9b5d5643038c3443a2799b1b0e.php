@@ -46,7 +46,7 @@
         </script>
     <?php endif; ?>
 
-    <main class="main-content">
+    <main class="main-content" style="padding-top: 120px;">
         <?php echo $__env->yieldContent('content'); ?>
     </main>
 

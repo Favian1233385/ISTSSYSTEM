@@ -100,6 +100,6 @@
         </div>
     </main>
 
-    @include('public.footer')
+    @include('public.partials.footer')
 </body>
 </html>

@@ -29,7 +29,7 @@
                     @include('public.partials.footer_calendar_card')
                     <li><a href="/reglamentos">Reglamentos</a></li>
                     <li><a href="/becas">Becas</a></li>
-                    <li><a href="/empleos">Bolsa de Empleo</a></li>
+                   
                 </ul>
             </div>
 

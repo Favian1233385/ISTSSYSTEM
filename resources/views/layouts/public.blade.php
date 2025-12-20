@@ -46,7 +46,7 @@
         </script>
     @endif
 
-    <main class="main-content">
+    <main class="main-content" style="padding-top: 120px;">
         @yield('content')
     </main>
 

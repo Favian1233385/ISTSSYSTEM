@@ -1,8 +1,14 @@
 <x-app-layout>
+
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Eventos') }}
-        </h2>
+        <div style="padding-top: 120px;">
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                
+            </h2>
+            <div class="text-lg text-teal-700 mt-2">
+                }
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">

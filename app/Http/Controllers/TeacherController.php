@@ -53,10 +53,14 @@ class TeacherController extends Controller
         }
 
         Teacher::create([
-            "name" => $request->name,
-            "title" => $request->title,
-            "department" => $request->department,
-            "bio" => $request->bio,
+            // Nombre todo en mayúsculas
+            "name" => mb_strtoupper($request->name),
+            // Título: primera letra de cada palabra en mayúscula
+            "title" => mb_convert_case($request->title, MB_CASE_TITLE, "UTF-8"),
+            // Departamento todo en mayúsculas
+            "department" => mb_strtoupper($request->department),
+            // Biografía: primera letra en mayúscula, resto igual
+            "bio" => $request->bio ? mb_strtoupper(mb_substr($request->bio, 0, 1)) . mb_substr($request->bio, 1) : null,
             "image_path" => $imagePath,
             "pdf_path" => $pdfPath,
             "order" => $request->order ?? 0,
@@ -104,10 +108,14 @@ class TeacherController extends Controller
         }
 
         $teacher->update([
-            "name" => $request->name,
-            "title" => $request->title,
-            "department" => $request->department,
-            "bio" => $request->bio,
+            // Nombre todo en mayúsculas
+            "name" => mb_strtoupper($request->name),
+            // Título: primera letra de cada palabra en mayúscula
+            "title" => mb_convert_case($request->title, MB_CASE_TITLE, "UTF-8"),
+            // Departamento todo en mayúsculas
+            "department" => mb_strtoupper($request->department),
+            // Biografía: primera letra en mayúscula, resto igual
+            "bio" => $request->bio ? mb_strtoupper(mb_substr($request->bio, 0, 1)) . mb_substr($request->bio, 1) : null,
             "image_path" => $imagePath,
             "pdf_path" => $pdfPath,
             "order" => $request->order ?? 0,

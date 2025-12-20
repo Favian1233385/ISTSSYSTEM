@@ -16,8 +16,8 @@
 <body>
     @include('public.partials.header')
 
-    {{-- Modal PopUp Destacado --}}
-    @if(isset($popup) && $popup)
+    {{-- Modal PopUp Destacado solo en Home --}}
+    @if(isset($popup) && $popup && \Route::currentRouteName() === 'home')
         <div id="popupModal" class="modal fade show" tabindex="-1" aria-modal="true" role="dialog" style="display:block; background:rgba(30,30,30,0.35); z-index:2000;">
             <div class="modal-dialog modal-lg modal-dialog-centered" style="max-width:950px;">
                 <div class="modal-content" style="border-radius:18px; overflow:hidden; position:relative;">

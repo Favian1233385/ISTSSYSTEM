@@ -7,6 +7,48 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/harvard-exact.css')); ?>">
+    <style>
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+        .team-member-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            height: 100%;
+            min-height: 420px;
+            box-sizing: border-box;
+        }
+        .team-member-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 16px;
+        }
+        .team-member-info h3 {
+            margin-bottom: 8px;
+            text-align: center;
+            width: 100%;
+            min-height: 56px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .team-member-info p {
+            margin-bottom: 8px;
+            text-align: center;
+            width: 100%;
+        }
+        .team-member-info .btn {
+            margin-top: auto;
+            align-self: center;
+        }
+    </style>
 </head>
 <body>
     <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
@@ -35,6 +77,9 @@
                                     <h3><?php echo e($teacher->name); ?></h3>
                                     <p class="position"><?php echo e($teacher->title); ?></p>
                                     <p class="department"><?php echo e($teacher->department); ?></p>
+                                    <?php if($teacher->pdf_path): ?>
+                                        <a href="<?php echo e(asset('storage/' . $teacher->pdf_path)); ?>" target="_blank" class="btn" style="margin-top:8px; background:#1976d2; color:#fff; border-radius:6px; padding:6px 18px; font-weight:500; text-decoration:none; display:inline-block; transition:background 0.2s;">Ver Currículum</a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

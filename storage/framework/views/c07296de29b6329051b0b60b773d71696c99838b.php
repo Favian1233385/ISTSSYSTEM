@@ -301,6 +301,18 @@
         <h2 style="display:flex;align-items:center;gap:8px;font-size:1.5rem;">
             <span style="font-size:1.7rem;">📇</span> Contactos del Chatbot
         </h2>
+        <div style="margin:1.2rem 0 2.2rem 0; display:flex; gap:1rem; flex-wrap:wrap;">
+            <a href="<?php echo e(route('admin.chatbot.contacts.export')); ?>" class="btn btn-success" style="font-weight:600;">
+                ⬇️ Descargar Excel
+            </a>
+            <form action="<?php echo e(route('admin.chatbot.contacts.destroyAll')); ?>" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar todos los contactos? Esta acción no se puede deshacer.');">
+                <?php echo csrf_field(); ?>
+                <?php echo method_field('DELETE'); ?>
+                <button type="submit" class="btn btn-danger" style="font-weight:600;">
+                    🗑️ Eliminar todos los contactos
+                </button>
+            </form>
+        </div>
         <div class="table-responsive" style="margin-top:1.5rem;">
             <table class="table table-bordered table-hover align-middle" style="background:#fff; border-radius:12px; overflow:hidden;">
                 <thead class="table-light">

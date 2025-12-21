@@ -284,6 +284,8 @@ Route::prefix("admin")
 
         // Chatbot contacts management
         Route::get('/chatbot-contactos', [\App\Http\Controllers\Admin\ChatbotContactController::class, 'index'])->name('admin.chatbot.contacts');
+        Route::get('/chatbot-contactos/export', [\App\Http\Controllers\Admin\ChatbotContactController::class, 'exportExcel'])->name('admin.chatbot.contacts.export');
+        Route::delete('/chatbot-contactos/destroy-all', [\App\Http\Controllers\Admin\ChatbotContactController::class, 'destroyAll'])->name('admin.chatbot.contacts.destroyAll');
 
         // Profile management
         Route::get("/profile", [ProfileController::class, "edit"])->name(

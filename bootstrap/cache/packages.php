@@ -1,12 +1,4 @@
 <?php return array (
-  'arcanedev/log-viewer' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Arcanedev\\LogViewer\\LogViewerServiceProvider',
-      1 => 'Arcanedev\\LogViewer\\Providers\\DeferredServicesProvider',
-    ),
-  ),
   'laravel/breeze' => 
   array (
     'providers' => 
@@ -72,13 +64,6 @@
     'providers' => 
     array (
       0 => 'Spatie\\LaravelIgnition\\IgnitionServiceProvider',
-    ),
-  ),
-  'spatie/laravel-tail' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Spatie\\Tail\\TailServiceProvider',
     ),
   ),
 );

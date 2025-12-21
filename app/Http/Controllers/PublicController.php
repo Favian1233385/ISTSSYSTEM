@@ -138,7 +138,7 @@ class PublicController extends Controller
             ->map(function($item) {
                 $item->is_event = true;
                 $item->date_for_sort = $item->date;
-                $item->summary = $item->description;
+                $item->summary = html_entity_decode($item->description);
                 $item->images = $item->images()->pluck('image_path')->toArray();
                 $item->slug = 'evento-'.$item->id;
                 return $item;

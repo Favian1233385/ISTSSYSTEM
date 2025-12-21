@@ -49,7 +49,7 @@
                                 <span class="news-category" style="display:inline-block; background:#1976d2; color:#fff; font-size:0.98rem; font-weight:600; border-radius:8px; padding:2px 14px 2px 12px; margin-bottom:0.7rem;">Evento pasado</span>
                                 <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:#222;"><?php echo e($event->title); ?></h3>
                                 <div style="color:#888; font-size:0.98rem; margin-bottom:0.7rem;"><?php echo e(optional($event->date)->format('d/m/Y')); ?></div>
-                                <p style="flex:1; color:#444; margin-bottom:1.1rem;"><?php echo e(\Illuminate\Support\Str::limit(strip_tags($event->description), 120)); ?></p>
+                                <p style="flex:1; color:#444; margin-bottom:1.1rem;"><?php echo e(\Illuminate\Support\Str::limit(strip_tags(html_entity_decode($event->description)), 120)); ?></p>
                                 <a href="<?php echo e(route('public.events.show', $event->id)); ?>" class="read-more" style="color:#1976d2; font-weight:600; text-decoration:none;">Ver detalles →</a>
                             </div>
                         </div>

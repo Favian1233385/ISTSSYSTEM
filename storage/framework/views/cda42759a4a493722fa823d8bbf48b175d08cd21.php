@@ -244,7 +244,7 @@
                                     <?php endif; ?>
                                 </span>
                                 <h3><?php echo e($n->title); ?></h3>
-                                <p><?php echo e(\Illuminate\Support\Str::limit(strip_tags($n->summary), 120)); ?></p>
+                                <p><?php echo e(\Illuminate\Support\Str::limit(strip_tags(html_entity_decode($n->summary)), 120)); ?></p>
                                 <?php if($n->is_event): ?>
                                     <a href="<?php echo e(url('/eventos/' . $n->id)); ?>" class="read-more">Leer más →</a>
                                 <?php else: ?>

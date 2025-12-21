@@ -241,7 +241,7 @@
                                     @endif
                                 </span>
                                 <h3>{{ $n->title }}</h3>
-                                <p>{{ \Illuminate\Support\Str::limit(strip_tags($n->summary), 120) }}</p>
+                                <p>{{ \Illuminate\Support\Str::limit(strip_tags(html_entity_decode($n->summary)), 120) }}</p>
                                 @if($n->is_event)
                                     <a href="{{ url('/eventos/' . $n->id) }}" class="read-more">Leer más →</a>
                                 @else

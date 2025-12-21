@@ -17,6 +17,7 @@
                 <li><a href="{{ route('admin.autoridades.index') }}" class="{{ request()->is('admin/autoridades*') ? 'active':'' }}">👨‍💼 Autoridades</a></li>
                 <li><a href="{{ url('/admin/users') }}" class="{{ request()->is('admin/users*') ? 'active':'' }}">👥 Usuarios</a></li>
                 <li><a href="{{ url('/admin/settings') }}" class="{{ request()->is('admin/settings') ? 'active':'' }}">⚙️ Configuración</a></li>
+                <li><a href="{{ route('admin.chatbot.contacts') }}" class="{{ request()->is('admin/chatbot-contactos') ? 'active':'' }}">📇 Contactos Chatbot</a></li>
             </ul>
         </nav>
 

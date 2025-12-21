@@ -18,6 +18,7 @@ Route::get('/programa/{id}', function ($id) {
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QAController;
+use App\Http\Controllers\ChatbotContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +35,5 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
 Route::post("/chatbot", [QAController::class, "responder"]);
+Route::post('/chatbot/contacto', [ChatbotContactController::class, 'store']);
 

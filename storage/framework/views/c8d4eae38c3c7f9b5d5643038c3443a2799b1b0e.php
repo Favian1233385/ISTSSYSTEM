@@ -81,7 +81,6 @@
     <?php echo $__env->yieldPushContent('scripts'); ?>
 
     <?php echo $__env->make('public.partials.social_floating', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
 </body>
 </html>
 <?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/layouts/public.blade.php ENDPATH**/ ?>

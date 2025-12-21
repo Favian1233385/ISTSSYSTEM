@@ -282,6 +282,9 @@ Route::prefix("admin")
             "clear",
         ])->name("admin.chatbot.clear");
 
+        // Chatbot contacts management
+        Route::get('/chatbot-contactos', [\App\Http\Controllers\Admin\ChatbotContactController::class, 'index'])->name('admin.chatbot.contacts');
+
         // Profile management
         Route::get("/profile", [ProfileController::class, "edit"])->name(
             "admin.profile",

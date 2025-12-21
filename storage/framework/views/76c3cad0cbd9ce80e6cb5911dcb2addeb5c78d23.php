@@ -17,6 +17,7 @@
                 <li><a href="<?php echo e(route('admin.autoridades.index')); ?>" class="<?php echo e(request()->is('admin/autoridades*') ? 'active':''); ?>">👨‍💼 Autoridades</a></li>
                 <li><a href="<?php echo e(url('/admin/users')); ?>" class="<?php echo e(request()->is('admin/users*') ? 'active':''); ?>">👥 Usuarios</a></li>
                 <li><a href="<?php echo e(url('/admin/settings')); ?>" class="<?php echo e(request()->is('admin/settings') ? 'active':''); ?>">⚙️ Configuración</a></li>
+                <li><a href="<?php echo e(route('admin.chatbot.contacts')); ?>" class="<?php echo e(request()->is('admin/chatbot-contactos') ? 'active':''); ?>">📇 Contactos Chatbot</a></li>
             </ul>
         </nav>
 

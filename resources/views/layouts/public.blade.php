@@ -81,6 +81,5 @@
     @stack('scripts')
 
     @include('public.partials.social_floating')
-
 </body>
 </html>

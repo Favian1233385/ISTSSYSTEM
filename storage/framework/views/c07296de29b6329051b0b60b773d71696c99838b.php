@@ -73,6 +73,72 @@
         font-weight: 700;
         color: #00a86b;
     }
+
+    .card-table {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px 0 rgba(37,99,235,0.10);
+        padding: 2.2rem 2.2rem 1.5rem 2.2rem;
+        max-width: 1100px;
+        margin: 2.5rem auto 0 auto;
+    }
+    .card-table table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    .card-table th {
+        background: #f3f6fd;
+        color: #2563eb;
+        font-weight: 700;
+        font-size: 1.08rem;
+        padding: 12px 8px;
+        border-bottom: 2px solid #e0e7ef;
+        text-align: left;
+    }
+    .card-table td {
+        padding: 13px 8px;
+        font-size: 1.01rem;
+        border-bottom: 1px solid #f1f5fa;
+        vertical-align: middle;
+    }
+    .actions { display: flex; gap: 10px; align-items: center; }
+    .btn-edit {
+        background: #2563eb;
+        color: #fff;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background 0.2s;
+        min-width: 110px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+    }
+    .btn-edit:hover { background: #1746a2; color: #fff; }
+    .btn-danger {
+        background: #e53935;
+        color: #fff;
+        border: none;
+        padding: 8px 22px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background 0.2s;
+        min-width: 110px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(229,57,53,0.08);
+    }
+    .btn-danger:hover { background: #b71c1c; color: #fff; }
+    @media (max-width: 1100px) {
+        .card-table { padding: 1.2rem 0.5rem; }
+    }
+    @media (max-width: 700px) {
+        .card-table { padding: 0.5rem 0.1rem; }
+        .card-table th, .card-table td { font-size: 0.97rem; padding: 8px 4px; }
+        .btn-edit, .btn-danger { padding: 7px 10px; min-width: 80px; font-size: 0.95rem; }
+    }
 </style>
 
 <div class="admin-content">
@@ -89,6 +155,9 @@
             </button>
             <button class="tab-button" onclick="switchTab('messages')">
                 💬 Historial de Conversaciones
+            </button>
+            <button class="tab-button" onclick="switchTab('contacts')">
+                📇 Contactos Chatbot
             </button>
         </div>
     </div>
@@ -113,73 +182,6 @@
         </div>
     <?php endif; ?>
 
-    <style>
-        .card-table {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px 0 rgba(37,99,235,0.10);
-            padding: 2.2rem 2.2rem 1.5rem 2.2rem;
-            max-width: 1100px;
-            margin: 2.5rem auto 0 auto;
-        }
-        .card-table table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        .card-table th {
-            background: #f3f6fd;
-            color: #2563eb;
-            font-weight: 700;
-            font-size: 1.08rem;
-            padding: 12px 8px;
-            border-bottom: 2px solid #e0e7ef;
-            text-align: left;
-        }
-        .card-table td {
-            padding: 13px 8px;
-            font-size: 1.01rem;
-            border-bottom: 1px solid #f1f5fa;
-            vertical-align: middle;
-        }
-        .actions { display: flex; gap: 10px; align-items: center; }
-        .btn-edit {
-            background: #2563eb;
-            color: #fff;
-            border: none;
-            padding: 8px 22px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.2s;
-            min-width: 110px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
-        }
-        .btn-edit:hover { background: #1746a2; color: #fff; }
-        .btn-danger {
-            background: #e53935;
-            color: #fff;
-            border: none;
-            padding: 8px 22px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background 0.2s;
-            min-width: 110px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(229,57,53,0.08);
-        }
-        .btn-danger:hover { background: #b71c1c; color: #fff; }
-        @media (max-width: 1100px) {
-            .card-table { padding: 1.2rem 0.5rem; }
-        }
-        @media (max-width: 700px) {
-            .card-table { padding: 0.5rem 0.1rem; }
-            .card-table th, .card-table td { font-size: 0.97rem; padding: 8px 4px; }
-            .btn-edit, .btn-danger { padding: 7px 10px; min-width: 80px; font-size: 0.95rem; }
-        }
-    </style>
     <div class="card-table">
         <table>
             <thead>
@@ -291,6 +293,38 @@
         <div class="alert alert-info mt-3">
             <strong>ℹ️ Nota:</strong> Se muestran los últimos 50 mensajes. Para ver el historial completo con filtros avanzados, 
             <a href="<?php echo e(route('admin.chatbot.index')); ?>" class="alert-link">accede a la vista completa de mensajes</a>.
+        </div>
+    </div>
+
+    <!-- Tab Content: Contactos Chatbot -->
+    <div id="contacts-content" class="tab-content">
+        <h2 style="display:flex;align-items:center;gap:8px;font-size:1.5rem;">
+            <span style="font-size:1.7rem;">📇</span> Contactos del Chatbot
+        </h2>
+        <div class="table-responsive" style="margin-top:1.5rem;">
+            <table class="table table-bordered table-hover align-middle" style="background:#fff; border-radius:12px; overflow:hidden;">
+                <thead class="table-light">
+                    <tr style="background:#f3f6fd; color:#2563eb;">
+                        <th style="width:60px;">#</th>
+                        <th style="min-width:180px;">Nombre</th>
+                        <th style="min-width:150px;">Teléfono</th>
+                        <th style="min-width:180px;">Fecha de Registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $__currentLoopData = \App\Models\ChatbotContact::orderByDesc('created_at')->take(50)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $contact): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td style="text-align:center;font-weight:600;"><?php echo e($contact->id); ?></td>
+                            <td style="text-transform:capitalize;">👤 <?php echo e(ucwords(strtolower($contact->nombre))); ?></td>
+                            <td><span class="badge bg-success" style="font-size:1rem;letter-spacing:1px;"><?php echo e($contact->telefono); ?></span></td>
+                            <td><span style="color:#1976d2;font-weight:500;"><?php echo e($contact->created_at->format('d/m/Y H:i')); ?></span></td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="alert alert-info mt-3">
+            <strong>ℹ️ Nota:</strong> Se muestran los últimos 50 contactos registrados.
         </div>
     </div>
 </div>

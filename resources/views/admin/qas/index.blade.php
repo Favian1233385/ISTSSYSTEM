@@ -199,7 +199,7 @@
                     <tr>
                         <td>{{ $item->id }}</td>
                         <td>{{ $item->question }}</td>
-                        <td>{{ Str::limit(strip_tags($item->answer), 100) }}</td>
+                        <td>{!! Str::limit(strip_tags(html_entity_decode($item->answer)), 100) !!}</td>
                         <td class="actions">
                             <a href="{{ route('admin.qas.edit', $item) }}" class="btn-edit">Editar</a>
                             <form action="{{ route('admin.qas.destroy', $item) }}" method="POST" style="display:inline; margin:0;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este Q&A?');">

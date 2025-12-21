@@ -121,7 +121,7 @@ class ChatbotController extends Controller
         // 3. Buscar en carreras
         $careers = \App\Models\Career::active()->get();
         foreach ($careers as $career) {
-            if (stripos($message, strtolower($career->name)) !== false) {
+            if (strpos($this->normalizeText($message), $this->normalizeText($career->name)) !== false) {
                 // Si el mensaje menciona la carrera pero no hay respuesta específica al tema
                 $coordinator = $career->coordinator;
                 $email = $career->coordinator_email;
@@ -174,6 +174,20 @@ class ChatbotController extends Controller
         // Default response
         return ChatbotHelper::getFallbackMessage();
     }
+    /**
+    * Normaliza texto eliminando tildes y caracteres especiales
+    */
+    private function normalizeText($text)
+    {
+        $text = strtolower($text);
+        $text = str_replace(
+            ['á','é','í','ó','ú','ñ','ü'],
+            ['a','e','i','o','u','n','u'],
+            $text
+        );
+        $text = preg_replace('/[^a-z0-9 ]/', '', $text);
+        return $text;
+    }
 
     /**
      * Analizar sentimiento del mensaje
@@ -209,6 +223,57 @@ class ChatbotController extends Controller
 
         foreach ($negativeWords as $word) {
             if (strpos($message, $word) !== false) {
+        // Palabras clave genéricas para información adicional
+        $genericKeywords = [
+            'más información', 'mas informacion', 'información', 'informacion', 'detalles', 'detalle', 'matricula', 'matrícula', 'matricular', 'inscribirme', 'inscripción', 'inscripcion', 'quiero saber más', 'quiero saber mas', 'quiero inscribirme', 'quiero registrarme', 'quiero estudiar', 'contacto', 'coordinador', 'asesor', 'perfil profesional', 'opción profesional', 'opcion profesional'
+        ];
+
+        // Detectar si el mensaje es una palabra clave genérica
+        $isGeneric = false;
+        foreach ($genericKeywords as $keyword) {
+            if (stripos($message, $keyword) !== false) {
+                $isGeneric = true;
+                break;
+            }
+        }
+
+        // Si es palabra clave genérica, buscar la última carrera mencionada en la conversación
+        if ($isGeneric && !empty(request()->input('session_id'))) {
+            $sessionId = request()->input('session_id');
+            // Buscar los últimos 10 mensajes del usuario en la sesión
+            $lastMessages = \App\Models\ChatMessage::bySession($sessionId)->orderBy('id', 'desc')->limit(10)->pluck('user_message');
+            $careers = \App\Models\Career::active()->get();
+            foreach ($lastMessages as $userMsg) {
+                foreach ($careers as $career) {
+                    if (strpos($this->normalizeText($userMsg), $this->normalizeText($career->name)) !== false) {
+                        // Responder con datos del coordinador
+                        $coordinator = $career->coordinator;
+                        $email = $career->coordinator_email;
+                        $contactInfo = '';
+                        if ($coordinator && $email) {
+                            $contactInfo = "\nPara más información sobre la carrera de {$career->name}, comunícate con el coordinador/a: $coordinator (Email: $email). El horario de oficina es de 14:00 a 22:00.";
+                        } elseif ($coordinator) {
+                            $contactInfo = "\nPara más información sobre la carrera de {$career->name}, comunícate con el coordinador/a: $coordinator. El horario de oficina es de 14:00 a 22:00.";
+                        } elseif ($email) {
+                            $contactInfo = "\nPara más información sobre la carrera de {$career->name}, puedes escribir al email del coordinador/a: $email. El horario de oficina es de 14:00 a 22:00.";
+                        } else {
+                            $contactInfo = "\nPara más información visita la sección de carreras o comunícate con Secretaría Académica.";
+                        }
+                        // Si pregunta por perfil profesional, incluirlo si existe
+                        if (stripos($this->normalizeText($message), 'perfil profesional') !== false || stripos($this->normalizeText($message), 'opcion profesional') !== false) {
+                            if (!empty($career->professional_profile)) {
+                                $contactInfo = "Perfil profesional de {$career->name}:\n" . $career->professional_profile . "\n" . $contactInfo;
+                            }
+                        }
+                        return $contactInfo;
+                    }
+                }
+            }
+
+
+            // Si no se encontró carrera, pedir que la especifique
+            return "Por favor, indícanos la carrera de tu interés para darte información personalizada.";
+        }
                 return "negative";
             }
         }

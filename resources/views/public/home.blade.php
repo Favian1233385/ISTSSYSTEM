@@ -224,13 +224,17 @@
                     @forelse($gacetaList as $n)
                         <div class="news-card @if($loop->first) featured @endif">
                             <div class="news-image">
-                                @if(is_array($n->images) && count($n->images) > 0)
-                                    <img src="{{ asset('storage/' . ltrim($n->images[0], '/')) }}" alt="{{ $n->title }}">
-                                @elseif($n->is_event && isset($n->image_path) && $n->image_path)
-                                    <img src="{{ asset('uploads/images/' . $n->image_path) }}" alt="{{ $n->title }}">
-                                @else
-                                    <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $n->title }}">
-                                @endif
+                                @php
+                                    $imgSrc = null;
+                                    if(is_array($n->images) && count($n->images) > 0) {
+                                        $imgSrc = asset('storage/' . ltrim($n->images[0], '/'));
+                                    } elseif($n->is_event && isset($n->image_path) && $n->image_path) {
+                                        $imgSrc = asset('uploads/images/' . $n->image_path);
+                                    } else {
+                                        $imgSrc = asset('uploads/images/placeholder.jpg');
+                                    }
+                                @endphp
+                                <img src="{{ $imgSrc }}" alt="{{ $n->title }}" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;">
                             </div>
                             <div class="news-content">
                                 <span class="news-category">

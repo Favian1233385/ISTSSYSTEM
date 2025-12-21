@@ -122,7 +122,20 @@ class ChatbotController extends Controller
         $careers = \App\Models\Career::active()->get();
         foreach ($careers as $career) {
             if (stripos($message, strtolower($career->name)) !== false) {
-                return "Carrera: " . $career->name . "\n" . ($career->description ?: $career->full_description ?: "Para más información visita la sección de carreras.");
+                // Si el mensaje menciona la carrera pero no hay respuesta específica al tema
+                $coordinator = $career->coordinator;
+                $email = $career->coordinator_email;
+                $contactInfo = '';
+                if ($coordinator && $email) {
+                    $contactInfo = "\nSi necesitas información específica sobre la carrera, por favor comunícate con el coordinador/a: $coordinator (Email: $email). El horario de oficina es de 14:00 a 22:00.";
+                } elseif ($coordinator) {
+                    $contactInfo = "\nSi necesitas información específica sobre la carrera, por favor comunícate con el coordinador/a: $coordinator. El horario de oficina es de 14:00 a 22:00.";
+                } elseif ($email) {
+                    $contactInfo = "\nPara más información, puedes escribir al email del coordinador/a: $email. El horario de oficina es de 14:00 a 22:00.";
+                } else {
+                    $contactInfo = "\nPara más información visita la sección de carreras o comunícate con Secretaría Académica.";
+                }
+                return "Carrera: " . $career->name . "\n" . ($career->description ?: $career->full_description ?: "Para más información visita la sección de carreras.") . $contactInfo;
             }
         }
 

@@ -226,13 +226,17 @@
                     <?php $__empty_1 = true; $__currentLoopData = $gacetaList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="news-card <?php if($loop->first): ?> featured <?php endif; ?>">
                             <div class="news-image">
-                                <?php if(is_array($n->images) && count($n->images) > 0): ?>
-                                    <img src="<?php echo e(asset('storage/' . ltrim($n->images[0], '/'))); ?>" alt="<?php echo e($n->title); ?>">
-                                <?php elseif($n->is_event && isset($n->image_path) && $n->image_path): ?>
-                                    <img src="<?php echo e(asset('uploads/images/' . $n->image_path)); ?>" alt="<?php echo e($n->title); ?>">
-                                <?php else: ?>
-                                    <img src="<?php echo e(asset('uploads/images/placeholder.jpg')); ?>" alt="<?php echo e($n->title); ?>">
-                                <?php endif; ?>
+                                <?php
+                                    $imgSrc = null;
+                                    if(is_array($n->images) && count($n->images) > 0) {
+                                        $imgSrc = asset('storage/' . ltrim($n->images[0], '/'));
+                                    } elseif($n->is_event && isset($n->image_path) && $n->image_path) {
+                                        $imgSrc = asset('uploads/images/' . $n->image_path);
+                                    } else {
+                                        $imgSrc = asset('uploads/images/placeholder.jpg');
+                                    }
+                                ?>
+                                <img src="<?php echo e($imgSrc); ?>" alt="<?php echo e($n->title); ?>" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;">
                             </div>
                             <div class="news-content">
                                 <span class="news-category">

@@ -87,26 +87,26 @@ class ChatbotController extends Controller
      */
     private function generateResponse($message)
     {
-        $message = strtolower(trim($message));
+        $message = $this->normalizeText(trim($message));
         $qas = QA::all();
 
-            // 1. Coincidencia exacta
-            foreach ($qas as $qa) {
-                $questions = array_map("trim", explode(",", strtolower($qa->question)));
-                if (in_array($message, $questions)) {
+        // 1. Coincidencia exacta (normalizada)
+        foreach ($qas as $qa) {
+            $questions = array_map(function($q) { return $this->normalizeText(trim($q)); }, explode(",", $qa->question));
+            if (in_array($message, $questions)) {
+                return strip_tags($qa->answer);
+            }
+        }
+
+        // 2. Coincidencia por palabra clave contenida (más flexible, normalizada)
+        foreach ($qas as $qa) {
+            $keywords = array_map(function($q) { return $this->normalizeText(trim($q)); }, explode(",", $qa->question));
+            foreach ($keywords as $keyword) {
+                if (!empty($keyword) && strpos($message, $keyword) !== false) {
                     return strip_tags($qa->answer);
                 }
             }
-
-            // 2. Coincidencia por palabra clave contenida (más flexible)
-            foreach ($qas as $qa) {
-                $keywords = array_map("trim", explode(",", strtolower($qa->question)));
-                foreach ($keywords as $keyword) {
-                    if (!empty($keyword) && (strpos($message, $keyword) !== false || strpos($keyword, $message) !== false)) {
-                        return strip_tags($qa->answer);
-                    }
-                }
-            }
+        }
 
         
       
@@ -139,40 +139,47 @@ class ChatbotController extends Controller
             }
         }
 
-        // 4. Buscar en noticias
+        // 4. Buscar en noticias (normalizado)
         $news = \App\Models\News::published()->recent(5)->get();
         foreach ($news as $item) {
-            if (stripos($message, strtolower($item->title)) !== false) {
+            if (strpos($message, $this->normalizeText($item->title)) !== false) {
                 return "Noticia: " . $item->title . "\n" . ($item->summary ?: $item->content);
             }
         }
 
-        // 5. Buscar en contenidos
+        // 5. Buscar en contenidos (normalizado, acceso seguro)
         $contentModel = new \App\Models\Content();
         $contents = $contentModel->search($message, 3);
-        if (!empty($contents)) {
+        if (!empty($contents) && isset($contents[0]["title"])) {
             $first = $contents[0];
-            return "Contenido relacionado: " . $first["title"] . "\n" . ($first["description"] ?: $first["content"]);
+            $titleNorm = $this->normalizeText($first["title"] ?? '');
+            if ($titleNorm && strpos($message, $titleNorm) !== false) {
+                return "Contenido relacionado: " . $first["title"] . "\n" . (($first["description"] ?? '') ?: ($first["content"] ?? ''));
+            }
         }
 
-        // 6. Buscar en actualizaciones
+        // 6. Buscar en actualizaciones (normalizado)
         $updates = \App\Models\Update::active()->ordered()->limit(3)->get();
         foreach ($updates as $update) {
-            if (stripos($message, strtolower($update->title)) !== false) {
+            if (strpos($message, $this->normalizeText($update->title)) !== false) {
                 return "Actualización: " . $update->title . "\n" . $update->description;
             }
         }
 
-        // 7. Mensaje del rector
-        if (stripos($message, "rector") !== false) {
+        // 7. Mensaje del rector (normalizado)
+        if (strpos($message, $this->normalizeText("rector")) !== false) {
             $rector = \App\Models\Rector::where('is_active', true)->first();
             if ($rector) {
                 return "Mensaje del Rector " . $rector->name . ":\n" . $rector->message;
             }
         }
 
-        // Default response
-        return ChatbotHelper::getFallbackMessage();
+        // Default response (si no hay información específica)
+        try {
+            return ChatbotHelper::getFallbackMessage();
+        } catch (\Throwable $e) {
+            return 'Gracias por tu mensaje. No he encontrado una respuesta exacta, pero puedes consultar nuestras carreras, noticias, actualizaciones o contactar a un asesor para más información.';
+        }
     }
     /**
     * Normaliza texto eliminando tildes y caracteres especiales

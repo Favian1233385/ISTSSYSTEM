@@ -1,7 +1,7 @@
 <?php
 namespace App\Chatbot\Sources;
 
-use App\Models\Tramite;
+use Illuminate\Support\Facades\DB;
 
 class TramitesSource
 {
@@ -23,14 +23,24 @@ class TramitesSource
 
     public function getResponse($message)
     {
-        $tramites = Tramite::all();
-        if ($tramites->count()) {
-            $respuesta = "Información sobre trámites y procesos:\n";
-            foreach ($tramites as $t) {
-                $respuesta .= "- {$t->nombre}: {$t->descripcion}\n";
+        try {
+            $tramites = DB::table('contents')
+                ->where('category', 'tramites')
+                ->where('status', 'published')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            if ($tramites->count()) {
+                $respuesta = "Información sobre trámites y procesos:\n";
+                foreach ($tramites as $t) {
+                    $nombre = $t->title ?? $t->nombre ?? '(Sin título)';
+                    $descripcion = $t->description ?? $t->descripcion ?? '';
+                    $respuesta .= "- {$nombre}: {$descripcion}\n";
+                }
+                return $respuesta;
             }
-            return $respuesta;
+        } catch (\Throwable $e) {
+            // Log::error('Error al consultar trámites para el chatbot: ' . $e->getMessage());
         }
-        return "No se encontraron trámites registrados.";
+        return "Gracias por tu mensaje. No he encontrado una respuesta exacta, pero puedes consultar nuestras carreras, noticias, actualizaciones o contactar a un asesor para más información.";
     }
 }

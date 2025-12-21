@@ -84,9 +84,35 @@ class ISTSChatbot {
 
     handleUserInfoSubmit(e) {
         e.preventDefault();
-        const nombre = document.getElementById('chatbot-nombre').value.trim();
-        const telefono = document.getElementById('chatbot-telefono').value.trim();
-        if (!nombre || !telefono) return;
+        let nombre = document.getElementById('chatbot-nombre').value.trim();
+        let telefono = document.getElementById('chatbot-telefono').value.trim();
+
+        // Validar nombre: solo letras, mínimo 2 palabras, cada una con inicial mayúscula, máximo 30 caracteres
+        // No permite números ni caracteres especiales
+        if (!nombre || nombre.length > 30) {
+            alert('El nombre es obligatorio y debe tener máximo 30 caracteres.');
+            return;
+        }
+        // Debe tener al menos dos palabras
+        const palabras = nombre.split(/\s+/).filter(Boolean);
+        if (palabras.length < 2) {
+            alert('Por favor, ingresa tu nombre y apellido.');
+            return;
+        }
+        // Validar que solo tenga letras y espacios
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(nombre)) {
+            alert('El nombre solo puede contener letras y espacios.');
+            return;
+        }
+        // Capitalizar cada palabra
+        nombre = palabras.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+
+        // Validar teléfono: solo números, exactamente 10 dígitos
+        if (!/^[0-9]{10}$/.test(telefono)) {
+            alert('El número de teléfono debe contener exactamente 10 dígitos.');
+            return;
+        }
+
         // Guardar en backend
         this.saveUserInfo({ nombre, telefono });
     }

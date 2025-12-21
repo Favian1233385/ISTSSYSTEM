@@ -110,10 +110,16 @@ Route::get("/acerca", function () {
     return view("public.acerca");
 })->name("acerca");
 Route::get("/noticias", function () {
+    // Noticias normales paginadas
     $news = \App\Models\News::where("status", "published")
         ->orderBy("created_at", "desc")
-        ->paginate(10);
-    return view("public.news.index", compact("news"));
+        ->paginate(10, ['*'], 'news_page');
+    // Eventos pasados (no paginados, solo se agregan al final de la lista de la página actual)
+    $eventNews = \App\Models\Event::where('status', 'published')
+        ->whereDate('date', '<', now()->startOfDay())
+        ->orderBy('date', 'desc')
+        ->get();
+    return view("public.news.index", ['news' => $news, 'eventNews' => $eventNews]);
 })->name("noticias");
 
 

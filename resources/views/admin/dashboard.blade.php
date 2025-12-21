@@ -173,8 +173,8 @@
 
                 <a href="{{ route('admin.tramites.index') }}" class="action-card">
                     <div class="action-icon">📂</div>
-                    <h3>Trámites</h3>
-                    <p>{{ $tramitesCount ?? 0 }} documentos de trámites</p>
+                    <h3>Documentos</h3>
+                    <p>{{ $tramitesCount ?? 0 }} documentos</p>
                 </a>
 
                 {{-- <a href="{{ route('admin.menu-items.index') }}" class="action-card">
@@ -254,13 +254,13 @@
         </div>
     </div>
 
-    <!-- Sección Campus -->
+    <!-- Sección Servicios -->
     <div class="quick-actions" id="seccion-campus">
-        <h2>🏛️ SECCIÓN CAMPUS</h2>
+        <h2>🏛️ SECCIÓN SERVICIOS</h2>
         <div class="actions-grid">
             <a href="{{ route('admin.campus-items.index') }}" class="action-card">
                 <div class="action-icon">🏛️</div>
-                <h3>Servicios del Campus</h3>
+                <h3>Servicios</h3>
                 <p>{{ $campusItems->count() }} servicios disponibles</p>
             </a>
 

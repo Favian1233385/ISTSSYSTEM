@@ -4,3 +4,4 @@
         <p class="text-emerald-100 text-center mt-2">.</p>
     </div>
 </header>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/partials/event_header.blade.php ENDPATH**/ ?>

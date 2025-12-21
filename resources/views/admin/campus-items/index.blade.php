@@ -5,7 +5,7 @@
     <div class="card-body p-5">
         <div class="mb-4 d-flex flex-column flex-md-row align-items-center justify-content-between" style="gap:1.2rem;">
             <h1 class="fw-bold mb-0" style="font-size:2.1rem; color:#1a3c34; letter-spacing:-1px; display:flex;align-items:center;gap:0.5em;">
-                <span style="font-size:2.2rem;">📋</span> Items del Menú Campus
+                <span style="font-size:2.2rem;">📋</span> Items del Menú Servicios
             </h1>
             <a href="{{ route('admin.campus-items.create') }}" class="btn" style="background: linear-gradient(90deg,#009e60,#f9d423 90%); color: #fff; font-weight:600; box-shadow:0 2px 8px rgba(0,158,96,0.15); border-radius: 8px; padding: 0.75rem 1.5rem; font-size:1.1rem; transition:box-shadow .2s;">+ Nuevo Item</a>
         </div>

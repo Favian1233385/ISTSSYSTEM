@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container" style="margin-top:2.5cm; max-width:1100px;">
+<div class="container" style="margin-top:0; max-width:1100px;">
     <h1 style="
         font-size:2.3rem;
         font-weight:800;

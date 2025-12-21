@@ -8,7 +8,11 @@ class PublicEventController extends Controller
 {
     public function index()
     {
-        $events = Event::where('status', 'published')->orderBy('date', 'asc')->paginate(9);
+        $today = now()->startOfDay();
+        $events = Event::where('status', 'published')
+            ->whereDate('date', '>=', $today)
+            ->orderBy('date', 'asc')
+            ->paginate(9);
         return view('public.events.index', compact('events'));
     }
 

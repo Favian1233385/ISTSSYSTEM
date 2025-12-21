@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <div style="padding-top: 120px;">
+        <div style="padding-top: 0.3px;">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 
             </h2>

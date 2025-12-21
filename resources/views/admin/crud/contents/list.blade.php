@@ -5,7 +5,7 @@
     <div class="card-body p-5">
         <div class="text-center mb-4">
             <h1 class="fw-bold mb-1" style="font-size:2.3rem; color:#00796b; letter-spacing:-1px;">
-                <span style="font-size:2.2rem;">📄</span> Gestión de Contenidos
+                <span style="font-size:2.2rem;">📄</span> Gestión de Documentos
             </h1>
             <p class="text-muted mb-3">Administra los contenidos del sitio.</p>
             <a href="{{ route('admin.contents.create') }}" class="btn" style="background: linear-gradient(90deg,#009e60,#f9d423 90%); color: #fff; font-weight:600; box-shadow:0 2px 8px rgba(0,158,96,0.15); border-radius: 8px; padding: 0.75rem 1.5rem; font-size:1.1rem; transition:box-shadow .2s;">Crear Sección</a>

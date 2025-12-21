@@ -118,9 +118,47 @@ class PublicController extends Controller
             ->get();
 
         $careers = \App\Models\Career::active()->ordered()->get();
+
+        // --- GACETA: Unificar noticias y eventos pasados como noticias ---
+        $news = \App\Models\News::where('status', 'published')
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get()
+            ->map(function($item) {
+                $item->is_event = false;
+                $item->date_for_sort = $item->published_at;
+                return $item;
+            });
+
+        $pastEvents = \App\Models\Event::where('status', 'published')
+            ->whereDate('date', '<', now())
+            ->orderBy('date', 'desc')
+            ->take(3)
+            ->get()
+            ->map(function($item) {
+                $item->is_event = true;
+                $item->date_for_sort = $item->date;
+                $item->summary = $item->description;
+                $item->images = $item->images()->pluck('image_path')->toArray();
+                $item->slug = 'evento-'.$item->id;
+                return $item;
+            });
+
+        // Unir y ordenar por fecha (desc)
+        $gacetaList = $news->concat($pastEvents)->sortByDesc('date_for_sort')->take(3)->values();
+
         return view(
             "public.home",
-            compact("misionVision", "rector", "updates", "campusItems", "vidaEstudiantilItems", "heroSlides", "careers"),
+            compact(
+                "misionVision",
+                "rector",
+                "updates",
+                "campusItems",
+                "vidaEstudiantilItems",
+                "heroSlides",
+                "careers",
+                "gacetaList"
+            ),
         );
     }
 

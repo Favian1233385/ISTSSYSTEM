@@ -221,23 +221,32 @@
                 </div>
 
                 <div class="news-grid">
-                    @php
-                        $newsList = \App\Models\News::where('status', 'published')->orderBy('published_at', 'desc')->take(3)->get();
-                    @endphp
-                    @forelse($newsList as $n)
+                    @forelse($gacetaList as $n)
                         <div class="news-card @if($loop->first) featured @endif">
                             <div class="news-image">
                                 @if(is_array($n->images) && count($n->images) > 0)
                                     <img src="{{ asset('storage/' . ltrim($n->images[0], '/')) }}" alt="{{ $n->title }}">
+                                @elseif($n->is_event && isset($n->image_path) && $n->image_path)
+                                    <img src="{{ asset('uploads/images/' . $n->image_path) }}" alt="{{ $n->title }}">
                                 @else
                                     <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $n->title }}">
                                 @endif
                             </div>
                             <div class="news-content">
-                                <span class="news-category">{{ ucfirst($n->category ?? 'Noticias') }}</span>
+                                <span class="news-category">
+                                    @if($n->is_event)
+                                        Evento
+                                    @else
+                                        {{ ucfirst($n->category ?? 'Noticias') }}
+                                    @endif
+                                </span>
                                 <h3>{{ $n->title }}</h3>
                                 <p>{{ \Illuminate\Support\Str::limit(strip_tags($n->summary), 120) }}</p>
-                                <a href="{{ route('noticias.show', $n->slug) }}" class="read-more">Leer más →</a>
+                                @if($n->is_event)
+                                    <a href="{{ url('/eventos/' . $n->id) }}" class="read-more">Leer más →</a>
+                                @else
+                                    <a href="{{ route('noticias.show', $n->slug) }}" class="read-more">Leer más →</a>
+                                @endif
                             </div>
                         </div>
                     @empty

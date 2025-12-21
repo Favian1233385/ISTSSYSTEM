@@ -223,23 +223,33 @@
                 </div>
 
                 <div class="news-grid">
-                    <?php
-                        $newsList = \App\Models\News::where('status', 'published')->orderBy('published_at', 'desc')->take(3)->get();
-                    ?>
-                    <?php $__empty_1 = true; $__currentLoopData = $newsList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <?php $__empty_1 = true; $__currentLoopData = $gacetaList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $n): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                         <div class="news-card <?php if($loop->first): ?> featured <?php endif; ?>">
                             <div class="news-image">
                                 <?php if(is_array($n->images) && count($n->images) > 0): ?>
                                     <img src="<?php echo e(asset('storage/' . ltrim($n->images[0], '/'))); ?>" alt="<?php echo e($n->title); ?>">
+                                <?php elseif($n->is_event && isset($n->image_path) && $n->image_path): ?>
+                                    <img src="<?php echo e(asset('uploads/images/' . $n->image_path)); ?>" alt="<?php echo e($n->title); ?>">
                                 <?php else: ?>
                                     <img src="<?php echo e(asset('uploads/images/placeholder.jpg')); ?>" alt="<?php echo e($n->title); ?>">
                                 <?php endif; ?>
                             </div>
                             <div class="news-content">
-                                <span class="news-category"><?php echo e(ucfirst($n->category ?? 'Noticias')); ?></span>
+                                <span class="news-category">
+                                    <?php if($n->is_event): ?>
+                                        Evento
+                                    <?php else: ?>
+                                        <?php echo e(ucfirst($n->category ?? 'Noticias')); ?>
+
+                                    <?php endif; ?>
+                                </span>
                                 <h3><?php echo e($n->title); ?></h3>
                                 <p><?php echo e(\Illuminate\Support\Str::limit(strip_tags($n->summary), 120)); ?></p>
-                                <a href="<?php echo e(route('noticias.show', $n->slug)); ?>" class="read-more">Leer más →</a>
+                                <?php if($n->is_event): ?>
+                                    <a href="<?php echo e(url('/eventos/' . $n->id)); ?>" class="read-more">Leer más →</a>
+                                <?php else: ?>
+                                    <a href="<?php echo e(route('noticias.show', $n->slug)); ?>" class="read-more">Leer más →</a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>

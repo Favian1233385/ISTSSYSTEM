@@ -86,6 +86,12 @@ class ISTSChatbot {
         e.preventDefault();
         let nombre = document.getElementById('chatbot-nombre').value.trim();
         let telefono = document.getElementById('chatbot-telefono').value.trim();
+        let carrera = '';
+        // Si existe un campo de carrera, tomarlo
+        const carreraInput = document.getElementById('chatbot-carrera');
+        if (carreraInput) {
+            carrera = carreraInput.value.trim();
+        }
 
         // Validar nombre: solo letras, mínimo 2 palabras, máximo 30 caracteres
         if (!nombre || nombre.length > 30) {
@@ -114,7 +120,7 @@ class ISTSChatbot {
         }
 
         // Guardar en backend
-        this.saveUserInfo({ nombre, telefono });
+        this.saveUserInfo({ nombre, telefono, carrera });
     }
 
     saveUserInfo(userInfo) {
@@ -372,13 +378,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h4 style=\"color:#009e60; font-weight:700; margin-bottom:1.2rem;\">¡Bienvenido!</h4>
                 <p style=\"margin-bottom:1.2rem; color:#333;\">Por favor, ingresa tu nombre y número de teléfono para iniciar el chat.</p>
                 <form id=\"chatbot-userinfo-form\">
-                    <input type=\"text\" id=\"chatbot-nombre\" name=\"nombre\" placeholder=\"Tu nombre y apellido\" maxlength=\"30\" pattern=\"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$\" title=\"Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras\" required style=\"width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
-                    <input type=\"tel\" id=\"chatbot-telefono\" name=\"telefono\" placeholder=\"Teléfono\" maxlength=\"10\" minlength=\"10\" pattern=\"^[0-9]{10}$\" inputmode=\"numeric\" title=\"Solo 10 dígitos\" required style=\"width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
+                        <input type=\"text\" id=\"chatbot-nombre\" name=\"nombre\" placeholder=\"Tu nombre y apellido\" maxlength=\"30\" pattern=\"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$\" title=\"Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras\" required style=\"width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
+                        <input type=\"tel\" id=\"chatbot-telefono\" name=\"telefono\" placeholder=\"Teléfono\" maxlength=\"10\" minlength=\"10\" pattern=\"^[0-9]{10}$\" inputmode=\"numeric\" title=\"Solo 10 dígitos\" required style=\"width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
+                        <input type="text" id="chatbot-carrera" name="carrera" placeholder="Carrera de interés" maxlength="150" style="width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" required autocomplete="off" />
                     <button type=\"submit\" style=\"width:100%; background:#009e60; color:#fff; font-weight:600; border:none; border-radius:8px; padding:0.8rem; font-size:1.1rem; cursor:pointer;\">Comenzar chat</button>
                 </form>
             </div>
         </div>`;
         document.body.insertAdjacentHTML('beforeend', modalHtml);
+            // Cargar carreras dinámicamente
+
     }
     window.istsChatbot = new ISTSChatbot();
 

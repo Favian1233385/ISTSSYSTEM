@@ -13,6 +13,7 @@
                         <th>#</th>
                         <th>Nombre</th>
                         <th>Teléfono</th>
+                        <th>Carrera</th>
                         <th>Fecha de Registro</th>
                     </tr>
                 </thead>
@@ -22,11 +23,12 @@
                             <td>{{ $contact->id }}</td>
                             <td>{{ $contact->nombre }}</td>
                             <td>{{ $contact->telefono }}</td>
+                            <td>{{ $contact->carrera }}</td>
                             <td>{{ $contact->created_at->format('d/m/Y H:i') }}</td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="text-center">No hay contactos registrados.</td>
+                            <td colspan="5" class="text-center">No hay contactos registrados.</td>
                         </tr>
                     @endforelse
                 </tbody>

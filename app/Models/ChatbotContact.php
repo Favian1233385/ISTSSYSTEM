@@ -12,5 +12,6 @@ class ChatbotContact extends Model
     protected $fillable = [
         'nombre',
         'telefono',
+        'carrera',
     ];
 }

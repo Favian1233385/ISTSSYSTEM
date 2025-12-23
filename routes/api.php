@@ -1,3 +1,5 @@
+
+
 <?php
 use App\Models\AcademicProgram;
 // Endpoint para detalles de un programa (curso) de educación continua

@@ -106,9 +106,6 @@ Route::get('/campus/{slug}', [PublicController::class, 'showCampusItem'])->name(
 Route::get("/visitar", function () {
     return view("public.visitar");
 })->name("visitar");
-Route::get("/acerca", function () {
-    return view("public.acerca");
-})->name("acerca");
 Route::get("/noticias", function () {
     // Noticias normales paginadas
     $news = \App\Models\News::where("status", "published")

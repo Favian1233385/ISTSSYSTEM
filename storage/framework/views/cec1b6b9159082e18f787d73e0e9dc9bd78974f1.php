@@ -83,21 +83,25 @@
                             <div class="academic-underline"></div>
                             <ul>
                                 <?php $__currentLoopData = $aboutContents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <li>
-                                        <?php if(Str::lower($section['title']) === 'autoridades'): ?>
-                                            <a href="<?php echo e(url('/autoridades')); ?>"><?php echo e($section['title']); ?></a>
-                                        <?php elseif(Str::lower($section['title']) === 'planta docente'): ?>
-                                            <a href="<?php echo e(url('/planta-docente')); ?>"><?php echo e($section['title']); ?></a>
-                                        <?php else: ?>
-                                            <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
-                                        <?php endif; ?>
-                                    </li>
+                                    <?php if(Str::lower($section['title']) !== 'sobre el ists'): ?>
+                                        <li>
+                                            <?php if(Str::lower($section['title']) === 'autoridades'): ?>
+                                                <a href="<?php echo e(url('/autoridades')); ?>"><?php echo e($section['title']); ?></a>
+                                            <?php elseif(Str::lower($section['title']) === 'planta docente'): ?>
+                                                <a href="<?php echo e(url('/planta-docente')); ?>"><?php echo e($section['title']); ?></a>
+                                            <?php else: ?>
+                                                <a href="<?php echo e(url('/contenido/'.$section['slug'])); ?>"><?php echo e($section['title']); ?></a>
+                                            <?php endif; ?>
+                                        </li>
+                                    <?php endif; ?>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($acercaMenuItem && count($acercaMenuItem->children) > 0): ?>
                                     <?php $__currentLoopData = $acercaMenuItem->children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <li>
-                                            <a href="<?php echo e(url($child->url)); ?>"><?php echo e($child->title); ?></a>
-                                        </li>
+                                        <?php if(Str::lower($child->title) !== 'sobre el ists'): ?>
+                                            <li>
+                                                <a href="<?php echo e(url($child->url)); ?>"><?php echo e($child->title); ?></a>
+                                            </li>
+                                        <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 <?php endif; ?>
                             </ul>

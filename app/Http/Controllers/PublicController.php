@@ -345,6 +345,12 @@ class PublicController extends Controller
             abort(404);
         }
 
+        // Asegurar que la vista reciba image_url para compatibilidad
+        $content = (array) $content;
+        if (empty($content['image_url']) && !empty($content['image_path'])) {
+            $content['image_url'] = 'storage/' . ltrim($content['image_path'], '/');
+        }
+
         return view("public.content_detail", compact("content"));
     }
 

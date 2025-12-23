@@ -31,7 +31,7 @@
                     @forelse($abouts as $about)
                     <tr>
                         <td style="font-weight:600;">{{ $about['title'] }}</td>
-                        <td>{{ Str::limit(strip_tags($about['content']), 100) }}</td>
+                        <td>{{ Str::limit(strip_tags(html_entity_decode($about['content'])), 100) }}</td>
                         <td style="display:flex; flex-direction:column; gap:0.5em; align-items:flex-start;">
                             <div style="display:flex; gap:0.5em;">
                                 <a href="{{ route('about.edit', $about['id']) }}" class="btn" style="background: #253b7d; color: #fff; font-weight:600; border-radius:8px; padding:0.5em 1.2em; font-size:1em; min-width:100px; text-align:center;">Editar</a>

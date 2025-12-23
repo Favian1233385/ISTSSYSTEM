@@ -87,8 +87,7 @@ class ISTSChatbot {
         let nombre = document.getElementById('chatbot-nombre').value.trim();
         let telefono = document.getElementById('chatbot-telefono').value.trim();
 
-        // Validar nombre: solo letras, mínimo 2 palabras, cada una con inicial mayúscula, máximo 30 caracteres
-        // No permite números ni caracteres especiales
+        // Validar nombre: solo letras, mínimo 2 palabras, máximo 30 caracteres
         if (!nombre || nombre.length > 30) {
             alert('El nombre es obligatorio y debe tener máximo 30 caracteres.');
             return;
@@ -104,8 +103,9 @@ class ISTSChatbot {
             alert('El nombre solo puede contener letras y espacios.');
             return;
         }
-        // Capitalizar cada palabra
+        // Capitalizar cada palabra (primera letra en mayúscula)
         nombre = palabras.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+        document.getElementById('chatbot-nombre').value = nombre;
 
         // Validar teléfono: solo números, exactamente 10 dígitos
         if (!/^[0-9]{10}$/.test(telefono)) {
@@ -367,20 +367,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Si no existe el modal, lo agregamos dinámicamente
     if (!document.getElementById('chatbot-userinfo-modal')) {
         const modalHtml = `
-        <div id="chatbot-userinfo-modal" style="display:none; position:fixed; z-index:2001; left:0; top:0; width:100vw; height:100vh; background:rgba(30,30,30,0.25); justify-content:center; align-items:center;">
-            <div style="background:#fff; border-radius:14px; box-shadow:0 4px 24px rgba(0,0,0,0.13); padding:2.2rem 2.2rem 1.5rem 2.2rem; max-width:350px; width:90vw; text-align:center;">
-                <h4 style="color:#009e60; font-weight:700; margin-bottom:1.2rem;">¡Bienvenido!</h4>
-                <p style="margin-bottom:1.2rem; color:#333;">Por favor, ingresa tu nombre y número de teléfono para iniciar el chat.</p>
-                <form id="chatbot-userinfo-form">
-                    <input type="text" id="chatbot-nombre" name="nombre" placeholder="Tu nombre" maxlength="120" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" />
-                    <input type="tel" id="chatbot-telefono" name="telefono" placeholder="Teléfono" maxlength="30" required style="width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" />
-                    <button type="submit" style="width:100%; background:#009e60; color:#fff; font-weight:600; border:none; border-radius:8px; padding:0.8rem; font-size:1.1rem; cursor:pointer;">Comenzar chat</button>
+        <div id=\"chatbot-userinfo-modal\" style=\"display:none; position:fixed; z-index:2001; left:0; top:0; width:100vw; height:100vh; background:rgba(30,30,30,0.25); justify-content:center; align-items:center;\">
+            <div style=\"background:#fff; border-radius:14px; box-shadow:0 4px 24px rgba(0,0,0,0.13); padding:2.2rem 2.2rem 1.5rem 2.2rem; max-width:350px; width:90vw; text-align:center;\">
+                <h4 style=\"color:#009e60; font-weight:700; margin-bottom:1.2rem;\">¡Bienvenido!</h4>
+                <p style=\"margin-bottom:1.2rem; color:#333;\">Por favor, ingresa tu nombre y número de teléfono para iniciar el chat.</p>
+                <form id=\"chatbot-userinfo-form\">
+                    <input type=\"text\" id=\"chatbot-nombre\" name=\"nombre\" placeholder=\"Tu nombre y apellido\" maxlength=\"30\" pattern=\"^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$\" title=\"Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras\" required style=\"width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
+                    <input type=\"tel\" id=\"chatbot-telefono\" name=\"telefono\" placeholder=\"Teléfono\" maxlength=\"10\" minlength=\"10\" pattern=\"^[0-9]{10}$\" inputmode=\"numeric\" title=\"Solo 10 dígitos\" required style=\"width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;\" autocomplete=\"off\" />
+                    <button type=\"submit\" style=\"width:100%; background:#009e60; color:#fff; font-weight:600; border:none; border-radius:8px; padding:0.8rem; font-size:1.1rem; cursor:pointer;\">Comenzar chat</button>
                 </form>
             </div>
         </div>`;
         document.body.insertAdjacentHTML('beforeend', modalHtml);
     }
     window.istsChatbot = new ISTSChatbot();
+
+    // Validación en tiempo real para nombre (solo letras y espacios)
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'chatbot-nombre') {
+            let val = e.target.value;
+            // Solo letras, tildes, ñ, ü y espacios
+            val = val.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+            // Limitar a 30 caracteres
+            if (val.length > 30) val = val.slice(0, 30);
+            e.target.value = val;
+        }
+    });
+
+    // Validación en tiempo real para teléfono (solo números, máx 10)
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'chatbot-telefono') {
+            let val = e.target.value;
+            val = val.replace(/[^0-9]/g, '');
+            if (val.length > 10) val = val.slice(0, 10);
+            e.target.value = val;
+        }
+    });
     
     // Agregar botón de limpiar historial
     const header = document.querySelector('.chatbot-header');
@@ -409,6 +431,8 @@ window.addEventListener('beforeunload', function() {
     if (window.istsChatbot) {
         window.istsChatbot.saveChatHistory();
     }
+    // Limpiar datos del usuario al cerrar la pestaña o navegador
+    localStorage.removeItem('ists_chatbot_userinfo');
 });
 // CSS para el chatbot
 // CSS para el chatbot

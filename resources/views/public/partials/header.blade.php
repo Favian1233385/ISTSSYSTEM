@@ -83,21 +83,25 @@
                             <div class="academic-underline"></div>
                             <ul>
                                 @foreach($aboutContents as $section)
-                                    <li>
-                                        @if(Str::lower($section['title']) === 'autoridades')
-                                            <a href="{{ url('/autoridades') }}">{{ $section['title'] }}</a>
-                                        @elseif(Str::lower($section['title']) === 'planta docente')
-                                            <a href="{{ url('/planta-docente') }}">{{ $section['title'] }}</a>
-                                        @else
-                                            <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
-                                        @endif
-                                    </li>
+                                    @if(Str::lower($section['title']) !== 'sobre el ists')
+                                        <li>
+                                            @if(Str::lower($section['title']) === 'autoridades')
+                                                <a href="{{ url('/autoridades') }}">{{ $section['title'] }}</a>
+                                            @elseif(Str::lower($section['title']) === 'planta docente')
+                                                <a href="{{ url('/planta-docente') }}">{{ $section['title'] }}</a>
+                                            @else
+                                                <a href="{{ url('/contenido/'.$section['slug']) }}">{{ $section['title'] }}</a>
+                                            @endif
+                                        </li>
+                                    @endif
                                 @endforeach
                                 @if($acercaMenuItem && count($acercaMenuItem->children) > 0)
                                     @foreach($acercaMenuItem->children as $child)
-                                        <li>
-                                            <a href="{{ url($child->url) }}">{{ $child->title }}</a>
-                                        </li>
+                                        @if(Str::lower($child->title) !== 'sobre el ists')
+                                            <li>
+                                                <a href="{{ url($child->url) }}">{{ $child->title }}</a>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 @endif
                             </ul>

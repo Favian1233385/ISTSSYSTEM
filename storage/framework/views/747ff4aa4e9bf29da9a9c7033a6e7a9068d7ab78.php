@@ -1,22 +1,22 @@
-@extends('admin.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="admin-container">
     <div class="admin-header">
         <h1>Crear PopUp Destacado</h1>
-        <a href="{{ route('admin.popups.index') }}" class="btn btn-secondary">← Volver a PopUps</a>
+        <a href="<?php echo e(route('admin.popups.index')); ?>" class="btn btn-secondary">← Volver a PopUps</a>
     </div>
-    @if ($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
-    <form action="{{ route('admin.popups.store') }}" method="POST" enctype="multipart/form-data" class="admin-form">
-        @csrf
+    <?php endif; ?>
+    <form action="<?php echo e(route('admin.popups.store')); ?>" method="POST" enctype="multipart/form-data" class="admin-form">
+        <?php echo csrf_field(); ?>
         <div class="form-group">
             <label for="image_path">Imagen del PopUp (GIF/JPG/PNG)</label>
             <input type="file" name="image_path" id="image_path" class="form-control-file" accept="image/*">
@@ -48,4 +48,6 @@
         <button type="submit" class="btn btn-primary">Guardar PopUp</button>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/popups/create.blade.php ENDPATH**/ ?>

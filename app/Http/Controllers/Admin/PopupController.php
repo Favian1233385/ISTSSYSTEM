@@ -27,8 +27,10 @@ class PopupController extends Controller
             'message' => 'nullable|string|max:255',
             'link' => 'nullable|url|max:255',
             'is_active' => 'boolean',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
         ]);
-        $data = $request->only(['message', 'link', 'is_active']);
+        $data = $request->only(['message', 'link', 'is_active', 'fecha_inicio', 'fecha_fin']);
         if ($request->hasFile('image_path')) {
             $data['image_path'] = $request->file('image_path')->store('popups', 'public');
         }
@@ -48,8 +50,10 @@ class PopupController extends Controller
             'message' => 'nullable|string|max:255',
             'link' => 'nullable|url|max:255',
             'is_active' => 'boolean',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
         ]);
-        $data = $request->only(['message', 'link', 'is_active']);
+        $data = $request->only(['message', 'link', 'is_active', 'fecha_inicio', 'fecha_fin']);
         if ($request->hasFile('image_path')) {
             if ($popup->image_path) {
                 Storage::disk('public')->delete($popup->image_path);

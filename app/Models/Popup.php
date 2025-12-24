@@ -14,5 +14,7 @@ class Popup extends Model
         'message',
         'link',
         'is_active',
+        'fecha_inicio',
+        'fecha_fin',
     ];
 }

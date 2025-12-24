@@ -8,7 +8,16 @@ class PopupComposer
 {
     public function compose(View $view)
     {
-        $popup = Popup::where('is_active', true)->orderByDesc('created_at')->first();
+        $today = date('Y-m-d');
+        $popup = Popup::where('is_active', true)
+            ->where(function($query) use ($today) {
+                $query->whereNull('fecha_inicio')->orWhere('fecha_inicio', '<=', $today);
+            })
+            ->where(function($query) use ($today) {
+                $query->whereNull('fecha_fin')->orWhere('fecha_fin', '>=', $today);
+            })
+            ->orderByDesc('created_at')
+            ->first();
         $view->with('popup', $popup);
     }
 }

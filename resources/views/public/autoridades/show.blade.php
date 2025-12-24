@@ -1,43 +1,37 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $autoridad->nombre }} - Autoridad ISTS</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <!-- Puedes añadir estilos específicos si es necesario -->
-</head>
-<body>
-    <!-- Header público -->
+@extends('public.layout')
+
+@section('header')
     @include('public.partials.header')
+@endsection
 
-    <main class="main-content py-5">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('autoridades') }}">Autoridades</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ $autoridad->nombre }}</li>
-                </ol>
-            </nav>
+@section('content')
+<main class="main-content py-5">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('autoridades') }}">Autoridades</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $autoridad->nombre }}</li>
+            </ol>
+        </nav>
 
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    @if($autoridad->foto_path)
-                        <img src="{{ asset('uploads/images/' . $autoridad->foto_path) }}" class="img-fluid rounded-circle mb-3" alt="Foto de {{ $autoridad->nombre }}" style="max-width: 250px; height: auto; object-fit: cover;">
-                    @else
-                        <img src="{{ asset('images/default_avatar.png') }}" class="img-fluid rounded-circle mb-3" alt="Foto por defecto" style="max-width: 250px; height: auto; object-fit: cover;">
-                    @endif
-                    <h2 class="mt-3">{{ $autoridad->nombre }}</h2>
-                    <h4 class="text-muted">{{ $autoridad->cargo }}</h4>
-                    <p class="text-muted">Categoría: {{ $autoridad->categoria }}</p>
-                    @if($autoridad->pdf_path)
-                        <a href="{{ asset('storage/' . $autoridad->pdf_path) }}" target="_blank" class="btn btn-primary mt-3">
-                            <i class="fas fa-download"></i> Descargar Currículum (PDF)
-                        </a>
-                    @endif
-                </div>
-                <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                @if($autoridad->foto_path)
+                    <img src="{{ asset('uploads/images/' . $autoridad->foto_path) }}" class="img-fluid rounded-circle mb-3" alt="Foto de {{ $autoridad->nombre }}" style="max-width: 250px; height: auto; object-fit: cover;">
+                @else
+                    <img src="{{ asset('images/default_avatar.png') }}" class="img-fluid rounded-circle mb-3" alt="Foto por defecto" style="max-width: 250px; height: auto; object-fit: cover;">
+                @endif
+                <h2 class="mt-3">{{ $autoridad->nombre }}</h2>
+                <h4 class="text-muted">{{ $autoridad->cargo }}</h4>
+                <p class="text-muted">Categoría: {{ $autoridad->categoria }}</p>
+                @if($autoridad->pdf_path)
+                    <a href="{{ asset('storage/' . $autoridad->pdf_path) }}" target="_blank" class="btn btn-primary mt-3">
+                        <i class="fas fa-download"></i> Descargar Currículum (PDF)
+                    </a>
+                @endif
+            </div>
+            <div class="col-md-8">
                     <div class="card shadow-sm p-4">
                         <h3 class="mb-4">Biografía</h3>
                         @if($autoridad->biografia)

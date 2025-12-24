@@ -12,7 +12,7 @@ class ChatbotContactController extends Controller
 {
     public function index()
     {
-        $contacts = ChatbotContact::orderByDesc('created_at')->paginate(30);
+        $contacts = ChatbotContact::select(['id', 'nombre', 'telefono', 'carrera', 'created_at'])->orderByDesc('created_at')->get();
         return view('admin.chatbot.contacts', compact('contacts'));
     }
 

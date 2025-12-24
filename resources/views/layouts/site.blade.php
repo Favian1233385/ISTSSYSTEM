@@ -21,6 +21,7 @@
     @if(app()->getLocale() === 'ar')
         <link rel="stylesheet" href="{{ $base }}/css/app-rtl.css">
     @endif
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
 </head>
 <body>
     <div class="site-main">

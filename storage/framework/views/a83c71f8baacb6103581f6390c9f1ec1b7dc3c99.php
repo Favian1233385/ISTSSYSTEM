@@ -8,18 +8,19 @@
     <!-- Puedes agregar aquí otros estilos o scripts públicos -->
 
         <link rel="icon" type="image/png" href="/assets/images/logoists.png">
-    @stack('styles')
+    <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div class="min-h-screen bg-gray-50">
-        @include('public.partials.header')
+        <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <!-- Encabezado personalizado por sección -->
-        @yield('header')
+        <?php echo $__env->yieldContent('header'); ?>
         <!-- Contenido principal -->
         <div class="max-w-7xl mx-auto px-4" style="margin-bottom:2cm; padding-top: 120px;">
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
-        @include('public.partials.footer')
+        <?php echo $__env->make('public.partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
     </div>
 </body>
 </html>
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/layout.blade.php ENDPATH**/ ?>

@@ -6,6 +6,7 @@
     <meta name="description" content="{{ $content->description ?? '' }}">
     <title>{{ $content->title ?? 'Contenido - ISTS' }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
 </head>
 <body>
     <!-- Header -->

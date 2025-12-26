@@ -1,51 +1,51 @@
-@extends('admin.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="container my-4">
     <div class="text-start mb-2">
         <span style="font-size:2.5rem; color:#7c3aed; background:#f3f4f6; border-radius:12px; padding:0.5rem 0.8rem; display:inline-block; margin-bottom:0.3rem;">
             <i class="bi bi-calendar-event"></i> <!-- O usa el emoji: 📅 -->
         </span>
         <h1 class="fw-bold" style="font-size:2.3rem; letter-spacing:0.5px; margin-bottom:0.7rem;">Crear Evento</h1>
-        <a href="{{ route('admin.events.index') }}" class="btn" style="background: linear-gradient(90deg,#009e60,#1e3a8a 90%); color:#fff; font-weight:600; border-radius:8px; padding:0.6rem 1.6rem; font-size:1.08rem; box-shadow:0 2px 8px rgba(30,58,138,0.10);">← Volver a eventos</a>
+        <a href="<?php echo e(route('admin.events.index')); ?>" class="btn" style="background: linear-gradient(90deg,#009e60,#1e3a8a 90%); color:#fff; font-weight:600; border-radius:8px; padding:0.6rem 1.6rem; font-size:1.08rem; box-shadow:0 2px 8px rgba(30,58,138,0.10);">← Volver a eventos</a>
     </div>
-    @if ($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
-    <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data" class="admin-form">
-        @csrf
+    <?php endif; ?>
+    <form action="<?php echo e(route('admin.events.store')); ?>" method="POST" enctype="multipart/form-data" class="admin-form">
+        <?php echo csrf_field(); ?>
         <div class="form-group">
             <label for="category">Tipo de Evento <span class="text-danger">*</span></label>
             <select name="category" id="category" class="form-control" required>
                 <option value="">Seleccione una categoría</option>
-                <option value="Campeonato" {{ old('category') == 'Campeonato' ? 'selected' : '' }}>Campeonato</option>
-                <option value="Feria Estudiantil" {{ old('category') == 'Feria Estudiantil' ? 'selected' : '' }}>Feria Estudiantil</option>
-                <option value="Jornada Académica" {{ old('category') == 'Jornada Académica' ? 'selected' : '' }}>Jornada Académica</option>
-                <option value="Administrativo" {{ old('category') == 'Administrativo' ? 'selected' : '' }}>Administrativo</option>
-                <option value="Otro" {{ old('category') == 'Otro' ? 'selected' : '' }}>Otro</option>
+                <option value="Campeonato" <?php echo e(old('category') == 'Campeonato' ? 'selected' : ''); ?>>Campeonato</option>
+                <option value="Feria Estudiantil" <?php echo e(old('category') == 'Feria Estudiantil' ? 'selected' : ''); ?>>Feria Estudiantil</option>
+                <option value="Jornada Académica" <?php echo e(old('category') == 'Jornada Académica' ? 'selected' : ''); ?>>Jornada Académica</option>
+                <option value="Administrativo" <?php echo e(old('category') == 'Administrativo' ? 'selected' : ''); ?>>Administrativo</option>
+                <option value="Otro" <?php echo e(old('category') == 'Otro' ? 'selected' : ''); ?>>Otro</option>
             </select>
         </div>
         <div class="form-group">
             <label for="title">Título <span class="text-danger">*</span></label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title')); ?>" required>
         </div>
         <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea name="description" id="description" class="form-control tinymce" rows="8">{{ old('description') }}</textarea>
+            <textarea name="description" id="description" class="form-control tinymce" rows="8"><?php echo e(old('description')); ?></textarea>
         </div>
         <div class="form-group">
             <label for="date">Fecha <span class="text-danger">*</span></label>
-            <input type="date" name="date" id="date" class="form-control" value="{{ old('date') }}" required>
+            <input type="date" name="date" id="date" class="form-control" value="<?php echo e(old('date')); ?>" required>
         </div>
         <div class="form-group">
             <label for="place">Lugar</label>
-            <input type="text" name="place" id="place" class="form-control" value="{{ old('place') }}">
+            <input type="text" name="place" id="place" class="form-control" value="<?php echo e(old('place')); ?>">
         </div>
         <div class="form-group">
             <label for="images">Imágenes del evento</label>
@@ -72,15 +72,15 @@
         <div class="form-group">
             <label for="status">Estado <span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control" required>
-                <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Publicado</option>
-                <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Borrador</option>
+                <option value="published" <?php echo e(old('status') == 'published' ? 'selected' : ''); ?>>Publicado</option>
+                <option value="draft" <?php echo e(old('status') == 'draft' ? 'selected' : ''); ?>>Borrador</option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Guardar Evento</button>
     </form>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -102,10 +102,10 @@
         wrapper.appendChild(div);
     }
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
     .admin-form {
         max-width: 600px;
@@ -155,4 +155,6 @@
         margin-bottom: 1.5rem;
     }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/events/create.blade.php ENDPATH**/ ?>

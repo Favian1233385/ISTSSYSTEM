@@ -16,6 +16,14 @@
         <form action="{{ route('admin.updates.update', $update->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+            <div class="form-group mb-4">
+                <label for="description" class="fw-semibold mb-2">Descripción *</label>
+                <textarea id="description" name="description" class="form-control tinymce-editor @error('description') is-invalid @enderror" rows="8" required>{{ old('description', $update->description) }}</textarea>
+                @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+                <small class="form-text">Descripción de la actualización o novedad. Puedes centrar, enumerar y dar formato al texto.</small>
+            </div>
             <div class="row mb-4" style="gap: 1.5rem;">
                 <div class="col-md-6">
                     <div class="form-group mb-4">

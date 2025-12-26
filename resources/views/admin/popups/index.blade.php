@@ -1,10 +1,10 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="admin-container">
-    <div class="admin-header">
-        <h1>PopUps Destacados</h1>
-        <a href="{{ route('admin.popups.create') }}" class="btn btn-primary">+ Nuevo PopUp</a>
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3" style="background:none; box-shadow:none; border-radius:0; padding:0;">
+        <h1 class="fw-bold mb-0" style="font-size:2.1rem; color:#222; letter-spacing:0.5px;">PopUps Destacados</h1>
+        <a href="{{ route('admin.popups.create') }}" class="btn" style="background: linear-gradient(90deg,#009e60,#1e3a8a 90%); color:#fff; font-weight:600; border-radius:8px; padding:0.6rem 1.6rem; font-size:1.08rem; box-shadow:0 2px 8px rgba(30,58,138,0.10);">+ Nuevo PopUp</a>
     </div>
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

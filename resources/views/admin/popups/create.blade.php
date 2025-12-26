@@ -1,10 +1,13 @@
 @extends('admin.layout')
 
 @section('content')
-<div class="admin-container">
-    <div class="admin-header">
-        <h1>Crear PopUp Destacado</h1>
-        <a href="{{ route('admin.popups.index') }}" class="btn btn-secondary">← Volver a PopUps</a>
+<div class="container my-4">
+    <div class="text-start mb-2">
+        <span style="font-size:2.5rem; color:#7c3aed; background:#f3f4f6; border-radius:12px; padding:0.5rem 0.8rem; display:inline-block; margin-bottom:0.3rem;">
+            💬
+        </span>
+        <h1 class="fw-bold" style="font-size:2.3rem; letter-spacing:0.5px; margin-bottom:0.7rem;">Crear PopUp Destacado</h1>
+        <a href="{{ route('admin.popups.index') }}" class="btn" style="background: linear-gradient(90deg,#009e60,#1e3a8a 90%); color:#fff; font-weight:600; border-radius:8px; padding:0.6rem 1.6rem; font-size:1.08rem; box-shadow:0 2px 8px rgba(30,58,138,0.10);">← Volver a PopUps</a>
     </div>
     @if ($errors->any())
         <div class="alert alert-danger">

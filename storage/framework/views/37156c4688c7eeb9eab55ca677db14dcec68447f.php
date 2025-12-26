@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="container my-4">
     <div class="card shadow-sm mx-auto" style="max-width:900px;">
@@ -13,34 +11,36 @@
                         <p class="mb-0 text-muted" style="font-size:1.08rem;">Rellena el formulario para añadir una nueva pregunta y respuesta al chatbot.</p>
                     </div>
                 </div>
-                <a href="{{ route('admin.qas.index') }}" class="btn btn-outline-primary fw-bold">← Volver</a>
+                <a href="<?php echo e(route('admin.qas.index')); ?>" class="btn btn-outline-primary fw-bold">← Volver</a>
             </div>
         </div>
     </div>
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
+    <?php endif; ?>
 
-    <form action="{{ route('admin.qas.store') }}" method="POST">
-        @csrf
+    <form action="<?php echo e(route('admin.qas.store')); ?>" method="POST">
+        <?php echo csrf_field(); ?>
         <div class="form-group">
             <label for="question">Pregunta o Palabras Clave</label>
-            <input type="text" name="question" id="question" class="form-control" value="{{ old('question') }}" required>
+            <input type="text" name="question" id="question" class="form-control" value="<?php echo e(old('question')); ?>" required>
             <small class="form-text text-muted">Puedes usar palabras clave separadas por comas (ej: hola, buenos días, saludo).</small>
         </div>
         <div class="form-group">
             <label for="answer">Respuesta</label>
-            <textarea name="answer" id="answer" class="form-control tinymce-editor" rows="5">{{ old('answer') }}</textarea>
+            <textarea name="answer" id="answer" class="form-control tinymce-editor" rows="5"><?php echo e(old('answer')); ?></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Añadir Q&A</button>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/qas/create.blade.php ENDPATH**/ ?>

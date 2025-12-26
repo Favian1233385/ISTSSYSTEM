@@ -1,8 +1,19 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container py-4">
-    <h2>Nuevo Evento - Línea de Tiempo</h2>
+
+<div class="container my-4">
+    <div class="card shadow-sm mx-auto" style="max-width:900px;">
+        <div class="card-body pb-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-3">
+                    <span style="font-size:2.2rem; color:#2563eb;">🕒</span>
+                    <h2 class="fw-bold mb-0" style="font-size:1.7rem; letter-spacing:0.5px;">Nuevo Evento - Línea de Tiempo</h2>
+                </div>
+                <a href="{{ route('admin.timeline.index') }}" class="btn btn-outline-primary fw-bold">← Volver</a>
+            </div>
+        </div>
+    </div>
 
     <form action="{{ route('admin.timeline.store') }}" method="post">
         @csrf

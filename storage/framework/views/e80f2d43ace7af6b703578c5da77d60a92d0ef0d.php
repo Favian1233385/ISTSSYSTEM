@@ -1,8 +1,8 @@
-@extends('layouts.admin')
 
-@section('title', 'Crear Sección de Visitar')
 
-@section('content')
+<?php $__env->startSection('title', 'Crear Sección de Visitar'); ?>
+
+<?php $__env->startSection('content'); ?>
 
 <div class="container my-4">
     <div class="card shadow-sm mx-auto" style="max-width:900px;">
@@ -12,30 +12,44 @@
                     <span style="font-size:2.2rem; color:#2563eb;">➕</span>
                     <h2 class="fw-bold mb-0" style="font-size:1.7rem; letter-spacing:0.5px;">Crear Sección de Visitar</h2>
                 </div>
-                <a href="{{ route('admin.visit-sections.index') }}" class="btn btn-outline-primary fw-bold">← Volver</a>
+                <a href="<?php echo e(route('admin.visit-sections.index')); ?>" class="btn btn-outline-primary fw-bold">← Volver</a>
             </div>
         </div>
     </div>
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.visit-sections.store') }}" method="POST">
-                @csrf
+            <form action="<?php echo e(route('admin.visit-sections.store')); ?>" method="POST">
+                <?php echo csrf_field(); ?>
 
                 <div class="row">
                     <!-- Título -->
                     <div class="col-md-8 mb-3">
                         <label for="title" class="form-label">Título de la Sección *</label>
                         <input type="text" 
-                               class="form-control @error('title') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="title" 
                                name="title" 
-                               value="{{ old('title') }}" 
+                               value="<?php echo e(old('title')); ?>" 
                                required
                                placeholder="Ej: Secretaría General">
-                        @error('title')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <!-- Slug -->
@@ -45,14 +59,28 @@
                             <small class="text-muted">(opcional, se genera automático)</small>
                         </label>
                         <input type="text" 
-                               class="form-control @error('slug') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['slug'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="slug" 
                                name="slug" 
-                               value="{{ old('slug') }}"
+                               value="<?php echo e(old('slug')); ?>"
                                placeholder="secretaria-general">
-                        @error('slug')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['slug'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         <small class="text-muted">Se usará en la URL: /visitar/slug</small>
                     </div>
                 </div>
@@ -60,37 +88,51 @@
                 <!-- Misión -->
                 <div class="mb-3">
                     <label for="mission" class="form-label fw-bold text-primary">Misión / Descripción</label>
-                    <textarea class="form-control tinymce-editor @error('mission') is-invalid @enderror" 
+                    <textarea class="form-control tinymce-editor <?php $__errorArgs = ['mission'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                               id="mission" 
                               name="mission" 
                               rows="6"
-                              placeholder="Describe la misión y propósito de esta sección...">{{ old('mission') }}</textarea>
-                    @error('mission')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                              placeholder="Describe la misión y propósito de esta sección..."><?php echo e(old('mission')); ?></textarea>
+                    <?php $__errorArgs = ['mission'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <!-- Funciones -->
                 <div class="mb-3">
                     <label class="form-label">Funciones Principales</label>
                     <div id="functions-container">
-                        @if(old('functions'))
-                            @foreach(old('functions') as $index => $function)
+                        <?php if(old('functions')): ?>
+                            <?php $__currentLoopData = old('functions'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $function): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <div class="input-group mb-2 function-item">
                                     <input type="text" 
                                            class="form-control" 
                                            name="functions[]" 
-                                           value="{{ $function }}"
+                                           value="<?php echo e($function); ?>"
                                            placeholder="Describe una función...">
                                     <button type="button" class="btn btn-danger remove-function">🗑️</button>
                                 </div>
-                            @endforeach
-                        @else
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php else: ?>
                             <div class="input-group mb-2 function-item">
                                 <input type="text" class="form-control" name="functions[]" placeholder="Describe una función...">
                                 <button type="button" class="btn btn-danger remove-function">🗑️</button>
                             </div>
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <button type="button" class="btn btn-sm btn-success" id="add-function">
                         ➕ Agregar Función
@@ -102,28 +144,56 @@
                     <div class="col-md-6 mb-3">
                         <label for="schedule" class="form-label">Horario de Atención</label>
                         <input type="text" 
-                               class="form-control @error('schedule') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['schedule'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="schedule" 
                                name="schedule" 
-                               value="{{ old('schedule') }}"
+                               value="<?php echo e(old('schedule')); ?>"
                                placeholder="Lunes a Viernes, 08:00 - 17:00">
-                        @error('schedule')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['schedule'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <!-- Ubicación -->
                     <div class="col-md-6 mb-3">
                         <label for="location" class="form-label">Ubicación</label>
                         <input type="text" 
-                               class="form-control @error('location') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="location" 
                                name="location" 
-                               value="{{ old('location') }}"
+                               value="<?php echo e(old('location')); ?>"
                                placeholder="Edificio Administrativo, Planta Baja">
-                        @error('location')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['location'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
@@ -132,43 +202,85 @@
                     <div class="col-md-6 mb-3">
                         <label for="phone" class="form-label">Teléfono</label>
                         <input type="text" 
-                               class="form-control @error('phone') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="phone" 
                                name="phone" 
-                               value="{{ old('phone') }}"
+                               value="<?php echo e(old('phone')); ?>"
                                placeholder="(07) 274-0XXX ext. 101">
-                        @error('phone')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['phone'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <!-- Email -->
                     <div class="col-md-6 mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" 
-                               class="form-control @error('email') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="email" 
                                name="email" 
-                               value="{{ old('email') }}"
+                               value="<?php echo e(old('email')); ?>"
                                placeholder="seccion@istssucua.edu.ec">
-                        @error('email')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
                 <!-- Información Adicional -->
                 <div class="mb-3">
                     <label for="additional_info" class="form-label fw-bold text-primary">Información Adicional</label>
-                    <textarea class="form-control tinymce-editor @error('additional_info') is-invalid @enderror" 
+                    <textarea class="form-control tinymce-editor <?php $__errorArgs = ['additional_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                               id="additional_info" 
                               name="additional_info" 
                               rows="4"
-                              placeholder="Cualquier información extra que desees agregar...">{{ old('additional_info') }}</textarea>
-                    @error('additional_info')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                @push('scripts')
+                              placeholder="Cualquier información extra que desees agregar..."><?php echo e(old('additional_info')); ?></textarea>
+                    <?php $__errorArgs = ['additional_info'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <div class="invalid-feedback"><?php echo e($message); ?></div>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                <?php $__env->startPush('scripts'); ?>
                 <script src="https://cdn.tiny.cloud/1/tr5q9gaoe9ca3hwsq6nah42q8dqhrtqznrl0gd9523anjatx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
                 <script>
                     tinymce.init({
@@ -195,7 +307,7 @@
                         }
                     });
                 </script>
-                @endpush
+                <?php $__env->stopPush(); ?>
                 </div>
 
                 <div class="row">
@@ -203,14 +315,28 @@
                     <div class="col-md-6 mb-3">
                         <label for="sort_order" class="form-label">Orden de Aparición</label>
                         <input type="number" 
-                               class="form-control @error('sort_order') is-invalid @enderror" 
+                               class="form-control <?php $__errorArgs = ['sort_order'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" 
                                id="sort_order" 
                                name="sort_order" 
-                               value="{{ old('sort_order', 0) }}"
+                               value="<?php echo e(old('sort_order', 0)); ?>"
                                min="0">
-                        @error('sort_order')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
+                        <?php $__errorArgs = ['sort_order'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                         <small class="text-muted">Menor número aparece primero</small>
                     </div>
 
@@ -222,7 +348,7 @@
                                    type="checkbox" 
                                    id="is_active" 
                                    name="is_active" 
-                                   {{ old('is_active', true) ? 'checked' : '' }}>
+                                   <?php echo e(old('is_active', true) ? 'checked' : ''); ?>>
                             <label class="form-check-label" for="is_active">
                                 Sección Activa
                             </label>
@@ -233,7 +359,7 @@
                 <div class="d-flex justify-content-end gap-2">
                     <div class="row w-100 justify-content-end align-items-center">
                         <div class="col-auto">
-                            <a href="{{ route('admin.visit-sections.index') }}" class="btn btn-secondary">
+                            <a href="<?php echo e(route('admin.visit-sections.index')); ?>" class="btn btn-secondary">
                                 Cancelar
                             </a>
                         </div>
@@ -249,7 +375,7 @@
     </div>
 </div>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Agregar función
@@ -297,5 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-@endpush
-@endsection
+<?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/visit-sections/create.blade.php ENDPATH**/ ?>

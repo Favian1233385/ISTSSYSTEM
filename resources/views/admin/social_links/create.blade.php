@@ -67,8 +67,20 @@
         .btn-cancel:hover { background: #cbd5e1; color: #111; }
         .form-group small { color: #888; font-size: 0.95em; }
     </style>
+    <div class="container my-4">
+        <div class="card shadow-sm mx-auto" style="max-width:900px;">
+            <div class="card-body pb-0">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <span style="font-size:2.2rem; color:#2563eb;">🔗</span>
+                        <h2 class="fw-bold mb-0" style="font-size:1.7rem; letter-spacing:0.5px;">Crear nueva red social</h2>
+                    </div>
+                    <a href="{{ route('admin.social_links.index') }}" class="btn btn-outline-primary fw-bold">← Volver</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="card-form">
-        <h1>Crear nueva red social</h1>
         <form method="POST" action="{{ route('admin.social_links.store') }}">
             @csrf
             <div class="form-group">

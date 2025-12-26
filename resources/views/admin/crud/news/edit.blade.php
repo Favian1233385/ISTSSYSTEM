@@ -70,11 +70,11 @@
                     </div>
                     <div class="form-group">
                         <label for="summary">Resumen</label>
-                        <textarea name="summary" id="summary" class="form-control" rows="3">{{ old('summary', $news['summary']) }}</textarea>
+                        <textarea name="summary" id="summary" class="form-control tinymce-editor" rows="3">{{ old('summary', $news['summary']) }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="content">Contenido</label>
-                        <textarea name="content" id="content" class="form-control" rows="10">{{ old('content', $news['content']) }}</textarea>
+                        <textarea name="content" id="content" class="form-control tinymce-editor" rows="10">{{ old('content', $news['content']) }}</textarea>
                     </div>
                     <div class="form-group">
                         <label for="images">Imágenes</label>

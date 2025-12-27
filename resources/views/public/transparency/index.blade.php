@@ -7,21 +7,21 @@
         <div class="career-title-container text-center" style="margin-bottom:2.5rem;">
             <h1 class="text-4xl font-bold mb-6">{{ $title }}</h1>
         </div>
-        <div class="flex flex-col md:flex-row items-center gap-8">
+        <div style="display: flex; gap: 2rem; align-items: flex-start;">
             @if(isset($items[0]['image']))
-            <div class="content-image mb-6 md:mb-0" style="max-width:300px;">
-                <img src="{{ asset('storage/'.$items[0]['image']) }}" alt="{{ $title }}" style="border-radius:16px; box-shadow:0 2px 8px rgba(0,0,0,0.10); width:100%; max-width:300px;">
-            </div>
+                <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
+                    <img src="{{ asset('storage/'.$items[0]['image']) }}" alt="{{ $title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
+                </div>
             @endif
-            <div class="flex-1">
+            <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
                 <p style="font-size:1.15rem; color:#222; margin-bottom:2.5rem;">{{ $items[0]['description'] ?? '' }}</p>
             </div>
         </div>
-        <div class="subreglamentos-list mt-8">
-            <h2 class="text-2xl font-bold mb-4" style="color:#1976d2;">Subreglamentos</h2>
-            <ul>
+        <div class="subreglamentos-list mt-8" style="text-align:center;">
+            <h2 class="text-2xl font-bold mb-4" style="color:#009e60; text-align:center;">Subreglamentos</h2>
+            <ul style="display:inline-block; text-align:left;">
                 @foreach(($items[0]['children'] ?? []) as $child)
-                    <li class="mb-2" style="font-size:1.05rem; font-weight:600; color:#006400;">
+                    <li class="mb-2" style="font-size:1.05rem; font-weight:600; color:#006400; text-align:center;">
                         <span style="font-weight:700;">{{ $child['title'] }}</span>
                         @if(!empty($child['pdf_url']))
                             <a href="{{ asset('storage/'.$child['pdf_url']) }}" target="_blank" class="btn btn-primary btn-sm mx-2">Ver PDF</a>

@@ -120,7 +120,7 @@
     <!-- Hero Section -->
     <section>
         <div class="container">
-            <h1 style="margin-top:0; background:none;">{{ is_array($content) ? ($content['title'] ?? 'Contenido') : ($content->title ?? 'Contenido') }}</h1>
+            <h1 style="margin-top:0; margin-bottom:1.5rem; background:none; color:#009e60;">{{ is_array($content) ? ($content['title'] ?? 'Contenido') : ($content->title ?? 'Contenido') }}</h1>
         </div>
     </section>
 
@@ -135,21 +135,20 @@
                 @endphp
 
                 <div class="content-wrapper {{ $isMisionVision ? 'content-layout-two-column' : '' }}">
-                    {{-- Display Image if it exists --}}
-                    @php
-                        $imgPath = is_array($content)
-                            ? ($content['image_url'] ?? $content['image_path'] ?? null)
-                            : ($content->image_url ?? $content->image_path ?? null);
-                    @endphp
-                    @if (!empty($imgPath))
-                        <div class="content-image">
-                            <img src="{{ asset('storage/' . ltrim($imgPath, '/')) }}" alt="{{ is_array($content) ? $content['title'] : $content->title }}">
+                    <div style="display: flex; gap: 2rem; align-items: flex-start;">
+                        @php
+                            $imgPath = is_array($content)
+                                ? ($content['image_url'] ?? $content['image_path'] ?? null)
+                                : ($content->image_url ?? $content->image_path ?? null);
+                        @endphp
+                        @if (!empty($imgPath))
+                            <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
+                                <img src="{{ asset('storage/' . ltrim($imgPath, '/')) }}" alt="{{ is_array($content) ? $content['title'] : $content->title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
+                            </div>
+                        @endif
+                        <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
+                            {!! is_array($content) ? ($content['content'] ?? '') : ($content->content ?? '') !!}
                         </div>
-                    @endif
-
-                    {{-- Display Rich Text Content --}}
-                    <div class="content-body">
-                        {!! is_array($content) ? ($content['content'] ?? '') : ($content->content ?? '') !!}
                     </div>
 
                     {{-- Display PDF Link if it exists --}}
@@ -171,11 +170,11 @@
                         </section>
 
 
-                    <div class="subreglamentos-list">
-                        <h2 class="mt-8 mb-4 text-2xl font-bold">Subreglamentos</h2>
-                        <ul>
+                    <div class="subreglamentos-list" style="text-align:center;">
+                        <h2 class="mt-8 mb-4 text-2xl font-bold" style="color:#009e60; text-align:center;">Subreglamentos</h2>
+                        <ul style="display:inline-block; text-align:left;">
                             @foreach ($children as $child)
-                                <li class="mb-6 p-4 border rounded shadow">
+                                <li class="mb-6 p-4 border rounded shadow" style="text-align:center;">
                                     @php
                                         $childImgPath = is_array($child)
                                             ? ($child['image_url'] ?? $child['image_path'] ?? null)

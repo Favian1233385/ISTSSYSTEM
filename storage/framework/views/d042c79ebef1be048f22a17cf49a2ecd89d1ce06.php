@@ -17,7 +17,7 @@
                 <ul>
                     <li><a href="<?php echo e(url('/eventos')); ?>">Eventos</a></li>
                     <li><a href="<?php echo e(url('/carreras')); ?>">Carreras</a></li>
-                    <li><a href="<?php echo e(url('/actualizaciones')); ?>">Admisión</a></li>
+                   <li><a href="https://chat.whatsapp.com/DpBz7BKBL7sEPwXpJ1xnnb?mode=hqrc" target="_blank" rel="noopener">Admisión</a></li>
                     <li><a href="https://biblioteca.istsucua.edu.ec" target="_blank" rel="noopener">Biblioteca</a></li>
                 </ul>
             </div>

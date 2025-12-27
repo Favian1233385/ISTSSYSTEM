@@ -16,9 +16,9 @@
                         <div class="career-card has-image">
                             <div class="career-image">
                                 @if($career->image_path)
-                                    <img src="{{ asset('storage/' . $career->image_path) }}" alt="{{ $career->name }}" class="img-fluid">
+                                    <img src="{{ asset(ltrim($career->image_path, '/')) }}" alt="{{ $career->name }}" class="img-fluid">
                                 @else
-                                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='blue'/%3E%3Ctext x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='white'%3EImage%3C/text%3E%3C/svg%3E" alt="{{ $career->name }}" class="img-fluid">
+                                    <img src="{{ asset('assets/img/institucional-placeholder.png') }}" alt="{{ $career->name }}" class="img-fluid">
                                 @endif
                             </div>
                             <div class="career-info">

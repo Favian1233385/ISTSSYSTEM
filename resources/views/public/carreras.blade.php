@@ -22,7 +22,11 @@
                     <img src="{{ $imgSrc }}" alt="{{ $career->name }}" class="card-img-top" style="height:180px;object-fit:cover;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: var(--color-primary); font-family: var(--font-heading); font-weight: 600;">{{ $career->name }}</h5>
-                        <p class="card-text" style="color: var(--color-secondary);">{{ $career->description ?? 'Sin descripción.' }}</p>
+                        @if(!empty($career->description))
+                            <p class="card-text" style="color: var(--color-secondary);">{{ Str::limit($career->description, 100) }}</p>
+                        @else
+                            <p class="card-text" style="color: var(--color-secondary);">Sin descripción.</p>
+                        @endif
                         <a href="{{ route('career.show', $career->slug ?? $career->id) }}" class="btn btn-primary">Ver detalles</a>
                     </div>
                 </div>

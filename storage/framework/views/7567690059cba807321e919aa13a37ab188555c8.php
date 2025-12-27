@@ -22,7 +22,11 @@
                     <img src="<?php echo e($imgSrc); ?>" alt="<?php echo e($career->name); ?>" class="card-img-top" style="height:180px;object-fit:cover;">
                     <div class="card-body">
                         <h5 class="card-title" style="color: var(--color-primary); font-family: var(--font-heading); font-weight: 600;"><?php echo e($career->name); ?></h5>
-                        <p class="card-text" style="color: var(--color-secondary);"><?php echo e($career->description ?? 'Sin descripción.'); ?></p>
+                        <?php if(!empty($career->description)): ?>
+                            <p class="card-text" style="color: var(--color-secondary);"><?php echo e(Str::limit($career->description, 100)); ?></p>
+                        <?php else: ?>
+                            <p class="card-text" style="color: var(--color-secondary);">Sin descripción.</p>
+                        <?php endif; ?>
                         <a href="<?php echo e(route('career.show', $career->slug ?? $career->id)); ?>" class="btn btn-primary">Ver detalles</a>
                     </div>
                 </div>

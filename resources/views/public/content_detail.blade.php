@@ -140,12 +140,19 @@
                             $imgPath = is_array($content)
                                 ? ($content['image_url'] ?? $content['image_path'] ?? null)
                                 : ($content->image_url ?? $content->image_path ?? null);
+                            if (!empty($imgPath)) {
+                                if (strpos($imgPath, '/uploads') === 0) {
+                                    $imgSrc = asset(ltrim($imgPath, '/'));
+                                } else {
+                                    $imgSrc = asset('storage/' . ltrim($imgPath, '/'));
+                                }
+                            } else {
+                                $imgSrc = asset('assets/img/institucional-placeholder.png');
+                            }
                         @endphp
-                        @if (!empty($imgPath))
-                            <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
-                                <img src="{{ asset('storage/' . ltrim($imgPath, '/')) }}" alt="{{ is_array($content) ? $content['title'] : $content->title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
-                            </div>
-                        @endif
+                        <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
+                            <img src="{{ $imgSrc }}" alt="{{ is_array($content) ? $content['title'] : $content->title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
+                        </div>
                         <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
                             {!! is_array($content) ? ($content['content'] ?? '') : ($content->content ?? '') !!}
                         </div>

@@ -8,11 +8,21 @@
             <h1 class="text-4xl font-bold mb-6">{{ $title }}</h1>
         </div>
         <div style="display: flex; gap: 2rem; align-items: flex-start;">
-            @if(isset($items[0]['image']))
-                <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
-                    <img src="{{ asset('storage/'.$items[0]['image']) }}" alt="{{ $title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
-                </div>
-            @endif
+            <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
+                @php
+                    $imgPath = $items[0]['image'] ?? null;
+                    if (!empty($imgPath)) {
+                        if (strpos($imgPath, '/uploads') === 0) {
+                            $imgSrc = asset(ltrim($imgPath, '/'));
+                        } else {
+                            $imgSrc = asset('storage/' . ltrim($imgPath, '/'));
+                        }
+                    } else {
+                        $imgSrc = asset('assets/img/institucional-placeholder.png');
+                    }
+                @endphp
+                <img src="{{ $imgSrc }}" alt="{{ $title }}" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
+            </div>
             <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
                 <p style="font-size:1.15rem; color:#222; margin-bottom:2.5rem;">{{ $items[0]['description'] ?? '' }}</p>
             </div>

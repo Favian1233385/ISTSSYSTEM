@@ -1,3 +1,12 @@
+/* Padding profesional para compensar header fijo en el panel público */
+.main-with-header {
+    padding-top: 160px;
+}
+@media (max-width: 768px) {
+    .main-with-header {
+        padding-top: 200px;
+    }
+}
 /* Separación profesional para el header de carreras */
 .career-header {
     margin-top: 3.5rem;

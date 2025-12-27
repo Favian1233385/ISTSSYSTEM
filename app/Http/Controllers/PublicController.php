@@ -177,31 +177,21 @@ class PublicController extends Controller
             ->map(fn($item) => (array) $item)
             ->toArray();
 
-        // Buscar el ID de 'Reglamentos Internos' (por título o slug)
-        $main = null;
-        $mainId = null;
-        foreach ($contents as $item) {
-            if (
-                (isset($item['title']) && trim(mb_strtolower($item['title'])) === 'reglamentos internos') ||
-                (isset($item['slug']) && trim(mb_strtolower($item['slug'])) === 'reglamentos-internos')
-            ) {
-                $main = $item;
-                $mainId = $item['id'];
-                break;
-            }
-        }
-
-        $children = [];
-        if ($main && $mainId) {
-            foreach ($contents as $item) {
-                if ($item['parent_id'] == $mainId) {
-                    $children[] = $item;
+        // Obtener todos los principales (sin parent_id) y sus hijos
+        $items = [];
+        foreach ($contents as $main) {
+            if (empty($main['parent_id'])) {
+                // Buscar hijos
+                $children = [];
+                foreach ($contents as $item) {
+                    if (!empty($item['parent_id']) && $item['parent_id'] == $main['id']) {
+                        $children[] = $item;
+                    }
                 }
+                $main['children'] = $children;
+                $items[] = $main;
             }
-            $main['children'] = $children;
         }
-
-        $items = $main ? [$main] : [];
 
         return view("public.transparency.index", [
             "title" => "Transparencia",
@@ -455,5 +445,22 @@ class PublicController extends Controller
     {
         $transparencyMenu = $this->transparencyMenu();
         return view('public.partials.header', compact('transparencyMenu'));
+    }
+
+    /**
+     * Muestra el calendario académico público.
+     */
+    public function academicCalendar()
+    {
+        $calendarEvents = \App\Models\AcademicCalendarEvent::all()->map(function($event) {
+            return [
+                'title' => $event->title,
+                'start' => $event->start_date,
+                'end' => $event->end_date,
+                'color' => $event->color,
+                'description' => $event->description,
+            ];
+        });
+        return view('public.academic_calendar.index', compact('calendarEvents'));
     }
 }

@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $content->description ?? '' }}">
-    <title>{{ $content->title ?? 'Contenido - ISTS' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
+    <meta name="description" content="<?php echo e($content->description ?? ''); ?>">
+    <title><?php echo e($content->title ?? 'Contenido - ISTS'); ?></title>
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="icon" type="image/png" href="<?php echo e(asset('assets/images/logoists.png')); ?>" sizes="32x32">
     <style>
         .about-hero {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
@@ -115,58 +115,59 @@
 <body>
     <div style="padding-top: 90px;"></div>
     <!-- Header -->
-    @include('public.partials.header')
+    <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <!-- Hero Section -->
     <section>
         <div class="container">
-            <h1 style="margin-top:0; background:none;">{{ is_array($content) ? ($content['title'] ?? 'Contenido') : ($content->title ?? 'Contenido') }}</h1>
+            <h1 style="margin-top:0; background:none;"><?php echo e(is_array($content) ? ($content['title'] ?? 'Contenido') : ($content->title ?? 'Contenido')); ?></h1>
         </div>
     </section>
 
     <!-- Content -->
     <section class="about-content">
         <div class="container">
-            @if (!empty($content))
-                {{-- Determine if a two-column layout should be applied --}}
-                @php
+            <?php if(!empty($content)): ?>
+                
+                <?php
                     $isMisionVision = (is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null)) === 'mision-y-vision'
                         || (is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null)) === 'mision-y-vision-2';
-                @endphp
+                ?>
 
-                <div class="content-wrapper {{ $isMisionVision ? 'content-layout-two-column' : '' }}">
-                    {{-- Display Image if it exists --}}
-                    @php
+                <div class="content-wrapper <?php echo e($isMisionVision ? 'content-layout-two-column' : ''); ?>">
+                    
+                    <?php
                         $imgPath = is_array($content)
                             ? ($content['image_url'] ?? $content['image_path'] ?? null)
                             : ($content->image_url ?? $content->image_path ?? null);
-                    @endphp
-                    @if (!empty($imgPath))
+                    ?>
+                    <?php if(!empty($imgPath)): ?>
                         <div class="content-image">
-                            <img src="{{ asset('storage/' . ltrim($imgPath, '/')) }}" alt="{{ is_array($content) ? $content['title'] : $content->title }}">
+                            <img src="<?php echo e(asset('storage/' . ltrim($imgPath, '/'))); ?>" alt="<?php echo e(is_array($content) ? $content['title'] : $content->title); ?>">
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    {{-- Display Rich Text Content --}}
+                    
                     <div class="content-body">
-                        {!! is_array($content) ? ($content['content'] ?? '') : ($content->content ?? '') !!}
+                        <?php echo is_array($content) ? ($content['content'] ?? '') : ($content->content ?? ''); ?>
+
                     </div>
 
-                    {{-- Display PDF Link if it exists --}}
-                    @if (!empty(is_array($content) ? $content['file_url'] : $content->file_url))
+                    
+                    <?php if(!empty(is_array($content) ? $content['file_url'] : $content->file_url)): ?>
                         <div class="content-file-download">
-                            <a href="{{ asset('storage/' . (is_array($content) ? $content['file_url'] : $content->file_url)) }}" target="_blank" class="btn btn-primary">
+                            <a href="<?php echo e(asset('storage/' . (is_array($content) ? $content['file_url'] : $content->file_url))); ?>" target="_blank" class="btn btn-primary">
                                 Descargar PDF
                             </a>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
-                {{-- Mostrar subreglamentos si existen --}}
-                @if (!empty($children) && count($children) > 0)
-                                    @endif
-                                @else
+                
+                <?php if(!empty($children) && count($children) > 0): ?>
+                                    <?php endif; ?>
+                                <?php else: ?>
                                     <p>El contenido no está disponible.</p>
-                                @endif
+                                <?php endif; ?>
                             </div>
                         </section>
 
@@ -174,38 +175,38 @@
                     <div class="subreglamentos-list">
                         <h2 class="mt-8 mb-4 text-2xl font-bold">Subreglamentos</h2>
                         <ul>
-                            @foreach ($children as $child)
+                            <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="mb-6 p-4 border rounded shadow">
-                                    @php
+                                    <?php
                                         $childImgPath = is_array($child)
                                             ? ($child['image_url'] ?? $child['image_path'] ?? null)
                                             : ($child->image_url ?? $child->image_path ?? null);
-                                    @endphp
-                                    @if (!empty($childImgPath))
+                                    ?>
+                                    <?php if(!empty($childImgPath)): ?>
                                         <div class="content-image">
-                                            <img src="{{ asset('storage/' . ltrim($childImgPath, '/')) }}" alt="{{ is_array($child) ? $child['title'] : $child->title }}">
+                                            <img src="<?php echo e(asset('storage/' . ltrim($childImgPath, '/'))); ?>" alt="<?php echo e(is_array($child) ? $child['title'] : $child->title); ?>">
                                         </div>
-                                    @endif
-                                    @php
+                                    <?php endif; ?>
+                                    <?php
                                         $file = is_array($child) ? ($child['file_url'] ?? $child['url'] ?? null) : ($child->file_url ?? $child->url ?? null);
                                         $isUrl = filter_var($file, FILTER_VALIDATE_URL);
-                                    @endphp
-                                    @if (!empty(is_array($child) ? ($child['file_url'] ?? $child['url']) : ($child->file_url ?? $child->url)))
+                                    ?>
+                                    <?php if(!empty(is_array($child) ? ($child['file_url'] ?? $child['url']) : ($child->file_url ?? $child->url))): ?>
                                         <h3 class="text-xl font-semibold mb-2">
-                                            <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="text-primary underline">{{ is_array($child) ? $child['title'] : $child->title }}</a>
+                                            <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="text-primary underline"><?php echo e(is_array($child) ? $child['title'] : $child->title); ?></a>
                                         </h3>
-                                    @else
-                                        <h3 class="text-xl font-semibold mb-2">{{ is_array($child) ? $child['title'] : $child->title }}</h3>
-                                    @endif
-                                    <p class="mb-2">{{ is_array($child) ? ($child['description'] ?? '') : ($child->description ?? '') }}</p>
-                                    @if (!empty(is_array($child) ? ($child['file_url'] ?? $child['url']) : ($child->file_url ?? $child->url)))
-                                        <a href="{{ $isUrl ? $file : asset($file) }}" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
-                                        <a href="{{ $isUrl ? $file : asset($file) }}" download class="btn btn-secondary">Descargar PDF</a>
-                                    @else
+                                    <?php else: ?>
+                                        <h3 class="text-xl font-semibold mb-2"><?php echo e(is_array($child) ? $child['title'] : $child->title); ?></h3>
+                                    <?php endif; ?>
+                                    <p class="mb-2"><?php echo e(is_array($child) ? ($child['description'] ?? '') : ($child->description ?? '')); ?></p>
+                                    <?php if(!empty(is_array($child) ? ($child['file_url'] ?? $child['url']) : ($child->file_url ?? $child->url))): ?>
+                                        <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" target="_blank" class="btn btn-primary mr-2">Ver PDF</a>
+                                        <a href="<?php echo e($isUrl ? $file : asset($file)); ?>" download class="btn btn-secondary">Descargar PDF</a>
+                                    <?php else: ?>
                                         <span class="text-gray-500">No hay documento PDF</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
               
@@ -214,7 +215,7 @@
     </section>
 
     <!-- Footer -->
-    @include('public.partials.footer')
+    <?php echo $__env->make('public.partials.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
     <style>
         .about-hero {
@@ -282,3 +283,4 @@
         }
    
         
+<?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/public/content_detail.blade.php ENDPATH**/ ?>

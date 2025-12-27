@@ -349,3 +349,6 @@ Route::get('/carreras', function () {
 Route::get('/actualizaciones', function () {
     return view('public.actualizaciones');
 })->name('actualizaciones');
+
+// Ruta pública para el calendario académico
+Route::get('/calendario', [PublicController::class, 'academicCalendar'])->name('public.academic_calendar');

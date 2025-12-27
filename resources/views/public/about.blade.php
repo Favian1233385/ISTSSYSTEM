@@ -20,7 +20,7 @@
     </section>
 
     <!-- About Content -->
-    <section class="about-content">
+    <section class="about-content main-with-header">
         <div class="container">
             @if (!empty($content))
                 <div class="content-wrapper">

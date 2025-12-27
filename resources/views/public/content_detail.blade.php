@@ -178,7 +178,7 @@
 
 
                     <div class="subreglamentos-list" style="text-align:center;">
-                        <h2 class="mt-8 mb-4 text-2xl font-bold" style="color:#009e60; text-align:center;">Subreglamentos</h2>
+                        <h2 class="mt-8 mb-4 text-2xl font-bold" style="color:#009e60; text-align:center;">Documentos</h2>
                         <ul style="display:inline-block; text-align:left;">
                             @foreach ($children as $child)
                                 <li class="mb-6 p-4 border rounded shadow" style="text-align:center;">

@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="subreglamentos-list mt-8" style="text-align:center;">
-            <h2 class="text-2xl font-bold mb-4" style="color:#009e60; text-align:center;">Subreglamentos</h2>
+            <h2 class="text-2xl font-bold mb-4" style="color:#009e60; text-align:center;">Documentos</h2>
             <ul style="display:inline-block; text-align:left;">
                 @foreach(($items[0]['children'] ?? []) as $child)
                     <li class="mb-2" style="font-size:1.05rem; font-weight:600; color:#006400; text-align:center;">

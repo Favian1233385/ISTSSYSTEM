@@ -75,7 +75,7 @@
                 <div class="dropdown-content academic-dropdown">
                     <div class="academic-dropdown-header">
                         <h3>Acerca</h3>
-                        <p>Aprende cómo está estructurado el ISTS, explora nuestra historia y descubre nuestra comunidad extendida.</p>
+                        
                     </div>
                     <div class="academic-dropdown-columns">
                         <div class="academic-column">
@@ -119,13 +119,13 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Académicos</h3>
-                                <p>El aprendizaje en ISTS puede suceder para todo tipo de estudiantes, en cualquier fase de la vida.</p>
+                                
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
                                     <div class="academic-title">Programas de Grado</div>
                                     <div class="academic-underline"></div>
-                                    <div class="academic-desc">Explora todas nuestras carreras tecnológicas y programas de grado.</div>
+                                   
                                     <ul>
                                         <?php $__currentLoopData = $allCareers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $career): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li><a href="<?php echo e(route('career.show', $career->slug)); ?>"><?php echo e($career->name); ?></a></li>
@@ -169,7 +169,7 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Servicios</h3>
-                                <p>Explora los servicios, instalaciones y recursos del ISTS.</p>
+                               
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
@@ -218,7 +218,7 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Visitar</h3>
-                                <p>Conoce las unidades, servicios y áreas que puedes visitar en el ISTS.</p>
+                               
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
@@ -260,7 +260,7 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Transparencia</h3>
-                                <p>Accede a información transparente y oportuna sobre nuestra gestión institucional.</p>
+                               
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
@@ -306,7 +306,7 @@
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Documentos</h3>
-                                <p>Accede a información sobre los documentos disponibles.</p>
+                              
                             </div>
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">

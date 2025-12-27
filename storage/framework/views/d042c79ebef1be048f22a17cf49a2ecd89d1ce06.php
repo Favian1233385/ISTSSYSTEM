@@ -27,8 +27,8 @@
                 <ul>
                     <li><a href="/calendario">Calendario Académico</a></li>
                     <?php echo $__env->make('public.partials.footer_calendar_card', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-                    <li><a href="/reglamentos">Reglamentos</a></li>
-                    <li><a href="/becas">Becas</a></li>
+                    <li><a href="/transparency/reglamentos">Reglamentos</a></li>
+                   
                    
                 </ul>
             </div>

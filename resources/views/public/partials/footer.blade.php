@@ -27,8 +27,8 @@
                 <ul>
                     <li><a href="/calendario">Calendario Académico</a></li>
                     @include('public.partials.footer_calendar_card')
-                    <li><a href="/reglamentos">Reglamentos</a></li>
-                    <li><a href="/becas">Becas</a></li>
+                    <li><a href="/transparency/reglamentos">Reglamentos</a></li>
+                   
                    
                 </ul>
             </div>

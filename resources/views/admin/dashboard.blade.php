@@ -77,7 +77,7 @@
         <div class="stat-card">
             <div class="stat-icon">📝</div>
             <div class="stat-content">
-                <h3>{{ $stats['total_contents'] ?? 0 }}</h3>
+                <h3>{{ $totalContents ?? 0 }}</h3>
                 <p>Contenidos Totales</p>
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="stat-card">
             <div class="stat-icon">📰</div>
             <div class="stat-content">
-                <h3>{{ $stats['total_news'] ?? 0 }}</h3>
+                <h3>{{ $totalNews ?? 0 }}</h3>
                 <p>Noticias Totales</p>
             </div>
         </div>

@@ -79,7 +79,7 @@
         <div class="stat-card">
             <div class="stat-icon">📝</div>
             <div class="stat-content">
-                <h3><?php echo e($stats['total_contents'] ?? 0); ?></h3>
+                <h3><?php echo e($totalContents ?? 0); ?></h3>
                 <p>Contenidos Totales</p>
             </div>
         </div>
@@ -87,7 +87,7 @@
         <div class="stat-card">
             <div class="stat-icon">📰</div>
             <div class="stat-content">
-                <h3><?php echo e($stats['total_news'] ?? 0); ?></h3>
+                <h3><?php echo e($totalNews ?? 0); ?></h3>
                 <p>Noticias Totales</p>
             </div>
         </div>

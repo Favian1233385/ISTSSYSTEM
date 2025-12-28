@@ -1,4 +1,418 @@
 /**
+ * Chatbot JavaScript - Sistema ISTS
+ * Funcionalidad del asistente virtual (UI + autocompletado)
+ */
+
+
+// --- INICIO: Lógica de UI del ChatBot (clase ISTSChatbot) ---
+class ISTSChatbot {
+    constructor() {
+        this.isOpen = false;
+        this.sessionId = this.generateSessionId();
+        this.messageHistory = [];
+        this.userInfo = this.loadUserInfo();
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.loadChatHistory();
+    }
+
+    bindEvents() {
+        const toggleBtn = document.getElementById('chatbot-toggle');
+        const closeBtn = document.getElementById('chatbot-close');
+        const form = document.getElementById('chatbot-form');
+        const input = document.getElementById('chatbot-input');
+        const userInfoForm = document.getElementById('chatbot-userinfo-form');
+        const userInfoModal = document.getElementById('chatbot-userinfo-modal');
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                if (!this.userInfo) {
+                    this.showUserInfoModal();
+                } else {
+                    this.toggleChat();
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.closeChat());
+        }
+
+        if (form) {
+            form.addEventListener('submit', (e) => this.handleSubmit(e));
+        }
+
+        if (input) {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.handleSubmit(e);
+                }
+            });
+        }
+
+        if (userInfoForm) {
+            userInfoForm.addEventListener('submit', (e) => this.handleUserInfoSubmit(e));
+        }
+
+        if (userInfoModal) {
+            userInfoModal.addEventListener('click', (e) => {
+                if (e.target === userInfoModal) {
+                    userInfoModal.style.display = 'none';
+                }
+            });
+        }
+    }
+
+    showUserInfoModal() {
+        const modal = document.getElementById('chatbot-userinfo-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    hideUserInfoModal() {
+        const modal = document.getElementById('chatbot-userinfo-modal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    handleUserInfoSubmit(e) {
+        e.preventDefault();
+        let nombre = document.getElementById('chatbot-nombre').value.trim();
+        let telefono = document.getElementById('chatbot-telefono').value.trim();
+        let carrera = '';
+        const carreraInput = document.getElementById('chatbot-carrera');
+        if (carreraInput) {
+            carrera = carreraInput.value.trim();
+        }
+        if (!nombre || nombre.length > 30) {
+            alert('El nombre es obligatorio y debe tener máximo 30 caracteres.');
+            return;
+        }
+        const palabras = nombre.split(/\s+/).filter(Boolean);
+        if (palabras.length < 2) {
+            alert('Por favor, ingresa tu nombre y apellido.');
+            return;
+        }
+        if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/.test(nombre)) {
+            alert('El nombre solo puede contener letras y espacios.');
+            return;
+        }
+        nombre = palabras.map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+        document.getElementById('chatbot-nombre').value = nombre;
+        if (!/^[0-9]{10}$/.test(telefono)) {
+            alert('El número de teléfono debe contener exactamente 10 dígitos.');
+            return;
+        }
+        this.saveUserInfo({ nombre, telefono, carrera });
+    }
+
+    saveUserInfo(userInfo) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+        fetch('/api/chatbot/contacto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify(userInfo)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                this.userInfo = userInfo;
+                localStorage.setItem('ists_chatbot_userinfo', JSON.stringify(userInfo));
+                this.hideUserInfoModal();
+                this.toggleChat();
+            } else {
+                alert('No se pudo guardar tu información. Intenta de nuevo.');
+            }
+        })
+        .catch(() => {
+            alert('Error de conexión. Intenta de nuevo.');
+        });
+    }
+
+    loadUserInfo() {
+        try {
+            const info = localStorage.getItem('ists_chatbot_userinfo');
+            return info ? JSON.parse(info) : null;
+        } catch {
+            return null;
+        }
+    }
+
+    toggleChat() {
+        const window = document.getElementById('chatbot-window');
+        if (!window) return;
+        this.isOpen = !this.isOpen;
+        if (this.isOpen) {
+            window.style.display = 'block';
+            setTimeout(() => {
+                window.classList.add('active');
+            }, 10);
+            this.focusInput();
+        } else {
+            window.classList.remove('active');
+            setTimeout(() => {
+                window.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    closeChat() {
+        this.isOpen = false;
+        const window = document.getElementById('chatbot-window');
+        if (window) {
+            window.classList.remove('active');
+            setTimeout(() => {
+                window.style.display = 'none';
+            }, 300);
+        }
+    }
+
+    focusInput() {
+        const input = document.getElementById('chatbot-input');
+        if (input) {
+            setTimeout(() => input.focus(), 100);
+        }
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const input = document.getElementById('chatbot-input');
+        const message = input.value.trim();
+        if (!message) return;
+        this.addMessage(message, 'user');
+        input.value = '';
+        this.showTypingIndicator();
+        this.sendMessage(message);
+    }
+
+    addMessage(content, sender) {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (!messagesContainer) return;
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `${sender}-message`;
+        const messageContent = document.createElement('p');
+        messageContent.innerHTML = content;
+        messageDiv.appendChild(messageContent);
+        messagesContainer.appendChild(messageDiv);
+        setTimeout(() => {
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }, 100);
+        this.messageHistory.push({
+            content,
+            sender,
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    clearHistory() {
+        this.messageHistory = [];
+        this.saveChatHistory();
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (messagesContainer) {
+            const welcomeMessage = messagesContainer.querySelector('.bot-message:first-child');
+            messagesContainer.innerHTML = '';
+            if (welcomeMessage) {
+                messagesContainer.appendChild(welcomeMessage);
+            }
+        }
+    }
+
+    showTypingIndicator() {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (!messagesContainer) return;
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'bot-message typing-indicator';
+        typingDiv.innerHTML = '<p>El asistente está escribiendo...</p>';
+        messagesContainer.appendChild(typingDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        this.typingIndicator = typingDiv;
+    }
+
+    hideTypingIndicator() {
+        if (this.typingIndicator) {
+            this.typingIndicator.remove();
+            this.typingIndicator = null;
+        }
+    }
+
+    sendMessage(message) {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+        const formData = new FormData();
+        formData.append('message', message);
+        formData.append('session_id', this.sessionId);
+        fetch('/chatbot/send', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            this.hideTypingIndicator();
+            if (data.success) {
+                this.addMessage(data.response, 'bot');
+            } else {
+                this.addMessage('Lo siento, ha ocurrido un error. Por favor, inténtalo de nuevo.', 'bot');
+            }
+        })
+        .catch(error => {
+            this.hideTypingIndicator();
+            this.addMessage('Error de conexión. Por favor, verifica tu conexión a internet.', 'bot');
+            console.error('Error:', error);
+        });
+    }
+
+    generateSessionId() {
+        return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    loadChatHistory() {
+        const savedHistory = localStorage.getItem('ists_chat_history');
+        if (savedHistory) {
+            try {
+                this.messageHistory = JSON.parse(savedHistory);
+                this.renderHistory();
+            } catch (e) {
+                console.error('Error al cargar historial:', e);
+            }
+        }
+    }
+
+    renderHistory() {
+        const messagesContainer = document.getElementById('chatbot-messages');
+        if (!messagesContainer) return;
+        const welcomeMessage = messagesContainer.querySelector('.bot-message:first-child');
+        messagesContainer.innerHTML = '';
+        if (welcomeMessage) {
+            messagesContainer.appendChild(welcomeMessage);
+        }
+        this.messageHistory.forEach(msg => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${msg.sender}-message`;
+            const messageContent = document.createElement('p');
+            if (msg.sender === 'bot') {
+                messageContent.innerHTML = msg.content;
+            } else {
+                messageContent.textContent = msg.content;
+            }
+            messageDiv.appendChild(messageContent);
+            messagesContainer.appendChild(messageDiv);
+        });
+    }
+
+    saveChatHistory() {
+        localStorage.setItem('ists_chat_history', JSON.stringify(this.messageHistory));
+    }
+}
+// --- FIN: Lógica de UI del ChatBot ---
+
+// Inicializar chatbot cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    // Si no existe el modal, lo agregamos dinámicamente
+    if (!document.getElementById('chatbot-userinfo-modal')) {
+        const modalHtml = `
+        <div id="chatbot-userinfo-modal" style="display:none; position:fixed; z-index:2001; left:0; top:0; width:100vw; height:100vh; background:rgba(30,30,30,0.25); justify-content:center; align-items:center;">
+            <div style="background:#fff; border-radius:14px; box-shadow:0 4px 24px rgba(0,0,0,0.13); padding:2.2rem 2.2rem 1.5rem 2.2rem; max-width:350px; width:90vw; text-align:center;">
+                <h4 style="color:#009e60; font-weight:700; margin-bottom:1.2rem;">¡Bienvenido!</h4>
+                <p style="margin-bottom:1.2rem; color:#333;">Por favor, ingresa tu nombre y número de teléfono para iniciar el chat.</p>
+                <form id="chatbot-userinfo-form">
+                        <input type="text" id="chatbot-nombre" name="nombre" placeholder="Tu nombre y apellido" maxlength="30" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$" title="Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
+                        <input type="tel" id="chatbot-telefono" name="telefono" placeholder="Teléfono" maxlength="10" minlength="10" pattern="^[0-9]{10}$" inputmode="numeric" title="Solo 10 dígitos" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
+                        <input type="text" id="chatbot-carrera" name="carrera" placeholder="Carrera de interés" maxlength="150" style="width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" required autocomplete="off" />
+                    <button type="submit" style="width:100%; background:#009e60; color:#fff; font-weight:600; border:none; border-radius:8px; padding:0.8rem; font-size:1.1rem; cursor:pointer;">Comenzar chat</button>
+                </form>
+            </div>
+        </div>`;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+    }
+    window.istsChatbot = new ISTSChatbot();
+
+    // Validación en tiempo real para nombre (solo letras y espacios)
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'chatbot-nombre') {
+            let val = e.target.value;
+            // Solo letras, tildes, ñ, ü y espacios
+            val = val.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
+            // Limitar a 30 caracteres
+            if (val.length > 30) val = val.slice(0, 30);
+            e.target.value = val;
+        }
+    });
+
+    // Validación en tiempo real para teléfono (solo números, máx 10)
+    document.addEventListener('input', function(e) {
+        if (e.target && e.target.id === 'chatbot-telefono') {
+            let val = e.target.value;
+            val = val.replace(/[^0-9]/g, '');
+            if (val.length > 10) val = val.slice(0, 10);
+            e.target.value = val;
+        }
+    });
+
+    // Agregar botón de limpiar historial
+    const header = document.querySelector('.chatbot-header');
+    if (header) {
+        const clearBtn = document.createElement('button');
+        clearBtn.textContent = '🗑️';
+        clearBtn.title = 'Eliminar historial';
+        clearBtn.style.marginLeft = '8px';
+        clearBtn.style.background = 'none';
+        clearBtn.style.border = 'none';
+        clearBtn.style.color = '#fff';
+        clearBtn.style.fontSize = '18px';
+        clearBtn.style.cursor = 'pointer';
+        clearBtn.onclick = function(e) {
+            e.stopPropagation();
+            if (confirm('¿Seguro que deseas eliminar el historial de conversaciones?')) {
+                window.istsChatbot.clearHistory();
+            }
+        };
+        header.appendChild(clearBtn);
+    }
+
+    // --- INICIO: Autocompletado ChatBot (nombre y carrera por teléfono) ---
+    observeChatbotUserinfoForm();
+    // --- FIN: Autocompletado ---
+});
+
+// Guardar historial antes de cerrar la página
+window.addEventListener('beforeunload', function() {
+    if (window.istsChatbot) {
+        window.istsChatbot.saveChatHistory();
+    }
+    // Limpiar datos del usuario al cerrar la pestaña o navegador
+    localStorage.removeItem('ists_chatbot_userinfo');
+});
+
+// CSS para el chatbot (copiado del original)
+const chatbotStyles = `
+<style>
+/* ... (aquí iría el CSS del chatbot) ... */
+</style>
+`;
+document.head.insertAdjacentHTML('beforeend', chatbotStyles);
+
+// --- FIN: Código del ChatBot ---
+
+// ...existing code...
+/**
  * JavaScript Principal - Sistema ISTS
  * Funcionalidades básicas del sitio web
  */
@@ -9,6 +423,74 @@ document.addEventListener("DOMContentLoaded", function () {
     initMobileMenu();
     initBackToTop();
     initSmoothScroll();
+
+    // Autocompletado ChatBot: nombre y carrera por teléfono (dinámico)
+    observeChatbotUserinfoForm();
+/**
+ * Observa el DOM y activa el autocompletado cuando el formulario del ChatBot aparece
+ */
+function observeChatbotUserinfoForm() {
+    // Si ya existe el formulario, inicializa de inmediato
+    if (document.getElementById('chatbot-userinfo-form')) {
+        initChatbotUserinfoAutocomplete();
+        return;
+    }
+    // Si no, observa el DOM por si aparece dinámicamente
+    const observer = new MutationObserver(() => {
+        if (document.getElementById('chatbot-userinfo-form')) {
+            initChatbotUserinfoAutocomplete();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+}
+/**
+ * Autocompleta nombre y carrera en el formulario del ChatBot al ingresar el teléfono
+ */
+function initChatbotUserinfoAutocomplete() {
+    const telefonoInput = document.getElementById('chatbot-telefono');
+    const nombreInput = document.getElementById('chatbot-nombre');
+    const carreraInput = document.getElementById('chatbot-carrera');
+    if (!telefonoInput || !nombreInput || !carreraInput) return;
+
+    let lastValue = '';
+    telefonoInput.addEventListener('input', function () {
+        const value = telefonoInput.value.trim();
+        console.log('[ChatBot] Teléfono input:', value);
+        // Solo si tiene 10 dígitos y es diferente al último valor buscado
+        if (/^\d{10}$/.test(value) && value !== lastValue) {
+            lastValue = value;
+            console.log('[ChatBot] Consultando API:', `/api/chatbot/contacto/buscar?telefono=${value}`);
+            fetch(`/api/chatbot/contacto/buscar?telefono=${value}`)
+                .then(res => {
+                    console.log('[ChatBot] Respuesta HTTP:', res.status);
+                    return res.ok ? res.json() : null;
+                })
+                .then(data => {
+                    console.log('[ChatBot] Respuesta JSON:', data);
+                    if (data && data.found && data.nombre) {
+                        nombreInput.value = data.nombre;
+                        carreraInput.value = data.carrera || '';
+                        console.log('[ChatBot] Autocompletado:', data.nombre, data.carrera);
+                    } else {
+                        // Si no existe, limpiar los campos
+                        nombreInput.value = '';
+                        carreraInput.value = '';
+                        console.log('[ChatBot] No se encontró contacto, campos limpiados');
+                    }
+                })
+                .catch((err) => {
+                    nombreInput.value = '';
+                    carreraInput.value = '';
+                    console.error('[ChatBot] Error en fetch:', err);
+                });
+        } else if (value.length < 10) {
+            nombreInput.value = '';
+            carreraInput.value = '';
+            console.log('[ChatBot] Teléfono incompleto, campos limpiados');
+        }
+    });
+}
 });
 
 /**

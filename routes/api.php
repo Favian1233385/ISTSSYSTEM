@@ -39,3 +39,21 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
 Route::post("/chatbot", [QAController::class, "responder"]);
 Route::post('/chatbot/contacto', [ChatbotContactController::class, 'store']);
 
+// Endpoint para buscar contacto de chatbot por teléfono
+Route::get('/chatbot/contacto/buscar', function (Request $request) {
+    $telefono = $request->query('telefono');
+    if (!$telefono) {
+        return response()->json(['found' => false, 'message' => 'Teléfono requerido'], 400);
+    }
+    $contact = \App\Models\ChatbotContact::where('telefono', $telefono)->first();
+    if ($contact) {
+        return response()->json([
+            'found' => true,
+            'nombre' => $contact->nombre,
+            'carrera' => $contact->carrera,
+        ]);
+    } else {
+        return response()->json(['found' => false]);
+    }
+});
+

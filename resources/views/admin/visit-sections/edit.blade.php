@@ -217,12 +217,12 @@
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('admin.visit-sections.index') }}" class="btn btn-secondary">
-                        Cancelar
+                <div class="admin-action-buttons">
+                    <a href="{{ route('admin.visit-sections.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-x-circle me-2"></i> Cancelar
                     </a>
-                    <button type="submit" class="btn btn-primary">
-                        💾 Actualizar Sección
+                    <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-save me-2"></i> Actualizar Sección
                     </button>
                 </div>
             </form>

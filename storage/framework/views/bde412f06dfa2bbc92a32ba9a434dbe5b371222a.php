@@ -1,6 +1,6 @@
-@extends('layouts.admin')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Crear Nueva Sección de "Acerca"</h1>
     <p class="mb-4">Completa el formulario para añadir una nueva sección de contenido a la página "Acerca".</p>
@@ -11,28 +11,28 @@
         </div>
         <div class="card-body">
 
-            {{-- Display Validation Errors --}}
-            @if ($errors->any())
+            
+            <?php if($errors->any()): ?>
                 <div class="alert alert-danger">
                     <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
-            @endif
+            <?php endif; ?>
 
-            <form action="{{ route('about.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            <form action="<?php echo e(route('about.store')); ?>" method="POST" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <div class="form-group">
                     <label for="title">Título</label>
-                    <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
+                    <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title')); ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="body">Contenido</label>
-                    {{-- Added tinymce-editor class --}}
-                    <textarea name="body" id="body" class="form-control tinymce-editor" rows="10">{{ old('body') }}</textarea>
+                    
+                    <textarea name="body" id="body" class="form-control tinymce-editor" rows="10"><?php echo e(old('body')); ?></textarea>
                 </div>
 
                 <div class="form-group">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="admin-action-buttons">
-                    <a href="{{ route('about.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
+                    <a href="<?php echo e(route('about.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
                         <i class="bi bi-x-circle me-2"></i> Cancelar
                     </a>
                     <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
@@ -65,4 +65,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/about/create.blade.php ENDPATH**/ ?>

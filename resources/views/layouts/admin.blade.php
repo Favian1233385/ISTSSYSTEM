@@ -15,6 +15,34 @@
         <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
     @endif
     <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
+    <style>
+        /* Botones de acción alineados horizontalmente en formularios admin */
+        .admin-action-buttons {
+            display: flex !important;
+            flex-direction: row !important;
+            justify-content: flex-end !important;
+            align-items: center !important;
+            gap: 1.2rem !important;
+            width: 100%;
+            margin-top: 1.5rem;
+            margin-bottom: 0;
+        }
+        .admin-action-buttons > .btn {
+            min-width: 130px;
+            height: 48px;
+            border-radius: 10px;
+            font-size: 1.08rem;
+            transition: box-shadow .2s, background .2s;
+            margin-bottom: 0;
+        }
+        @media (max-width: 600px) {
+            .admin-action-buttons {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                gap: 0.7rem !important;
+            }
+        }
+    </style>
 </head>
 <body class="admin-body">
     @include('admin.partials.header')

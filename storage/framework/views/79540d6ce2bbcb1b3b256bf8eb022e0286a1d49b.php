@@ -1,8 +1,19 @@
 <?php $__env->startSection('content'); ?>
-<div class="admin-content">
-    <div class="dashboard-header">
-        <h1>👩‍🏫 Editar Docente</h1>
-        <p>Modifica el formulario para editar un docente.</p>
+
+<div class="container my-4">
+    <div class="card shadow-sm mx-auto" style="max-width:900px;">
+        <div class="card-body pb-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <div class="d-flex align-items-center gap-3">
+                    <span style="font-size:2.2rem; color:#2563eb;">👩‍🏫</span>
+                    <div>
+                        <h2 class="fw-bold mb-0" style="font-size:1.7rem; letter-spacing:0.5px;">Añadir Docente</h2>
+                        <p class="mb-0 text-muted" style="font-size:1.08rem;">Rellena el formulario para añadir un nuevo docente.</p>
+                    </div>
+                </div>
+                <a href="<?php echo e(route('admin.teachers.index')); ?>" class="btn btn-outline-primary fw-bold">← Volver</a>
+            </div>
+        </div>
     </div>
 
     <?php if($errors->any()): ?>
@@ -15,30 +26,29 @@
         </div>
     <?php endif; ?>
 
-    <form class="card p-4 shadow-sm mx-auto" style="max-width:900px; min-width:340px;" method="POST" action="<?php echo e(route('admin.teachers.update', $item->id)); ?>" enctype="multipart/form-data">
+    <form class="card p-4 shadow-sm mx-auto" style="max-width:540px;" method="POST" action="<?php echo e(route('admin.teachers.store')); ?>" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
-        <?php echo method_field('PUT'); ?>
         <div class="mb-3">
             <label for="name" class="form-label fw-bold text-primary">Nombre</label>
-            <input type="text" name="name" id="name" class="form-control" value="<?php echo e(old('name', $item->name)); ?>" required>
+            <input type="text" name="name" id="name" class="form-control" required>
         </div>
         <div class="mb-3">
             <label for="title" class="form-label fw-bold text-primary">Título</label>
-            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $item->title)); ?>">
+            <input type="text" name="title" id="title" class="form-control">
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="department" class="form-label fw-bold text-primary">Departamento</label>
-                <input type="text" name="department" id="department" class="form-control" value="<?php echo e(old('department', $item->department)); ?>">
+                <input type="text" name="department" id="department" class="form-control">
             </div>
             <div class="col">
                 <label for="order" class="form-label fw-bold text-primary">Orden</label>
-                <input type="number" name="order" id="order" value="<?php echo e(old('order', $item->order)); ?>" class="form-control">
+                <input type="number" name="order" id="order" value="0" class="form-control">
             </div>
         </div>
         <div class="mb-3">
             <label for="bio" class="form-label fw-bold text-primary">Biografía</label>
-            <textarea name="bio" id="bio" class="form-control tinymce-editor"><?php echo e(old('bio', $item->bio)); ?></textarea>
+            <textarea name="bio" id="bio" class="form-control tinymce-editor"></textarea>
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -50,16 +60,9 @@
                 <input type="file" name="pdf" id="pdf" accept="application/pdf" class="form-control">
             </div>
         </div>
-        <div class="admin-action-buttons">
-            <a href="<?php echo e(route('admin.teachers.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
-                <i class="bi bi-x-circle me-2"></i> Cancelar
-            </a>
-            <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
-                <i class="bi bi-save me-2"></i> Actualizar Docente
-            </button>
-        </div>
+        <button type="submit" class="btn btn-primary w-100 fw-bold">Añadir Docente</button>
     </form>
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/teachers/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/teachers/create.blade.php ENDPATH**/ ?>

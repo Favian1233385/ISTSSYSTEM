@@ -52,11 +52,11 @@
                 <input type="file" name="pdf" id="pdf" accept="application/pdf" class="form-control">
             </div>
         </div>
-        <div style="display:flex !important; flex-direction:row !important; justify-content:flex-end !important; align-items:center !important; gap:1.2rem !important; width:100%; margin-top:1.5rem; margin-bottom:0;">
-            <a href="{{ route('admin.teachers.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="min-width:130px; height:48px; border-radius:10px; font-size:1.08rem; transition:box-shadow .2s,background .2s; margin-bottom:0;">
+        <div class="admin-action-buttons">
+            <a href="{{ route('admin.teachers.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
                 <i class="bi bi-x-circle me-2"></i> Cancelar
             </a>
-            <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="min-width:170px; height:48px; border-radius:10px; font-size:1.08rem; transition:box-shadow .2s,background .2s; margin-bottom:0;">
+            <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
                 <i class="bi bi-save me-2"></i> Actualizar Docente
             </button>
         </div>

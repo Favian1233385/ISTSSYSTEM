@@ -13,9 +13,8 @@
         // normalize: make empty string or leading-slash path (/ISTSSYSTEM)
         $base = $computed ? '/'.ltrim(rtrim($computed, '/'), '/') : '';
     @endphp
-    {{-- Use base path-aware relative links so the app works when hosted in a subfolder (e.g. /ISTSSYSTEM) --}}
-    <link rel="stylesheet" href="{{ $base }}/css/app.css">
-    {{-- Use the administrative stylesheet so the public area shares the same typography and base styles --}}
+    {{-- Carga de estilos y scripts con Vite --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ $base }}/css/admin.css">
     <link rel="stylesheet" href="{{ $base }}/css/style.css">
     @if(app()->getLocale() === 'ar')

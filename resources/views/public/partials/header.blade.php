@@ -115,7 +115,7 @@
                     @continue
                 @elseif($title == 'ACADÉMICOS')
                     <li class="dropdown" style="position: relative;">
-                        <a href="{{ route('academicos') }}" class="header-link{{ request()->is('academicos') ? ' active' : '' }}" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">ACADÉMICOS</a>
+                        <a href="#" class="header-link{{ request()->is('academicos') ? ' active' : '' }}" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">ACADÉMICOS</a>
                         <div class="dropdown-content academic-dropdown">
                             <div class="academic-dropdown-header">
                                 <h3>Académicos</h3>

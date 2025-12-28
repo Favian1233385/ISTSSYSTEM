@@ -30,16 +30,16 @@
 
     <form action="{{ route('admin.qas.store') }}" method="POST">
         @csrf
-        <div class="form-group">
-            <label for="question">Pregunta o Palabras Clave</label>
-            <input type="text" name="question" id="question" class="form-control" value="{{ old('question') }}" required>
+        <div class="form-group mb-4">
+            <label for="question" class="fw-semibold mb-2" style="font-size:1.08rem;">Pregunta o Palabras Clave</label>
+            <input type="text" name="question" id="question" class="admin-input w-100" value="{{ old('question') }}" required style="margin-bottom:0.5rem;">
             <small class="form-text text-muted">Puedes usar palabras clave separadas por comas (ej: hola, buenos días, saludo).</small>
         </div>
-        <div class="form-group">
-            <label for="answer">Respuesta</label>
-            <textarea name="answer" id="answer" class="form-control tinymce-editor" rows="5">{{ old('answer') }}</textarea>
+        <div class="form-group mb-4">
+            <label for="answer" class="fw-semibold mb-2" style="font-size:1.08rem;">Respuesta</label>
+            <textarea name="answer" id="answer" class="admin-input tinymce-editor w-100" rows="5" style="min-height:120px;">{{ old('answer') }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Añadir Q&A</button>
+        <button type="submit" class="btn btn-primary" style="min-width:160px; font-size:1.08rem;">Añadir Q&A</button>
     </form>
 </div>
 @endsection

@@ -16,7 +16,7 @@
                         <div class="career-card has-image">
                             <div class="career-image">
                                 @if($career->image_path)
-                                    <img src="{{ asset(ltrim($career->image_path, '/')) }}" alt="{{ $career->name }}" class="img-fluid">
+                                    <img src="{{ asset('storage/' . ltrim($career->image_path, '/')) }}" alt="{{ $career->name }}" class="img-fluid">
                                 @else
                                     <img src="{{ asset('assets/img/institucional-placeholder.png') }}" alt="{{ $career->name }}" class="img-fluid">
                                 @endif

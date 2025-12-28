@@ -1,8 +1,9 @@
 @extends('public.layout')
 
 @section('content')
-<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="margin-top:100px; border: 4px solid red;">
-    <div style="background: #ff0000; color: #fff; font-size: 2rem; text-align: center; padding: 1rem;">PRUEBA DE MODIFICACIÓN - SI VES ESTO, EL ARCHIVO ES CORRECTO</div>
+{{-- <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="margin-top:100px; border: 4px solid red;">
+    <div style="background: #ff0000; color: #fff; font-size: 2rem; text-align: center; padding: 1rem;">PRUEBA DE MODIFICACIÓN - SI VES ESTO, EL ARCHIVO ES CORRECTO</div> --}}
+<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg" style="margin-top:100px;">
     <div class="p-6 text-gray-900">
         <div class="career-title-container text-center" style="margin-bottom:2.5rem;">
             <h1 class="text-4xl font-bold mb-6">{{ $title }}</h1>

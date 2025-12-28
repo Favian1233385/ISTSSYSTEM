@@ -276,9 +276,12 @@
         </button>
 
         <div id="chatbot-window" class="chatbot-window" style="display: none;">
-            <div class="chatbot-header">
-                <h3>Asistente Virtual ISTS</h3>
-                <button id="chatbot-close" aria-label="Cerrar Chatbot">✕</button>
+            <div class="chatbot-header" style="display: flex; align-items: center; justify-content: space-between;">
+                <h3 style="margin:0;">Asistente Virtual ISTS</h3>
+                <div style="display: flex; gap: 8px;">
+                    <button id="chatbot-clear-history" title="Eliminar historial" style="background: none; border: none; color: #fff; font-size: 18px; cursor: pointer;">🗑️</button>
+                    <button id="chatbot-close" aria-label="Cerrar Chatbot">✕</button>
+                </div>
             </div>
 
             <div id="chatbot-messages" class="chatbot-messages">

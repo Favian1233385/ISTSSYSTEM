@@ -374,25 +374,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Agregar botón de limpiar historial
-    const header = document.querySelector('.chatbot-header');
-    if (header) {
-        const clearBtn = document.createElement('button');
-        clearBtn.textContent = '🗑️';
-        clearBtn.title = 'Eliminar historial';
-        clearBtn.style.marginLeft = '8px';
-        clearBtn.style.background = 'none';
-        clearBtn.style.border = 'none';
-        clearBtn.style.color = '#fff';
-        clearBtn.style.fontSize = '18px';
-        clearBtn.style.cursor = 'pointer';
+    // Listener para botón de limpiar historial
+    const clearBtn = document.getElementById('chatbot-clear-history');
+    if (clearBtn) {
         clearBtn.onclick = function(e) {
             e.stopPropagation();
             if (confirm('¿Seguro que deseas eliminar el historial de conversaciones?')) {
                 window.istsChatbot.clearHistory();
             }
         };
-        header.appendChild(clearBtn);
     }
 
     // --- INICIO: Autocompletado ChatBot (nombre y carrera por teléfono) ---

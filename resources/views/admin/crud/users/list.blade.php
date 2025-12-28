@@ -6,7 +6,7 @@
     <div class="dashboard-header">
         <h1>👥 Gestión de Usuarios</h1>
         <p>Administra los usuarios del sistema.</p>
-        <a href="{{ url('/users/create') }}" class="btn btn-primary">➕ Crear Usuario</a>
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">➕ Crear Usuario</a>
     </div>
 
     @if(session('success'))
@@ -57,12 +57,14 @@
                             @endif
                         </td>
                         <td class="actions">
-                            <a href="{{ route('admin.users.edit', $item->id) }}" class="btn btn-sm btn-edit">Editar</a>
-                            <form action="{{ route('admin.users.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                            </form>
+                            <div class="admin-action-buttons" style="display: flex; gap: 0.5em; justify-content: center; align-items: center;">
+                                <a href="{{ route('admin.users.edit', $item->id) }}" class="btn btn-sm btn-edit">Editar</a>
+                                <form action="{{ route('admin.users.destroy', $item->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 @empty

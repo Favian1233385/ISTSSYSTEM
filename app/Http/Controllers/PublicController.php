@@ -79,6 +79,9 @@ class PublicController extends Controller
     }
     public function home()
     {
+        // Incrementar visitas generales
+        DB::table('site_stats')->where('id', 1)->increment('total_visits');
+
         // Get misionVision content
         $misionVision = DB::table("contents")
             ->where("slug", "mision-y-vision")
@@ -334,6 +337,9 @@ class PublicController extends Controller
         if (!$content) {
             abort(404);
         }
+
+        // Incrementar vistas
+        DB::table("contents")->where("id", $content->id)->increment("views");
 
         // Asegurar que la vista reciba image_url para compatibilidad
         $content = (array) $content;

@@ -256,24 +256,16 @@ unset($__errorArgs, $__bag); ?>
                 </div>
             </div>
 
-            <div class="form-actions">
-                <div class="d-flex justify-content-end gap-2">
-                    <div class="row w-100">
-                        <div class="col-auto">
-                            <button type="submit" class="btn d-flex align-items-center gap-1" style="background: linear-gradient(90deg,#009e60,#f59e0b 90%); color: #fff; font-weight:600; box-shadow:0 2px 8px rgba(0,158,96,0.15); border-radius: 8px; padding: 0.65rem 1.3rem; font-size:1.05rem; transition:box-shadow 0.2s;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-                                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
-                                    <polyline points="7 3 7 8 15 8"></polyline>
-                                </svg>
-                                Crear Actualización
-                            </button>
-                        </div>
-                        <div class="col-auto">
-                            <a href="<?php echo e(route('admin.updates.index')); ?>" class="btn btn-secondary" style="border-radius:8px; font-weight:500; padding: 0.65rem 1.3rem; font-size:1.05rem;">Cancelar</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="admin-action-buttons">
+                <button type="submit" class="btn btn-primary d-flex align-items-center gap-1" style="background: linear-gradient(90deg,#009e60,#f59e0b 90%); color: #fff; font-weight:600; box-shadow:0 2px 8px rgba(0,158,96,0.15); border-radius: 8px; font-size:1.05rem; transition:box-shadow 0.2s;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Crear Actualización
+                </button>
+                <a href="<?php echo e(route('admin.updates.index')); ?>" class="btn btn-secondary" style="border-radius:8px; font-weight:500; font-size:1.05rem;">Cancelar</a>
             </div>
         </form>
     </div>

@@ -357,12 +357,12 @@ unset($__errorArgs, $__bag); ?>
                 </div>
 
                 <div class="admin-action-buttons">
-                    <a href="<?php echo e(route('admin.visit-sections.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
-                        <i class="bi bi-x-circle me-2"></i> Cancelar
-                    </a>
-                    <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
+                    <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="background: linear-gradient(90deg,#009e60,#f59e0b 90%); color: #fff; font-weight:600; box-shadow:0 2px 8px rgba(0,158,96,0.15); border-radius: 8px; font-size:1.05rem; transition:box-shadow 0.2s;">
                         <i class="bi bi-save me-2"></i> Guardar Sección
                     </button>
+                    <a href="<?php echo e(route('admin.visit-sections.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="border-radius:8px; font-weight:500; font-size:1.05rem;">
+                        <i class="bi bi-x-circle me-2"></i> Cancelar
+                    </a>
                 </div>
             </form>
         </div>

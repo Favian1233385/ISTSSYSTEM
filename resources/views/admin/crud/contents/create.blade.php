@@ -152,12 +152,12 @@
                             </div>
                         </div>
 
-                        <div class="admin-action-buttons">
+                        <div class="admin-action-buttons" style="display:flex !important; flex-direction:row !important; justify-content:flex-end !important; align-items:center !important; gap:1.2rem !important; width:100%; margin-top:1.5rem; margin-bottom:0;">
                             <a href="{{ route('admin.contents.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
                                 <i class="bi bi-x-circle me-2"></i> Cancelar
                             </a>
                             <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
-                                <i class="bi bi-save me-2"></i> Crear Contenido
+                                <i class="bi bi-save me-2"></i> Crear Sección
                             </button>
                         </div>
                     </form>

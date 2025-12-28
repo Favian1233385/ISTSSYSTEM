@@ -1,6 +1,6 @@
-@extends('admin.layout')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <style>
         .card-form {
             max-width: 480px;
@@ -75,14 +75,14 @@
                         <span style="font-size:2.2rem; color:#2563eb;">🔗</span>
                         <h2 class="fw-bold mb-0" style="font-size:1.7rem; letter-spacing:0.5px;">Crear nueva red social</h2>
                     </div>
-                    <a href="{{ route('admin.social_links.index') }}" class="btn btn-outline-primary fw-bold">← Volver</a>
+                    <a href="<?php echo e(route('admin.social_links.index')); ?>" class="btn btn-outline-primary fw-bold">← Volver</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="card-form">
-        <form method="POST" action="{{ route('admin.social_links.store') }}">
-            @csrf
+        <form method="POST" action="<?php echo e(route('admin.social_links.store')); ?>">
+            <?php echo csrf_field(); ?>
             <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" name="name" id="name" class="form-control" required>
@@ -105,7 +105,7 @@
                 <label for="active" class="form-check-label">Activo</label>
             </div>
             <div class="admin-action-buttons" style="display:flex !important; flex-direction:row !important; justify-content:flex-end !important; align-items:center !important; gap:1.2rem !important; width:100%; margin-top:1.5rem; margin-bottom:0;">
-                <a href="{{ route('admin.social_links.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
+                <a href="<?php echo e(route('admin.social_links.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
                     <i class="bi bi-x-circle me-2"></i> Cancelar
                 </a>
                 <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center">
@@ -114,4 +114,6 @@
             </div>
         </form>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/social_links/create.blade.php ENDPATH**/ ?>

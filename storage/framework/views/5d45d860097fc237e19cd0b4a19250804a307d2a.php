@@ -1,46 +1,44 @@
-@extends('layouts.admin')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="admin-content">
     <div class="dashboard-header">
         <h1>👩‍🏫 Editar Docente</h1>
         <p>Modifica el formulario para editar un docente.</p>
     </div>
 
-    @if($errors->any())
+    <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-    @endif
+    <?php endif; ?>
 
-    <form class="card p-4 shadow-sm mx-auto" style="max-width:900px; min-width:340px;" method="POST" action="{{ route('admin.teachers.update', $item->id) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+    <form class="card p-4 shadow-sm mx-auto" style="max-width:900px; min-width:340px;" method="POST" action="<?php echo e(route('admin.teachers.update', $item->id)); ?>" enctype="multipart/form-data">
+        <?php echo csrf_field(); ?>
+        <?php echo method_field('PUT'); ?>
         <div class="mb-3">
             <label for="name" class="form-label fw-bold text-primary">Nombre</label>
-            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $item->name) }}" required>
+            <input type="text" name="name" id="name" class="form-control" value="<?php echo e(old('name', $item->name)); ?>" required>
         </div>
         <div class="mb-3">
             <label for="title" class="form-label fw-bold text-primary">Título</label>
-            <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $item->title) }}">
+            <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $item->title)); ?>">
         </div>
         <div class="row mb-3">
             <div class="col">
                 <label for="department" class="form-label fw-bold text-primary">Departamento</label>
-                <input type="text" name="department" id="department" class="form-control" value="{{ old('department', $item->department) }}">
+                <input type="text" name="department" id="department" class="form-control" value="<?php echo e(old('department', $item->department)); ?>">
             </div>
             <div class="col">
                 <label for="order" class="form-label fw-bold text-primary">Orden</label>
-                <input type="number" name="order" id="order" value="{{ old('order', $item->order) }}" class="form-control">
+                <input type="number" name="order" id="order" value="<?php echo e(old('order', $item->order)); ?>" class="form-control">
             </div>
         </div>
         <div class="mb-3">
             <label for="bio" class="form-label fw-bold text-primary">Biografía</label>
-            <textarea name="bio" id="bio" class="form-control tinymce-editor">{{ old('bio', $item->bio) }}</textarea>
+            <textarea name="bio" id="bio" class="form-control tinymce-editor"><?php echo e(old('bio', $item->bio)); ?></textarea>
         </div>
         <div class="row mb-3">
             <div class="col">
@@ -53,7 +51,7 @@
             </div>
         </div>
         <div style="display:flex !important; flex-direction:row !important; justify-content:flex-end !important; align-items:center !important; gap:1.2rem !important; width:100%; margin-top:1.5rem; margin-bottom:0;">
-            <a href="{{ route('admin.teachers.index') }}" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="min-width:130px; height:48px; border-radius:10px; font-size:1.08rem; transition:box-shadow .2s,background .2s; margin-bottom:0;">
+            <a href="<?php echo e(route('admin.teachers.index')); ?>" class="btn btn-secondary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="min-width:130px; height:48px; border-radius:10px; font-size:1.08rem; transition:box-shadow .2s,background .2s; margin-bottom:0;">
                 <i class="bi bi-x-circle me-2"></i> Cancelar
             </a>
             <button type="submit" class="btn btn-primary shadow-sm fw-semibold border-0 d-flex align-items-center justify-content-center" style="min-width:170px; height:48px; border-radius:10px; font-size:1.08rem; transition:box-shadow .2s,background .2s; margin-bottom:0;">
@@ -62,4 +60,6 @@
         </div>
     </form>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ISTSSYSTEM\resources\views/admin/teachers/edit.blade.php ENDPATH**/ ?>

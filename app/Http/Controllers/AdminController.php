@@ -51,6 +51,8 @@ class AdminController extends Controller
 
         $totalNews = \App\Models\News::count();
         $totalContents = (new \App\Models\Content())->count();
+        $totalUsers = (new \App\Models\User())->count();
+        $totalViews = (new \App\Models\Content())->getTotalViews();
         return view("admin.dashboard", [
             "title" => "Dashboard - ISTS Admin",
             "academicSections" => $academicSections,
@@ -58,6 +60,8 @@ class AdminController extends Controller
             "visitSections" => $visitSections,
             "totalNews" => $totalNews,
             "totalContents" => $totalContents,
+            "totalUsers" => $totalUsers,
+            "totalViews" => $totalViews,
         ]);
     }
 

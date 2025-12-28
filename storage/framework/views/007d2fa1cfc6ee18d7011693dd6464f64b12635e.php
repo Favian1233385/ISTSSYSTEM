@@ -95,7 +95,7 @@
         <div class="stat-card">
             <div class="stat-icon">👥</div>
             <div class="stat-content">
-                <h3><?php echo e($stats['total_users'] ?? 0); ?></h3>
+                    <h3><?php echo e($totalUsers ?? 0); ?></h3>
                 <p>Usuarios Registrados</p>
             </div>
         </div>
@@ -103,7 +103,7 @@
         <div class="stat-card">
             <div class="stat-icon">👁️</div>
             <div class="stat-content">
-                <h3><?php echo e($stats['total_views'] ?? 0); ?></h3>
+                <h3><?php echo e($totalViews ?? 0); ?></h3>
                 <p>Vistas Totales</p>
             </div>
         </div>

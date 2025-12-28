@@ -93,7 +93,7 @@
         <div class="stat-card">
             <div class="stat-icon">👥</div>
             <div class="stat-content">
-                <h3>{{ $stats['total_users'] ?? 0 }}</h3>
+                    <h3>{{ $totalUsers ?? 0 }}</h3>
                 <p>Usuarios Registrados</p>
             </div>
         </div>
@@ -101,7 +101,7 @@
         <div class="stat-card">
             <div class="stat-icon">👁️</div>
             <div class="stat-content">
-                <h3>{{ $stats['total_views'] ?? 0 }}</h3>
+                <h3>{{ $totalViews ?? 0 }}</h3>
                 <p>Vistas Totales</p>
             </div>
         </div>

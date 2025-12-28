@@ -1,5 +1,3 @@
-
-
 <?php
 use App\Models\AcademicProgram;
 // Endpoint para detalles de un programa (curso) de educación continua
@@ -56,4 +54,4 @@ Route::get('/chatbot/contacto/buscar', function (Request $request) {
         return response()->json(['found' => false]);
     }
 });
-
+require_once __DIR__.'/api_chatbot_careers.php';

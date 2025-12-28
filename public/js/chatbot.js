@@ -86,9 +86,14 @@ class ISTSChatbot {
         let nombre = document.getElementById('chatbot-nombre').value.trim();
         let telefono = document.getElementById('chatbot-telefono').value.trim();
         let carrera = '';
-        const carreraInput = document.getElementById('chatbot-carrera');
-        if (carreraInput) {
-            carrera = carreraInput.value.trim();
+        const carreraSelect = document.getElementById('chatbot-carrera');
+        const carreraOtro = document.getElementById('chatbot-carrera-otro');
+        if (carreraSelect) {
+            if (carreraSelect.value === '__otro__' && carreraOtro) {
+                carrera = carreraOtro.value.trim();
+            } else {
+                carrera = carreraSelect.value.trim();
+            }
         }
         if (!nombre || nombre.length > 30) {
             alert('El nombre es obligatorio y debe tener máximo 30 caracteres.');
@@ -335,7 +340,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <form id="chatbot-userinfo-form">
                         <input type="text" id="chatbot-nombre" name="nombre" placeholder="Tu nombre y apellido" maxlength="30" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$" title="Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
                         <input type="tel" id="chatbot-telefono" name="telefono" placeholder="Teléfono" maxlength="10" minlength="10" pattern="^[0-9]{10}$" inputmode="numeric" title="Solo 10 dígitos" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
-                        <input type="text" id="chatbot-carrera" name="carrera" placeholder="Carrera de interés" maxlength="150" style="width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" required autocomplete="off" />
+                        <select id="chatbot-carrera" name="carrera" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;">
+                            <option value="" disabled selected>Selecciona una carrera de interés</option>
+                        </select>
+                        <input type="text" id="chatbot-carrera-otro" name="carrera_otro" placeholder="Especifica otra carrera" maxlength="150" style="width:100%; margin-bottom:1.1rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc; display:none;" autocomplete="off" />
                     <button type="submit" style="width:100%; background:#009e60; color:#fff; font-weight:600; border:none; border-radius:8px; padding:0.8rem; font-size:1.1rem; cursor:pointer;">Comenzar chat</button>
                 </form>
             </div>
@@ -411,7 +419,6 @@ document.head.insertAdjacentHTML('beforeend', chatbotStyles);
 
 // --- FIN: Código del ChatBot ---
 
-// ...existing code...
 /**
  * JavaScript Principal - Sistema ISTS
  * Funcionalidades básicas del sitio web
@@ -812,3 +819,61 @@ if (document.readyState === "loading") {
 } else {
     initScrollReveal();
 }
+
+// --- INICIO: Cargar carreras dinámicamente y gestionar opción 'Otro' ---
+function cargarCarrerasChatbot() {
+    fetch('/api/chatbot/carreras')
+        .then(res => res.json())
+        .then(data => {
+            const select = document.getElementById('chatbot-carrera');
+            if (!select) return;
+            // Limpiar opciones previas
+            select.innerHTML = '<option value="" disabled selected>Selecciona una carrera de interés</option>';
+            if (data.careers && Array.isArray(data.careers)) {
+                data.careers.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.name;
+                    opt.textContent = c.name;
+                    select.appendChild(opt);
+                });
+            }
+            // Opción Otro
+            const optOtro = document.createElement('option');
+            optOtro.value = '__otro__';
+            optOtro.textContent = 'Otro (especificar)';
+            select.appendChild(optOtro);
+        });
+}
+
+function gestionarCarreraOtro() {
+    const select = document.getElementById('chatbot-carrera');
+    const inputOtro = document.getElementById('chatbot-carrera-otro');
+    if (!select || !inputOtro) return;
+    select.addEventListener('change', function() {
+        if (this.value === '__otro__') {
+            inputOtro.style.display = 'block';
+            inputOtro.required = true;
+        } else {
+            inputOtro.style.display = 'none';
+            inputOtro.required = false;
+        }
+    });
+}
+
+// Llamar al cargar el modal
+// Si el modal se crea dinámicamente, observarlo
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('chatbot-carrera')) {
+        cargarCarrerasChatbot();
+        gestionarCarreraOtro();
+    }
+    const observer = new MutationObserver(() => {
+        if (document.getElementById('chatbot-carrera')) {
+            cargarCarrerasChatbot();
+            gestionarCarreraOtro();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+// --- FIN: Cargar carreras dinámicamente y gestionar opción 'Otro' ---

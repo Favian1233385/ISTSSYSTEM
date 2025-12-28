@@ -125,12 +125,12 @@
                             </small>
                         </div>
 
-                        <div class="d-flex gap-2">
+                        <div class="admin-action-buttons mt-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-save"></i> Guardar Slide
+                                <i class="bi bi-save me-1"></i> Guardar Slide
                             </button>
                             <a href="{{ route('admin.hero-slides.index') }}" class="btn btn-secondary">
-                                Cancelar
+                                <i class="bi bi-x-circle me-1"></i> Cancelar
                             </a>
                         </div>
                     </form>

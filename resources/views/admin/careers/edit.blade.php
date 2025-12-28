@@ -248,12 +248,12 @@
                     </div>
                 </div>
 
-                <div class="mt-4">
+                <div class="admin-action-buttons mt-4">
                     <button type="submit" class="btn btn-primary" id="submitBtn">
-                        <i class="bi bi-check-circle"></i> Actualizar Carrera
+                        <i class="bi bi-check-circle me-1"></i> Actualizar Carrera
                     </button>
                     <a href="{{ route('admin.careers.index') }}" class="btn btn-secondary">
-                        Cancelar
+                        <i class="bi bi-x-circle me-1"></i> Cancelar
                     </a>
                 </div>
             </form>

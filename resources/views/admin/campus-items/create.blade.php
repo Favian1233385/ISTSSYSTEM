@@ -69,11 +69,13 @@
                     <label class="form-check-label" for="is_active">Activo</label>
                 </div>
             </div>
-            <div class="d-flex gap-3 mt-4">
-                <button type="submit" class="btn" style="background: linear-gradient(90deg,#009e60,#f9d423 90%); color: #fff; font-weight:600; border-radius:8px; padding:0.75em 2em; font-size:1.1em; min-width:130px; max-width:180px; display:flex; align-items:center; gap:0.5em; justify-content:center;">
-                    <i class="fas fa-save"></i> Guardar
+            <div class="admin-action-buttons mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save me-1"></i> Guardar
                 </button>
-                <a href="{{ route('admin.campus-items.index') }}" class="btn" style="background: #253b7d; color: #fff; font-weight:600; border-radius:8px; padding:0.75em 2em; font-size:1.1em; min-width:130px; max-width:180px; display:flex; align-items:center; gap:0.5em; justify-content:center;">Cancelar</a>
+                <a href="{{ route('admin.campus-items.index') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle me-1"></i> Cancelar
+                </a>
             </div>
         </form>
     </div>

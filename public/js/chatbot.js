@@ -486,6 +486,9 @@ function initChatbotUserinfoAutocomplete() {
                         // Si no existe, limpiar los campos
                         nombreInput.value = '';
                         carreraInput.value = '';
+                        if (typeof $(carreraInput).trigger === 'function') {
+                            $(carreraInput).val('').trigger('change');
+                        }
                         console.log('[ChatBot] No se encontró contacto, campos limpiados');
                     }
                 })

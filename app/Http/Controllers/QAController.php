@@ -13,10 +13,10 @@ class QAController extends Controller
         $this->middleware('is_admin')->except('responder');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $qas = QA::paginate(10);
-        
+
         // Cargar estadísticas de mensajes para la pestaña de conversaciones
         $messageStats = [
             'total' => \App\Models\ChatMessage::count(),
@@ -24,11 +24,29 @@ class QAController extends Controller
             'week' => \App\Models\ChatMessage::where('created_at', '>=', now()->subDays(7))->count(),
             'sessions' => \App\Models\ChatMessage::distinct('session_id')->count('session_id'),
         ];
-        
+
+        // Obtener contactos filtrados y paginados igual que en ChatbotContactController
+        $query = \App\Models\ChatbotContact::query();
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where(function($q) use ($search) {
+                $q->where('nombre', 'like', "%$search%")
+                  ->orWhere('telefono', 'like', "%$search%") ;
+            });
+        }
+        if ($request->filled('carrera')) {
+            $query->where('carrera', $request->input('carrera'));
+        }
+        $contacts = $query->select(['id', 'nombre', 'telefono', 'carrera', 'created_at'])
+            ->orderByDesc('created_at')
+            ->paginate(25)
+            ->appends($request->all());
+
         return view('admin.qas.index', [
             'title' => 'Gestión de Chatbot - ISTS Admin',
             'items' => $qas,
             'messageStats' => $messageStats,
+            'contacts' => $contacts,
         ]);
     }
 

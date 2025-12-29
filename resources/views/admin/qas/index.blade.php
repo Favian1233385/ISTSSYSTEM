@@ -299,48 +299,7 @@
 
     <!-- Tab Content: Contactos Chatbot -->
     <div id="contacts-content" class="tab-content">
-        <h2 style="display:flex;align-items:center;gap:8px;font-size:1.5rem;">
-            <span style="font-size:1.7rem;">📇</span> Contactos del Chatbot
-        </h2>
-        <div style="margin:1.2rem 0 2.2rem 0; display:flex; gap:1rem; flex-wrap:wrap;">
-            <a href="{{ route('admin.chatbot.contacts.export') }}" class="btn btn-success" style="font-weight:600;">
-                ⬇️ Descargar Excel
-            </a>
-            <form action="{{ route('admin.chatbot.contacts.destroyAll') }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar todos los contactos? Esta acción no se puede deshacer.');">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger" style="font-weight:600;">
-                    🗑️ Eliminar todos los contactos
-                </button>
-            </form>
-        </div>
-        <div class="table-responsive" style="margin-top:1.5rem;">
-            <table class="table table-bordered table-hover align-middle" style="background:#fff; border-radius:12px; overflow:hidden;">
-                <thead class="table-light">
-                    <tr style="background:#f3f6fd; color:#2563eb;">
-                        <th style="width:60px;">#</th>
-                        <th style="min-width:180px;">Nombre</th>
-                        <th style="min-width:150px;">Teléfono</th>
-                        <th style="min-width:180px;">Carrera</th>
-                        <th style="min-width:180px;">Fecha de Registro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(\App\Models\ChatbotContact::orderByDesc('created_at')->take(50)->get() as $contact)
-                        <tr>
-                            <td style="text-align:center;font-weight:600;">{{ $contact->id }}</td>
-                            <td style="text-transform:capitalize;">👤 {{ ucwords(strtolower($contact->nombre)) }}</td>
-                            <td><span class="badge bg-success" style="font-size:1rem;letter-spacing:1px;">{{ $contact->telefono }}</span></td>
-                            <td>{{ $contact->carrera }}</td>
-                            <td><span style="color:#1976d2;font-weight:500;">{{ $contact->created_at->format('d/m/Y H:i') }}</span></td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="alert alert-info mt-3">
-            <strong>ℹ️ Nota:</strong> Se muestran los últimos 50 contactos registrados.
-        </div>
+        @include('admin.chatbot.contacts_block', ['contacts' => $contacts])
     </div>
 </div>
 

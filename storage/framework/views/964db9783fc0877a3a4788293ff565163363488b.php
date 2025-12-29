@@ -9,7 +9,7 @@
         </h2>
         <div style="margin:1.2rem 0 2.2rem 0;">
             <!-- Fila de filtros -->
-            <form method="GET" action="<?php echo e(route('admin.chatbot.contacts')); ?>" class="d-flex flex-row flex-wrap align-items-end" style="gap:1rem; margin-bottom:0;">
+            <form method="GET" action="<?php echo e(route('admin.chatbot.contacts')); ?>" class="d-flex flex-row flex-wrap align-items-end gap-3" style="margin-bottom:0;">
                 <input type="text" name="search" class="form-control" placeholder="Buscar por nombre o teléfono" value="<?php echo e(request('search')); ?>" style="max-width:210px; min-width:180px; height:42px; padding:0.375rem 0.75rem;">
                 <select name="carrera" class="form-select" style="max-width:180px; min-width:150px; height:42px; padding:0.375rem 0.75rem;">
                     <option value="">-- Todas las carreras --</option>
@@ -17,14 +17,69 @@
                         <option value="<?php echo e($c->carrera); ?>" <?php if(request('carrera') == $c->carrera): ?> selected <?php endif; ?>><?php echo e($c->carrera); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
-                <button type="submit" class="btn btn-primary" style="height:42px; padding:0.375rem 1.25rem;">Filtrar</button>
-                <button type="button" class="btn btn-secondary" style="height:42px; padding:0.375rem 1.25rem;" onclick="this.form.reset(); window.location.href=window.location.pathname;">Limpiar</button>
+                <button type="submit" class="btn btn-primary fw-semibold" style="height:42px; padding:0.375rem 1.25rem; min-width:130px;">Filtrar</button>
+                <button type="button" class="btn btn-secondary fw-semibold" style="height:42px; padding:0.375rem 1.25rem; min-width:130px;" onclick="this.form.reset(); window.location.href=window.location.pathname;">Limpiar</button>
+                <a href="<?php echo e(route('admin.chatbot.contacts.export')); ?>" class="btn fw-semibold excel-btn" style="height:42px; padding:0.375rem 1.25rem; min-width:220px; max-width:220px; display:inline-flex; align-items:center; justify-content:center;">Descargar Excel</a>
+                                        <style>
+                                        .excel-btn {
+                                            background: linear-gradient(90deg, #21A366 0%, #43e97b 100%) !important;
+                                            color: #fff !important;
+                                            border: none;
+                                            box-shadow: 0 2px 8px 0 rgba(33,163,102,0.10);
+                                            border-radius: 0.5rem;
+                                            font-weight: 600;
+                                            font-size: 1rem;
+                                            transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+                                        }
+                                        .excel-btn:hover, .excel-btn:focus {
+                                            background: linear-gradient(90deg, #43e97b 0%, #21A366 100%) !important;
+                                            color: #fff !important;
+                                            box-shadow: 0 4px 16px 0 rgba(33,163,102,0.18);
+                                            transform: translateY(-2px) scale(1.03);
+                                            text-decoration: none;
+                                        }
+                                        </style>
+                            <style>
+                            .excel-btn {
+                                background: linear-gradient(90deg, #21A366 0%, #43e97b 100%) !important;
+                                color: #fff !important;
+                                border: none;
+                                box-shadow: 0 2px 8px 0 rgba(33,163,102,0.10);
+                                border-radius: 0.5rem;
+                                font-weight: 600;
+                                font-size: 1rem;
+                                transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+                            }
+                            .excel-btn:hover, .excel-btn:focus {
+                                background: linear-gradient(90deg, #43e97b 0%, #21A366 100%) !important;
+                                color: #fff !important;
+                                box-shadow: 0 4px 16px 0 rgba(33,163,102,0.18);
+                                transform: translateY(-2px) scale(1.03);
+                                text-decoration: none;
+                            }
+                            </style>
+                <button type="button" class="btn btn-danger fw-semibold" style="height:42px; padding:0.375rem 1.25rem; min-width:170px;" onclick="if(confirm('¿Estás seguro de eliminar todos los contactos? Esta acción no se puede deshacer.')){ document.getElementById('delete-all-contacts-form').submit(); }">Eliminar todos los contactos</button>
             </form>
-            <!-- Fila de acciones -->
-            <div class="d-flex flex-row justify-content-between align-items-center mt-2" style="gap:1rem; width:100%;">
-                 <a href="<?php echo e(route('admin.chatbot.contacts.export')); ?>" class="btn btn-success btn-lg fw-semibold m-0">⬇️ Descargar Excel</a>
-                 <button type="button" class="btn btn-danger btn-lg fw-semibold m-0" onclick="if(confirm('¿Estás seguro de eliminar todos los contactos? Esta acción no se puede deshacer.')){ document.getElementById('delete-all-contacts-form').submit(); }">🗑️ Eliminar todos los contactos</button>
-            </div>
+            <style>
+            .excel-btn {
+                background: linear-gradient(90deg, #21A366 0%, #43e97b 100%);
+                color: #fff !important;
+                border: none;
+                box-shadow: 0 2px 8px 0 rgba(33,163,102,0.15);
+                border-radius: 0.5rem;
+                transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+                font-weight: 600;
+                font-size: 1.1rem;
+                padding: 0.375rem 1.25rem;
+            }
+            .excel-btn:hover, .excel-btn:focus {
+                background: linear-gradient(90deg, #43e97b 0%, #21A366 100%);
+                color: #fff !important;
+                box-shadow: 0 4px 16px 0 rgba(33,163,102,0.25);
+                transform: translateY(-2px) scale(1.03);
+                text-decoration: none;
+            }
+            </style>
             <form id="delete-all-contacts-form" action="<?php echo e(route('admin.chatbot.contacts.destroyAll')); ?>" method="POST" style="display:none;">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('DELETE'); ?>

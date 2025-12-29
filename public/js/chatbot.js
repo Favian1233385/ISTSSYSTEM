@@ -162,6 +162,16 @@ class ISTSChatbot {
             setTimeout(() => {
                 window.classList.add('active');
             }, 10);
+            // Si no hay mensajes, mostrar el mensaje de bienvenida
+            const messagesContainer = document.getElementById('chatbot-messages');
+            if (messagesContainer && messagesContainer.children.length === 0) {
+                const welcomeDiv = document.createElement('div');
+                welcomeDiv.className = 'bot-message';
+                const welcomeP = document.createElement('p');
+                welcomeP.innerHTML = '¡Hola! 👋 Soy el asistente virtual del ISTS. ¿En qué puedo ayudarte?';
+                welcomeDiv.appendChild(welcomeP);
+                messagesContainer.appendChild(welcomeDiv);
+            }
             this.focusInput();
         } else {
             window.classList.remove('active');
@@ -224,11 +234,14 @@ class ISTSChatbot {
         this.saveChatHistory();
         const messagesContainer = document.getElementById('chatbot-messages');
         if (messagesContainer) {
-            const welcomeMessage = messagesContainer.querySelector('.bot-message:first-child');
             messagesContainer.innerHTML = '';
-            if (welcomeMessage) {
-                messagesContainer.appendChild(welcomeMessage);
-            }
+            // Siempre mostrar el mensaje de bienvenida
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'bot-message';
+            const welcomeP = document.createElement('p');
+            welcomeP.innerHTML = '¡Hola! 👋 Soy el asistente virtual del ISTS. ¿En qué puedo ayudarte?';
+            welcomeDiv.appendChild(welcomeP);
+            messagesContainer.appendChild(welcomeDiv);
         }
     }
 
@@ -386,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- INICIO: Autocompletado ChatBot (nombre y carrera por teléfono) ---
-    observeChatbotUserinfoForm();
+    // observeChatbotUserinfoForm(); // Eliminado para evitar error de referencia duplicada
     // --- FIN: Autocompletado ---
 });
 

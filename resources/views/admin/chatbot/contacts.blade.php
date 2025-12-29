@@ -7,6 +7,11 @@
     <h2 class="mb-4">Contactos del Chatbot</h2>
     <div class="card">
         <div class="card-body">
+            <pre>
+@php
+    dd($contacts);
+@endphp
+</pre>
             <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>
@@ -38,5 +43,8 @@
             </div>
         </div>
     </div>
+    @foreach($contacts as $contact)
+        <pre>{{ var_dump($contact) }}</pre>
+    @endforeach
 </div>
 @endsection

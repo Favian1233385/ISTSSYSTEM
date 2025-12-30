@@ -24,10 +24,10 @@
                         @foreach ($heroSlides as $index => $slide)
                             @if($slide->image_path)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }} h-100">
-                                <img src="{{ asset('uploads/images/' . $slide->image_path) }}"
+                                <img src="{{ asset('storage/uploads/images/' . $slide->image_path) }}"
                                     class="d-block w-100 h-100 object-fit-cover" alt="{{ $slide->title }}"
                                     style="object-fit:cover;"
-                                    onerror="this.src='{{ asset('uploads/images/placeholder.jpg') }}'">
+                                    onerror="this.src='{{ asset('storage/uploads/images/placeholder.jpg') }}'">
 
                                 <div
                                     class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
@@ -141,7 +141,7 @@
                                 @elseif($career->image_path_2)
                                     <img src="{{ asset('storage/' . $career->image_path_2) }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
                                 @else
-                                    <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                                    <img src="{{ asset('storage/uploads/images/placeholder.jpg') }}" alt="{{ $career->name }}" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
                                 @endif
                             </div>
                             <div class="career-info">
@@ -229,9 +229,9 @@
                                     if(is_array($n->images) && count($n->images) > 0) {
                                         $imgSrc = asset('storage/' . ltrim($n->images[0], '/'));
                                     } elseif($n->is_event && isset($n->image_path) && $n->image_path) {
-                                        $imgSrc = asset('uploads/images/' . $n->image_path);
+                                        $imgSrc = asset('storage/uploads/images/' . $n->image_path);
                                     } else {
-                                        $imgSrc = asset('uploads/images/placeholder.jpg');
+                                        $imgSrc = asset('storage/uploads/images/placeholder.jpg');
                                     }
                                 @endphp
                                 <img src="{{ $imgSrc }}" alt="{{ $n->title }}" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;">

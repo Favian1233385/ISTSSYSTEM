@@ -28,7 +28,7 @@
         <div class="mb-3">
             <label for="image" class="form-label">Imagen actual</label><br>
             @if($heroSlide->image_path)
-                <img src="{{ asset('uploads/images/' . $heroSlide->image_path) }}" 
+                <img src="{{ asset('storage/uploads/images/' . $heroSlide->image_path) }}" 
                      alt="{{ $heroSlide->title }}" 
                      style="width: 100px;">
             @endif

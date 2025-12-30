@@ -47,7 +47,7 @@
                         @if($event->images->count())
                             <img src="{{ asset('storage/' . ltrim($event->images->first()->image_path, '/')) }}" alt="{{ $event->title }}" style="width:100%; height:100%; object-fit:cover; display:block;">
                         @else
-                            <img src="{{ asset('uploads/images/placeholder.jpg') }}" alt="{{ $event->title }}" style="width:100%; height:100%; object-fit:cover; display:block;">
+                            <img src="{{ asset('storage/uploads/images/placeholder.jpg') }}" alt="{{ $event->title }}" style="width:100%; height:100%; object-fit:cover; display:block;">
                         @endif
                     </div>
                     <div class="news-content" style="padding:1.3rem 1.2rem 1.2rem 1.2rem; flex:1; display:flex; flex-direction:column;">

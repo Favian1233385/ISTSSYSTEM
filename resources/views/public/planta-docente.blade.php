@@ -72,7 +72,7 @@
                                 @if($teacher->image_path)
                                     <img src="{{ asset('storage/' . $teacher->image_path) }}" alt="{{ $teacher->name }}" class="team-member-img">
                                 @else
-                                    <img src="{{ asset('uploads/images/profe.jpg') }}" alt="Imagen por defecto docente" class="team-member-img">
+                                    <img src="{{ asset('storage/uploads/images/profe.jpg') }}" alt="Imagen por defecto docente" class="team-member-img">
                                 @endif
                                 <div class="team-member-info">
                                     <h3>{{ $teacher->name }}</h3>

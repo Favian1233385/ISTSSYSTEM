@@ -33,7 +33,7 @@
                             <td>{{ $slide->subtitle }}</td>
                             <td>
                                 @if($slide->image_path)
-                                    <img src="{{ asset('uploads/images/' . $slide->image_path) }}" alt="{{ $slide->title }}" style="width: 90px; border-radius:8px; box-shadow:0 2px 8px rgba(0,158,96,0.10);">
+                                    <img src="{{ asset('storage/uploads/images/' . $slide->image_path) }}" alt="{{ $slide->title }}" style="width: 90px; border-radius:8px; box-shadow:0 2px 8px rgba(0,158,96,0.10);">
                                 @endif
                             </td>
                             <td>{{ $slide->link }}</td>

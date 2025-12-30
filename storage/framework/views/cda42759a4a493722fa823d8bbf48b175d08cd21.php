@@ -24,10 +24,10 @@
                         <?php $__currentLoopData = $heroSlides; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $slide): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($slide->image_path): ?>
                             <div class="carousel-item <?php echo e($index === 0 ? 'active' : ''); ?> h-100">
-                                <img src="<?php echo e(asset('uploads/images/' . $slide->image_path)); ?>"
+                                <img src="<?php echo e(asset('storage/uploads/images/' . $slide->image_path)); ?>"
                                     class="d-block w-100 h-100 object-fit-cover" alt="<?php echo e($slide->title); ?>"
                                     style="object-fit:cover;"
-                                    onerror="this.src='<?php echo e(asset('uploads/images/placeholder.jpg')); ?>'">
+                                    onerror="this.src='<?php echo e(asset('storage/uploads/images/placeholder.jpg')); ?>'">
 
                                 <div
                                     class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
@@ -143,7 +143,7 @@
                                 <?php elseif($career->image_path_2): ?>
                                     <img src="<?php echo e(asset('storage/' . $career->image_path_2)); ?>" alt="<?php echo e($career->name); ?>" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
                                 <?php else: ?>
-                                    <img src="<?php echo e(asset('uploads/images/placeholder.jpg')); ?>" alt="<?php echo e($career->name); ?>" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
+                                    <img src="<?php echo e(asset('storage/uploads/images/placeholder.jpg')); ?>" alt="<?php echo e($career->name); ?>" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
                                 <?php endif; ?>
                             </div>
                             <div class="career-info">
@@ -231,9 +231,9 @@
                                     if(is_array($n->images) && count($n->images) > 0) {
                                         $imgSrc = asset('storage/' . ltrim($n->images[0], '/'));
                                     } elseif($n->is_event && isset($n->image_path) && $n->image_path) {
-                                        $imgSrc = asset('uploads/images/' . $n->image_path);
+                                        $imgSrc = asset('storage/uploads/images/' . $n->image_path);
                                     } else {
-                                        $imgSrc = asset('uploads/images/placeholder.jpg');
+                                        $imgSrc = asset('storage/uploads/images/placeholder.jpg');
                                     }
                                 ?>
                                 <img src="<?php echo e($imgSrc); ?>" alt="<?php echo e($n->title); ?>" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block;">

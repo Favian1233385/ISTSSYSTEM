@@ -51,7 +51,7 @@
                     @if($autoridad->foto_path)
                         <div class="mb-2">
                             <p>Foto actual:</p>
-                            <img src="{{ asset('uploads/images/' . $autoridad->foto_path) }}" alt="Foto actual" style="max-width: 200px; height: auto;">
+                            <img src="{{ asset('storage/uploads/images/' . $autoridad->foto_path) }}" alt="Foto actual" style="max-width: 200px; height: auto;">
                         </div>
                     @endif
                     <div class="custom-file-upload">

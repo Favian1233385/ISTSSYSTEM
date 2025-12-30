@@ -178,7 +178,7 @@
                                     <ul>
                                         @foreach($campusItems ?? [] as $campusItem)
                                             <li>
-                                                <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;">{{ $campusItem->title }}</a>
+                                                <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;"@if($campusItem->is_external) target="_blank" rel="noopener"@endif>{{ $campusItem->title }}</a>
                                             </li>
                                         @endforeach
                                     </ul>

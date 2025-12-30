@@ -6,6 +6,7 @@
     <meta name="description" content="Contacta con el Instituto Superior Tecnológico Sudamericano - Información de contacto y formulario">
     <title>{{ $title ?? 'Contacto - ISTS' }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
     <style>
         .contact-hero {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);

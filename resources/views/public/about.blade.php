@@ -6,6 +6,7 @@
     <meta name="description" content="Conoce más sobre el Instituto Superior Tecnológico Sudamericano - Nuestra historia, misión y visión">
     <title>{{ $title ?? 'Sobre Nosotros - ISTS' }}</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
 </head>
 <body>
     <!-- Header -->

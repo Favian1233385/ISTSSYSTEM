@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/harvard-exact.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
 </head>
 <body>
 

@@ -149,12 +149,7 @@
                                     if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
                                         $imgSrc = $imgPath;
                                     } else {
-                                        // Si ya incluye 'storage/' o 'uploads/', no anteponer nada
-                                        if (strpos($imgPath, 'storage/') === 0 || strpos($imgPath, '/uploads') === 0 || strpos($imgPath, 'uploads/') === 0) {
-                                            $imgSrc = asset(ltrim($imgPath, '/'));
-                                        } else {
-                                            $imgSrc = asset('storage/' . ltrim($imgPath, '/'));
-                                        }
+                                        $imgSrc = asset('storage/' . ltrim($imgPath, '/'));
                                     }
                                 } else {
                                     $imgSrc = asset('assets/img/institucional-placeholder.png');

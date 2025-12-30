@@ -6,6 +6,7 @@
     <title>{{ $title ?? 'Página no encontrada - ISTS Sucúa' }}</title>
     <link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public/css/harvard-style.css') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
     <style>
         .not-found-container {
             min-height: 60vh;

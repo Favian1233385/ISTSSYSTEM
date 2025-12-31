@@ -334,7 +334,7 @@
             }
         </style>
     </div>
-        }
+        
         </style>
 
 @endsection

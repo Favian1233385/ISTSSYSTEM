@@ -1,0 +1,1503 @@
+[Version]
+Signature   = "$Windows NT$"
+Class       = Extension
+ClassGuid   = {e2f84ce7-8efa-411c-aa69-97454ca4cb57}
+ExtensionId = {C9E60437-C33A-4A3E-95C1-918F4F1A07C2}
+Provider    = %ProviderName%
+CatalogFile = DiracExt.cat
+DriverVer = 03/28/2023,1.0.1.46
+PnPLockDown = 1
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[DestinationDirs]
+DefaultDestDir = 13
+
+[SourceDisksNames]
+1 = %DiskId1%
+
+[SourceDisksFiles]
+X1402ZA_10431E72_230125v08.dar = 1
+X1402ZA_10431E72_230125v08.json = 1
+B1402CBA_10431D6F_230125v010.dar = 1
+B1402CBA_10431D6F_230125v010.json = 1
+B1402CBA_10431D7F_230125v010.dar = 1
+B1402CBA_10431D7F_230125v010.json = 1
+B1402CBA_10431D8F_230125v010.dar = 1
+B1402CBA_10431D8F_230125v010.json = 1
+B1402CGA_10431D9F_230125v010.dar = 1
+B1402CGA_10431D9F_230125v010.json = 1
+B1402CGA_10431DAF_230125v010.dar = 1
+B1402CGA_10431DAF_230125v010.json = 1
+B1402CGA_10431DBF_230125v010.dar = 1
+B1402CGA_10431DBF_230125v010.json = 1
+B1402CBA_104315C3_230125v010.dar = 1
+B1402CBA_104315C3_230125v010.json = 1
+B1402CGA_104315D3_230125v010.dar = 1
+B1402CGA_104315D3_230125v010.json = 1
+b1402cva_10431a73_230307v10-01.dar = 1
+b1402cva_10431a73_230307v10-01.json = 1
+b1402cva_104337D0_230307v10-01.dar = 1
+b1402cva_104337D0_230307v10-01.json = 1
+b1402cva_104337E0_230307v10-01.dar = 1
+b1402cva_104337E0_230307v10-01.json = 1
+B1502CBA_10431E2F_230125v09.dar = 1
+B1502CBA_10431E2F_230125v09.json = 1
+B1502CBA_10431E3F_230125v09.dar = 1
+B1502CBA_10431E3F_230125v09.json = 1
+B1502CBA_10431E4F_230125v09.dar = 1
+B1502CBA_10431E4F_230125v09.json = 1
+B1502CBA_10431E5F_230125v09.dar = 1
+B1502CBA_10431E5F_230125v09.json = 1
+B1502CGA_10431E6F_230125v09.dar = 1
+B1502CGA_10431E6F_230125v09.json = 1
+B1502CGA_10431E7F_230125v09.dar = 1
+B1502CGA_10431E7F_230125v09.json = 1
+B1502CGA_10431E8F_230125v09.dar = 1
+B1502CGA_10431E8F_230125v09.json = 1
+B1502CGA_10431E9F_230125v09.dar = 1
+B1502CGA_10431E9F_230125v09.json = 1
+B1502CVA_104337F0_230307v09-01.dar = 1
+B1502CVA_104337F0_230307v09-01.json = 1
+B1502CVA_10433800_230307v09-01.dar = 1
+B1502CVA_10433800_230307v09-01.json = 1
+B1502CVA_10433810_230307v09-01.dar = 1
+B1502CVA_10433810_230307v09-01.json = 1
+BR1102CGA_104315E3_230209v072-01a.dar = 1
+BR1102CGA_104315E3_230209v072-01a.json = 1
+BR1402CGA_10431963_230307v01-01.dar = 1
+BR1402CGA_10431963_230307v01-01.json = 1
+BR1402CGA_10433740_230307v01-01.dar = 1
+BR1402CGA_10433740_230307v01-01.json = 1
+BR1402CGA_10433750_230307v01-01.dar = 1
+BR1402CGA_10433750_230307v01-01.json = 1
+BR1402FGA_10433760_230307v01-01.dar = 1
+BR1402FGA_10433760_230307v01-01.json = 1
+BR1402FGA_10433770_230307v01-01.dar = 1
+BR1402FGA_10433770_230307v01-01.json = 1
+BR1402FGA_10433780_230307v01-01.dar = 1
+BR1402FGA_10433780_230307v01-01.json = 1
+d500me_10432740_230125v09.dar = 1
+d500me_10432740_230125v09.json = 1
+D500TE_10432720_230125v09.dar = 1
+D500TE_10432720_230125v09.json = 1
+d700me_10432750_230125v09.dar = 1
+d700me_10432750_230125v09.json = 1
+D700TE_10432730_230125v09.dar = 1
+D700TE_10432730_230125v09.json = 1
+E1404GA_104318F3_230125v03.dar = 1
+E1404GA_104318F3_230125v03.json = 1
+E1504GA_10433650_230209v02-02a.dar = 1
+E1504GA_10433650_230209v02-02a.json = 1
+k3405z_10431893_230209v02-1.dar = 1
+k3405z_10431893_230209v02-1.json = 1
+K3604VA_104315F3_230209v021-04-01a.dar = 1
+K3604VA_104315F3_230209v021-04-01a.json = 1
+k3605z_104318B3_230125_v02.dar = 1
+k3605z_104318B3_230125_v02.json = 1
+K3704VA_104317A3_230125v03.dar = 1
+K3704VA_104317A3_230125v03.json = 1
+X1404VA_10431623_230125v09.dar = 1
+X1404VA_10431623_230125v09.json = 1
+X1405VA_10431773_230125v14.dar = 1
+X1405VA_10431773_230125v14.json = 1
+X1502VA_104317B3_230125v08.dar = 1
+X1502VA_104317B3_230125v08.json = 1
+X1504VA_10431E1F_230125v09.dar = 1
+X1504VA_10431E1F_230125v09.json = 1
+X1505VA_10431803_230125v07.dar = 1
+X1505VA_10431803_230125v07.json = 1
+X1605VA_10431743_230125v08.dar = 1
+X1605VA_10431743_230125v08.json = 1
+X1704VA_104316B3_230125v08.dar = 1
+X1704VA_104316B3_230125v08.json = 1
+k3504va_10431793_230209v051-02.dar = 1
+k3504va_10431793_230209v051-02.json = 1
+d900md_10432780_230125v09.dar = 1
+d900md_10432780_230125v09.json = 1
+d900sd_10432790_230125v09.dar = 1
+d900sd_10432790_230125v09.json = 1
+B2402CVA_10431903_230125v03.dar = 1
+B2402CVA_10431903_230125v03.json = 1
+B2402CVA_10433660_230125v03.dar = 1
+B2402CVA_10433660_230125v03.json = 1
+B2402CVA_10433670_230125v03.dar = 1
+B2402CVA_10433670_230125v03.json = 1
+B2402FVA_104336B0_230125v03.dar = 1
+B2402FVA_104336B0_230125v03.json = 1
+B2402FVA_104336C0_230125v03.dar = 1
+B2402FVA_104336C0_230125v03.json = 1
+B2402FVA_104336D0_230125v03.dar = 1
+B2402FVA_104336D0_230125v03.json = 1
+B2502CVA_10433680_230125v03.dar = 1
+B2502CVA_10433680_230125v03.json = 1
+B2502CVA_10433690_230125v03.dar = 1
+B2502CVA_10433690_230125v03.json = 1
+B2502CVA_104336A0_230125v03.dar = 1
+B2502CVA_104336A0_230125v03.json = 1
+B2502FVA_104336E0_230125v03.dar = 1
+B2502FVA_104336E0_230125v03.json = 1
+B2502FVA_104336F0_230125v03.dar = 1
+B2502FVA_104336F0_230125v03.json = 1
+B2502FVA_10433700_230125v03.dar = 1
+B2502FVA_10433700_230125v03.json = 1
+I1403VA_104319D3_230221v02-01.dar = 1
+I1403VA_104319D3_230221v02-01.json = 1
+K3605VV_104319B3_230125v08.dar = 1
+K3605VV_104319B3_230125v08.json = 1
+M1605XA_10431A13_230224v01-01.dar = 1
+M1605XA_10431A13_230224v01-01.json = 1
+UM5302_104315DF_230125v08.dar = 1
+UM5302_104315DF_230125v08.json = 1
+
+[Manufacturer]
+%MfgName% = Dirac,NTamd64.10.0...17763
+
+[Dirac.NTamd64.10.0...17763]
+%Device.ExtensionDesc% = DiracExt_10431E72,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E72
+%Device.ExtensionDesc% = DiracExt_10431D8F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431D8F
+%Device.ExtensionDesc% = DiracExt_10431D7F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431D7F
+%Device.ExtensionDesc% = DiracExt_10431D6F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431D6F
+%Device.ExtensionDesc% = DiracExt_104315C3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104315C3
+%Device.ExtensionDesc% = DiracExt_10431DBF,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431DBF
+%Device.ExtensionDesc% = DiracExt_10431DAF,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431DAF
+%Device.ExtensionDesc% = DiracExt_10431D9F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431D9F
+%Device.ExtensionDesc% = DiracExt_104315D3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104315D3
+%Device.ExtensionDesc% = DiracExt_10431A73,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431A73
+%Device.ExtensionDesc% = DiracExt_104337D0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104337D0
+%Device.ExtensionDesc% = DiracExt_104337E0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104337E0
+%Device.ExtensionDesc% = DiracExt_10431E5F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E5F
+%Device.ExtensionDesc% = DiracExt_10431E4F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E4F
+%Device.ExtensionDesc% = DiracExt_10431E3F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E3F
+%Device.ExtensionDesc% = DiracExt_10431E2F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E2F
+%Device.ExtensionDesc% = DiracExt_10431E9F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E9F
+%Device.ExtensionDesc% = DiracExt_10431E8F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E8F
+%Device.ExtensionDesc% = DiracExt_10431E7F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E7F
+%Device.ExtensionDesc% = DiracExt_10431E6F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E6F
+%Device.ExtensionDesc% = DiracExt_104337F0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104337F0
+%Device.ExtensionDesc% = DiracExt_10433800,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433800
+%Device.ExtensionDesc% = DiracExt_10433810,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433810
+%Device.ExtensionDesc% = DiracExt_104315E3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104315E3
+%Device.ExtensionDesc% = DiracExt_10432720,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432720
+%Device.ExtensionDesc% = DiracExt_10432730,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432730
+%Device.ExtensionDesc% = DiracExt_10432740,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432740
+%Device.ExtensionDesc% = DiracExt_10432740,HDAUDIO\FUNC_01&VEN_10EC&DEV_0887&SUBSYS_10432740
+%Device.ExtensionDesc% = DiracExt_10432750,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432750
+%Device.ExtensionDesc% = DiracExt_10432750,HDAUDIO\FUNC_01&VEN_10EC&DEV_0887&SUBSYS_10432750
+%Device.ExtensionDesc% = DiracExt_104315F3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104315F3
+%Device.ExtensionDesc% = DiracExt_104317A3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104317A3
+%Device.ExtensionDesc% = DiracExt_10431623,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431623
+%Device.ExtensionDesc% = DiracExt_10431773,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431773
+%Device.ExtensionDesc% = DiracExt_104317B3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104317B3
+%Device.ExtensionDesc% = DiracExt_10431E1F,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431E1F
+%Device.ExtensionDesc% = DiracExt_10431803,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431803
+%Device.ExtensionDesc% = DiracExt_10431743,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431743
+%Device.ExtensionDesc% = DiracExt_104316B3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104316B3
+%Device.ExtensionDesc% = DiracExt_10431893,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431893
+%Device.ExtensionDesc% = DiracExt_104318B3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104318B3
+%Device.ExtensionDesc% = DiracExt_104318F3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104318F3
+%Device.ExtensionDesc% = DiracExt_10433650,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433650
+%Device.ExtensionDesc% = DiracExt_10431793,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431793
+%Device.ExtensionDesc% = DiracExt_10432780,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432780
+%Device.ExtensionDesc% = DiracExt_10432790,HDAUDIO\FUNC_01&VEN_10EC&DEV_0897&SUBSYS_10432790
+%Device.ExtensionDesc% = DiracExt_10431903,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431903
+%Device.ExtensionDesc% = DiracExt_10433660,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433660
+%Device.ExtensionDesc% = DiracExt_10433670,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433670
+%Device.ExtensionDesc% = DiracExt_104336B0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336B0
+%Device.ExtensionDesc% = DiracExt_104336C0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336C0
+%Device.ExtensionDesc% = DiracExt_104336D0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336D0
+%Device.ExtensionDesc% = DiracExt_10433680,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433680
+%Device.ExtensionDesc% = DiracExt_10433690,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433690
+%Device.ExtensionDesc% = DiracExt_104336A0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336A0
+%Device.ExtensionDesc% = DiracExt_104336E0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336E0
+%Device.ExtensionDesc% = DiracExt_104336F0,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104336F0
+%Device.ExtensionDesc% = DiracExt_10433700,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433700
+%Device.ExtensionDesc% = DiracExt_10431963,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431963
+%Device.ExtensionDesc% = DiracExt_10433740,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433740
+%Device.ExtensionDesc% = DiracExt_10433750,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433750
+%Device.ExtensionDesc% = DiracExt_10433760,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433760
+%Device.ExtensionDesc% = DiracExt_10433770,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433770
+%Device.ExtensionDesc% = DiracExt_10433780,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10433780
+%Device.ExtensionDesc% = DiracExt_104319B3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104319B3
+%Device.ExtensionDesc% = DiracExt_104319D3,INTELAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_104319D3
+%Device.ExtensionDesc% = DiracExt_10431A13,HDAUDIO\FUNC_01&VEN_10EC&DEV_0256&SUBSYS_10431A13
+%Device.ExtensionDesc% = DiracExt_104315DF,HDAUDIO\FUNC_01&VEN_10EC&DEV_0294&SUBSYS_104315DF
+
+[DiracExt_10431E72]
+AddReg    = Dirac.AddReg, Dirac_10431E72.AddReg
+CopyFiles = Dirac_10431E72.CopyResourceFiles
+
+[DiracExt_10431E72.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E72.AddReg]
+HKCR,SOFTWARE\Dirac,"X1402ZA_10431E72_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1402ZA_10431E72_230125v08.json",,JsonResource
+HKR, Dirac\Resource,DarResource,,"X1402ZA_10431E72_230125v08.dar"
+HKR, Dirac\Resource,JsonResource,,"X1402ZA_10431E72_230125v08.json"
+
+[Dirac_10431E72.CopyResourceFiles]
+X1402ZA_10431E72_230125v08.dar
+X1402ZA_10431E72_230125v08.json
+
+[DiracExt_10431D8F]
+AddReg    = Dirac.AddReg, Dirac_10431D8F.AddReg
+CopyFiles = Dirac_10431D8F.CopyResourceFiles
+
+[DiracExt_10431D8F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431D8F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D8F_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D8F_230125v010.json",,JsonResource
+HKR, Dirac\Resource,DarResource,,"B1402CBA_10431D8F_230125v010.dar"
+HKR, Dirac\Resource,JsonResource,,"B1402CBA_10431D8F_230125v010.json"
+
+[Dirac_10431D8F.CopyResourceFiles]
+B1402CBA_10431D8F_230125v010.dar
+B1402CBA_10431D8F_230125v010.json
+
+[DiracExt_10431D7F]
+AddReg    = Dirac.AddReg, Dirac_10431D7F.AddReg
+CopyFiles = Dirac_10431D7F.CopyResourceFiles
+
+[DiracExt_10431D7F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431D7F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D7F_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D7F_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CBA_10431D7F_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CBA_10431D7F_230125v010.json"
+
+[Dirac_10431D7F.CopyResourceFiles]
+B1402CBA_10431D7F_230125v010.dar
+B1402CBA_10431D7F_230125v010.json
+
+[DiracExt_10431D6F]
+AddReg    = Dirac.AddReg, Dirac_10431D6F.AddReg
+CopyFiles = Dirac_10431D6F.CopyResourceFiles
+
+[DiracExt_10431D6F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431D6F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D6F_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CBA_10431D6F_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CBA_10431D6F_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CBA_10431D6F_230125v010.json"
+
+[Dirac_10431D6F.CopyResourceFiles]
+B1402CBA_10431D6F_230125v010.dar
+B1402CBA_10431D6F_230125v010.json
+
+[DiracExt_10431D9F]
+AddReg    = Dirac.AddReg, Dirac_10431D9F.AddReg
+CopyFiles = Dirac_10431D9F.CopyResourceFiles
+
+[DiracExt_10431D9F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431D9F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431D9F_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431D9F_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CGA_10431D9F_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CGA_10431D9F_230125v010.json"
+
+[Dirac_10431D9F.CopyResourceFiles]
+B1402CGA_10431D9F_230125v010.dar
+B1402CGA_10431D9F_230125v010.json
+
+[DiracExt_10431DAF]
+AddReg    = Dirac.AddReg, Dirac_10431DAF.AddReg
+CopyFiles = Dirac_10431DAF.CopyResourceFiles
+
+[DiracExt_10431DAF.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431DAF.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431DAF_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431DAF_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CGA_10431DAF_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CGA_10431DAF_230125v010.json"
+
+[Dirac_10431DAF.CopyResourceFiles]
+B1402CGA_10431DAF_230125v010.dar
+B1402CGA_10431DAF_230125v010.json
+
+[DiracExt_10431DBF]
+AddReg    = Dirac.AddReg, Dirac_10431DBF.AddReg
+CopyFiles = Dirac_10431DBF.CopyResourceFiles
+
+[DiracExt_10431DBF.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431DBF.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431DBF_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CGA_10431DBF_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CGA_10431DBF_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CGA_10431DBF_230125v010.json"
+
+[Dirac_10431DBF.CopyResourceFiles]
+B1402CGA_10431DBF_230125v010.dar
+B1402CGA_10431DBF_230125v010.json
+
+[DiracExt_10431E2F]
+AddReg    = Dirac.AddReg, Dirac_10431E2F.AddReg
+CopyFiles = Dirac_10431E2F.CopyResourceFiles
+
+[DiracExt_10431E2F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E2F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E2F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E2F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CBA_10431E2F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CBA_10431E2F_230125v09.json"
+
+[Dirac_10431E2F.CopyResourceFiles]
+B1502CBA_10431E2F_230125v09.dar
+B1502CBA_10431E2F_230125v09.json
+
+[DiracExt_10431E3F]
+AddReg    = Dirac.AddReg, Dirac_10431E3F.AddReg
+CopyFiles = Dirac_10431E3F.CopyResourceFiles
+
+[DiracExt_10431E3F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E3F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E3F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E3F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CBA_10431E3F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CBA_10431E3F_230125v09.json"
+
+[Dirac_10431E3F.CopyResourceFiles]
+B1502CBA_10431E3F_230125v09.dar
+B1502CBA_10431E3F_230125v09.json
+
+[DiracExt_10431E4F]
+AddReg    = Dirac.AddReg, Dirac_10431E4F.AddReg
+CopyFiles = Dirac_10431E4F.CopyResourceFiles
+
+[DiracExt_10431E4F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E4F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E4F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E4F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CBA_10431E4F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CBA_10431E4F_230125v09.json"
+
+[Dirac_10431E4F.CopyResourceFiles]
+B1502CBA_10431E4F_230125v09.dar
+B1502CBA_10431E4F_230125v09.json
+
+[DiracExt_10431E5F]
+AddReg    = Dirac.AddReg, Dirac_10431E5F.AddReg
+CopyFiles = Dirac_10431E5F.CopyResourceFiles
+
+[DiracExt_10431E5F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E5F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E5F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CBA_10431E5F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CBA_10431E5F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CBA_10431E5F_230125v09.json"
+
+[Dirac_10431E5F.CopyResourceFiles]
+B1502CBA_10431E5F_230125v09.dar
+B1502CBA_10431E5F_230125v09.json
+
+[DiracExt_10431E6F]
+AddReg    = Dirac.AddReg, Dirac_10431E6F.AddReg
+CopyFiles = Dirac_10431E6F.CopyResourceFiles
+
+[DiracExt_10431E6F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E6F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E6F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E6F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CGA_10431E6F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CGA_10431E6F_230125v09.json"
+
+[Dirac_10431E6F.CopyResourceFiles]
+B1502CGA_10431E6F_230125v09.dar
+B1502CGA_10431E6F_230125v09.json
+
+[DiracExt_10431E7F]
+AddReg    = Dirac.AddReg, Dirac_10431E7F.AddReg
+CopyFiles = Dirac_10431E7F.CopyResourceFiles
+
+[DiracExt_10431E7F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E7F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E7F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E7F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CGA_10431E7F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CGA_10431E7F_230125v09.json"
+
+[Dirac_10431E7F.CopyResourceFiles]
+B1502CGA_10431E7F_230125v09.dar
+B1502CGA_10431E7F_230125v09.json
+
+[DiracExt_10431E8F]
+AddReg    = Dirac.AddReg, Dirac_10431E8F.AddReg
+CopyFiles = Dirac_10431E8F.CopyResourceFiles
+
+[DiracExt_10431E8F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E8F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E8F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E8F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CGA_10431E8F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CGA_10431E8F_230125v09.json"
+
+[Dirac_10431E8F.CopyResourceFiles]
+B1502CGA_10431E8F_230125v09.dar
+B1502CGA_10431E8F_230125v09.json
+
+[DiracExt_10431E9F]
+AddReg    = Dirac.AddReg, Dirac_10431E9F.AddReg
+CopyFiles = Dirac_10431E9F.CopyResourceFiles
+
+[DiracExt_10431E9F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E9F.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E9F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CGA_10431E9F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CGA_10431E9F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CGA_10431E9F_230125v09.json"
+
+[Dirac_10431E9F.CopyResourceFiles]
+B1502CGA_10431E9F_230125v09.dar
+B1502CGA_10431E9F_230125v09.json
+
+[DiracExt_104315E3]
+AddReg    = Dirac.AddReg, Dirac_104315E3.AddReg
+CopyFiles = Dirac_104315E3.CopyResourceFiles
+
+[DiracExt_104315E3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104315E3.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1102CGA_104315E3_230209v072-01a.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1102CGA_104315E3_230209v072-01a.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1102CGA_104315E3_230209v072-01a.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1102CGA_104315E3_230209v072-01a.json"
+
+[Dirac_104315E3.CopyResourceFiles]
+BR1102CGA_104315E3_230209v072-01a.dar
+BR1102CGA_104315E3_230209v072-01a.json
+
+[DiracExt_104315C3]
+AddReg    = Dirac.AddReg, Dirac_104315C3.AddReg
+CopyFiles = Dirac_104315C3.CopyResourceFiles
+
+[DiracExt_104315C3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104315C3.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CBA_104315C3_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CBA_104315C3_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CBA_104315C3_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CBA_104315C3_230125v010.json"
+
+[Dirac_104315C3.CopyResourceFiles]
+B1402CBA_104315C3_230125v010.dar
+B1402CBA_104315C3_230125v010.json
+
+[DiracExt_104315D3]
+AddReg    = Dirac.AddReg, Dirac_104315D3.AddReg
+CopyFiles = Dirac_104315D3.CopyResourceFiles
+
+[DiracExt_104315D3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104315D3.AddReg]
+HKCR,SOFTWARE\Dirac,"B1402CGA_104315D3_230125v010.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1402CGA_104315D3_230125v010.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1402CGA_104315D3_230125v010.dar"
+HKR,Dirac\Resource,JsonResource,,"B1402CGA_104315D3_230125v010.json"
+
+[Dirac_104315D3.CopyResourceFiles]
+B1402CGA_104315D3_230125v010.dar
+B1402CGA_104315D3_230125v010.json
+
+[Dirac_10431A73.CopyResourceFiles]
+b1402cva_10431a73_230307v10-01.dar
+b1402cva_10431a73_230307v10-01.json
+
+[DiracExt_10431A73]
+AddReg    = Dirac.AddReg, Dirac_10431A73.AddReg
+CopyFiles = Dirac_10431A73.CopyResourceFiles
+
+[DiracExt_10431A73.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431A73.AddReg]
+HKCR,SOFTWARE\Dirac,"b1402cva_10431a73_230307v10-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"b1402cva_10431a73_230307v10-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"b1402cva_10431a73_230307v10-01.dar"
+HKR,Dirac\Resource,JsonResource,,"b1402cva_10431a73_230307v10-01.json"
+
+[Dirac_104337D0.CopyResourceFiles]
+b1402cva_104337D0_230307v10-01.dar
+b1402cva_104337D0_230307v10-01.json
+
+[DiracExt_104337D0]
+AddReg    = Dirac.AddReg, Dirac_104337D0.AddReg
+CopyFiles = Dirac_104337D0.CopyResourceFiles
+
+[DiracExt_104337D0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104337D0.AddReg]
+HKCR,SOFTWARE\Dirac,"b1402cva_104337D0_230307v10-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"b1402cva_104337D0_230307v10-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"b1402cva_104337D0_230307v10-01.dar"
+HKR,Dirac\Resource,JsonResource,,"b1402cva_104337D0_230307v10-01.json"
+
+[Dirac_104337E0.CopyResourceFiles]
+b1402cva_104337E0_230307v10-01.dar
+b1402cva_104337E0_230307v10-01.json
+
+[DiracExt_104337E0]
+AddReg    = Dirac.AddReg, Dirac_104337E0.AddReg
+CopyFiles = Dirac_104337E0.CopyResourceFiles
+
+[DiracExt_104337E0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104337E0.AddReg]
+HKCR,SOFTWARE\Dirac,"b1402cva_104337E0_230307v10-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"b1402cva_104337E0_230307v10-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"b1402cva_104337E0_230307v10-01.dar"
+HKR,Dirac\Resource,JsonResource,,"b1402cva_104337E0_230307v10-01.json"
+
+[Dirac_104337F0.CopyResourceFiles]
+B1502CVA_104337F0_230307v09-01.dar
+B1502CVA_104337F0_230307v09-01.json
+
+[DiracExt_104337F0]
+AddReg    = Dirac.AddReg, Dirac_104337F0.AddReg
+CopyFiles = Dirac_104337F0.CopyResourceFiles
+
+[DiracExt_104337F0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104337F0.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CVA_104337F0_230307v09-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CVA_104337F0_230307v09-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CVA_104337F0_230307v09-01.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CVA_104337F0_230307v09-01.json"
+
+[Dirac_10433800.CopyResourceFiles]
+B1502CVA_10433800_230307v09-01.dar
+B1502CVA_10433800_230307v09-01.json
+
+[DiracExt_10433800]
+AddReg    = Dirac.AddReg, Dirac_10433800.AddReg
+CopyFiles = Dirac_10433800.CopyResourceFiles
+
+[DiracExt_10433800.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433800.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CVA_10433800_230307v09-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CVA_10433800_230307v09-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CVA_10433800_230307v09-01.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CVA_10433800_230307v09-01.json"
+
+[Dirac_10433810.CopyResourceFiles]
+B1502CVA_10433810_230307v09-01.dar
+B1502CVA_10433810_230307v09-01.json
+
+[DiracExt_10433810]
+AddReg    = Dirac.AddReg, Dirac_10433810.AddReg
+CopyFiles = Dirac_10433810.CopyResourceFiles
+
+[DiracExt_10433810.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433810.AddReg]
+HKCR,SOFTWARE\Dirac,"B1502CVA_10433810_230307v09-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B1502CVA_10433810_230307v09-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B1502CVA_10433810_230307v09-01.dar"
+HKR,Dirac\Resource,JsonResource,,"B1502CVA_10433810_230307v09-01.json"
+
+[DiracExt_10432720]
+AddReg    = Dirac.AddReg, Dirac_10432720.AddReg
+CopyFiles = Dirac_10432720.CopyResourceFiles
+
+[DiracExt_10432720.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10432720.AddReg]
+HKCR,SOFTWARE\Dirac,"D500TE_10432720_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"D500TE_10432720_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"D500TE_10432720_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"D500TE_10432720_230125v09.json"
+
+[Dirac_10432720.CopyResourceFiles]
+D500TE_10432720_230125v09.dar
+D500TE_10432720_230125v09.json
+
+[DiracExt_10432730]
+AddReg    = Dirac.AddReg, Dirac_10432730.AddReg
+CopyFiles = Dirac_10432730.CopyResourceFiles
+
+[DiracExt_10432730.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10432730.AddReg]
+HKCR,SOFTWARE\Dirac,"D700TE_10432730_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"D700TE_10432730_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"D700TE_10432730_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"D700TE_10432730_230125v09.json"
+
+[Dirac_10432730.CopyResourceFiles]
+D700TE_10432730_230125v09.dar
+D700TE_10432730_230125v09.json
+
+[DiracExt_10432740]
+AddReg    = Dirac.AddReg, Dirac_10432740.AddReg
+CopyFiles = Dirac_10432740.CopyResourceFiles
+
+[DiracExt_10432740.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10432740.AddReg]
+HKCR,SOFTWARE\Dirac,"d500me_10432740_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"d500me_10432740_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"d500me_10432740_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"d500me_10432740_230125v09.json"
+
+[Dirac_10432740.CopyResourceFiles]
+d500me_10432740_230125v09.dar
+d500me_10432740_230125v09.json
+
+[DiracExt_10432750]
+AddReg    = Dirac.AddReg, Dirac_10432750.AddReg
+CopyFiles = Dirac_10432750.CopyResourceFiles
+
+[DiracExt_10432750.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10432750.AddReg]
+HKCR,SOFTWARE\Dirac,"d700me_10432750_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"d700me_10432750_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"d700me_10432750_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"d700me_10432750_230125v09.json"
+
+[Dirac_10432750.CopyResourceFiles]
+d700me_10432750_230125v09.dar
+d700me_10432750_230125v09.json
+
+[DiracExt_104315F3]
+AddReg    = Dirac.AddReg, Dirac_104315F3.AddReg
+CopyFiles = Dirac_104315F3.CopyResourceFiles
+
+[DiracExt_104315F3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104315F3.AddReg]
+HKCR,SOFTWARE\Dirac,"K3604VA_104315F3_230209v021-04-01a.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"K3604VA_104315F3_230209v021-04-01a.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"K3604VA_104315F3_230209v021-04-01a.dar"
+HKR,Dirac\Resource,JsonResource,,"K3604VA_104315F3_230209v021-04-01a.json"
+
+[Dirac_104315F3.CopyResourceFiles]
+K3604VA_104315F3_230209v021-04-01a.dar
+K3604VA_104315F3_230209v021-04-01a.json
+
+[DiracExt_104317A3]
+AddReg    = Dirac.AddReg, Dirac_104317A3.AddReg
+CopyFiles = Dirac_104317A3.CopyResourceFiles
+
+[DiracExt_104317A3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104317A3.AddReg]
+HKCR,SOFTWARE\Dirac,"K3704VA_104317A3_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"K3704VA_104317A3_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"K3704VA_104317A3_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"K3704VA_104317A3_230125v03.json"
+
+[Dirac_104317A3.CopyResourceFiles]
+K3704VA_104317A3_230125v03.dar
+K3704VA_104317A3_230125v03.json
+
+[DiracExt_10431623]
+AddReg    = Dirac.AddReg, Dirac_10431623.AddReg
+CopyFiles = Dirac_10431623.CopyResourceFiles
+
+[DiracExt_10431623.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431623.AddReg]
+HKCR,SOFTWARE\Dirac,"X1404VA_10431623_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1404VA_10431623_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1404VA_10431623_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"X1404VA_10431623_230125v09.json"
+
+[Dirac_10431623.CopyResourceFiles]
+X1404VA_10431623_230125v09.dar
+X1404VA_10431623_230125v09.json
+
+[DiracExt_10431773]
+AddReg    = Dirac.AddReg, Dirac_10431773.AddReg
+CopyFiles = Dirac_10431773.CopyResourceFiles
+
+[DiracExt_10431773.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431773.AddReg]
+HKCR,SOFTWARE\Dirac,"X1405VA_10431773_230125v14.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1405VA_10431773_230125v14.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1405VA_10431773_230125v14.dar"
+HKR,Dirac\Resource,JsonResource,,"X1405VA_10431773_230125v14.json"
+
+[Dirac_10431773.CopyResourceFiles]
+X1405VA_10431773_230125v14.dar
+X1405VA_10431773_230125v14.json
+
+[DiracExt_104317B3]
+AddReg    = Dirac.AddReg, Dirac_104317B3.AddReg
+CopyFiles = Dirac_104317B3.CopyResourceFiles
+
+[DiracExt_104317B3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104317B3.AddReg]
+HKCR,SOFTWARE\Dirac,"X1502VA_104317B3_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1502VA_104317B3_230125v08.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1502VA_104317B3_230125v08.dar"
+HKR,Dirac\Resource,JsonResource,,"X1502VA_104317B3_230125v08.json"
+
+[Dirac_104317B3.CopyResourceFiles]
+X1502VA_104317B3_230125v08.dar
+X1502VA_104317B3_230125v08.json
+
+[DiracExt_10431E1F]
+AddReg    = Dirac.AddReg, Dirac_10431E1F.AddReg
+CopyFiles = Dirac_10431E1F.CopyResourceFiles
+
+[DiracExt_10431E1F.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431E1F.AddReg]
+HKCR,SOFTWARE\Dirac,"X1504VA_10431E1F_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1504VA_10431E1F_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1504VA_10431E1F_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"X1504VA_10431E1F_230125v09.json"
+
+[Dirac_10431E1F.CopyResourceFiles]
+X1504VA_10431E1F_230125v09.dar
+X1504VA_10431E1F_230125v09.json
+
+[DiracExt_10431803]
+AddReg    = Dirac.AddReg, Dirac_10431803.AddReg
+CopyFiles = Dirac_10431803.CopyResourceFiles
+
+[DiracExt_10431803.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431803.AddReg]
+HKCR,SOFTWARE\Dirac,"X1505VA_10431803_230125v07.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1505VA_10431803_230125v07.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1505VA_10431803_230125v07.dar"
+HKR,Dirac\Resource,JsonResource,,"X1505VA_10431803_230125v07.json"
+
+[Dirac_10431803.CopyResourceFiles]
+X1505VA_10431803_230125v07.dar
+X1505VA_10431803_230125v07.json
+
+[DiracExt_10431743]
+AddReg    = Dirac.AddReg, Dirac_10431743.AddReg
+CopyFiles = Dirac_10431743.CopyResourceFiles
+
+[DiracExt_10431743.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431743.AddReg]
+HKCR,SOFTWARE\Dirac,"X1605VA_10431743_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1605VA_10431743_230125v08.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1605VA_10431743_230125v08.dar"
+HKR,Dirac\Resource,JsonResource,,"X1605VA_10431743_230125v08.json"
+
+[Dirac_10431743.CopyResourceFiles]
+X1605VA_10431743_230125v08.dar
+X1605VA_10431743_230125v08.json
+
+[DiracExt_104316B3]
+AddReg    = Dirac.AddReg, Dirac_104316B3.AddReg
+CopyFiles = Dirac_104316B3.CopyResourceFiles
+
+[DiracExt_104316B3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104316B3.AddReg]
+HKCR,SOFTWARE\Dirac,"X1704VA_104316B3_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"X1704VA_104316B3_230125v08.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"X1704VA_104316B3_230125v08.dar"
+HKR,Dirac\Resource,JsonResource,,"X1704VA_104316B3_230125v08.json"
+
+[Dirac_104316B3.CopyResourceFiles]
+X1704VA_104316B3_230125v08.dar
+X1704VA_104316B3_230125v08.json
+
+[DiracExt_10431893]
+AddReg    = Dirac.AddReg, Dirac_10431893.AddReg
+CopyFiles = Dirac_10431893.CopyResourceFiles
+
+[DiracExt_10431893.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431893.AddReg]
+HKCR,SOFTWARE\Dirac,"k3405z_10431893_230209v02-1.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"k3405z_10431893_230209v02-1.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"k3405z_10431893_230209v02-1.dar"
+HKR,Dirac\Resource,JsonResource,,"k3405z_10431893_230209v02-1.json"
+
+[Dirac_10431893.CopyResourceFiles]
+k3405z_10431893_230209v02-1.dar
+k3405z_10431893_230209v02-1.json
+
+[DiracExt_104318b3]
+AddReg    = Dirac.AddReg, Dirac_104318b3.AddReg
+CopyFiles = Dirac_104318b3.CopyResourceFiles
+
+[DiracExt_104318b3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104318b3.AddReg]
+HKCR,SOFTWARE\Dirac,"k3605z_104318B3_230125_v02.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"k3605z_104318B3_230125_v02.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"k3605z_104318B3_230125_v02.dar"
+HKR,Dirac\Resource,JsonResource,,"k3605z_104318B3_230125_v02.json"
+
+[Dirac_104318b3.CopyResourceFiles]
+k3605z_104318B3_230125_v02.dar
+k3605z_104318B3_230125_v02.json
+
+[DiracExt_104318F3]
+AddReg    = Dirac.AddReg, Dirac_104318F3.AddReg
+CopyFiles = Dirac_104318F3.CopyResourceFiles
+
+[DiracExt_104318F3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104318F3.AddReg]
+HKCR,SOFTWARE\Dirac,"E1404GA_104318F3_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"E1404GA_104318F3_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"E1404GA_104318F3_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"E1404GA_104318F3_230125v03.json"
+
+[Dirac_104318F3.CopyResourceFiles]
+E1404GA_104318F3_230125v03.dar
+E1404GA_104318F3_230125v03.json
+
+[DiracExt_10433650]
+AddReg    = Dirac.AddReg, Dirac_10433650.AddReg
+CopyFiles = Dirac_10433650.CopyResourceFiles
+
+[DiracExt_10433650.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433650.AddReg]
+HKCR,SOFTWARE\Dirac,"E1504GA_10433650_230209v02-02a.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"E1504GA_10433650_230209v02-02a.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"E1504GA_10433650_230209v02-02a.dar"
+HKR,Dirac\Resource,JsonResource,,"E1504GA_10433650_230209v02-02a.json"
+
+[Dirac_10433650.CopyResourceFiles]
+E1504GA_10433650_230209v02-02a.dar
+E1504GA_10433650_230209v02-02a.json
+
+[DiracExt_10431793]
+AddReg    = Dirac.AddReg, Dirac_10431793.AddReg
+CopyFiles = Dirac_10431793.CopyResourceFiles
+
+[DiracExt_10431793.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431793.AddReg]
+HKCR,SOFTWARE\Dirac,"k3504va_10431793_230209v051-02.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"k3504va_10431793_230209v051-02.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"k3504va_10431793_230209v051-02.dar"
+HKR,Dirac\Resource,JsonResource,,"k3504va_10431793_230209v051-02.json"
+
+[Dirac_10431793.CopyResourceFiles]
+k3504va_10431793_230209v051-02.dar
+k3504va_10431793_230209v051-02.json
+
+[DiracExt_10432780]
+AddReg    = Dirac.AddReg, Dirac_10432780.AddReg
+CopyFiles = Dirac_10432780.CopyResourceFiles
+
+[DiracExt_10432780.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10432780.AddReg]
+HKCR,SOFTWARE\Dirac,"d900md_10432780_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"d900md_10432780_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"d900md_10432780_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"d900md_10432780_230125v09.json"
+
+[Dirac_10432780.CopyResourceFiles]
+d900md_10432780_230125v09.dar
+d900md_10432780_230125v09.json
+
+[DiracExt_10432790]
+AddReg    = Dirac.AddReg, Dirac_10432790.AddReg
+CopyFiles = Dirac_10432790.CopyResourceFiles
+
+[DiracExt_10432790.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+
+[Dirac_10432790.AddReg]
+HKCR,SOFTWARE\Dirac,"d900sd_10432790_230125v09.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"d900sd_10432790_230125v09.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"d900sd_10432790_230125v09.dar"
+HKR,Dirac\Resource,JsonResource,,"d900sd_10432790_230125v09.json"
+
+[Dirac_10432790.CopyResourceFiles]
+d900sd_10432790_230125v09.dar
+d900sd_10432790_230125v09.json
+
+[DiracExt_10431903]
+AddReg    = Dirac.AddReg, Dirac_10431903.AddReg
+CopyFiles = Dirac_10431903.CopyResourceFiles
+
+[DiracExt_10431903.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431903.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402CVA_10431903_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402CVA_10431903_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402CVA_10431903_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402CVA_10431903_230125v03.json"
+
+[Dirac_10431903.CopyResourceFiles]
+B2402CVA_10431903_230125v03.dar
+B2402CVA_10431903_230125v03.json
+
+[DiracExt_10433660]
+AddReg    = Dirac.AddReg, Dirac_10433660.AddReg
+CopyFiles = Dirac_10433660.CopyResourceFiles
+
+[DiracExt_10433660.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433660.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402CVA_10433660_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402CVA_10433660_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402CVA_10433660_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402CVA_10433660_230125v03.json"
+
+[Dirac_10433660.CopyResourceFiles]
+B2402CVA_10433660_230125v03.dar
+B2402CVA_10433660_230125v03.json
+
+[DiracExt_10433670]
+AddReg    = Dirac.AddReg, Dirac_10433670.AddReg
+CopyFiles = Dirac_10433670.CopyResourceFiles
+
+[DiracExt_10433670.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433670.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402CVA_10433670_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402CVA_10433670_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402CVA_10433670_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402CVA_10433670_230125v03.json"
+
+[Dirac_10433670.CopyResourceFiles]
+B2402CVA_10433670_230125v03.dar
+B2402CVA_10433670_230125v03.json
+
+[DiracExt_104336B0]
+AddReg    = Dirac.AddReg, Dirac_104336B0.AddReg
+CopyFiles = Dirac_104336B0.CopyResourceFiles
+
+[DiracExt_104336B0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336B0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336B0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336B0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402FVA_104336B0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402FVA_104336B0_230125v03.json"
+
+[Dirac_104336B0.CopyResourceFiles]
+B2402FVA_104336B0_230125v03.dar
+B2402FVA_104336B0_230125v03.json
+
+[DiracExt_104336C0]
+AddReg    = Dirac.AddReg, Dirac_104336C0.AddReg
+CopyFiles = Dirac_104336C0.CopyResourceFiles
+
+[DiracExt_104336C0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336C0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336C0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336C0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402FVA_104336C0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402FVA_104336C0_230125v03.json"
+
+[Dirac_104336C0.CopyResourceFiles]
+B2402FVA_104336C0_230125v03.dar
+B2402FVA_104336C0_230125v03.json
+
+[DiracExt_104336D0]
+AddReg    = Dirac.AddReg, Dirac_104336D0.AddReg
+CopyFiles = Dirac_104336D0.CopyResourceFiles
+
+[DiracExt_104336D0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336D0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336D0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2402FVA_104336D0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2402FVA_104336D0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2402FVA_104336D0_230125v03.json"
+
+[Dirac_104336D0.CopyResourceFiles]
+B2402FVA_104336D0_230125v03.dar
+B2402FVA_104336D0_230125v03.json
+
+[DiracExt_10433680]
+AddReg    = Dirac.AddReg, Dirac_10433680.AddReg
+CopyFiles = Dirac_10433680.CopyResourceFiles
+
+[DiracExt_10433680.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433680.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502CVA_10433680_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502CVA_10433680_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502CVA_10433680_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502CVA_10433680_230125v03.json"
+
+[Dirac_10433680.CopyResourceFiles]
+B2502CVA_10433680_230125v03.dar
+B2502CVA_10433680_230125v03.json
+
+[DiracExt_10433690]
+AddReg    = Dirac.AddReg, Dirac_10433690.AddReg
+CopyFiles = Dirac_10433690.CopyResourceFiles
+
+[DiracExt_10433690.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433690.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502CVA_10433690_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502CVA_10433690_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502CVA_10433690_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502CVA_10433690_230125v03.json"
+
+[Dirac_10433690.CopyResourceFiles]
+B2502CVA_10433690_230125v03.dar
+B2502CVA_10433690_230125v03.json
+
+[DiracExt_104336A0]
+AddReg    = Dirac.AddReg, Dirac_104336A0.AddReg
+CopyFiles = Dirac_104336A0.CopyResourceFiles
+
+[DiracExt_104336A0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336A0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502CVA_104336A0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502CVA_104336A0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502CVA_104336A0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502CVA_104336A0_230125v03.json"
+
+[Dirac_104336A0.CopyResourceFiles]
+B2502CVA_104336A0_230125v03.dar
+B2502CVA_104336A0_230125v03.json
+
+[DiracExt_104336E0]
+AddReg    = Dirac.AddReg, Dirac_104336E0.AddReg
+CopyFiles = Dirac_104336E0.CopyResourceFiles
+
+[DiracExt_104336E0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336E0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502FVA_104336E0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502FVA_104336E0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502FVA_104336E0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502FVA_104336E0_230125v03.json"
+
+[Dirac_104336E0.CopyResourceFiles]
+B2502FVA_104336E0_230125v03.dar
+B2502FVA_104336E0_230125v03.json
+
+[DiracExt_104336F0]
+AddReg    = Dirac.AddReg, Dirac_104336F0.AddReg
+CopyFiles = Dirac_104336F0.CopyResourceFiles
+
+[DiracExt_104336F0.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104336F0.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502FVA_104336F0_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502FVA_104336F0_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502FVA_104336F0_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502FVA_104336F0_230125v03.json"
+
+[Dirac_104336F0.CopyResourceFiles]
+B2502FVA_104336F0_230125v03.dar
+B2502FVA_104336F0_230125v03.json
+
+[DiracExt_10433700]
+AddReg    = Dirac.AddReg, Dirac_10433700.AddReg
+CopyFiles = Dirac_10433700.CopyResourceFiles
+
+[DiracExt_10433700.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433700.AddReg]
+HKCR,SOFTWARE\Dirac,"B2502FVA_10433700_230125v03.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"B2502FVA_10433700_230125v03.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"B2502FVA_10433700_230125v03.dar"
+HKR,Dirac\Resource,JsonResource,,"B2502FVA_10433700_230125v03.json"
+
+[Dirac_10433700.CopyResourceFiles]
+B2502FVA_10433700_230125v03.dar
+B2502FVA_10433700_230125v03.json
+
+[DiracExt_10431963]
+AddReg    = Dirac.AddReg, Dirac_10431963.AddReg
+CopyFiles = Dirac_10431963.CopyResourceFiles
+
+[DiracExt_10431963.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431963.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10431963_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10431963_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402CGA_10431963_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402CGA_10431963_230307v01-01.json"
+
+[Dirac_10431963.CopyResourceFiles]
+BR1402CGA_10431963_230307v01-01.dar
+BR1402CGA_10431963_230307v01-01.json
+
+[DiracExt_10433740]
+AddReg    = Dirac.AddReg, Dirac_10433740.AddReg
+CopyFiles = Dirac_10433740.CopyResourceFiles
+
+[DiracExt_10433740.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433740.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10433740_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10433740_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402CGA_10433740_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402CGA_10433740_230307v01-01.json"
+
+[Dirac_10433740.CopyResourceFiles]
+BR1402CGA_10433740_230307v01-01.dar
+BR1402CGA_10433740_230307v01-01.json
+
+[DiracExt_10433750]
+AddReg    = Dirac.AddReg, Dirac_10433750.AddReg
+CopyFiles = Dirac_10433750.CopyResourceFiles
+
+[DiracExt_10433750.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433750.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10433750_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402CGA_10433750_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402CGA_10433750_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402CGA_10433750_230307v01-01.json"
+
+[Dirac_10433750.CopyResourceFiles]
+BR1402CGA_10433750_230307v01-01.dar
+BR1402CGA_10433750_230307v01-01.json
+
+[DiracExt_10433760]
+AddReg    = Dirac.AddReg, Dirac_10433760.AddReg
+CopyFiles = Dirac_10433760.CopyResourceFiles
+
+[DiracExt_10433760.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433760.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433760_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433760_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402FGA_10433760_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402FGA_10433760_230307v01-01.json"
+
+[Dirac_10433760.CopyResourceFiles]
+BR1402FGA_10433760_230307v01-01.dar
+BR1402FGA_10433760_230307v01-01.json
+
+[DiracExt_10433770]
+AddReg    = Dirac.AddReg, Dirac_10433770.AddReg
+CopyFiles = Dirac_10433770.CopyResourceFiles
+
+[DiracExt_10433770.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433770.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433770_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433770_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402FGA_10433770_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402FGA_10433770_230307v01-01.json"
+
+[Dirac_10433770.CopyResourceFiles]
+BR1402FGA_10433770_230307v01-01.dar
+BR1402FGA_10433770_230307v01-01.json
+
+[DiracExt_10433780]
+AddReg    = Dirac.AddReg, Dirac_10433780.AddReg
+CopyFiles = Dirac_10433780.CopyResourceFiles
+
+[DiracExt_10433780.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10433780.AddReg]
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433780_230307v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"BR1402FGA_10433780_230307v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"BR1402FGA_10433780_230307v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"BR1402FGA_10433780_230307v01-01.json"
+
+[Dirac_10433780.CopyResourceFiles]
+BR1402FGA_10433780_230307v01-01.dar
+BR1402FGA_10433780_230307v01-01.json
+
+[DiracExt_104319B3]
+AddReg    = Dirac.AddReg, Dirac_104319B3.AddReg
+CopyFiles = Dirac_104319B3.CopyResourceFiles
+
+[DiracExt_104319B3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104319B3.AddReg]
+HKCR,SOFTWARE\Dirac,"K3605VV_104319B3_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"K3605VV_104319B3_230125v08.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"K3605VV_104319B3_230125v08.dar"
+HKR,Dirac\Resource,JsonResource,,"K3605VV_104319B3_230125v08.json"
+
+[Dirac_104319B3.CopyResourceFiles]
+K3605VV_104319B3_230125v08.dar
+K3605VV_104319B3_230125v08.json
+
+[DiracExt_104319D3]
+AddReg    = Dirac.AddReg, Dirac_104319D3.AddReg
+CopyFiles = Dirac_104319D3.CopyResourceFiles
+
+[DiracExt_104319D3.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104319D3.AddReg]
+HKCR,SOFTWARE\Dirac,"I1403VA_104319D3_230221v02-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"I1403VA_104319D3_230221v02-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"I1403VA_104319D3_230221v02-01.dar"
+HKR,Dirac\Resource,JsonResource,,"I1403VA_104319D3_230221v02-01.json"
+
+[Dirac_104319D3.CopyResourceFiles]
+I1403VA_104319D3_230221v02-01.dar
+I1403VA_104319D3_230221v02-01.json
+
+[DiracExt_10431A13]
+AddReg    = Dirac.AddReg, Dirac_10431A13.AddReg
+CopyFiles = Dirac_10431A13.CopyResourceFiles
+
+[DiracExt_10431A13.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_10431A13.AddReg]
+HKCR,SOFTWARE\Dirac,"M1605XA_10431A13_230224v01-01.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"M1605XA_10431A13_230224v01-01.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"M1605XA_10431A13_230224v01-01.dar"
+HKR,Dirac\Resource,JsonResource,,"M1605XA_10431A13_230224v01-01.json"
+
+[Dirac_10431A13.CopyResourceFiles]
+M1605XA_10431A13_230224v01-01.dar
+M1605XA_10431A13_230224v01-01.json
+
+[DiracExt_104315DF]
+AddReg    = Dirac.AddReg, Dirac_104315DF.AddReg
+CopyFiles = Dirac_104315DF.CopyResourceFiles
+
+[DiracExt_104315DF.Components]
+AddComponent = DiracAPO,,DiracAPO_Install
+AddComponent = DiracHsa,,DiracHsa_Install
+AddComponent = DiracSrv,,DiracSrv_Install
+
+[Dirac_104315DF.AddReg]
+HKCR,SOFTWARE\Dirac,"UM5302_104315DF_230125v08.dar",,DarResource
+HKCR,SOFTWARE\Dirac,"UM5302_104315DF_230125v08.json",,JsonResource
+HKR,Dirac\Resource,DarResource,,"UM5302_104315DF_230125v08.dar"
+HKR,Dirac\Resource,JsonResource,,"UM5302_104315DF_230125v08.json"
+
+[Dirac_104315DF.CopyResourceFiles]
+UM5302_104315DF_230125v08.dar
+UM5302_104315DF_230125v08.json
+
+[Dirac.AddReg]
+HKCR,SOFTWARE\Dirac,ResourcePath,,%13%
+HKCR,SOFTWARE\Dirac,DefaultMode,,%ModeDefault%
+HKR,Dirac\Resource,ResourcePath,,%13%
+HKR,Dirac\Resource,DefaultMode,,%ModeDefault%
+
+[DiracAPO_Install]
+ComponentIDs = VEN_DIRAC&AID_0001
+Description = "Dirac Audio Effects Component"
+
+[DiracHSA_Install]
+ComponentIDs = VEN_DIRAC&HID_0001
+Description = "Dirac Hardware Support App"
+
+[DiracSrv_Install]
+ComponentIDs = VEN_DIRAC&SID_0001
+Description = "Dirac Audio Service"
+
+[Strings]
+MfgName           = "Dirac Research AB"
+ProviderName      = "Drivewintech Co., Ltd."
+Device.ExtensionDesc = "HDAudio Dirac Research Extension"
+DiskId1 = "Dirac APO Resource Extension. Installation Disk"
+ModeDefault = "Music"

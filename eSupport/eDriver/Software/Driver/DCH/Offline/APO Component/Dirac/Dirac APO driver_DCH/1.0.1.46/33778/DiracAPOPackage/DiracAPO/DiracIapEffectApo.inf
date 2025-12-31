@@ -1,0 +1,152 @@
+[Version]
+Signature   = "$WINDOWS NT$"
+Class       = SoftwareComponent
+ClassGuid   = {5c4c3332-344d-483c-8739-259e934c9cc8}
+Provider    = %ProviderName%
+DriverVer = 03/28/2023,1.4.1.28
+CatalogFile = diracapo.cat
+PnpLockDown = 1
+
+[SourceDisksNames]
+1 = %DiskId1%
+
+[SourceDisksFiles]
+DiracIapApo.dll = 1
+DiracOffloadApo.dll = 1
+dirac.dll = 1
+Dirac_ACS.dll = 1
+
+[DestinationDirs]
+Apo_CopyFiles = 13 ; 13=Package's DriverStore directory
+
+[SignatureAttributes]
+DiracIapApo.dll = SignatureAttributes.PETrust
+DiracOffloadApo.dll = SignatureAttributes.PETrust
+dirac.dll = SignatureAttributes.PETrust
+Dirac_ACS.dll = SignatureAttributes.PETrust
+
+[SignatureAttributes.DRM]
+DRMLevel=1300
+
+[SignatureAttributes.PETrust]
+PETrust=true
+
+[Manufacturer]
+%MfgName% = ApoComponents,NTamd64
+
+[ApoComponents.NTamd64]
+%Apo.ComponentDesc% = ApoComponent_Install,SWC\VEN_DIRAC&AID_0001
+
+[ApoComponent_Install]
+CopyFiles = Apo_CopyFiles
+AddReg    = Apo_AddReg
+
+[Apo_CopyFiles]
+DiracOffloadApo.dll
+DiracIapApo.dll
+Dirac_ACS.dll
+dirac.dll
+
+[Apo_AddReg]
+
+HKCR,CLSID\%DIRAC_ACS_CLSID%,,,%DIRAC_ACS_FriendlyName%
+HKCR,CLSID\%DIRAC_ACS_CLSID%\InProcServer32,,0x00020000,%13%\Dirac_ACS.dll
+HKCR,CLSID\%DIRAC_ACS_CLSID%\InProcServer32,ThreadingModel,,"Both"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\ProgID,,,"dirac_acs.CDiracAcs.1"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\Programmable,,,
+HKCR,CLSID\%DIRAC_ACS_CLSID%\TypeLib,,,"{f7f78478-0f7e-479a-8903-ae6951edadd8}"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\Version,,,"1.1"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\VersionIndependentProgID,,,"dirac_acs.CDiracAcs"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\VersionIndependentProgID,,,"dirac_acs.CDiracAcs"
+HKCR,CLSID\%DIRAC_ACS_CLSID%\VersionIndependentProgID,,,"dirac_acs.CDiracAcs"
+HKCR,dirac_acs.CDiracAcs\CurVer,,,"dirac_acs.CDiracAcs.1"
+HKCR,dirac_acs.CDiracAcs\CLSID,,,%DIRAC_ACS_CLSID%
+HKCR,dirac_acs.CDiracAcs.1\CLSID,,,%DIRAC_ACS_CLSID%
+
+; Dirac Intel APO Mode effect APO COM registration
+HKCR,CLSID\%DIRAC_FX_MODE_CLSID%,,,%DIRAC_MFX_FriendlyName%
+HKCR,CLSID\%DIRAC_FX_MODE_CLSID%\InProcServer32,,0x00020000,%13%\DiracIapApo.dll
+HKCR,CLSID\%DIRAC_FX_MODE_CLSID%\InProcServer32,ThreadingModel,,"Both"
+
+; Dirac AMD APO Endpoint effect APO COM registration
+HKCR,CLSID\%DIRAC_AMD_FX_MODE_CLSID%,,,%DIRAC_AMD_EFX_FriendlyName%
+HKCR,CLSID\%DIRAC_AMD_FX_MODE_CLSID%\InProcServer32,,0x00020000,%13%\DiracIapApo.dll
+HKCR,CLSID\%DIRAC_AMD_FX_MODE_CLSID%\InProcServer32,ThreadingModel,,"Both"
+
+; Dirac Intel Offload APO Mode effect APO COM registration
+HKCR,CLSID\%DIRAC_FX_OFFLOAD_MODE_CLSID%,,,%DIRAC_OMFX_FriendlyName%
+HKCR,CLSID\%DIRAC_FX_OFFLOAD_MODE_CLSID%\InProcServer32,,0x00020000,%13%\DiracOffloadApo.dll
+HKCR,CLSID\%DIRAC_FX_OFFLOAD_MODE_CLSID%\InProcServer32,ThreadingModel,,"Both"
+
+; DiracIapApo Intel Mode effect APO registration
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "FriendlyName", ,%DIRAC_MFX_FriendlyName%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "Copyright", ,%Copyright%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MajorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MinorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "Flags", 0x00010001, %APO_FLAG_DEFAULT%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MinInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MaxInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MinOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MaxOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "MaxInstances", 0x00010001, 0xffffffff
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "NumAPOInterfaces", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_MODE_CLSID%, "APOInterface0", ,"{FD7F2B29-24D0-4B5C-B177-592C39F9CA10}"
+
+; DiracIapApo AMD Endpoint effect APO registration
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "FriendlyName", ,%DIRAC_AMD_EFX_FriendlyName%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "Copyright", ,%Copyright%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MajorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MinorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "Flags", 0x00010001, %APO_FLAG_DEFAULT%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MinInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MaxInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MinOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MaxOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "MaxInstances", 0x00010001, 0xffffffff
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "NumAPOInterfaces", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "APOInterface0", ,"{FD7F2B29-24D0-4B5C-B177-592C39F9CA10}"
+;HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_AMD_FX_MODE_CLSID%, "APOInterface0", ,"{F93C4F0C-824F-4A19-A554-F3AAFF48F0D7}"
+
+; DiracOffloadApo Intel Offload Mode effect APO registration
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "FriendlyName", ,%DIRAC_OMFX_FriendlyName%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "Copyright", ,%Copyright%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MajorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MinorVersion", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "Flags", 0x00010001, %APO_FLAG_DEFAULT%
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MinInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MaxInputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MinOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MaxOutputConnections", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "MaxInstances", 0x00010001, 0xffffffff
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "NumAPOInterfaces", 0x00010001, 1
+HKCR,AudioEngine\AudioProcessingObjects\%DIRAC_FX_OFFLOAD_MODE_CLSID%, "APOInterface0", ,"{FD7F2B29-24D0-4B5C-B177-592C39F9CA10}"
+
+[ApoComponent_Install.HW]
+AddReg = FriendlyName_AddReg
+
+[FriendlyName_AddReg]
+HKR,,FriendlyName,,%Apo.ComponentDesc%
+
+[ApoComponent_Install.Services]
+AddService=,2    ; no function driver, install a null driver.
+
+[Strings]
+MfgName           = "Dirac Research AB"
+ProviderName      = "Drivewintech Co., Ltd."
+Apo.ComponentDesc = "Dirac Audio Effects Component"
+DiskId1           = "Dirac APO Installation Disk"
+
+; Driver developers would replace these CLSIDs with those of their own APOs
+DIRAC_FX_MODE_CLSID				= "{DA95B2C0-9795-4437-ACBD-402F4AEE1FCA}"
+DIRAC_AMD_FX_MODE_CLSID			= "{EE88B95A-08C1-4325-B60C-B2EC83BCF7FF}"
+DIRAC_FX_OFFLOAD_MODE_CLSID		= "{E597EDCC-C8AE-495E-911D-AB67A9D13501}"
+DIRAC_ACS_CLSID					= "{8ffe375f-8845-4343-a033-625e072340a2}"
+
+; see audioenginebaseapo.idl for APO_FLAG enum values
+APO_FLAG_DEFAULT  = 0x0000000e
+
+DIRAC_MFX_FriendlyName = "DiracIapApo (Intel mode effect)"
+DIRAC_AMD_EFX_FriendlyName = "DiracIapApo (AMD Endpoint effect)"
+DIRAC_OMFX_FriendlyName = "DiracOffloadApo (Intel Offload MFX)"
+DIRAC_ACS_FriendlyName = "DiracAcs class"
+Copyright         = "Copyright 2022 Dirac Research AB"

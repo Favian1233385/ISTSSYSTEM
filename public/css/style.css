@@ -90,10 +90,14 @@
     box-shadow: none !important;
 }
 /* Mostrar menú desplegable al hacer hover en el header público */
-.header-public .dropdown:hover .dropdown-content.academic-dropdown {
-    opacity: 1;
-    visibility: visible;
-    display: flex;
+.header-public .dropdown:hover .dropdown-content.academic-dropdown,
+.header-public .dropdown:focus-within .dropdown-content.academic-dropdown,
+.header-public .dropdown-content.academic-dropdown.dropdown-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important;
+    pointer-events: auto;
+    z-index: 3000;
 }
 /* Columnas para menús desplegables grandes */
 .academic-dropdown-columns {

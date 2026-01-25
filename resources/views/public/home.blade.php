@@ -344,5 +344,6 @@
     <script src="{{ asset('js/main.js') }}"></script>
    
     <script src="{{ asset('js/harvard-interactions.js') }}"></script>
+    <script src="{{ asset('js/dropdown-fix.js') }}"></script>
 @endpush
 

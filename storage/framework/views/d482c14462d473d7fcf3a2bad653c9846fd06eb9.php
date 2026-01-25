@@ -348,6 +348,7 @@
     <script src="<?php echo e(asset('js/main.js')); ?>"></script>
    
     <script src="<?php echo e(asset('js/harvard-interactions.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/dropdown-fix.js')); ?>"></script>
 <?php $__env->stopPush(); ?>
 
 

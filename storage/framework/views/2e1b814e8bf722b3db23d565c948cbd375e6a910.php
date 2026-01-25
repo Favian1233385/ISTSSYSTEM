@@ -134,37 +134,67 @@
                         || (is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null)) === 'mision-y-vision-2';
                 ?>
 
-                <div class="content-wrapper <?php echo e($isMisionVision ? 'content-layout-two-column' : ''); ?>">
-                    <div style="display: flex; gap: 2rem; align-items: flex-start;">
-                        <?php
-                            $slug = is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null);
-                            if ($slug === 'organigrama-2') {
-                                $imgSrc = asset('assets/images/organigrama1.png');
-                            } else {
-                                $imgPath = is_array($content)
-                                    ? ($content['image_url'] ?? $content['image_path'] ?? null)
-                                    : ($content->image_url ?? $content->image_path ?? null);
-                                if (!empty($imgPath)) {
-                                    if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
-                                        $imgSrc = $imgPath;
-                                    } elseif (strpos($imgPath, 'uploads/') === 0) {
-                                        $imgSrc = '/' . $imgPath;
-                                    } else {
-                                        $imgSrc = asset($imgPath);
-                                    }
+                <?php
+                    $slug = is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null);
+                    $isOrganigrama = ($slug === 'organigrama' || $slug === 'organigrama-2');
+                    if ($isOrganigrama) {
+                        if ($slug === 'organigrama-2') {
+                            $imgSrc = asset('assets/images/organigrama1.png');
+                        } else {
+                            $imgPath = is_array($content)
+                                ? ($content['image_url'] ?? $content['image_path'] ?? null)
+                                : ($content->image_url ?? $content->image_path ?? null);
+                            if (!empty($imgPath)) {
+                                if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                                    $imgSrc = $imgPath;
+                                } elseif (strpos($imgPath, 'uploads/') === 0) {
+                                    $imgSrc = '/' . $imgPath;
                                 } else {
-                                    $imgSrc = asset('assets/img/institucional-placeholder.png');
+                                    $imgSrc = asset($imgPath);
                                 }
+                            } else {
+                                $imgSrc = asset('assets/img/institucional-placeholder.png');
                             }
-                        ?>
-                        <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
-                            <img src="<?php echo e($imgSrc); ?>" alt="<?php echo e(is_array($content) ? $content['title'] : $content->title); ?>" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
-                        </div>
-                        <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
-                            <?php echo is_array($content) ? ($content['content'] ?? '') : ($content->content ?? ''); ?>
-
-                        </div>
+                        }
+                    }
+                ?>
+                <?php if($isOrganigrama): ?>
+                    <div style="width: 100%; display: flex; justify-content: center; align-items: center; min-height: 60vh;">
+                        <img src="<?php echo e($imgSrc); ?>" alt="Organigrama" style="max-width: 100%; max-height: 80vh; display: block; margin: 0 auto; border-radius: 12px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); background: #fff;">
                     </div>
+                <?php else: ?>
+                    <div class="content-wrapper <?php echo e($isMisionVision ? 'content-layout-two-column' : ''); ?>">
+                        <div style="display: flex; gap: 2rem; align-items: flex-start;">
+                            <?php
+                                // ...código original de imagen y texto...
+                                if ($slug === 'organigrama-2') {
+                                    $imgSrc = asset('assets/images/organigrama1.png');
+                                } else {
+                                    $imgPath = is_array($content)
+                                        ? ($content['image_url'] ?? $content['image_path'] ?? null)
+                                        : ($content->image_url ?? $content->image_path ?? null);
+                                    if (!empty($imgPath)) {
+                                        if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
+                                            $imgSrc = $imgPath;
+                                        } elseif (strpos($imgPath, 'uploads/') === 0) {
+                                            $imgSrc = '/' . $imgPath;
+                                        } else {
+                                            $imgSrc = asset($imgPath);
+                                        }
+                                    } else {
+                                        $imgSrc = asset('assets/img/institucional-placeholder.png');
+                                    }
+                                }
+                            ?>
+                            <div style="flex: 0 0 320px; max-width: 320px; background: #f6f6f6; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1rem; display: flex; justify-content: center; align-items: center;">
+                                <img src="<?php echo e($imgSrc); ?>" alt="<?php echo e(is_array($content) ? $content['title'] : $content->title); ?>" style="max-width: 100%; max-height: 260px; border-radius: 8px; object-fit: cover;">
+                            </div>
+                            <div style="flex: 1; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 1.5rem;">
+                                <?php echo is_array($content) ? ($content['content'] ?? '') : ($content->content ?? ''); ?>
+
+                            </div>
+                        </div>
+                <?php endif; ?>
 
                     
                     <?php if(!empty(is_array($content) ? $content['file_url'] : $content->file_url)): ?>
@@ -186,8 +216,14 @@
                         </section>
 
 
+                    <?php
+                        $slug = is_array($content) ? ($content['slug'] ?? null) : ($content->slug ?? null);
+                        $ocultarTituloDocumentos = in_array($slug, ['organigrama', 'organigrama-2', 'historia-sobre-el-ists', 'mision-y-vision', 'mision-y-vision-2']);
+                    ?>
                     <div class="subreglamentos-list" style="text-align:center;">
-                        <h2 class="mt-8 mb-4 text-2xl font-bold" style="color:#009e60; text-align:center;">Documentos</h2>
+                        <?php if(!$ocultarTituloDocumentos): ?>
+                            <h2 class="mt-8 mb-4 text-2xl font-bold" style="color:#009e60; text-align:center;">Documentos</h2>
+                        <?php endif; ?>
                         <ul style="display:inline-block; text-align:left;">
                             <?php $__currentLoopData = $children; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $child): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <li class="mb-6 p-4 border rounded shadow" style="text-align:center;">

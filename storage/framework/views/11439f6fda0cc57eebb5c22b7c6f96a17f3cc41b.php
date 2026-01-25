@@ -64,7 +64,12 @@
         $transparencyContents = $transparencyContents ?? [];
     ?>
     <nav class="header-navbar" style="width: 100%; background: transparent; box-shadow: none; display: flex; justify-content: center; align-items: center; padding: 0.75rem 0;">
-        <ul class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
+        <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Abrir menú" style="display:none; position:absolute; left:1.5rem; top:1.1rem; background:none; border:none; z-index:3001; cursor:pointer;">
+            <span style="display:block; width:32px; height:4px; background:#fff; margin:6px 0; border-radius:2px;"></span>
+            <span style="display:block; width:32px; height:4px; background:#fff; margin:6px 0; border-radius:2px;"></span>
+            <span style="display:block; width:32px; height:4px; background:#fff; margin:6px 0; border-radius:2px;"></span>
+        </button>
+        <ul id="main-nav-menu" class="header-menu" style="display: flex; flex-direction: row; align-items: center; gap: 2.5rem; list-style: none; margin: 0 auto; padding: 0; justify-content: center;">
             <li style="margin-right: 2.5rem; display: flex; align-items: center;">
                 <a href="<?php echo e(url('/')); ?>" style="display: flex; align-items: center;">
                     <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 56px; vertical-align: middle; margin-right: 1rem;">
@@ -339,5 +344,54 @@
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </ul>
     </nav>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menu = document.getElementById('main-nav-menu');
+        const toggle = document.getElementById('mobile-menu-toggle');
+        function checkMobile() {
+            if(window.innerWidth <= 900) {
+                toggle.style.display = 'block';
+                menu.classList.add('mobile-menu');
+                menu.style.display = 'none';
+            } else {
+                toggle.style.display = 'none';
+                menu.classList.remove('mobile-menu');
+                menu.style.display = 'flex';
+                document.body.classList.remove('menu-open');
+            }
+        }
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        toggle.addEventListener('click', function() {
+            if(menu.style.display === 'none') {
+                menu.style.display = 'flex';
+                menu.style.flexDirection = 'column';
+                menu.style.position = 'absolute';
+                menu.style.top = '70px';
+                menu.style.left = '0';
+                menu.style.width = '100vw';
+                menu.style.background = 'linear-gradient(90deg, rgba(52,152,219,0.97) 0%, rgba(72,224,164,0.97) 100%)';
+                menu.style.zIndex = '2000';
+                menu.style.padding = '2rem 0 2rem 0';
+                menu.style.gap = '1.5rem';
+                document.body.style.overflow = 'hidden';
+                document.body.classList.add('menu-open');
+            } else {
+                menu.style.display = 'none';
+                document.body.style.overflow = '';
+                document.body.classList.remove('menu-open');
+            }
+        });
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            if(window.innerWidth > 900) return;
+            if(!menu.contains(e.target) && !toggle.contains(e.target)) {
+                menu.style.display = 'none';
+                document.body.style.overflow = '';
+                document.body.classList.remove('menu-open');
+            }
+        });
+    });
+    </script>
 </header>
 <?php /**PATH C:\workspace\ists\resources\views/public/partials/header.blade.php ENDPATH**/ ?>

@@ -1,4 +1,5 @@
 
+<div id="social-widget">
 <style>
 .social-floating {
     position: fixed;
@@ -33,4 +34,16 @@
         padding: 6px 2px;
     }
 }
+}</style>
+<style id="floating-hide-when-menu-open">
+@media (max-width: 1000px) {
+    body.menu-open #social-widget,
+    body.menu-open .chatbot-widget {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+    }
+}
 </style>
+</div>

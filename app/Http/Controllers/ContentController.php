@@ -215,9 +215,10 @@ class ContentController extends Controller
 
         // 4. Manejar la subida de imagen
         if ($request->hasFile("image_url")) {
-            $dataToCreate["image_url"] = $request
-                ->file("image_url")
-                ->store("uploads/images", "public");
+            $file = $request->file("image_url");
+            $filename = uniqid() . '-' . preg_replace("/[^A-Za-z0-9_.-]/", "", $file->getClientOriginalName());
+            $file->move(public_path('uploads/images/contents'), $filename);
+            $dataToCreate["image_url"] = '/uploads/images/contents/' . $filename;
         }
 
         // 5. Manejar la subida de PDF

@@ -1268,6 +1268,8 @@ a:hover {
     gap: 0.75rem;
     scroll-behavior: smooth;
     min-height: 0;
+    max-height: 350px;
+    height: 350px;
 }
 
 .chatbot-messages::-webkit-scrollbar {

@@ -183,6 +183,8 @@ class ISTSChatbot {
 
     closeChat() {
         this.isOpen = false;
+        // Borrar historial al cerrar el chat
+        this.clearHistory();
         const window = document.getElementById('chatbot-window');
         if (window) {
             window.classList.remove('active');
@@ -351,8 +353,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h4 style="color:#009e60; font-weight:700; margin-bottom:1.2rem;">¡Bienvenido!</h4>
                 <p style="margin-bottom:1.2rem; color:#333;">Por favor, ingresa tu nombre y número de teléfono para iniciar el chat.</p>
                 <form id="chatbot-userinfo-form">
-                        <input type="text" id="chatbot-nombre" name="nombre" placeholder="Tu nombre y apellido" maxlength="30" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$" title="Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
                         <input type="tel" id="chatbot-telefono" name="telefono" placeholder="Teléfono" maxlength="10" minlength="10" pattern="^[0-9]{10}$" inputmode="numeric" title="Solo 10 dígitos" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
+                        <input type="text" id="chatbot-nombre" name="nombre" placeholder="Tu nombre y apellido" maxlength="30" pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑüÜ]+)+$" title="Ingresa tu nombre y apellido, solo letras y espacios, mínimo dos palabras" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;" autocomplete="off" />
                         <select id="chatbot-carrera" name="carrera" required style="width:100%; margin-bottom:0.8rem; padding:0.7rem; border-radius:8px; border:1px solid #ccc;">
                             <option value="" disabled selected>Selecciona una carrera de interés</option>
                         </select>
@@ -397,6 +399,13 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
     }
+
+    // Borrar historial al recargar la página
+    window.addEventListener('beforeunload', function() {
+        if (window.istsChatbot) {
+            window.istsChatbot.clearHistory();
+        }
+    });
 
     // --- INICIO: Autocompletado ChatBot (nombre y carrera por teléfono) ---
     // observeChatbotUserinfoForm(); // Eliminado para evitar error de referencia duplicada

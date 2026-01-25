@@ -184,10 +184,25 @@ class PublicController extends Controller
         $items = [];
         foreach ($contents as $main) {
             if (empty($main['parent_id'])) {
-                // Buscar hijos
+                // Corregir image_url del principal
+                if (empty($main['image_url']) && !empty($main['image_path'])) {
+                    if (strpos($main['image_path'], '/uploads/') === 0) {
+                        $main['image_url'] = $main['image_path'];
+                    } else {
+                        $main['image_url'] = 'uploads/' . ltrim($main['image_path'], '/');
+                    }
+                }
+                // Buscar hijos y corregir image_url de cada hijo
                 $children = [];
                 foreach ($contents as $item) {
                     if (!empty($item['parent_id']) && $item['parent_id'] == $main['id']) {
+                        if (empty($item['image_url']) && !empty($item['image_path'])) {
+                            if (strpos($item['image_path'], '/uploads/') === 0) {
+                                $item['image_url'] = $item['image_path'];
+                            } else {
+                                $item['image_url'] = 'uploads/' . ltrim($item['image_path'], '/');
+                            }
+                        }
                         $children[] = $item;
                     }
                 }
@@ -344,7 +359,12 @@ class PublicController extends Controller
         // Asegurar que la vista reciba image_url para compatibilidad
         $content = (array) $content;
         if (empty($content['image_url']) && !empty($content['image_path'])) {
-            $content['image_url'] = 'storage/' . ltrim($content['image_path'], '/');
+            // Si la ruta ya comienza con /uploads, úsala tal cual
+            if (strpos($content['image_path'], '/uploads/') === 0) {
+                $content['image_url'] = $content['image_path'];
+            } else {
+                $content['image_url'] = 'uploads/' . ltrim($content['image_path'], '/');
+            }
         }
 
         return view("public.content_detail", compact("content"));

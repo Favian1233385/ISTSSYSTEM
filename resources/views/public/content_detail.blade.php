@@ -145,11 +145,12 @@
                                     ? ($content['image_url'] ?? $content['image_path'] ?? null)
                                     : ($content->image_url ?? $content->image_path ?? null);
                                 if (!empty($imgPath)) {
-                                    // Si la ruta ya es absoluta (empieza con http), úsala tal cual
                                     if (filter_var($imgPath, FILTER_VALIDATE_URL)) {
                                         $imgSrc = $imgPath;
+                                    } elseif (strpos($imgPath, 'uploads/') === 0) {
+                                        $imgSrc = '/' . $imgPath;
                                     } else {
-                                        $imgSrc = asset('storage/' . ltrim($imgPath, '/'));
+                                        $imgSrc = asset($imgPath);
                                     }
                                 } else {
                                     $imgSrc = asset('assets/img/institucional-placeholder.png');

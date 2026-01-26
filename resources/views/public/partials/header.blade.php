@@ -3,12 +3,16 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 100vw;
+        min-width: 100vw;
+        max-width: 100vw;
         z-index: 1000;
-        /* Azul más suave y transparencia */
-        background: linear-gradient(90deg, rgba(52,152,219,0.85) 0%, rgba(72,224,164,0.85) 100%);
+        background: linear-gradient(90deg, rgba(52,152,219,0.92) 0%, rgba(72,224,164,0.92) 100%);
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    main.main-content {
+        padding-top: 0 !important;
     }
 </style>
 <script>

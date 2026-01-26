@@ -28,34 +28,23 @@
                                     class="d-block w-100 h-100 object-fit-cover" alt="<?php echo e($slide->title); ?>"
                                     style="object-fit:cover;"
                                     onerror="this.src='<?php echo e(asset('storage/uploads/images/placeholder.jpg')); ?>'">
+                                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                                    <h1 class="fw-bold text-white"
+                                        style="font-size:4.2rem; text-shadow:0 2px 12px rgba(0,0,0,0.5); line-height:1.1;">
+                                        <?php echo e($slide->title); ?>
 
-                                <div
-                                    class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                                    <div class="p-4 rounded-4"
-                                        style="background:rgba(30,30,30,0.03); backdrop-filter:blur(4px); box-shadow:0 2px 8px rgba(0,0,0,0.03); max-width:700px; width:100%;">
-                                        <h1 class="fw-bold text-white"
-                                            style="font-size:4.2rem; text-shadow:0 2px 12px rgba(0,0,0,0.5); line-height:1.1;">
-                                            <?php echo e($slide->title); ?>
+                                    </h1>
+                                    <p class="lead text-white mb-4"
+                                        style="font-size:2rem; text-shadow:0 1px 8px rgba(0,0,0,0.35); line-height:1.2;">
+                                        <?php echo e($slide->subtitle); ?>
 
-                                        </h1>
-                                        <p class="lead text-white mb-4"
-                                            style="font-size:2rem; text-shadow:0 1px 8px rgba(0,0,0,0.35); line-height:1.2;">
-                                            <?php echo e($slide->subtitle); ?>
-
-                                        </p>
-                                        <div class="d-flex justify-content-center gap-3">
-                                            <?php if($slide->link): ?>
-                                                <a href="<?php echo e($slide->link); ?>" class="btn btn-warning btn-lg fw-bold"
-                                                    style="box-shadow:0 2px 8px rgba(0,0,0,0.2);">
-                                                    EXPLORAR CARRERAS
-                                                </a>
-                                            <?php endif; ?>
-                                            <a href="#" class="btn btn-outline-light btn-lg fw-bold"
-                                                style="box-shadow:0 2px 8px rgba(0,0,0,0.2);">
-                                                SOLICITAR INFORMACIÓN
-                                            </a>
-                                        </div>
-                                    </div>
+                                    </p>
+                                    <?php if($slide->link): ?>
+                                        <a href="<?php echo e($slide->link); ?>" class="btn btn-warning btn-lg fw-bold"
+                                            style="box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+                                            EXPLORAR CARRERAS
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <?php endif; ?>

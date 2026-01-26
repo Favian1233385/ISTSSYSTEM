@@ -34,7 +34,8 @@
     height: auto;
 }
 /* Flotantes solo en el área de contenido, nunca en el footer */
-.floating-social, .chatbot-window {
+/* .chatbot-window debe ir a la derecha, no a la izquierda */
+.floating-social {
     position: fixed;
     left: 24px;
     bottom: 120px; /* Altura suficiente para no invadir el footer */

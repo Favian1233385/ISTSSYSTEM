@@ -1,3 +1,29 @@
+/* Contenedor general de widgets flotantes */
+#floating-widgets-container {
+    position: static;
+    z-index: 9999;
+}
+
+/* Asegura que los hijos mantengan su posición original */
+#floating-widgets-container > #social-widget {
+    position: static;
+}
+#floating-widgets-container > #chatbot-widget-placeholder > .chatbot-widget {
+    position: fixed !important;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1050;
+}
+
+@media (max-width: 768px) {
+    #floating-widgets-container > #social-widget {
+        position: static;
+    }
+    #floating-widgets-container > #chatbot-widget-placeholder > .chatbot-widget {
+        right: 10px;
+        bottom: 80px;
+    }
+}
 /* Flotantes solo en el área principal, nunca en el footer */
 .floating-social-container {
     position: absolute;

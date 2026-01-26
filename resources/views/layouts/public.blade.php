@@ -50,6 +50,12 @@
         @yield('content')
     </main>
 
+    <!-- CONTENEDOR DE WIDGETS FLOTANTES -->
+    <div id="floating-widgets-container">
+        @include('public.partials.social_floating')
+        <div id="chatbot-widget-placeholder"></div>
+    </div>
+
     @include('public.partials.footer')
 
     <!-- Bootstrap JS Bundle with Popper -->
@@ -58,7 +64,41 @@
     <script src="{{ asset('js/chatbot.js') }}?v={{ time() }}" defer></script>
     <script src="{{ asset('js/dropdowns.js') }}"></script>
     <script>
+    // Script para mover el chatbot al contenedor flotante y ocultar widgets al llegar al footer
     document.addEventListener('DOMContentLoaded', function() {
+        // Mover el chatbot al contenedor flotante si existe
+        var chatbot = document.querySelector('.chatbot-widget');
+        var placeholder = document.getElementById('chatbot-widget-placeholder');
+        if (chatbot && placeholder) {
+            placeholder.appendChild(chatbot);
+        }
+
+        // Mover los íconos sociales al contenedor flotante si existe
+        var socialFloating = document.getElementById('social-floating-container');
+        var floatingContainer = document.getElementById('floating-widgets-container');
+        if (socialFloating && floatingContainer && !floatingContainer.contains(socialFloating)) {
+            floatingContainer.insertBefore(socialFloating, placeholder);
+        }
+
+        // Ocultar widgets flotantes al llegar al footer
+        var footer = document.querySelector('footer.footer');
+        function checkFloatingVisibility() {
+            if (!floatingContainer || !footer) return;
+            var footerRect = footer.getBoundingClientRect();
+            var windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            if (footerRect.top < windowHeight) {
+                floatingContainer.style.opacity = '0';
+                floatingContainer.style.pointerEvents = 'none';
+            } else {
+                floatingContainer.style.opacity = '';
+                floatingContainer.style.pointerEvents = '';
+            }
+        }
+        window.addEventListener('scroll', checkFloatingVisibility);
+        window.addEventListener('resize', checkFloatingVisibility);
+        checkFloatingVisibility();
+
+        // Carousel debug
         var myCarousel = document.querySelector('#heroCarousel');
         if (myCarousel) {
             var carousel = new bootstrap.Carousel(myCarousel, {
@@ -68,7 +108,6 @@
                 wrap: true
             });
             console.log('Bootstrap Carousel inicializado:', carousel);
-            // Forzar avance cada 5 segundos para depuración
             setInterval(function() {
                 carousel.next();
                 console.log('Forzando avance de slide');
@@ -79,7 +118,5 @@
     });
     </script>
     @stack('scripts')
-
-    @include('public.partials.social_floating')
 </body>
 </html>

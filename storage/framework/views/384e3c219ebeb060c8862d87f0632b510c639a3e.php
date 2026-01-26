@@ -1,5 +1,5 @@
 
-<div id="social-widget">
+<div id="social-floating-container"><div id="social-widget">
 <style>
 .social-floating {
     position: fixed;
@@ -46,5 +46,5 @@
     }
 }
 </style>
-</div>
+</div></div>
 <?php /**PATH C:\workspace\ists\resources\views/public/partials/social_floating.blade.php ENDPATH**/ ?>

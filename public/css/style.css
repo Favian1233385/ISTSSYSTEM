@@ -1,6 +1,68 @@
+/* Flotantes solo en el área principal, nunca en el footer */
+.floating-social-container {
+    position: absolute;
+    left: 24px;
+    bottom: 120px;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+}
+/* Flotantes solo en el área de contenido, nunca en el footer */
+.floating-social, .chatbot-window {
+    position: fixed;
+    left: 24px;
+    bottom: 120px; /* Altura suficiente para no invadir el footer */
+    z-index: 9999;
+}
+body.hide-floating .floating-social, body.hide-floating .chatbot-window {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+/* Ocultar enlaces flotantes y chatbot en el header y footer */
+/* Flotantes solo en el área principal, nunca en el footer */
+/* Flotantes profesionales: fixed y ocultos al llegar al footer */
+/* Flotantes profesionales: fixed y ocultos al llegar al footer */
+/* Menú móvil tipo acordeón: solo muestra submenú al hacer clic en el principal */
+@media (max-width: 1000px) {
+    #main-nav-menu .dropdown .dropdown-content.academic-dropdown {
+        display: none !important;
+    }
+    #main-nav-menu .dropdown.open-mobile .dropdown-content.academic-dropdown {
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+/* Permitir interacción en los dropdowns del menú móvil cuando está abierto */
+@media (max-width: 1000px) {
+    body.menu-open #main-nav-menu .dropdown-content,
+    body.menu-open #main-nav-menu .dropdown-content * {
+        pointer-events: auto !important;
+    }
+}
 /* Padding profesional para compensar header fijo en el panel público */
 .main-with-header {
     padding-top: 160px;
+}
+/* Cuando el menú móvil está abierto, solo el overlay y el menú reciben clics */
+@media (max-width: 1000px) {
+    body.menu-open #mobile-menu-overlay,
+    body.menu-open #main-nav-menu {
+        pointer-events: auto !important;
+    }
+    body.menu-open .hero-section,
+    body.menu-open #heroCarousel,
+    body.menu-open .carousel,
+    body.menu-open .carousel-inner,
+    body.menu-open .carousel-item,
+    body.menu-open .carousel-caption,
+    body.menu-open .main-content,
+    body.menu-open .careers-section,
+    body.menu-open .footer,
+    body.menu-open .updates-section,
+    body.menu-open .mv-section,
+    body.menu-open .news-section {
+        pointer-events: none !important;
+    }
 }
 @media (max-width: 768px) {
     .main-with-header {

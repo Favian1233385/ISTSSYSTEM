@@ -4,11 +4,11 @@
 
 @section('content')
     <!-- Main Content -->
-    <main id="main-content" class="main-content p-0 m-0">
+    <main id="main-content" class="main-content p-0 m-0" style="position:relative;">
         <!-- Hero Section -->
-        <section class="hero-section p-0 m-0" style="height:100vh; min-height:100vh; overflow:hidden;">
+        <section class="hero-section p-0 m-0" style="height:100vh; min-height:100vh; overflow:hidden; z-index:1; position:relative;">
             @if (isset($heroSlides) && $heroSlides->count() > 0)
-                <div id="heroCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="5000">
+                <div id="heroCarousel" class="carousel slide h-100" data-bs-ride="carousel" data-bs-interval="5000" style="z-index:1; position:relative;">
                     <!-- Indicadores -->
                     <div class="carousel-indicators">
                         @foreach ($heroSlides->where('is_active', true)->values() as $index => $slide)
@@ -266,74 +266,75 @@
 
         <!-- Quick Links Section -->
         @include('public.partials.quick_links')
-    </main>
 
-    <!-- Chatbot Widget -->
-    <div id="chatbot-widget" class="chatbot-widget">
-        <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir Chatbot">
-            <img src="{{ asset('assets/images/chatbot-avatar.gif') }}" alt="Chatbot ISTS" class="chatbot-avatar"
-                style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
-        </button>
+        <!-- Flotantes solo en el área principal -->
+        <div class="floating-social-container" style="position:absolute; left:24px; bottom:120px; z-index:9999;">
+            <!-- Chatbot Widget -->
+            <div id="chatbot-widget" class="chatbot-widget">
+                <button id="chatbot-toggle" class="chatbot-toggle" aria-label="Abrir Chatbot">
+                    <img src="{{ asset('assets/images/chatbot-avatar.gif') }}" alt="Chatbot ISTS" class="chatbot-avatar"
+                        style="width: 64px; height: 64px; object-fit: cover; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.12);">
+                </button>
 
-        <div id="chatbot-window" class="chatbot-window" style="display: none;">
-            <div class="chatbot-header" style="display: flex; align-items: center; justify-content: space-between;">
-                <h3 style="margin:0;">Asistente Virtual ISTS</h3>
-                <div style="display: flex; gap: 8px;">
-                    <button id="chatbot-clear-history" title="Eliminar historial" style="background: none; border: none; color: #fff; font-size: 18px; cursor: pointer;">🗑️</button>
-                    <button id="chatbot-close" aria-label="Cerrar Chatbot">✕</button>
+                <div id="chatbot-window" class="chatbot-window" style="display: none;">
+                    <div class="chatbot-header" style="display: flex; align-items: center; justify-content: space-between;">
+                        <h3 style="margin:0;">Asistente Virtual ISTS</h3>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="chatbot-clear-history" title="Eliminar historial" style="background: none; border: none; color: #fff; font-size: 18px; cursor: pointer;">🗑️</button>
+                            <button id="chatbot-close" aria-label="Cerrar Chatbot">✕</button>
+                        </div>
+                    </div>
+
+                    <div id="chatbot-messages" class="chatbot-messages">
+                        <div class="bot-message">
+                            <p>¡Hola! 👋 Soy el asistente virtual del ISTS. ¿En qué puedo ayudarte?</p>
+                        </div>
+                    </div>
+
+                    <form id="chatbot-form" class="chatbot-form">
+                        <input type="hidden" id="chat-session-id" value="">
+                        @csrf
+                        <input type="text" id="chatbot-input" name="message" placeholder="Escribe tu pregunta..."
+                            maxlength="500" required>
+                        <button type="submit">Enviar</button>
+                    </form>
                 </div>
             </div>
 
-            <div id="chatbot-messages" class="chatbot-messages">
-                <div class="bot-message">
-                    <p>¡Hola! 👋 Soy el asistente virtual del ISTS. ¿En qué puedo ayudarte?</p>
-                </div>
-            </div>
+            <!-- Redes sociales flotantes lado izquierdo -->
+            <div id="social-widget"
+                 style="position:fixed; bottom:7.5rem; left:1.5rem; z-index:2147483646; display:flex; flex-direction:column; gap:12px; align-items:center;">
+                @php
+                    $socialLinks = \App\Models\SocialLink::where('active', true)->orderBy('id')->get();
+                @endphp
+                @foreach($socialLinks as $link)
+                    <a href="{{ $link->url }}" target="_blank" rel="noopener" title="{{ ucfirst($link->name) }}"
+                       style="background:{{ $link->bg_color }}; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+                        {!! $link->icon_svg !!}
+                    </a>
+                @endforeach
 
-            <form id="chatbot-form" class="chatbot-form">
-                <input type="hidden" id="chat-session-id" value="">
-                @csrf
-                <input type="text" id="chatbot-input" name="message" placeholder="Escribe tu pregunta..."
-                    maxlength="500" required>
-                <button type="submit">Enviar</button>
-            </form>
+                <!-- Widget flotante de eventos, circular, animado y llamativo -->
+                <a href="{{ url('/eventos') }}" id="eventos-fab" title="Ver eventos ISTS"
+                   style="background: linear-gradient(135deg, #10b981 60%, #f9d423 100%); box-shadow: 0 4px 16px rgba(16,185,129,0.18); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin-top: 10px; position: relative; animation: pulse-eventos 1.5s infinite; transition: transform 0.2s;">
+                    <span style="font-size:2.1rem; color:#fff; display:flex; align-items:center; justify-content:center;">
+                        <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#10b981"/><path d="M10 14h12v8a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2v-8Zm12-2V9a2 2 0 0 0-2-2h-1V6a1 1 0 1 0-2 0v1h-2V6a1 1 0 1 0-2 0v1h-1a2 2 0 0 0-2 2v3h12Z" fill="#fff"/></svg>
+                    </span>
+                    <span style="position:absolute; bottom:-28px; left:50%; transform:translateX(-50%); background:#fff; color:#10b981; font-weight:700; font-size:0.98rem; border-radius:8px; padding:2px 12px; box-shadow:0 2px 8px rgba(16,185,129,0.10); white-space:nowrap;">EVENTOS</span>
+                </a>
+                <style>
+                    @keyframes pulse-eventos {
+                        0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
+                        70% { box-shadow: 0 0 0 16px rgba(16,185,129,0.0); }
+                        100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
+                    }
+                    #eventos-fab:hover {
+                        transform: scale(1.08) rotate(-3deg);
+                        box-shadow: 0 6px 24px rgba(249,212,35,0.18);
+                    }
+                </style>
+            </div>
         </div>
-    </div>
-
-
-    <!-- Redes sociales flotantes lado izquierdo -->
-    <div id="social-widget"
-         style="position:fixed; bottom:7.5rem; left:1.5rem; z-index:2147483646; display:flex; flex-direction:column; gap:12px; align-items:center;">
-        @php
-            $socialLinks = \App\Models\SocialLink::where('active', true)->orderBy('id')->get();
-        @endphp
-        @foreach($socialLinks as $link)
-            <a href="{{ $link->url }}" target="_blank" rel="noopener" title="{{ ucfirst($link->name) }}"
-               style="background:{{ $link->bg_color }}; border-radius:50%; width:44px; height:44px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-                {!! $link->icon_svg !!}
-            </a>
-        @endforeach
-
-        <!-- Widget flotante de eventos, circular, animado y llamativo -->
-        <a href="{{ url('/eventos') }}" id="eventos-fab" title="Ver eventos ISTS"
-           style="background: linear-gradient(135deg, #10b981 60%, #f9d423 100%); box-shadow: 0 4px 16px rgba(16,185,129,0.18); border-radius: 50%; width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; margin-top: 10px; position: relative; animation: pulse-eventos 1.5s infinite; transition: transform 0.2s;">
-            <span style="font-size:2.1rem; color:#fff; display:flex; align-items:center; justify-content:center;">
-                <svg width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="16" fill="#10b981"/><path d="M10 14h12v8a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2v-8Zm12-2V9a2 2 0 0 0-2-2h-1V6a1 1 0 1 0-2 0v1h-2V6a1 1 0 1 0-2 0v1h-1a2 2 0 0 0-2 2v3h12Z" fill="#fff"/></svg>
-            </span>
-            <span style="position:absolute; bottom:-28px; left:50%; transform:translateX(-50%); background:#fff; color:#10b981; font-weight:700; font-size:0.98rem; border-radius:8px; padding:2px 12px; box-shadow:0 2px 8px rgba(16,185,129,0.10); white-space:nowrap;">EVENTOS</span>
-        </a>
-        <style>
-            @keyframes pulse-eventos {
-                0% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
-                70% { box-shadow: 0 0 0 16px rgba(16,185,129,0.0); }
-                100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.25); }
-            }
-            #eventos-fab:hover {
-                transform: scale(1.08) rotate(-3deg);
-                box-shadow: 0 6px 24px rgba(249,212,35,0.18);
-            }
-        </style>
-    </div>
         
         </style>
 

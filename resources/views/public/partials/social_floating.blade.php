@@ -1,5 +1,6 @@
 
-<div id="social-floating-container"><div id="social-widget">
+<div id="social-floating-container">
+    <div id="social-widget">
 <style>
 .social-floating {
     position: fixed;
@@ -46,4 +47,5 @@
     }
 }
 </style>
-</div></div>
+    </div>
+</div>

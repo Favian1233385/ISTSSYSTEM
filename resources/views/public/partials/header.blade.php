@@ -158,10 +158,8 @@
                                                 @endif
                                             </li>
                                         @endforeach
-                                        display: none;
                                 </div>
                             </div>
-                                        display: flex !important;
                     </li>
                 @elseif($title == 'CAMPUS')
                     <li class="dropdown" style="position: relative;">

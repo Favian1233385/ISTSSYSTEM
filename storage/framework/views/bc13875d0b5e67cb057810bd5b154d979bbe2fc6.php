@@ -6,8 +6,7 @@
     <title>Eventos - ISTS</title>
     <link rel="stylesheet" href="/css/style.css">
     <!-- Puedes agregar aquí otros estilos o scripts públicos -->
-
-        <link rel="icon" type="image/png" href="/assets/images/logoists.png">
+    <link rel="icon" type="image/png" href="/assets/images/logoists.png">
     <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body class="bg-gray-100 min-h-screen">

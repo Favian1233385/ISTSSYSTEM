@@ -89,9 +89,7 @@ Route::get("/academicos", [PublicController::class, "academicos"])->name(
 Route::get("/about", function () {
     return view("public.about");
 })->name("about");
-Route::get("/contact", function () {
-    return view("public.contact");
-})->name("contact");
+
 
 
 Route::get("/tramites", [PublicController::class, "tramites"])->name(

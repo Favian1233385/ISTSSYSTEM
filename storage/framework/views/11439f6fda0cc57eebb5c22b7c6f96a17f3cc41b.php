@@ -158,10 +158,8 @@
                                                 <?php endif; ?>
                                             </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                        display: none;
                                 </div>
                             </div>
-                                        display: flex !important;
                     </li>
                 <?php elseif($title == 'CAMPUS'): ?>
                     <li class="dropdown" style="position: relative;">

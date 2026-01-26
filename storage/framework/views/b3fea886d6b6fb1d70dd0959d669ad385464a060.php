@@ -3,7 +3,7 @@
         <div class="footer-grid">
             <div class="footer-section">
                 <h4>Instituto Superior Tecnológico Sucúa</h4>
-                <p>Formando profesionales de excelencia desde 1995</p>
+                
                 <div class="footer-logo" style="margin-top: 1rem; margin-bottom: 1rem; text-align: left;">
                     <a href="<?php echo e(url('/')); ?>" aria-label="Inicio ISTS">
                         <img src="<?php echo e(asset('assets/images/logoists.png')); ?>" alt="Logo ISTS" style="height: 56px; vertical-align: middle;">

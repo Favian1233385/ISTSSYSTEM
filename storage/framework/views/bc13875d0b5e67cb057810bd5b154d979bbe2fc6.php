@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Eventos - ISTS</title>
+    <title><?php echo $__env->yieldContent('title', 'ISTS'); ?></title>
     <link rel="stylesheet" href="/css/style.css">
     <!-- Puedes agregar aquí otros estilos o scripts públicos -->
     <link rel="icon" type="image/png" href="/assets/images/logoists.png">

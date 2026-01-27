@@ -17,17 +17,12 @@
     <!-- Header Administrativo -->
     <header class="admin-header">
         <div class="admin-header-content">
-                <div class="admin-logo">
-                <img src="{{ asset('assets/images/logoists.png') }}" alt="ISTS Logo" class="admin-logo-img">
-                <h1>ISTS Admin</h1>
-            </div>
 
             <nav class="admin-nav">
                 <ul class="admin-nav-menu">
                     <li><a href="{{ url('/admin/dashboard') }}" class="active">📊 Dashboard</a></li>
                     <li><a href="{{ url('/admin/contents') }}">📝 Contenidos</a></li>
                     <li><a href="{{ url('/admin/news') }}">📰 Noticias</a></li>
-                    <li><a href="{{ url('/admin/leadership') }}">👨‍🏫 Equipo</a></li>
                     <li><a href="{{ url('/admin/users') }}">👥 Usuarios</a></li>
                     <li><a href="{{ url('/admin/settings') }}">⚙️ Configuración</a></li>
                 </ul>
@@ -37,7 +32,6 @@
                 <div class="user-info">
                     <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
                     <div class="user-dropdown">
-                        <a href="{{ route('admin.profile') }}">👤 Perfil</a>
                         <a href="{{ route('password.confirm') }}">🔒 Cambiar Contraseña</a>
                         <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                             @csrf
@@ -221,36 +215,20 @@
     <div class="quick-actions" id="seccion-academicos">
         <h2>🎓 SECCIÓN ACADÉMICOS</h2>
         <div class="actions-grid">
-
             <a href="{{ route('admin.careers.index') }}" class="action-card">
                 <div class="action-icon">🎓</div>
                 <h3>Programas de Grado</h3>
                 <p>{{ $careers->count() }} carreras tecnológicas</p>
-                <a href="{{ route('admin.careers.create') }}" class="btn btn-sm btn-outline-primary mt-2">Crear Nueva Carrera</a>
             </a>
-
             <a href="{{ route('admin.academic_modalities.index') }}" class="action-card">
                 <div class="action-icon">📚</div>
                 <h3>Educación Continua</h3>
                 <p>Gestionar modalidades y programas</p>
             </a>
-
             <a href="{{ route('admin.teachers.index') }}" class="action-card">
                 <div class="action-icon">👨‍🏫</div>
                 <h3>Docentes</h3>
                 <p>{{ $teachersCount ?? 0 }} profesores registrados</p>
-            </a>
-
-            <a href="{{ route('admin.careers.create') }}" class="action-card" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
-                <div class="action-icon">➕</div>
-                <h3>Nueva Carrera</h3>
-                <p>Agregar programa de grado</p>
-            </a>
-
-            <a href="{{ route('admin.academic-sections.create') }}" class="action-card" style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);">
-                <div class="action-icon">➕</div>
-                <h3>Nuevo Curso</h3>
-                <p>Agregar educación continua</p>
             </a>
         </div>
     </div>
@@ -263,12 +241,6 @@
                 <div class="action-icon">🏛️</div>
                 <h3>Servicios</h3>
                 <p>{{ $campusItems->count() }} servicios disponibles</p>
-            </a>
-
-            <a href="{{ route('admin.campus-items.create') }}" class="action-card" style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);">
-                <div class="action-icon">➕</div>
-                <h3>Nuevo Servicio</h3>
-                <p>Agregar servicio del campus</p>
             </a>
         </div>
     </div>
@@ -339,11 +311,11 @@
     <!-- Footer Administrativo -->
     <footer class="admin-footer">
         <div class="admin-footer-content">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
+            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.Cumbanama</p>
             <div class="admin-footer-links">
                 <a href="{{ url('/') }}" target="_blank">🌐 Ver Sitio Web</a>
-                <a href="{{ url('/admin/help') }}">❓ Ayuda</a>
-                <a href="{{ url('/admin/logs') }}">📋 Logs del Sistema</a>
+                
+               
             </div>
         </div>
     </footer>

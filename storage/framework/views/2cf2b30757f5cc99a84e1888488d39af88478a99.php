@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="admin-container">
-    <div class="admin-header">
+    <div class="admin-section-header">
         <h1>Editar PopUp Destacado</h1>
         <a href="<?php echo e(route('admin.popups.index')); ?>" class="btn btn-secondary">← Volver a PopUps</a>
     </div>

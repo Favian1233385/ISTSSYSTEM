@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Editar Noticia' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
+    <title><?php echo e($title ?? 'Editar Noticia'); ?></title>
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="<?php echo e(asset('favicon.ico')); ?>" type="image/x-icon">
 </head>
 <body class="admin-body">
     <!-- Header Administrativo -->
@@ -20,21 +20,21 @@
 
             <nav class="admin-nav">
                 <ul class="admin-nav-menu">
-                    <li><a href="{{ url('admin/dashboard') }}">📊 Dashboard</a></li>
-                    <li><a href="{{ url('admin/contents') }}">📝 Contenidos</a></li>
-                    <li><a href="{{ url('admin/news') }}" class="active">📰 Noticias</a></li>
-                    <li><a href="{{ url('admin/users') }}">👥 Usuarios</a></li>
-                    <li><a href="{{ url('admin/settings') }}">⚙️ Configuración</a></li>
+                    <li><a href="<?php echo e(url('admin/dashboard')); ?>">📊 Dashboard</a></li>
+                    <li><a href="<?php echo e(url('admin/contents')); ?>">📝 Contenidos</a></li>
+                    <li><a href="<?php echo e(url('admin/news')); ?>" class="active">📰 Noticias</a></li>
+                    <li><a href="<?php echo e(url('admin/users')); ?>">👥 Usuarios</a></li>
+                    <li><a href="<?php echo e(url('admin/settings')); ?>">⚙️ Configuración</a></li>
                 </ul>
             </nav>
 
             <div class="admin-user-menu">
                 <div class="user-info">
-                    <span class="user-name">{{ session('user_email', 'Usuario') }}</span>
+                    <span class="user-name"><?php echo e(session('user_email', 'Usuario')); ?></span>
                     <div class="user-dropdown">
                         <!-- Opción Perfil eliminada -->
-                        <a href="{{ url('auth/change-password') }}">🔒 Cambiar Contraseña</a>
-                        <a href="{{ url('auth/logout') }}">🚪 Cerrar Sesión</a>
+                        <a href="<?php echo e(url('auth/change-password')); ?>">🔒 Cambiar Contraseña</a>
+                        <a href="<?php echo e(url('auth/logout')); ?>">🚪 Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
@@ -50,54 +50,54 @@
                     <p>Modifica el formulario para editar la noticia.</p>
                 </div>
 
-                @if($errors->any())
+                <?php if($errors->any()): ?>
                     <div class="alert alert-danger">
                         <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
-                @endif
+                <?php endif; ?>
 
-                <form action="{{ route('admin.news.update', $news['id']) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
+                <form action="<?php echo e(route('admin.news.update', $news['id'])); ?>" method="POST" enctype="multipart/form-data">
+                    <?php echo csrf_field(); ?>
+                    <?php echo method_field('PUT'); ?>
                     <div class="form-group">
                         <label for="title">Título</label>
-                        <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $news['title']) }}" required>
+                        <input type="text" name="title" id="title" class="form-control" value="<?php echo e(old('title', $news['title'])); ?>" required>
                     </div>
                     <div class="form-group">
                         <label for="summary">Resumen</label>
-                        <textarea name="summary" id="summary" class="form-control tinymce-editor" rows="3">{{ old('summary', $news['summary']) }}</textarea>
+                        <textarea name="summary" id="summary" class="form-control tinymce-editor" rows="3"><?php echo e(old('summary', $news['summary'])); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="content">Contenido</label>
-                        <textarea name="content" id="content" class="form-control tinymce-editor" rows="10">{{ old('content', $news['content']) }}</textarea>
+                        <textarea name="content" id="content" class="form-control tinymce-editor" rows="10"><?php echo e(old('content', $news['content'])); ?></textarea>
                     </div>
                     <div class="form-group">
                         <label for="images">Imágenes</label>
                         <input type="file" name="images[]" id="images" class="form-control" multiple>
                         <small>Puedes seleccionar varias imágenes. La primera será la principal.</small>
-                        @if(isset($news['images']) && is_array($news['images']))
+                        <?php if(isset($news['images']) && is_array($news['images'])): ?>
                             <div style="margin-top:10px;">
-                                @foreach($news['images'] as $idx => $img)
+                                <?php $__currentLoopData = $news['images']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $idx => $img): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div style="display:inline-block; margin-right:8px; margin-bottom:8px; text-align:center;">
-                                        <img src="{{ asset('storage/' . ltrim($img, '/')) }}" alt="Imagen" style="max-width: 120px; display:block; margin-bottom:4px;">
+                                        <img src="<?php echo e(asset('storage/' . ltrim($img, '/'))); ?>" alt="Imagen" style="max-width: 120px; display:block; margin-bottom:4px;">
                                         <label style="font-size:12px;">
-                                            <input type="checkbox" name="remove_images[]" value="{{ $idx }}"> Eliminar
+                                            <input type="checkbox" name="remove_images[]" value="<?php echo e($idx); ?>"> Eliminar
                                         </label>
                                     </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
-                        @endif
+                        <?php endif; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="status">Estado</label>
                         <select name="status" id="status" class="form-control">
-                            <option value="draft" @if(old('status', $news['status']) == 'draft') selected @endif>Borrador</option>
-                            <option value="published" @if(old('status', $news['status']) == 'published') selected @endif>Publicado</option>
+                            <option value="draft" <?php if(old('status', $news['status']) == 'draft'): ?> selected <?php endif; ?>>Borrador</option>
+                            <option value="published" <?php if(old('status', $news['status']) == 'published'): ?> selected <?php endif; ?>>Publicado</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Actualizar Noticia</button>
@@ -109,11 +109,11 @@
     <!-- Footer Administrativo -->
     <footer class="admin-footer">
         <div class="admin-footer-content">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
+            <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.C</p>
             <div class="admin-footer-links">
-                <a href="{{ url('/') }}" target="_blank">🌐 Ver Sitio Web</a>
-                <a href="{{ url('/admin/help') }}">❓ Ayuda</a>
-                <a href="{{ url('/admin/logs') }}">📋 Logs del Sistema</a>
+                <a href="<?php echo e(url('/')); ?>" target="_blank">🌐 Ver Sitio Web</a>
+                <a href="<?php echo e(url('/admin/help')); ?>">❓ Ayuda</a>
+                <a href="<?php echo e(url('/admin/logs')); ?>">📋 Logs del Sistema</a>
             </div>
         </div>
     </footer>
@@ -150,3 +150,4 @@
         </script>
 </body>
 </html>
+<?php /**PATH C:\workspace\ists\resources\views/admin/crud/news/edit.blade.php ENDPATH**/ ?>

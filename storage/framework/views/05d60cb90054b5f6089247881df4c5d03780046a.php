@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo e($title ?? 'ISTS Admin'); ?></title>
+        <title><?php echo e($title ?? ''); ?></title>
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="<?php echo e(asset('assets/images/logoists.png')); ?>" sizes="32x32">
+        <link rel="icon" href="<?php echo e(asset('favicon.ico')); ?>" type="image/x-icon">
 </head>
 <body>
     

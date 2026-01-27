@@ -21,7 +21,7 @@
             <div class="user-info">
                 <span class="user-name"><?php echo e(optional(Auth::user())->email ?? 'Usuario'); ?></span>
                 <div class="user-dropdown">
-                    <a href="<?php echo e(url('/admin/profile')); ?>">👤 Perfil</a>
+                    <!-- Opción Perfil eliminada -->
                     <a href="<?php echo e(url('/auth/change-password')); ?>">🔒 Cambiar Contraseña</a>
                     <a href="<?php echo e(url('/logout')); ?>">🚪 Cerrar Sesión</a>
                 </div>

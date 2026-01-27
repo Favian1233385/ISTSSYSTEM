@@ -21,7 +21,7 @@
             <div class="user-info">
                 <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
                 <div class="user-dropdown">
-                    <a href="{{ url('/admin/profile') }}">👤 Perfil</a>
+                    <!-- Opción Perfil eliminada -->
                     <a href="{{ url('/auth/change-password') }}">🔒 Cambiar Contraseña</a>
                     <a href="{{ url('/logout') }}">🚪 Cerrar Sesión</a>
                 </div>

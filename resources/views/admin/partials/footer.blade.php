@@ -1,6 +1,6 @@
 <footer class="admin-footer">
     <div class="footer-inner">
-        <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo</p>
+        <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.Cumbanama</p>
         <div class="links">
             <a href="{{ url('/') }}">🌐 Ver Sitio Web</a>
         </div>

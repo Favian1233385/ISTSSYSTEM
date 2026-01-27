@@ -1,6 +1,6 @@
 <footer class="admin-footer">
     <div class="footer-inner">
-        <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo</p>
+        <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.Cumbanama</p>
         <div class="links">
             <a href="<?php echo e(url('/')); ?>">🌐 Ver Sitio Web</a>
         </div>

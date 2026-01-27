@@ -1,49 +1,6 @@
-<!DOCTYPE html>
-<html lang="es" <?php if(app()->getLocale() === 'ar'): ?> dir="rtl" <?php endif; ?>>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo e($title ?? 'Dashboard - ISTS Admin'); ?></title>
-    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/admin.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/harvard-style.css')); ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <?php if(app()->getLocale() === 'ar'): ?>
-        <link rel="stylesheet" href="<?php echo e(asset('css/app-rtl.css')); ?>">
-    <?php endif; ?>
-    <link rel="icon" type="image/png" href="<?php echo e(asset('assets/images/logoists.png')); ?>" sizes="32x32">
-</head>
-<body class="admin-body">
-    <!-- Header Administrativo -->
-    <header class="admin-header">
-        <div class="admin-header-content">
 
-            <nav class="admin-nav">
-                <ul class="admin-nav-menu">
-                    <li><a href="<?php echo e(url('/admin/dashboard')); ?>" class="active">📊 Dashboard</a></li>
-                    <li><a href="<?php echo e(url('/admin/contents')); ?>">📝 Contenidos</a></li>
-                    <li><a href="<?php echo e(url('/admin/news')); ?>">📰 Noticias</a></li>
-                    <li><a href="<?php echo e(url('/admin/users')); ?>">👥 Usuarios</a></li>
-                    <li><a href="<?php echo e(url('/admin/settings')); ?>">⚙️ Configuración</a></li>
-                </ul>
-            </nav>
 
-            <div class="admin-user-menu">
-                <div class="user-info">
-                    <span class="user-name"><?php echo e(optional(Auth::user())->email ?? 'Usuario'); ?></span>
-                    <div class="user-dropdown">
-                        <a href="<?php echo e(route('password.confirm')); ?>">🔒 Cambiar Contraseña</a>
-                        <form action="<?php echo e(route('logout')); ?>" method="POST" style="display:inline;">
-                            <?php echo csrf_field(); ?>
-                            <button type="submit" style="background:none;border:none;color:inherit;cursor:pointer;">🚪 Cerrar Sesión</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Contenido Principal -->
+<?php $__env->startSection('content'); ?>
     <main class="admin-main">
         <div class="admin-container">
             <?php if(request()->query('success')): ?>
@@ -302,31 +259,7 @@
         </div>
     </div>
 
-    <!-- Footer Administrativo -->
-    <footer class="admin-footer">
-        <div class="admin-footer-content">
-            <p>&copy; <?php echo e(date('Y')); ?> Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.Cumbanama</p>
-            <div class="admin-footer-links">
-                <a href="<?php echo e(url('/')); ?>" target="_blank">🌐 Ver Sitio Web</a>
-                
-               
-            </div>
-        </div>
-    </footer>
+<?php $__env->stopSection(); ?>
 
-    <!-- Scripts -->
-    <script src="<?php echo e(asset('js/admin.js')); ?>"></script>
-    <script>
-        // Auto-hide alerts after 5 seconds
-        setTimeout(function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => {
-                alert.style.opacity = '0';
-                setTimeout(() => alert.remove(), 300);
-            });
-        }, 5000);
-    </script>
-</body>
-</html>
 
-<?php /**PATH C:\workspace\ists\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ists\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

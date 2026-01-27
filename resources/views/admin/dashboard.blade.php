@@ -1,49 +1,6 @@
-<!DOCTYPE html>
-<html lang="es" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title ?? 'Dashboard - ISTS Admin' }}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/harvard-style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    @if(app()->getLocale() === 'ar')
-        <link rel="stylesheet" href="{{ asset('css/app-rtl.css') }}">
-    @endif
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
-</head>
-<body class="admin-body">
-    <!-- Header Administrativo -->
-    <header class="admin-header">
-        <div class="admin-header-content">
+@extends('admin.layout')
 
-            <nav class="admin-nav">
-                <ul class="admin-nav-menu">
-                    <li><a href="{{ url('/admin/dashboard') }}" class="active">📊 Dashboard</a></li>
-                    <li><a href="{{ url('/admin/contents') }}">📝 Contenidos</a></li>
-                    <li><a href="{{ url('/admin/news') }}">📰 Noticias</a></li>
-                    <li><a href="{{ url('/admin/users') }}">👥 Usuarios</a></li>
-                    <li><a href="{{ url('/admin/settings') }}">⚙️ Configuración</a></li>
-                </ul>
-            </nav>
-
-            <div class="admin-user-menu">
-                <div class="user-info">
-                    <span class="user-name">{{ optional(Auth::user())->email ?? 'Usuario' }}</span>
-                    <div class="user-dropdown">
-                        <a href="{{ route('password.confirm') }}">🔒 Cambiar Contraseña</a>
-                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" style="background:none;border:none;color:inherit;cursor:pointer;">🚪 Cerrar Sesión</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Contenido Principal -->
+@section('content')
     <main class="admin-main">
         <div class="admin-container">
             @if(request()->query('success'))
@@ -308,30 +265,5 @@
         </div>
     </div>
 
-    <!-- Footer Administrativo -->
-    <footer class="admin-footer">
-        <div class="admin-footer-content">
-            <p>&copy; {{ date('Y') }} Instituto Superior Tecnológico Sucúa - Panel Administrativo Todos los Derechos reservados F.Cumbanama</p>
-            <div class="admin-footer-links">
-                <a href="{{ url('/') }}" target="_blank">🌐 Ver Sitio Web</a>
-                
-               
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/admin.js') }}"></script>
-    <script>
-        // Auto-hide alerts after 5 seconds
-        setTimeout(function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(alert => {
-                alert.style.opacity = '0';
-                setTimeout(() => alert.remove(), 300);
-            });
-        }, 5000);
-    </script>
-</body>
-</html>
+@endsection
 

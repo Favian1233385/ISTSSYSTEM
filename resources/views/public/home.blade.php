@@ -149,40 +149,6 @@
             </div>
         </section>
 
-        <!-- Recent Content Section -->
-        <section class="focus-section">
-            <div class="container">
-                <div class="focus-header">
-                    <h2>Contenido Reciente</h2>
-                    <p>Explora nuestros artículos y publicaciones más recientes.</p>
-                </div>
-
-                <div class="focus-grid">
-                    @if (isset($contents) && !empty($contents))
-                        @foreach ($contents as $content)
-                            <div class="focus-card">
-                                @if (!empty($content['image_url']))
-                                    <div class="focus-image">
-                                        <img src="{{ asset(htmlspecialchars($content['image_url'])) }}"
-                                            alt="{{ htmlspecialchars($content['title']) }}">
-                                    </div>
-                                @endif
-                                <div class="focus-content">
-                                    <h3>{{ htmlspecialchars($content['title']) }}</h3>
-                                    <p>{{ htmlspecialchars($content['description']) }}</p>
-                                    <div class="focus-actions">
-                                        <a href="{{ url('/contenido/' . htmlspecialchars($content['slug'])) }}"
-                                            class="btn btn-outline">Leer más</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <p>No hay contenido reciente disponible.</p>
-                    @endif
-                </div>
-            </div>
-        </section>
 
         <!-- Mensaje del Rector -->
         @include('public.partials.rector', ['rector' => $rector ?? null])

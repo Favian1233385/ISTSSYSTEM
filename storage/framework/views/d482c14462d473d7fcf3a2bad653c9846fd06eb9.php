@@ -151,40 +151,6 @@
             </div>
         </section>
 
-        <!-- Recent Content Section -->
-        <section class="focus-section">
-            <div class="container">
-                <div class="focus-header">
-                    <h2>Contenido Reciente</h2>
-                    <p>Explora nuestros artículos y publicaciones más recientes.</p>
-                </div>
-
-                <div class="focus-grid">
-                    <?php if(isset($contents) && !empty($contents)): ?>
-                        <?php $__currentLoopData = $contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="focus-card">
-                                <?php if(!empty($content['image_url'])): ?>
-                                    <div class="focus-image">
-                                        <img src="<?php echo e(asset(htmlspecialchars($content['image_url']))); ?>"
-                                            alt="<?php echo e(htmlspecialchars($content['title'])); ?>">
-                                    </div>
-                                <?php endif; ?>
-                                <div class="focus-content">
-                                    <h3><?php echo e(htmlspecialchars($content['title'])); ?></h3>
-                                    <p><?php echo e(htmlspecialchars($content['description'])); ?></p>
-                                    <div class="focus-actions">
-                                        <a href="<?php echo e(url('/contenido/' . htmlspecialchars($content['slug']))); ?>"
-                                            class="btn btn-outline">Leer más</a>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    <?php else: ?>
-                        <p>No hay contenido reciente disponible.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </section>
 
         <!-- Mensaje del Rector -->
         <?php echo $__env->make('public.partials.rector', ['rector' => $rector ?? null], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>

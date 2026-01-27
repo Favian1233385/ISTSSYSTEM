@@ -71,6 +71,9 @@
                 @endif
 
                 <form action="{{ route('admin.contents.update', $item['id']) }}" method="POST" enctype="multipart/form-data">
+                    @if(!empty($item['parent_id']))
+                        <input type="hidden" name="parent_id" value="{{ $item['parent_id'] }}">
+                    @endif
                     @csrf
                     @method('PUT')
                     @if($item['category'] === 'tramites')

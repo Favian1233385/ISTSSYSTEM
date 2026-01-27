@@ -136,33 +136,41 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                                @php
+                                    $modalidades = \App\Models\AcademicModality::where('is_active', true)->orderBy('order')->get();
+                                    $hayEducacionContinua = false;
+                                    foreach($modalidades as $mod) {
+                                        if ($mod->programs()->where('is_active', true)->count() > 0) {
+                                            $hayEducacionContinua = true;
+                                            break;
+                                        }
+                                    }
+                                @endphp
+                                @if($hayEducacionContinua)
                                 <div class="academic-column">
                                     <div class="academic-title">Educación Continua</div>
                                     <div class="academic-underline"></div>
-                                    @php
-                                        $modalidades = \App\Models\AcademicModality::where('is_active', true)->orderBy('order')->get();
-                                    @endphp
                                     <ul class="educacion-continua-list" style="list-style:none; padding-left:0;">
                                         @foreach($modalidades as $mod)
+                                            @if($mod->programs()->where('is_active', true)->count())
                                             <li class="modalidad-item" style="margin-bottom:10px;">
                                                 <div class="modalidad-title" style="font-weight:bold; margin-bottom:4px;">{{ $mod->title }}</div>
-                                                @if($mod->programs()->where('is_active', true)->count())
-                                                    <ul class="programas-list" style="margin-left:20px; list-style:disc;">
-                                                        @foreach($mod->programs()->where('is_active', true)->orderBy('order')->get() as $prog)
-                                                            <li class="programa-item" style="margin-bottom:4px;">
-                                                                <a href="{{ route('inscripcion.create', $prog->id) }}" class="programa-link" style="color:#007bff; text-decoration:underline; cursor:pointer; font-weight:500;" target="_blank">{{ $prog->title }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @else
-                                                    <div style="margin-left:20px; color:#888; font-size:13px;">No hay cursos registrados.</div>
-                                                @endif
+                                                <ul class="programas-list" style="margin-left:20px; list-style:disc;">
+                                                    @foreach($mod->programs()->where('is_active', true)->orderBy('order')->get() as $prog)
+                                                        <li class="programa-item" style="margin-bottom:4px;">
+                                                            <a href="{{ route('inscripcion.create', $prog->id) }}" class="programa-link" style="color:#007bff; text-decoration:underline; cursor:pointer; font-weight:500;" target="_blank">{{ $prog->title }}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                                 @if($mod->description)
                                                     <div class="modalidad-desc" style="margin-left:20px; color:#666; font-size:13px;">{{ $mod->description }}</div>
                                                 @endif
                                             </li>
+                                            @endif
                                         @endforeach
+                                    </ul>
                                 </div>
+                                @endif
                             </div>
                     </li>
                 @elseif($title == 'CAMPUS')
@@ -172,32 +180,10 @@
                             <!-- Eliminado fondo y contenedor vacío del header del menú desplegable 'Servicios' -->
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Servicios e Infraestructura</div>
-                                    <div class="academic-underline"></div>
                                     <ul>
                                         @foreach($campusItems ?? [] as $campusItem)
                                             <li>
                                                 <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;"@if($campusItem->is_external) target="_blank" rel="noopener"@endif>{{ $campusItem->title }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                                <div class="academic-column">
-                                    <div class="academic-title">Vida Estudiantil</div>
-                                    <div class="academic-underline"></div>
-                                    <ul>
-                                        @foreach(($vidaEstudiantilItems ?? []) as $campusItem)
-                                            <li>
-                                                <a href="{{ $campusItem->url ?? '#' }}" style="font-weight:bold;">{{ $campusItem->title }}</a>
-                                                @if($campusItem->contents && $campusItem->contents->count())
-                                                    <ul style="margin-left:20px;">
-                                                        @foreach($campusItem->contents as $content)
-                                                            <li>
-                                                                <a href="{{ $content->external_url ?? '#' }}" target="_blank" style="color:#007bff; text-decoration:underline;">{{ $content->title }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
                                             </li>
                                         @endforeach
                                     </ul>
@@ -230,6 +216,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                                @if(count($secondCol))
                                 <div class="academic-column">
                                     <div class="academic-title">Más Secciones</div>
                                     <div class="academic-underline"></div>
@@ -243,6 +230,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
+                                @endif
                             </div>
                         </div>
                     </li>

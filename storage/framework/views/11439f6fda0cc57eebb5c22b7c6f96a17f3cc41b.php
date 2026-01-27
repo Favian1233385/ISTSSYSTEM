@@ -136,33 +136,41 @@
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
+                                <?php
+                                    $modalidades = \App\Models\AcademicModality::where('is_active', true)->orderBy('order')->get();
+                                    $hayEducacionContinua = false;
+                                    foreach($modalidades as $mod) {
+                                        if ($mod->programs()->where('is_active', true)->count() > 0) {
+                                            $hayEducacionContinua = true;
+                                            break;
+                                        }
+                                    }
+                                ?>
+                                <?php if($hayEducacionContinua): ?>
                                 <div class="academic-column">
                                     <div class="academic-title">Educación Continua</div>
                                     <div class="academic-underline"></div>
-                                    <?php
-                                        $modalidades = \App\Models\AcademicModality::where('is_active', true)->orderBy('order')->get();
-                                    ?>
                                     <ul class="educacion-continua-list" style="list-style:none; padding-left:0;">
                                         <?php $__currentLoopData = $modalidades; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mod): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($mod->programs()->where('is_active', true)->count()): ?>
                                             <li class="modalidad-item" style="margin-bottom:10px;">
                                                 <div class="modalidad-title" style="font-weight:bold; margin-bottom:4px;"><?php echo e($mod->title); ?></div>
-                                                <?php if($mod->programs()->where('is_active', true)->count()): ?>
-                                                    <ul class="programas-list" style="margin-left:20px; list-style:disc;">
-                                                        <?php $__currentLoopData = $mod->programs()->where('is_active', true)->orderBy('order')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prog): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <li class="programa-item" style="margin-bottom:4px;">
-                                                                <a href="<?php echo e(route('inscripcion.create', $prog->id)); ?>" class="programa-link" style="color:#007bff; text-decoration:underline; cursor:pointer; font-weight:500;" target="_blank"><?php echo e($prog->title); ?></a>
-                                                            </li>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </ul>
-                                                <?php else: ?>
-                                                    <div style="margin-left:20px; color:#888; font-size:13px;">No hay cursos registrados.</div>
-                                                <?php endif; ?>
+                                                <ul class="programas-list" style="margin-left:20px; list-style:disc;">
+                                                    <?php $__currentLoopData = $mod->programs()->where('is_active', true)->orderBy('order')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $prog): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                        <li class="programa-item" style="margin-bottom:4px;">
+                                                            <a href="<?php echo e(route('inscripcion.create', $prog->id)); ?>" class="programa-link" style="color:#007bff; text-decoration:underline; cursor:pointer; font-weight:500;" target="_blank"><?php echo e($prog->title); ?></a>
+                                                        </li>
+                                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                </ul>
                                                 <?php if($mod->description): ?>
                                                     <div class="modalidad-desc" style="margin-left:20px; color:#666; font-size:13px;"><?php echo e($mod->description); ?></div>
                                                 <?php endif; ?>
                                             </li>
+                                            <?php endif; ?>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </ul>
                                 </div>
+                                <?php endif; ?>
                             </div>
                     </li>
                 <?php elseif($title == 'CAMPUS'): ?>
@@ -172,32 +180,10 @@
                             <!-- Eliminado fondo y contenedor vacío del header del menú desplegable 'Servicios' -->
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">
-                                    <div class="academic-title">Servicios e Infraestructura</div>
-                                    <div class="academic-underline"></div>
                                     <ul>
                                         <?php $__currentLoopData = $campusItems ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $campusItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <li>
                                                 <a href="<?php echo e($campusItem->url ?? '#'); ?>" style="font-weight:bold;"<?php if($campusItem->is_external): ?> target="_blank" rel="noopener"<?php endif; ?>><?php echo e($campusItem->title); ?></a>
-                                            </li>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </ul>
-                                </div>
-                                <div class="academic-column">
-                                    <div class="academic-title">Vida Estudiantil</div>
-                                    <div class="academic-underline"></div>
-                                    <ul>
-                                        <?php $__currentLoopData = ($vidaEstudiantilItems ?? []); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $campusItem): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <li>
-                                                <a href="<?php echo e($campusItem->url ?? '#'); ?>" style="font-weight:bold;"><?php echo e($campusItem->title); ?></a>
-                                                <?php if($campusItem->contents && $campusItem->contents->count()): ?>
-                                                    <ul style="margin-left:20px;">
-                                                        <?php $__currentLoopData = $campusItem->contents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                            <li>
-                                                                <a href="<?php echo e($content->external_url ?? '#'); ?>" target="_blank" style="color:#007bff; text-decoration:underline;"><?php echo e($content->title); ?></a>
-                                                            </li>
-                                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                                    </ul>
-                                                <?php endif; ?>
                                             </li>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
@@ -231,6 +217,7 @@
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
+                                <?php if(count($secondCol)): ?>
                                 <div class="academic-column">
                                     <div class="academic-title">Más Secciones</div>
                                     <div class="academic-underline"></div>
@@ -245,6 +232,7 @@
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </ul>
                                 </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </li>

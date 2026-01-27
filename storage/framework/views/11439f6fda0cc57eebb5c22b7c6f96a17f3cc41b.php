@@ -284,7 +284,7 @@
                 <?php elseif($title == 'TRÁMITES'): ?>
                     <li class="dropdown" style="position: relative;">
                         <a href="#" class="header-link" style="font-weight: 600; color: #ffffff; font-size: 1.05rem; letter-spacing: 0.5px; padding: 0.5rem 1.2rem; transition: background 0.2s, color 0.2s;">DOCUMENTOS</a>
-                        <div class="dropdown-content academic-dropdown">
+                            <div class="dropdown-content academic-dropdown" style="transform: translateX(-120px);">
                             <!-- Eliminado fondo y contenedor vacío del header del menú desplegable 'Documentos' -->
                             <div class="academic-dropdown-columns">
                                 <div class="academic-column">

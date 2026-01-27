@@ -1,60 +1,46 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autoridades - ISTS</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/logoists.png') }}" sizes="32x32">
-</head>
-<body>
-@extends('public.layout')
 
+<?php $__env->startSection('header'); ?>
+    <?php echo $__env->make('public.partials.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@section('header')
-    @include('public.partials.header')
-@endsection
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <main class="main-content py-5">
     <div class="container">
         <h1 class="autoridades-title">Nuestras Autoridades</h1>
         <div class="autoridades-grid fade-in">
-            @forelse($autoridades as $autoridad)
+            <?php $__empty_1 = true; $__currentLoopData = $autoridades; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $autoridad): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                 <div class="autoridad-card">
                     <div class="autoridad-img-wrap">
-                        @if($autoridad->foto_path)
-                            <img src="{{ asset('storage/uploads/images/' . $autoridad->foto_path) }}" alt="Foto de {{ $autoridad->nombre }}" class="autoridad-img">
-                        @else
+                        <?php if($autoridad->foto_path): ?>
+                            <img src="<?php echo e(asset('storage/uploads/images/' . $autoridad->foto_path)); ?>" alt="Foto de <?php echo e($autoridad->nombre); ?>" class="autoridad-img">
+                        <?php else: ?>
                             <div class="autoridad-img autoridad-img-placeholder">Sin foto</div>
-                        @endif
+                        <?php endif; ?>
                     </div>
                     <div class="autoridad-info">
-                        <h3 class="autoridad-nombre">{{ $autoridad->nombre }}</h3>
-                        <div class="autoridad-cargo">{{ $autoridad->cargo }}</div>
-                        <div class="autoridad-categoria">{{ $autoridad->categoria }}</div>
-                        @if($autoridad->biografia)
-                            <div class="autoridad-bio">{!! $autoridad->biografia !!}</div>
-                        @endif
-                        @if($autoridad->pdf_path)
-                            <a href="{{ asset('storage/' . $autoridad->pdf_path) }}" target="_blank" class="autoridad-cv-btn">Descargar Currículum (PDF)</a>
-                        @endif
+                        <h3 class="autoridad-nombre"><?php echo e($autoridad->nombre); ?></h3>
+                        <div class="autoridad-cargo"><?php echo e($autoridad->cargo); ?></div>
+                        <div class="autoridad-categoria"><?php echo e($autoridad->categoria); ?></div>
+                        <?php if($autoridad->biografia): ?>
+                            <div class="autoridad-bio"><?php echo $autoridad->biografia; ?></div>
+                        <?php endif; ?>
+                        <?php if($autoridad->pdf_path): ?>
+                            <a href="<?php echo e(asset('storage/' . $autoridad->pdf_path)); ?>" target="_blank" class="autoridad-cv-btn">Descargar Currículum (PDF)</a>
+                        <?php endif; ?>
                     </div>
                 </div>
-            @empty
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                 <div class="alert alert-info text-center" role="alert">
                     No hay autoridades registradas en este momento.
                 </div>
-            @endforelse
+            <?php endif; ?>
         </div>
     </div>
 </main>
-</body>
-</html>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
 <style>
 body {
     font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
@@ -198,4 +184,6 @@ body {
     }
 }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('public.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\workspace\ists\resources\views/public/autoridades/index.blade.php ENDPATH**/ ?>

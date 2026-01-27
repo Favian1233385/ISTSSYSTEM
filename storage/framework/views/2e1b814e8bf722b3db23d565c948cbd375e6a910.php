@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php echo e($content->description ?? ''); ?>">
-    <title><?php echo e($content->title ?? 'Contenido - ISTS'); ?></title>
+    <?php
+        $titulosFijos = [
+            'autoridades' => 'Autoridades',
+            'planta-docente' => 'Planta Docente',
+            'mision-y-vision' => 'Misión y Visión',
+            'organigrama' => 'Organigrama',
+            'historia-sobre-el-ists' => 'Historia Sobre el ISTS',
+            // Agrega más según tus necesidades
+        ];
+        $slug = is_array($content) ? ($content['slug'] ?? '') : ($content->slug ?? '');
+        $tituloMostrar = $titulosFijos[$slug] ?? ($content['title'] ?? 'Contenido - ISTS');
+    ?>
+    <title><?php echo e($tituloMostrar); ?></title>
     <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
     <link rel="icon" type="image/png" href="<?php echo e(asset('assets/images/logoists.png')); ?>" sizes="32x32">
     <style>
@@ -120,7 +132,7 @@
     <!-- Hero Section -->
     <section>
         <div class="container">
-            <h1 style="margin-top:0; margin-bottom:1.5rem; background:none; color:#009e60;"><?php echo e(is_array($content) ? ($content['title'] ?? 'Contenido') : ($content->title ?? 'Contenido')); ?></h1>
+            <h1 style="margin-top:0; margin-bottom:1.5rem; background:none; color:#009e60;"><?php echo e($tituloMostrar); ?></h1>
         </div>
     </section>
 

@@ -60,6 +60,6 @@
         </div>
     </div>
 
-    @include('admin.footer')
+    @include('admin.partials.footer')
 </body>
 </html>

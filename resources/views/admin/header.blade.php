@@ -1,1 +1,0 @@
-<!-- Archivo de encabezado vacío migrado a Blade -->

@@ -202,68 +202,6 @@
         </div>
     </div>
 
-    <!-- Contenido Reciente -->
-    <div class="recent-content">
-        <div class="recent-section">
-            <h2>📝 Contenidos Recientes</h2>
-            <div class="content-list">
-                @if(!empty($stats['recent_contents']))
-                    @foreach($stats['recent_contents'] as $content)
-                        <div class="content-item">
-                            <div class="content-info">
-                                <h4>{{ $content['title'] }}</h4>
-                                <p>{{
-                                    Illuminate\Support\Str::limit($content['description'] ?? '', 100)
-                                }}...</p>
-                                <span class="content-meta">
-                                    {{ optional(\Carbon\Carbon::parse($content['created_at'] ?? null))->format('d/m/Y') }} • {{ ucfirst($content['status'] ?? '') }}
-                                </span>
-                            </div>
-                            <div class="content-actions">
-                                <a href="{{ route('admin.contents.edit', $content['id']) }}" class="btn btn-sm">✏️ Editar</a>
-                                <form action="{{ route('admin.contents.destroy', $content['id']) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este contenido?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p class="no-content">No hay contenidos recientes</p>
-                @endif
-            </div>
-        </div>
-
-        <div class="recent-section">
-            <h2>📰 Noticias Recientes</h2>
-            <div class="content-list">
-                @if(!empty($stats['recent_news']))
-                    @foreach($stats['recent_news'] as $news)
-                        <div class="content-item">
-                            <div class="content-info">
-                                <h4>{{ $news['title'] }}</h4>
-                                <p>{{ Illuminate\Support\Str::limit($news['summary'] ?? '', 100) }}...</p>
-                                <span class="content-meta">
-                                    {{ optional(\Carbon\Carbon::parse($news['published_at'] ?? null))->format('d/m/Y') }}
-                                </span>
-                            </div>
-                            <div class="content-actions">
-                                <a href="{{ route('admin.news.edit', $news['id']) }}" class="btn btn-sm">✏️ Editar</a>
-                                <form action="{{ route('admin.news.destroy', $news['id']) }}" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar esta noticia?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    <p class="no-content">No hay noticias recientes</p>
-                @endif
-            </div>
-        </div>
-    </div>
 
 @endsection
 

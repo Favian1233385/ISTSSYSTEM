@@ -196,68 +196,6 @@
         </div>
     </div>
 
-    <!-- Contenido Reciente -->
-    <div class="recent-content">
-        <div class="recent-section">
-            <h2>📝 Contenidos Recientes</h2>
-            <div class="content-list">
-                <?php if(!empty($stats['recent_contents'])): ?>
-                    <?php $__currentLoopData = $stats['recent_contents']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $content): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="content-item">
-                            <div class="content-info">
-                                <h4><?php echo e($content['title']); ?></h4>
-                                <p><?php echo e(Illuminate\Support\Str::limit($content['description'] ?? '', 100)); ?>...</p>
-                                <span class="content-meta">
-                                    <?php echo e(optional(\Carbon\Carbon::parse($content['created_at'] ?? null))->format('d/m/Y')); ?> • <?php echo e(ucfirst($content['status'] ?? '')); ?>
-
-                                </span>
-                            </div>
-                            <div class="content-actions">
-                                <a href="<?php echo e(route('admin.contents.edit', $content['id'])); ?>" class="btn btn-sm">✏️ Editar</a>
-                                <form action="<?php echo e(route('admin.contents.destroy', $content['id'])); ?>" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar este contenido?')">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('DELETE'); ?>
-                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php else: ?>
-                    <p class="no-content">No hay contenidos recientes</p>
-                <?php endif; ?>
-            </div>
-        </div>
-
-        <div class="recent-section">
-            <h2>📰 Noticias Recientes</h2>
-            <div class="content-list">
-                <?php if(!empty($stats['recent_news'])): ?>
-                    <?php $__currentLoopData = $stats['recent_news']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="content-item">
-                            <div class="content-info">
-                                <h4><?php echo e($news['title']); ?></h4>
-                                <p><?php echo e(Illuminate\Support\Str::limit($news['summary'] ?? '', 100)); ?>...</p>
-                                <span class="content-meta">
-                                    <?php echo e(optional(\Carbon\Carbon::parse($news['published_at'] ?? null))->format('d/m/Y')); ?>
-
-                                </span>
-                            </div>
-                            <div class="content-actions">
-                                <a href="<?php echo e(route('admin.news.edit', $news['id'])); ?>" class="btn btn-sm">✏️ Editar</a>
-                                <form action="<?php echo e(route('admin.news.destroy', $news['id'])); ?>" method="POST" style="display:inline;" onsubmit="return confirm('¿Eliminar esta noticia?')">
-                                    <?php echo csrf_field(); ?>
-                                    <?php echo method_field('DELETE'); ?>
-                                    <button type="submit" class="btn btn-sm btn-danger">🗑️ Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                <?php else: ?>
-                    <p class="no-content">No hay noticias recientes</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
 
 <?php $__env->stopSection(); ?>
 

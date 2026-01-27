@@ -10,13 +10,14 @@ use App\Helpers\ChatbotHelper;
 
 class ChatbotController extends Controller
 {
-      // Fuentes de conocimiento dinámicas
-    private $knowledgeSources = [
-        \App\Chatbot\Sources\AutoridadesSource::class,
-        \App\Chatbot\Sources\DocentesSource::class,
-        \App\Chatbot\Sources\TramitesSource::class,
-        // Puedes agregar más aquí
-    ];
+            // Fuentes de conocimiento dinámicas
+        private $knowledgeSources = [
+                \App\Chatbot\Sources\AutoridadesSource::class,
+                \App\Chatbot\Sources\DocentesSource::class,
+                \App\Chatbot\Sources\TramitesSource::class,
+                \App\Chatbot\Sources\CarrerasSource::class, // Agregado para respuestas dinámicas sobre carreras
+                // Puedes agregar más aquí
+        ];
     /**
      * Enviar mensaje al chatbot
      */
@@ -88,9 +89,17 @@ class ChatbotController extends Controller
     private function generateResponse($message)
     {
         $message = $this->normalizeText(trim($message));
+        // 1. Consultar primero las fuentes dinámicas (CarrerasSource, etc.)
+        foreach ($this->knowledgeSources as $sourceClass) {
+            $source = new $sourceClass();
+            if ($source->canRespond($message)) {
+                return $source->getResponse($message);
+            }
+        }
+
         $qas = QA::all();
 
-        // 1. Coincidencia exacta (normalizada)
+        // 2. Coincidencia exacta (normalizada)
         foreach ($qas as $qa) {
             $questions = array_map(function($q) { return $this->normalizeText(trim($q)); }, explode(",", $qa->question));
             if (in_array($message, $questions)) {
@@ -98,7 +107,7 @@ class ChatbotController extends Controller
             }
         }
 
-        // 2. Coincidencia por palabra clave contenida (más flexible, normalizada)
+        // 3. Coincidencia por palabra clave contenida (más flexible, normalizada)
         foreach ($qas as $qa) {
             $keywords = array_map(function($q) { return $this->normalizeText(trim($q)); }, explode(",", $qa->question));
             foreach ($keywords as $keyword) {
@@ -107,16 +116,6 @@ class ChatbotController extends Controller
                 }
             }
         }
-
-        
-      
-        // Fallback: recorrer fuentes de conocimiento dinámicas
-            foreach ($this->knowledgeSources as $sourceClass) {
-                $source = new $sourceClass();
-                if ($source->canRespond($message)) {
-                    return $source->getResponse($message);
-                }   
-            }
 
         // 3. Buscar en carreras
         $careers = \App\Models\Career::active()->get();

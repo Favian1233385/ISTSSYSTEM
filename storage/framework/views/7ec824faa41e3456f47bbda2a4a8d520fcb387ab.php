@@ -1,10 +1,6 @@
 <header class="admin-header">
     <div class="admin-header-content">
         <?php $base = rtrim(request()->getBasePath(), '/'); ?>
-        <div class="admin-logo">
-            <img src="<?php echo e(($base !== '' ? $base : '') . '/assets/images/logoists.png'); ?>" alt="ISTS Logo" class="admin-logo-img">
-            <h1>ISTS Admin</h1>
-        </div>
 
         <nav class="admin-nav">
             <ul class="admin-nav-menu">
